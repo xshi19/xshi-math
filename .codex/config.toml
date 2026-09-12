@@ -1,0 +1,18 @@
+# Project-scoped Codex defaults for xshi-math.
+# Codex loads this file only after the repository is trusted.
+#
+# Uncomment and adjust after Xiang confirms model IDs.
+# Keep provider, auth, telemetry, and machine-local settings in
+# ~/.codex/config.toml — not in this shared project layer.
+#
+# Do not add .codex/rules/ or .codex/skills/.
+# Skills live in .agents/skills/; standing guidance lives in AGENTS.md
+# and docs/rules/. See docs/design/AGENT_FRAMEWORK.md.
+
+# Suggested defaults (same family as incerto-wiki; high reasoning effort
+# is typical for this domain):
+#
+# model = "gpt-5.6-sol"
+# model_reasoning_effort = "xhigh"
+# approval_policy = "on-request"
+# sandbox_mode = "workspace-write"
