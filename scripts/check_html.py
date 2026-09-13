@@ -1,4 +1,4 @@
-"""Check all 46 foundation, IG, Incerto, and Normix pages under BASE_URL=/math.
+"""Check all 51 foundation, IG, Incerto, and Normix pages under BASE_URL=/math.
 
 Run after ``npm run build``. This checks files and URLs, not browser behavior.
 """
@@ -56,6 +56,11 @@ PAGES = (
     "normix-why-not-gradient-descent/index.html",
     "normix-gh-family-tour/index.html",
     "normix-normal-mixtures/index.html",
+    "normix-online-em/index.html",
+    "normix-factor-analysis/index.html",
+    "normix-shrinkage/index.html",
+    "normix-varentropy/index.html",
+    "normix-em-framework/index.html",
 )
 # Every body note and the IG hub require KaTeX display equations.
 # Exclude only the six hubs without equations, so new notes inherit

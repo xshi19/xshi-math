@@ -63,6 +63,11 @@ project:
         - file: content/normix-why-not-gradient-descent.md
         - file: content/normix-gh-family-tour.md
         - file: content/normix-normal-mixtures.md
+        - file: content/normix-online-em.md
+        - file: content/normix-factor-analysis.md
+        - file: content/normix-shrinkage.md
+        - file: content/normix-varentropy.md
+        - file: content/normix-em-framework.md
 site:
   template: book-theme
   title: xshi-math

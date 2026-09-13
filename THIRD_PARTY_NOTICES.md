@@ -211,3 +211,52 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Normix Theory Batch 2
+
+Five owner-controlled notes were adapted or rewritten from `xshi19/normix`
+at revision `763bb3608920661a012cf089888d349fbf680aad`. The selected Markdown and root
+MIT license were read from the sibling checkout and verified against the pinned
+Git blobs. No source repository writes or Git-history import were made.
+
+| Original path | Adapted file |
+| --- | --- |
+| `docs/theory/online_em.md` | [normix-online-em.md](content/normix-online-em.md) |
+| `docs/theory/factor_analysis.md` | [normix-factor-analysis.md](content/normix-factor-analysis.md) |
+| `docs/theory/shrinkage.md` | [normix-shrinkage.md](content/normix-shrinkage.md) |
+| `docs/theory/varentropy.md` | [normix-varentropy.md](content/normix-varentropy.md) |
+| `docs/design/em_framework.md` | [normix-em-framework.md](content/normix-em-framework.md) |
+
+The four theory adaptations retain sequential updates, factor-analysis
+derivations, penalized EM, and information-quantity formulas. The fifth note
+rewrites the EM design as sufficient-statistic aggregation and Bregman-shrinkage
+mathematics; it was not folded into the other pages. The adaptation aligns
+Batch 1 notation and qualifies convergence, feasibility, and joint-versus-marginal
+claims. Scholarly references remain attributed links; no substantial scholarly
+quotations, figures, datasets, PDFs, finance theory, tutorials, API bodies,
+research notes, or package implementation were included.
+
+Each adapted page carries the complete notice below in its source and rendered
+permission dropdown. The original notice is retained verbatim:
+
+MIT License
+
+Copyright (c) 2020 xshi19
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
