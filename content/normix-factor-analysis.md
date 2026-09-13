@@ -244,7 +244,7 @@ strictly positive updated residual variances. Zero diagonal entries put the
 optimum on a boundary; blindly inverting that update is invalid. The GIG
 block remains a constrained numerical maximization, so the full M-step is
 not generally closed form. Under exact posteriors and an improving M-step,
-the usual [EM ascent argument](./information-geometry-latent-variables-em.md)
+the usual [EM ascent argument](https://xshi19.github.io/math/ig/information-geometry-latent-variables-em/)
 applies to the observed likelihood.
 
 $FF^\top+D$ is positive definite when $D$ is, but factor structure alone

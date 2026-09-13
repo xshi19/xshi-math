@@ -7,9 +7,12 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "BASE_URL=/math myst build --html --strict --ci",
-    "start": "myst start",
-    "check:html": "python3 scripts/check_html.py"
+    "build": "python3 scripts/build_sites.py",
+    "start": "BASE_URL=/math myst --config myst.landing.yml start",
+    "check:html": "python3 scripts/check_html.py",
+    "start:incerto": "BASE_URL=/math/incerto myst --config myst.incerto.yml start",
+    "start:ig": "BASE_URL=/math/ig myst --config myst.ig.yml start",
+    "start:normix-theory": "BASE_URL=/math/normix-theory myst --config myst.normix-theory.yml start"
   },
   "devDependencies": {
     "mystmd": "1.10.1"

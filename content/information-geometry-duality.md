@@ -232,5 +232,5 @@ Detailed curvature examples and EM as alternating KL projection belong to the
 later sequence. The present [EM note](./information-geometry-latent-variables-em.md)
 establishes the ordinary likelihood calculation needed first.
 
-Return to the [Information Geometry hub](./information-geometry.md) for the
+Return to the [Information Geometry hub](./ig/index.md) for the
 complete entry path.

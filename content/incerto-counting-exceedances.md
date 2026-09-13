@@ -32,7 +32,7 @@ and $0$ at thresholds $0$, $2$, and $4$. The observations are synthetic and fixe
 A zero count above $4$ does not establish that a population cannot exceed $4$.
 Inference about an unseen population requires sampling and modeling assumptions
 that this example deliberately leaves unspecified. The
-[Normix sample](./normix-conditioning-a-mixture.md) instead starts
+[Normix sample](https://xshi19.github.io/math/normix-theory/normix-conditioning-a-mixture/) instead starts
 with an explicitly defined random-variable model.
 
 This is an original worked derivation for the foundation, with no imported wiki

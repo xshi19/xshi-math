@@ -17,7 +17,7 @@ All writes were confined to `xshi-math`; the source repository was not modified.
 The [executed plan](../plan/phase-2-normix-theory-batch-1.md) retains the exact
 source paths, stems, adaptation methods, and exclusions. These files follow
 the existing conditioning introduction beneath the
-[Normix hub](../../content/normix-theory.md):
+[Normix hub](../../content/normix-theory/index.md):
 
 | Adapted file / route stem below `/math/` | Explicit source labels retained | Rendered display equations |
 | --- | --- | --- |

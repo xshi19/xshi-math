@@ -15,7 +15,7 @@ were read from the sibling checkout; all writes were confined to `xshi-math`.
 
 The [executed plan](../plan/phase-2-incerto-batch-1.md) retains the source-path
 mapping and exclusions. These flat files now follow the existing counting
-example beneath the [Incerto hub](../../content/incerto.md):
+example beneath the [Incerto hub](../../content/incerto/index.md):
 
 | Adapted file / route stem below `/math/` | Explicit source labels retained | Rendered display equations |
 | --- | --- | --- |

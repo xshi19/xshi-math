@@ -13,7 +13,7 @@ Distributions and Related Topics*, PhD thesis; see its
 This note derives a complete-data KL penalty and its effect on the
 [GH EM update](./normix-em-algorithm.md). Read the
 [exponential-family core](./normix-exponential-family-core.md) and
-[IG duality](./information-geometry-duality.md) for the coordinate maps and
+[IG duality](https://xshi19.github.io/math/ig/information-geometry-duality/) for the coordinate maps and
 divergence orientation.
 
 ## Penalized likelihood and the EM surrogate

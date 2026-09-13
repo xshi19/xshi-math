@@ -50,5 +50,5 @@ leads to the posterior calculations in [EM for GH](./normix-em-algorithm.md).
 This original derivation introduces a mathematical model, not an assertion
 about a specific `normix` constructor or parameterization. Consult the
 [upstream package](https://github.com/xshi19/normix) when writing executable
-package examples. Compare [counting exceedances](./incerto-counting-exceedances.md)
+package examples. Compare [counting exceedances](https://xshi19.github.io/math/incerto/incerto-counting-exceedances/)
 for a quantity that describes observations without specifying their model.

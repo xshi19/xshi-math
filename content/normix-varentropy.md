@@ -10,7 +10,7 @@ Stankyavichyus (2026),
 a preprint. The derivations below concern the stated model families.
 
 Read the [exponential-family core](./normix-exponential-family-core.md),
-[Fisher geometry](./information-geometry-fisher-vs-l2.md), and the
+[Fisher geometry](https://xshi19.github.io/math/ig/information-geometry-fisher-vs-l2/), and the
 [joint/marginal distinction](./normix-mixture-architecture.md) first.
 Monte Carlo examples stay in the
 [upstream varentropy tutorial](https://xshi19.github.io/normix/tutorials/stats/03_varentropy.html).

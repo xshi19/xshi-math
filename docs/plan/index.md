@@ -83,6 +83,10 @@ full import coverage remains a later gate:
 - [x] Phase 2 Normix Theory Batch 2: adapt four theory notes and retain a
   standalone mathematical EM-framework rewrite; standard strict build and
   the extended 51-page HTML checker pass in the current execution environment.
+- [x] Split the combined math book into a landing and three independent MyST
+  subsites, with old flat math redirects; see the
+  [subsite verification record](../records/subsite-split-verification.md). Parent
+  hub republishing and live verification remain separate gates.
 - [ ] Phase 2 remainder: prepare further eligible imports in separate changes
   with provenance and semantic checks; these batches do not complete this phase.
 - [ ] Phase 3: rehearse the combined hub artifact and every mapped legacy route.

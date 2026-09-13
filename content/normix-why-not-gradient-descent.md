@@ -36,7 +36,7 @@ a gradient-based solver.
 The EM ascent guarantee concerns the **observed-data** likelihood under exact
 E-steps and improving M-steps. Dempster, Laird, and Rubin introduced the method
 in [1977](https://academic.oup.com/jrsssb/article-abstract/39/1/1/7027539);
-the [IG derivation](./information-geometry-latent-variables-em.md#ig-em-monotonicity)
+the [IG derivation](https://xshi19.github.io/math/ig/information-geometry-latent-variables-em/#ig-em-monotonicity)
 states what that guarantee does and does not imply.
 
 ## Coordinates and feasible parameters

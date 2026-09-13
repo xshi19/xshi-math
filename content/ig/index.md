@@ -31,12 +31,12 @@ develop the first geometric results.
 
 | Note | Main question |
 | --- | --- |
-| [1. From Euclidean space to a manifold](./information-geometry-euclidean-to-manifold.md) | What survives a change of coordinates, and what extra structure measures lengths? |
-| [2. Exponential families and sufficient statistics](./information-geometry-exponential-families.md) | Why does one log-partition function determine means, covariances, and likelihood equations? |
-| [3. Latent variables and ordinary EM](./information-geometry-latent-variables-em.md) | How does posterior completion produce a likelihood-increasing update? |
-| [4. Conditional expectation as projection](./information-geometry-conditional-expectation.md) | In which space is conditional expectation orthogonal projection? |
-| [5. Fisher geometry and the meaning of L2](./information-geometry-fisher-vs-l2.md) | Why does Euclidean distance between parameter vectors miss the model's statistical sensitivity? |
-| [6. Dual coordinates and KL projections](./information-geometry-duality.md) | How do orthogonality, Pythagoras, and two notions of straightness fit together? |
+| [1. From Euclidean space to a manifold](../information-geometry-euclidean-to-manifold.md) | What survives a change of coordinates, and what extra structure measures lengths? |
+| [2. Exponential families and sufficient statistics](../information-geometry-exponential-families.md) | Why does one log-partition function determine means, covariances, and likelihood equations? |
+| [3. Latent variables and ordinary EM](../information-geometry-latent-variables-em.md) | How does posterior completion produce a likelihood-increasing update? |
+| [4. Conditional expectation as projection](../information-geometry-conditional-expectation.md) | In which space is conditional expectation orthogonal projection? |
+| [5. Fisher geometry and the meaning of L2](../information-geometry-fisher-vs-l2.md) | Why does Euclidean distance between parameter vectors miss the model's statistical sensitivity? |
+| [6. Dual coordinates and KL projections](../information-geometry-duality.md) | How do orthogonality, Pythagoras, and two notions of straightness fit together? |
 
 For a geometry-first route, read 1, 2, 5, and 6, then return to EM and
 conditional expectation. For a likelihood-first route, begin with 2 and 3, then
@@ -65,7 +65,7 @@ how marginalization changes scores and divergences, how lost information affects
 EM, and when dual flatness is lost. GH/Normix specialization and curvature
 calculations belong to that later sequence.
 
-The [conditioning example](./normix-conditioning-a-mixture.md) gives a first
-normal-mixture calculation. The [Normix theory track](./normix-theory.md) links
+The [conditioning example](https://xshi19.github.io/math/normix-theory/normix-conditioning-a-mixture/) gives a first
+normal-mixture calculation. The [Normix theory track](https://xshi19.github.io/math/normix-theory/) links
 to the independently maintained package. Return to the
-[mathematical notes index](./index.md) for the other tracks.
+[mathematical notes index](https://xshi19.github.io/math/) for the other tracks.

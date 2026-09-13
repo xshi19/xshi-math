@@ -108,7 +108,7 @@ mixing moments must admit the claimed distribution.
 In EM, replace each $\eta_i$ by an average of conditional expectations given
 the observations. This uses the same mathematical map, but the expectations
 now come from the current posterior. See
-[latent variables and ordinary EM](./information-geometry-latent-variables-em.md)
+[latent variables and ordinary EM](https://xshi19.github.io/math/ig/information-geometry-latent-variables-em/)
 for why this improves the observed likelihood under the stated assumptions.
 
 ## Conditional parameters and observable moments

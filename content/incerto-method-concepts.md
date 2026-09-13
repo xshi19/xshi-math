@@ -14,7 +14,7 @@ across fat-tail arguments.
 - [Body, Shoulders, and Tails](./incerto-body-shoulder-tail.md)
 - [Extreme Value Index](./incerto-extreme-value-index.md)
 
-Return to the [Incerto reading paths](./incerto.md), or browse the
+Return to the [Incerto reading paths](./incerto/index.md), or browse the
 [theorem](./incerto-theorem-concepts.md), [method](./incerto-method-concepts.md),
 and [distribution](./incerto-distribution-concepts.md) indexes.
 

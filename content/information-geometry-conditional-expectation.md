@@ -128,7 +128,7 @@ orthogonality identity. Hence
 
 The second term is positive semidefinite. It measures the variation in $A$
 remaining after $X$ is known. The scalar version is the law of total variance
-used in the [normal-mixture conditioning example](./normix-conditioning-a-mixture.md).
+used in the [normal-mixture conditioning example](https://xshi19.github.io/math/normix-theory/normix-conditioning-a-mixture/).
 
 In [ordinary EM](./information-geometry-latent-variables-em.md), posterior
 expectations are computed under the current model law. If they are viewed as
@@ -138,4 +138,4 @@ to a joint score after first proving how its marginal score is obtained.
 
 Continue with [Fisher geometry](./information-geometry-fisher-vs-l2.md), which
 uses $L^2$ inner products on scores, or return to the
-[Information Geometry hub](./information-geometry.md).
+[Information Geometry hub](./ig/index.md).

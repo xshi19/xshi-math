@@ -34,7 +34,8 @@ See the [foundation record](docs/records/phase-0-1-verification.md),
 [Incerto Batch 3 record](docs/records/phase-2-batch-3-verification.md),
 [Normix Batch 1 record](docs/records/phase-2-normix-batch-1-verification.md), and
 [Normix Batch 2 record](docs/records/phase-2-normix-batch-2-verification.md)
-for results and remaining publication checks. Twenty-six Incerto concept pages and thirteen Normix
+for results and remaining publication checks. The [subsite split](docs/records/subsite-split-verification.md)
+replaces the combined book with a landing and three independent sites. Twenty-six Incerto concept pages and thirteen Normix
 notes have been imported; no private history was imported and no CI is
 configured. Further imports remain planned.
 
@@ -67,11 +68,11 @@ UV_PROJECT_ENVIRONMENT=.venv-wheel uv sync --locked --no-editable
 .venv-wheel/bin/python -I -c 'import math, xmath; print(math.sqrt(9), xmath.__file__)'
 ```
 
-## Build the site
+## Build the sites
 
-Use Node.js >=20 and npm >=8.6. MyST CLI 1.10.1 is pinned in the npm manifest and
-lock. The book-theme alias downloads a separate theme on its first build, so a
-fresh build needs network access. The npm scripts below use POSIX shell syntax.
+Use Node.js >=20, npm >=8.6, and Python 3. MyST CLI 1.10.1 is pinned in the npm
+manifest and lock. The book-theme alias downloads a separate theme on its first
+build; DOI citation lookup can also need network access.
 
 ```sh
 npm ci
@@ -79,38 +80,83 @@ npm run build
 npm run check:html
 ```
 
-The exact configured MyST command is:
+The build runs these four independent MyST projects sequentially:
+
+| Config | Home source | Public base | Pages |
+| --- | --- | --- | --- |
+| `myst.landing.yml` | `content/index.md` | `/math/` | 1 |
+| `myst.incerto.yml` | `content/incerto/index.md` | `/math/incerto/` | 28 |
+| `myst.ig.yml` | `content/ig/index.md` | `/math/ig/` | 7 |
+| `myst.normix-theory.yml` | `content/normix-theory/index.md` | `/math/normix-theory/` | 15 |
+
+For example, the Incerto command is:
 
 ```sh
-BASE_URL=/math ./node_modules/.bin/myst build --html --strict --ci
+BASE_URL=/math/incerto ./node_modules/.bin/myst --config myst.incerto.yml build --html --strict --ci
 ```
 
 MyST takes the path prefix from `BASE_URL`; `site.domains` contains the host
-without a path. This follows the [MyST base URL documentation](https://mystmd.org/guide/deployment).
-The standard build and extended 51-page checker pass in the Normix Batch 2
-execution environment; the earlier Batch 3 localhost restriction is recorded
-as a historical limit in its verification record. See the
-[Normix Batch 2 record](docs/records/phase-2-normix-batch-2-verification.md).
+without a path. See the [MyST base URL documentation](https://mystmd.org/guide/deployment).
+Each project has its own title, logo text, TOC, search data, and assets. The
+landing hides book navigation and only links the three tracks and separate
+Normix package docs. `myst.yml` extends the landing config for default authoring.
 
-HTML should be written to `_build/html/`, ready for later assembly into the hub's
-`math/` directory. `check:html` checks the fifty-one expected pages, local
-links/assets/fragments, prefix, shared CSS, and rendered equations, including
-KaTeX error markers. It is not a browser review.
-Build and browser inspection results and limits are recorded separately.
+`scripts/build_sites.py` clears intermediate project state between builds,
+retains the downloaded theme and DOI cache, and saves each export in
+`_build/subsites/{landing,incerto,ig,normix-theory}/`. It then copies the landing
+to `_build/html/` and the tracks beneath `incerto/`, `ig/`, and `normix-theory/`.
+Finally, `scripts/write_redirects.py` adds 48 compatibility pages for old flat
+math URLs. Assembly also replaces localhost sitemap/discovery URLs with the
+public nested URLs; the root sitemap covers all 51 pages. **Only the assembled `_build/html/` is the publication artifact.**
+Running an individual MyST build overwrites that directory; rerun `npm run build`
+before checking or publishing the combined site. Do not run builds concurrently.
 
-For interactive local authoring, use `npm start`. To inspect the exported site
-under the real base path, stage it beneath `math/` rather than serving its files
-at the host root:
+The checker validates all 51 pages, each project's branding, TOC and search membership,
+nested prefixes, local links/assets/fragments, shared CSS, 45 pages with display
+math, public sitemaps, and every redirect. Fully qualified links to this site's `/math/` paths
+are checked against the local artifact too. Browser results and limitations are
+in the [subsite split record](docs/records/subsite-split-verification.md).
+
+Within a track, use relative Markdown links. Cross-track links use
+`https://xshi19.github.io/math/...`: this MyST/theme combination prepends
+`BASE_URL` to root-absolute Markdown links, so `/math/...` would be doubled.
+Keep the globally unique note stems, for example
+`/math/ig/information-geometry-fisher-vs-l2/`. Each track hub is its project's
+`index.md`, so its URL is the base itself, without a repeated track component.
+The original Incerto and Normix home URLs already equal their new homes and
+remain real pages. Other old flat routes redirect, for example
+`/math/incerto-pareto/` → `/math/incerto/incerto-pareto/` and
+`/math/information-geometry/` → `/math/ig/`. Redirects include a meta refresh,
+canonical URL, and visible link; JavaScript preserves query strings and fragments.
+The [URL map](docs/plan/url-map.csv) distinguishes these implemented math redirects
+from the still-proposed `/incerto-wiki/` and upstream Normix migration routes.
+
+For interactive authoring, use `npm start` for the landing or
+`npm run start:incerto`, `npm run start:ig`, or `npm run start:normix-theory`.
+For a static preview under the real path:
 
 ```sh
 mkdir -p _build/preview/math
-cp -R _build/html/. _build/preview/math/
+rsync -a --delete _build/html/ _build/preview/math/
 python3 -m http.server 8000 --directory _build/preview
 ```
 
-Then open `http://localhost:8000/math/`. Review equations, navigation, and narrow
-screens when changing pages or the theme. Publishing into the hub and legacy
-route redirects belong to later phases.
+Open `http://localhost:8000/math/`, then the three track bases. Fully qualified
+cross-track links point to the public host; when previewing before publication,
+open their `/math/...` paths on localhost. Review equations and desktop/mobile
+navigation when changing content or the theme.
+
+The parent owns hub assembly and republishing. After rebuilding and checking,
+run this from this repository with the hub checkout at `/workspace/xshi19.github.io`:
+
+```sh
+rsync -a --delete /workspace/xshi-math/_build/html/ /workspace/xshi19.github.io/math/
+```
+
+The trailing slashes copy the assembled contents into the hub's `math/`
+directory. Adjust only the destination checkout path if it lives elsewhere.
+Review and publish that hub change separately; this repository does not run the
+transfer or change `/normix/`.
 
 ## Repository map
 

@@ -18,7 +18,7 @@ proposals in the outline.
 
 ## Files in this change
 
-The [IG hub](../../content/information-geometry.md) now links these six new
+The [IG hub](../../content/ig/index.md) now links these six new
 pages, all flat under `content/`:
 
 | Source | Route below `/math/` |
@@ -74,7 +74,7 @@ Browser inspection used Chrome 151.0.7922.169 and a temporary Playwright Core
 
 The preview served `_build/html/` beneath a local `math/` directory. This tests
 the real prefix without writing to the publishing hub. Reproduce the preview
-using the commands in [README](../../README.md#build-the-site).
+using the commands in [README](../../README.md#build-the-sites).
 
 The downloaded theme identifies itself as `@myst-theme/book` 1.3.1. Its local
 `template.zip` SHA-256 is

@@ -42,7 +42,7 @@ lowers density there.
 
 The notation $g_v$ denotes the density at fixed variance $v$; a mixture
 averages these densities over a positive random variance $V$. The
-[Normix normal-mixtures note](./normix-normal-mixtures.md) supplies the
+[Normix normal-mixtures note](https://xshi19.github.io/math/normix-theory/normix-normal-mixtures/) supplies the
 complementary conditional construction. A shared notation page is planned.
 
 ## Examples
@@ -219,7 +219,7 @@ worked comparison is planned.
 
 ## Backlinks
 
-- Depends on: [Normix normal mixtures](./normix-normal-mixtures.md)
+- Depends on: [Normix normal mixtures](https://xshi19.github.io/math/normix-theory/normix-normal-mixtures/)
   and the canonical density notation in Notation (planned).
 - Used by: Dispersion Ratio Under Fat Tails (planned).
 

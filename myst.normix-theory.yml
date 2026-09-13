@@ -1,0 +1,33 @@
+version: 1
+project:
+  id: xshi-math-normix-theory
+  title: Normix theory
+  description: Mathematical notes in the Normix theory track.
+  license: MIT
+  github: https://github.com/xshi19/xshi-math
+  toc:
+    - file: content/normix-theory/index.md
+    - file: content/normix-conditioning-a-mixture.md
+    - file: content/normix-generalized-inverse-gaussian.md
+    - file: content/normix-generalized-hyperbolic.md
+    - file: content/normix-em-algorithm.md
+    - file: content/normix-exponential-family-core.md
+    - file: content/normix-mixture-architecture.md
+    - file: content/normix-why-not-gradient-descent.md
+    - file: content/normix-gh-family-tour.md
+    - file: content/normix-normal-mixtures.md
+    - file: content/normix-online-em.md
+    - file: content/normix-factor-analysis.md
+    - file: content/normix-shrinkage.md
+    - file: content/normix-varentropy.md
+    - file: content/normix-em-framework.md
+site:
+  template: book-theme
+  title: Normix theory
+  # The build script supplies BASE_URL=/math/normix-theory.
+  domains:
+    - xshi19.github.io
+  options:
+    logo_text: Normix theory
+    favicon: assets/favicon.svg
+    style: assets/styles/math.css

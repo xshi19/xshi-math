@@ -18,7 +18,7 @@ confined to `xshi-math`.
 
 The [executed plan](../plan/phase-2-incerto-batch-2.md) records exact source paths,
 legacy URLs, adaptations, and exclusions. These files extend the existing
-[Incerto hub](../../content/incerto.md) after the unchanged Batch 1 reading spine:
+[Incerto hub](../../content/incerto/index.md) after the unchanged Batch 1 reading spine:
 
 | Adapted file / route stem below `/math/` | Explicit source labels retained | Rendered display equations |
 | --- | --- | --- |

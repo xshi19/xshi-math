@@ -6,7 +6,7 @@ A log-partition function connects three descriptions of an exponential family:
 classical distribution parameters, natural coordinates, and expected sufficient
 statistics. This note develops that connection for normal and GIG laws, then
 explains its role in [GH estimation](./normix-em-algorithm.md).
-The [IG entry on exponential families](./information-geometry-exponential-families.md)
+The [IG entry on exponential families](https://xshi19.github.io/math/ig/information-geometry-exponential-families/)
 provides the foundational definitions and regularity assumptions.
 
 ## One potential, two derivative identities
@@ -75,7 +75,7 @@ Where the dual map exists, the Legendre conjugate obeys
 \nabla^2\psi^*(\eta)=I_\theta^{-1}.
 ```
 
-The [duality entry](./information-geometry-duality.md) develops the geometric
+The [duality entry](https://xshi19.github.io/math/ig/information-geometry-duality/) develops the geometric
 interpretation and its domain limits. For a constrained subfamily
 $\theta=\theta(\phi)$, stationarity is instead
 $J_\theta(\phi)^\top(\nabla\psi-\widehat\eta)=0$; matching all ambient

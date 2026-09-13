@@ -17,7 +17,7 @@ to `xshi-math`.
 
 The [executed import plan](../plan/phase-2-incerto-batch-3.md) records the exact
 source paths, legacy URLs, and exclusions. The five body pages and three indexes
-extend the [Incerto hub](../../content/incerto.md):
+extend the [Incerto hub](../../content/incerto/index.md):
 
 | Adapted / rewritten file below `/math/` | Explicit source labels retained | Rendered display equations |
 | --- | --- | --- |

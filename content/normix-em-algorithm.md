@@ -10,7 +10,7 @@ This GH specialization follows the upstream derivation, which credits
 Hu (2005), *Calibration of multivariate generalized hyperbolic distributions
 using the EM algorithm*.
 
-Read [ordinary EM](./information-geometry-latent-variables-em.md) for the
+Read [ordinary EM](https://xshi19.github.io/math/ig/information-geometry-latent-variables-em/) for the
 likelihood inequality, and [GH](./normix-generalized-hyperbolic.md) for the
 joint density and parameter conventions. We treat independent observations
 $x_1,\ldots,x_n\in\mathbb R^d$, with positive-definite $\Sigma$ and interior
@@ -153,7 +153,7 @@ can fail with insufficiently varied data. Convexity of the GIG subproblem
 does not remove its domain constraints or numerical conditioning problems.
 
 With exact posteriors and an M-step that increases $Q$, the
-[EM likelihood inequality](./information-geometry-latent-variables-em.md#ig-em-monotonicity)
+[EM likelihood inequality](https://xshi19.github.io/math/ig/information-geometry-latent-variables-em/#ig-em-monotonicity)
 ensures
 
 ```{math}

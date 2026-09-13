@@ -191,4 +191,4 @@ uses different symbols for natural and expectation parameters.
 
 Continue with [latent variables and EM](./information-geometry-latent-variables-em.md),
 or take the geometry route to [Fisher information](./information-geometry-fisher-vs-l2.md).
-The [hub](./information-geometry.md) lists both routes.
+The [hub](./ig/index.md) lists both routes.
