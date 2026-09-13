@@ -157,3 +157,57 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Incerto Batch 3
+
+The following owner-controlled notes and concept indexes were adapted or rewritten
+from `xshi19/incerto-wiki` at revision
+`9717c9cf83aee18b47f423a14bce2f0d14bb8bcb`. Each approved source file was read from
+its pinned Git blob and matched to the checkout. No private Git history was
+imported. The owner selected MIT for this material; the historical site-level
+CC-BY declaration was not copied into `myst.yml`.
+
+| Original path | Adapted / rewritten file |
+| --- | --- |
+| `content/concepts/theorems/cramer-condition.md` | [incerto-cramer-condition.md](content/incerto-cramer-condition.md) |
+| `content/concepts/theorems/generalized-central-limit-theorem.md` | [incerto-generalized-central-limit-theorem.md](content/incerto-generalized-central-limit-theorem.md) |
+| `content/concepts/theorems/lln-failure.md` | [incerto-lln-failure.md](content/incerto-lln-failure.md) |
+| `content/concepts/methods/iso-density-tail-geometry.md` | [incerto-iso-density-tail-geometry.md](content/incerto-iso-density-tail-geometry.md) |
+| `content/concepts/distributions/tail-class-catalog.md` | [incerto-tail-class-catalog.md](content/incerto-tail-class-catalog.md) |
+| `content/concepts/theorem-concepts.md` | [incerto-theorem-concepts.md](content/incerto-theorem-concepts.md) |
+| `content/concepts/method-concepts.md` | [incerto-method-concepts.md](content/incerto-method-concepts.md) |
+| `content/concepts/distribution-concepts.md` | [incerto-distribution-concepts.md](content/incerto-distribution-concepts.md) |
+
+Adaptation made notation self-contained, rewrote links to flat stems, and replaced
+seven executable cells with static arguments, formulas, and tables while retaining
+their labels. The three concept indexes link to the imported notes and existing
+Normix mixture/GH theory. The infinite-mean, stable-centering, and density-versus-
+probability qualifications remain explicit. Each page carries the complete notice
+below in its rendered dropdown and source download.
+No external figures, datasets, substantial quotations, package implementation,
+mixture/VG wiki bodies, or SCoFT reading guides were included. Bibliographic links
+identify scholarly sources; those works were not copied into this repository.
+
+The original notice is retained verbatim:
+
+MIT License
+
+Copyright (c) 2023 xshi19
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

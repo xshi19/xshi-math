@@ -32,6 +32,18 @@ project:
             - file: content/incerto-max-to-sum-ratio.md
             - file: content/incerto-double-pareto.md
             - file: content/incerto-body-shoulder-tail.md
+            - file: content/incerto-iso-density-tail-geometry.md
+        - title: Sums, stable limits, and thin-tail contrast
+          children:
+            - file: content/incerto-cramer-condition.md
+            - file: content/incerto-generalized-central-limit-theorem.md
+            - file: content/incerto-lln-failure.md
+        - title: Tail catalog & indexes
+          children:
+            - file: content/incerto-tail-class-catalog.md
+            - file: content/incerto-theorem-concepts.md
+            - file: content/incerto-method-concepts.md
+            - file: content/incerto-distribution-concepts.md
     - file: content/information-geometry.md
       children:
         - file: content/information-geometry-euclidean-to-manifold.md
@@ -59,4 +71,5 @@ site:
     - xshi19.github.io
   options:
     logo_text: xshi-math
+    favicon: assets/favicon.svg
     style: assets/styles/math.css
