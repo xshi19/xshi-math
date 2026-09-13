@@ -2,8 +2,8 @@
 
 This repository contains a minimal MyST/Python source foundation for mathematical
 notes. Read [README.md](README.md) and [ARCHITECTURE.md](ARCHITECTURE.md) for scope.
-MIT applies to repository-owned material. The pinned HTML build gate remains open;
-files still described as proposed in the plans do not yet exist.
+MIT applies to repository-owned material. The [planning index](docs/plan/index.md)
+records completed gates; files still described as proposed do not yet exist.
 
 ## Model selection
 

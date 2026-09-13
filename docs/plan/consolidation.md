@@ -1,6 +1,7 @@
 # Repository Consolidation Plan
 
-Status: Phase 0 light inventory complete; Phase 1 scaffold present with HTML gate open.
+Status: Phase 0 light inventory and Phase 1 local HTML gate complete; later
+consolidation remains planned. See the [planning index](index.md) for current work.
 Source review date: 2026-09-13.
 
 Use `xshi-math` as the authoring home for mathematical explanations and their
@@ -65,6 +66,8 @@ map, verification record, and representative planning CSVs now exist. The tree
 below remains the broader target: bibliography, shared notation, most demos,
 Lean, data provenance, skills, and adapters are still deferred. See
 [architecture](../../ARCHITECTURE.md) for the current implementation.
+Content routes use unique flat Markdown stems because MyST 1.10.1 ignores
+`slug:`; the TOC supplies the track hierarchy.
 
 ```text
 xshi-math/
@@ -81,18 +84,13 @@ xshi-math/
   content/
     index.md
     bibliography.bib
-    notation/
-    incerto/
-      index.md
-      concepts/
-      reading-guides/
-    information-geometry/
-      index.md
-      concepts/
-      tutorials/
-    normix/
-      index.md
-      theory/
+    notation.md                   # proposed shared notation
+    incerto.md
+    incerto-counting-exceedances.md
+    information-geometry.md
+    information-geometry-*.md      # six entry notes present; later stems in IG outline
+    normix-theory.md
+    normix-conditioning-a-mixture.md
   demos/
     incerto/                      # scripts or notebooks, linked from notes
     information-geometry/
@@ -209,16 +207,17 @@ establish actual destinations and results.
 ### Information Geometry timing
 
 Start IG entry pages after the Phase 1 MyST foundation builds successfully with
-`BASE_URL=/math`. The owner will supply the entry concept list; **pending input:
-wait for the owner list**. Do not invent a concept backlog or wait for the full
-Incerto migration. Original Phase 1 sample pages establish the build; the owner
-list then sets the first substantive IG learning path.
+`BASE_URL=/math`, using the owner's concept list. Both prerequisites are now met:
+the local foundation build passes and the
+[owner curriculum](ig-entry-curriculum-draft.md) has been supplied. The
+[IG outline](ig-entry-outline.md) owns the implemented first batch and later
+research sequence. Full Incerto migration is not a prerequisite.
 
 ## Site and execution design
 
 The foundation configures one MyST Markdown site with the book theme, one table
-of contents, explicit page slugs, and shared CSS. Add a shared bibliography when
-source-citing material requires it. “Kami-like” describes the reading experience:
+of contents, unique filename-derived page routes, and shared CSS. Add a shared
+bibliography when source-citing material requires it. “Kami-like” describes the reading experience:
 restrained typography, readable equations, quiet navigation,
 clear theorem/proof treatment, and usable mobile layouts. It does not imply a
 new application framework or a theme fork.
@@ -241,8 +240,8 @@ requirement for a hosted notebook kernel or GPU service.
 
 MyST supports a static HTML export, and its documented deployment requires the
 destination base path at build time. The owner-selected base is `/math/`; the
-configured build uses `BASE_URL=/math myst build --html --strict` via
-`npm run build`. The pinned HTML build has not passed in this environment; see
+configured build uses `BASE_URL=/math myst build --html --strict --ci` via
+`npm run build`. The pinned HTML build passes locally in this environment; see
 the [verification record](../records/phase-0-1-verification.md).
 [MyST static export](https://mystmd.org/guide/deployment),
 [MyST GitHub Pages deployment](https://mystmd.org/guide/deployment-github-pages).
@@ -304,7 +303,7 @@ web routes. The source tree can remain organized by track.
 | `/incerto-wiki/` | Continue serving the old site until cutover; then compatibility entry to `/math/incerto` |
 | Inventoried old Incerto pages and moved Normix theory pages | Individual mappings to corresponding new pages, including fragments |
 
-The base path is decided; the three track slugs are configured in the scaffold,
+The base path is decided; the three track routes are configured in the scaffold,
 while migration destinations remain proposals. None of the new math routes has
 been deployed by this work. Confirm the generated URL form, including trailing
 slash and `.html` variants, in the static-host rehearsal.
@@ -341,7 +340,7 @@ Normix's independent software product remain outside the consolidation boundary.
 | Phase | Work | Exit gate |
 | --- | --- | --- |
 | 0. Inventory and decisions — light scope done | Classify source material; record source revisions, rights, Python consumers, actual URLs, build differences, and all hub writers; apply the adopted MIT scope and `/math/` base | Representative sample and unknowns recorded; full candidate/rights/consumer coverage remains required before import, with rollback artifacts before cutover |
-| 1. Working foundation — scaffold present, HTML gate open | Add the minimal site and Python scaffold with the selected `src/math/` directory and adopted import mapping, shared style, original sample pages for the three tracks, and only useful rules/skills | Fresh-environment MyST build works with `BASE_URL=/math`; one demo runs; cross-track references and actual static output are inspected; commands are recorded where implemented |
+| 1. Working foundation — local HTML gate complete | Add the minimal site and Python scaffold with the selected `src/math/` directory and adopted import mapping, shared style, original sample pages for the three tracks, and only useful rules/skills | Fresh-environment MyST build works with `BASE_URL=/math`; one demo runs; cross-track references and actual static output are inspected; commands are recorded where implemented |
 | 2. Complete eligible preparation | Export rights-cleared Incerto material and selected Normix theory/demos; reconcile notation/citations; move corresponding tests and optional Lean units | All eligible manifest entries are accounted for; semantic review and relevant execution succeed; private/source-license audit covers staged source and output |
 | 3. Publication rehearsal | Assemble `/math/` and compatibility routes beside the existing hub and Normix artifacts; review the cutover diff | Direct URLs, fragments, assets, search, downloads, and mobile pages work; sibling output is preserved; rollback is rehearsed |
 | 4. Coordinated cutover | Briefly freeze affected source authoring, import the final delta, rerun gates, publish the reviewed hub revision, update sibling links, and disable obsolete publishers | Public math and legacy entry paths work; only the new repo is edited for moved material; old publishers cannot overwrite compatibility pages |
