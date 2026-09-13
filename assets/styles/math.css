@@ -40,4 +40,11 @@ article .katex-display {
     font-size: 1rem;
     line-height: 1.65;
   }
+
+  /* Reserve space for heading permalinks instead of overflowing the viewport. */
+  article :is(h1, h2, h3, h4, h5, h6) > a[href^="#"] {
+    width: auto;
+    margin-inline-start: 0.35em;
+    transform: none;
+  }
 }

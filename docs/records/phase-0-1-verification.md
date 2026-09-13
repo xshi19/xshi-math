@@ -34,16 +34,18 @@ filenames so routes match the checker and planned `/math/` map.
 
 ## Still open (later phases)
 
-- Browser smoke (desktop/mobile) under `/math/` on a real host.
+- Public-host browser review under `/math/`; local desktop/mobile review of the
+  expanded site is recorded with the [IG entry batch](ig-entry-verification.md).
 - Pin / record book-theme revision used at publish time.
 - Hub assembly into `xshi19.github.io/math/` and cutover.
-- Incerto / Normix theory migration and Information Geometry entry pages
-  (after owner outline at Astra max).
+- Incerto / Normix theory migration and later IG marginalization / GH research
+  pages beyond the implemented first entry batch.
 - Lean and CI workflows.
 
 ## Information Geometry note
 
-Owner curriculum draft and ChatGPT share extract live under `docs/plan/`
-(`ig-entry-curriculum-draft.md`, `ig-chatgpt-share-extract.md`). Polished
-`ig-entry-outline.md` and `content/` entry pages wait until after this
-foundation merges.
+Owner curriculum draft and ChatGPT share extract live under `docs/plan/`.
+The [polished outline](../plan/ig-entry-outline.md) and six original `content/`
+entry notes are now implemented following the owner's authorization. This
+record retains the original six-page foundation results; the expanded twelve-page
+artifact has its own [verification record](ig-entry-verification.md).

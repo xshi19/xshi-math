@@ -193,9 +193,9 @@ is not a substitute for either.
 | Task | Minimum useful completion evidence | Availability |
 | --- | --- | --- |
 | Planning/design edit | Read changed and new files, check relative links and citations, separate current state from proposals, check whitespace and the actual diff | Current documentation workflow; `git diff --check` exists, but does not cover untracked files |
-| Math page or reading guide | Assumptions, notation, claim scope, proof coverage, attribution, and bibliography reviewed; changed equations and links inspected in a rendered page | Content exists; pinned HTML build gate remains open |
+| Math page or reading guide | Assumptions, notation, claim scope, proof coverage, attribution, and bibliography reviewed; changed equations and links inspected in a rendered page | Content and HTML checks exist; see the verification records linked from README |
 | Python helper or numerical demo | Relevant behavior tests plus execution of the actual demo; known cases, units, seeds, data provenance, numerical tolerances, and generated figures checked | Current Python scaffold; see README for test and demo commands |
-| MyST/CSS change | Pinned static build, changed pages viewed at desktop/mobile sizes, equations and navigation checked under the real base path | Site scaffold exists; HTML/rendered verification remains pending |
+| MyST/CSS change | Pinned static build, changed pages viewed at desktop/mobile sizes, equations and navigation checked under the real base path | Local HTML gate passes; each change still requires its own rendered review |
 | Lean declaration | Build with the pinned toolchain; inspect assumptions and proof dependencies; map the exact checked statement to the informal claim | Optional future Lean project, using its actual `lake build` target |
 | Guidance or skill change | Check pointers/metadata and unique names; try a representative trigger and a non-trigger; inspect the resulting diff or artifact | Metadata checks when files exist; client execution checks only in clients actually available |
 | Public import or publication | Rights/provenance review of source and artifact, complete URL mapping, sibling-prefix preservation, recorded revision and rollback artifact | Future consolidation/publishing phases |

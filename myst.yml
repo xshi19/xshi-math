@@ -11,6 +11,13 @@ project:
       children:
         - file: content/incerto-counting-exceedances.md
     - file: content/information-geometry.md
+      children:
+        - file: content/information-geometry-euclidean-to-manifold.md
+        - file: content/information-geometry-exponential-families.md
+        - file: content/information-geometry-latent-variables-em.md
+        - file: content/information-geometry-conditional-expectation.md
+        - file: content/information-geometry-fisher-vs-l2.md
+        - file: content/information-geometry-duality.md
     - file: content/normix-theory.md
       children:
         - file: content/normix-conditioning-a-mixture.md

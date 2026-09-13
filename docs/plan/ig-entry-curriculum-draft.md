@@ -1,6 +1,7 @@
 # Information Geometry entry curriculum (draft)
 
-Status: owner briefing + ChatGPT share extract, pending Phase 1 completion and an Astra Max outline pass.
+Status: owner briefing retained; developed into the [entry outline](ig-entry-outline.md)
+and first batch of public notes after the Phase 1 local HTML gate passed.
 Updated: 2026-09-13.
 
 ## Owner briefing (Xiang)
@@ -23,7 +24,16 @@ Desired starting structure (not a frozen TOC — outline may be reorganized):
 
 ## Source material to keep
 - Shared ChatGPT conversation: [Information Geometry of Marginals](https://chatgpt.com/share/6aa5f5d6-1060-83ea-a30b-6c71f42b8768)
-- Local extract (working copy): `/workspace/xshi-math-codex/ig-chatgpt-share-extract.md` — also mirrored below as `ig-chatgpt-share-extract.md` when committed.
+- [Local conversation extract](ig-chatgpt-share-extract.md), retained as a planning input.
 
-## Gate
-Do not add public IG entry pages until Phase 1 MyST HTML build for `/math/` works. Then run Codex `gpt-6-astra` with **max** reasoning to produce a polished outline under `docs/plan/ig-entry-outline.md`, then implement entry pages under `content/information-geometry/`.
+## Gate and current implementation
+
+The pinned Phase 1 HTML build for `/math/` now works. The owner authorized the
+outline and first entry batch with Codex `gpt-6-astra` at **max** reasoning.
+The [polished outline](ig-entry-outline.md) owns page scope and later work.
+
+The original nested `content/information-geometry/` suggestion is superseded by
+the owner's filename requirement: use unique `information-geometry-*.md` stems
+flat under `content/`, with `information-geometry.md` as the hub. MyST 1.10.1
+ignores `slug:` and repeated nested `index.md` filenames produce `index-N/`
+routes. GH/Normix research remains planned for later batches.
