@@ -1,4 +1,4 @@
-"""Check the foundation and Information Geometry artifact under BASE_URL=/math.
+"""Check the foundation, IG, and Incerto Batch 1 artifact under BASE_URL=/math.
 
 Run after ``npm run build``. This checks files and URLs, not browser behavior.
 """
@@ -13,6 +13,15 @@ PAGES = (
     "index.html",
     "incerto/index.html",
     "incerto-counting-exceedances/index.html",
+    "incerto-pareto/index.html",
+    "incerto-regular-variation/index.html",
+    "incerto-karamata/index.html",
+    "incerto-pareto-moment-existence/index.html",
+    "incerto-mean-excess-function/index.html",
+    "incerto-hill-estimator/index.html",
+    "incerto-extreme-value-index/index.html",
+    "incerto-generalized-pareto/index.html",
+    "incerto-plug-in-tail-estimation/index.html",
     "information-geometry/index.html",
     "information-geometry-euclidean-to-manifold/index.html",
     "information-geometry-exponential-families/index.html",
@@ -23,7 +32,9 @@ PAGES = (
     "normix-theory/index.html",
     "normix-conditioning-a-mixture/index.html",
 )
-# Every note and the IG hub contain display equations. The other three hubs do not.
+# Every note (including all nine imports) and the IG hub require KaTeX display
+# equations. Exclude only the three hubs without equations, so new notes inherit
+# the math check instead of silently passing with unrendered source formulas.
 MATH_PAGES = set(PAGES) - {
     "index.html", "incerto/index.html", "normix-theory/index.html"
 }

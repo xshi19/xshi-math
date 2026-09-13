@@ -1,11 +1,11 @@
 # Planning Index
 
 Status: Phase 0 light inventory and Phase 1 local HTML gate complete; IG outline
-and first entry batch implemented.
+and first entry batch implemented; Phase 2 Incerto Batch 1 executed locally.
 Source review date: 2026-09-13.
 
-This planning set guides the foundation and later consolidation before any
-source content is imported. The agreed product boundary is a math monorepo with
+This planning set guides the foundation, approved imports, and later
+consolidation. The agreed product boundary is a math monorepo with
 Incerto, Information Geometry, and Normix theory tracks, published through the existing
 personal hub. Normix remains an independent JAX package and API project.
 
@@ -18,6 +18,7 @@ personal hub. Normix remains an independent JAX package and API project.
 | [Agent framework](../design/AGENT_FRAMEWORK.md) | Guidance sources of truth, Codex/Cursor discovery, shared skills, adapters, verification contracts, maintenance |
 | [License advice](../design/LICENSE_ADVICE.md) | Adopted MIT scope, deferred alternative, Incerto import decision, private-to-public review |
 | [IG entry outline](ig-entry-outline.md) | Implemented Basics / early IG pages, prerequisites, and the later GH/Normix research sequence |
+| [Incerto Batch 1](phase-2-incerto-batch-1.md) | Executed nine-page import scope, adaptations, and deferred material |
 | [Rule index](../rules/index.md) | Current rule routes and intentionally deferred rule bodies |
 
 [ARCHITECTURE.md](../../ARCHITECTURE.md) describes the source scaffold now present.
@@ -38,7 +39,9 @@ The [owner curriculum](ig-entry-curriculum-draft.md) has been organized into the
 [IG entry outline](ig-entry-outline.md), and the hub now links six original
 Basics / early IG notes. Their checks and remaining publication limits are in
 the [IG verification record](../records/ig-entry-verification.md).
-No wiki bodies, private history, or Normix implementation were imported. No site
+The nine approved Incerto concept bodies have now been adapted under MIT; see
+the [Batch 1 verification record](../records/phase-2-batch-1-verification.md).
+No private history or Normix implementation was imported. No site
 was deployed, CI configured, Lean project created, or agent skills installed.
 
 ## Implementation sequence
@@ -56,8 +59,10 @@ full import coverage remains a later gate:
 - [x] Start the IG outline and entry pages from the supplied owner curriculum:
   [outline and first batch](ig-entry-outline.md) implemented independently of
   Incerto import. Later marginalization and GH/Normix pages remain planned.
-- [ ] Phase 2: prepare the complete eligible import in a separate implementation
-  change, with provenance and semantic checks.
+- [x] Phase 2 Batch 1: adapt the nine approved Incerto concepts with provenance,
+  static calculations, semantic review, and local HTML checks.
+- [ ] Phase 2 remainder: prepare further eligible imports in separate changes
+  with provenance and semantic checks; Batch 1 does not complete this phase.
 - [ ] Phase 3: rehearse the combined hub artifact and every mapped legacy route.
 - [ ] Phase 4: perform one coordinated public cutover and stop duplicate authoring.
 - [ ] Phase 5: verify the live result and prune obsolete guidance and machinery.

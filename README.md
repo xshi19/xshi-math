@@ -5,8 +5,8 @@ optional future Lean formalization.
 
 The foundation has three tracks:
 
-- **Incerto / fat tails:** an original finite-sample exceedance example;
-  existing concepts and reading guides await a reviewed import.
+- **Incerto / fat tails:** an original finite-sample exceedance example and
+  nine adapted notes on Pareto tails, moments, and tail estimation.
 - **Information Geometry:** six original entry notes on manifolds, exponential
   families, EM, conditional expectation, Fisher geometry, and duality.
 - **Normix theory:** an original conditioning example linked to the independently
@@ -18,11 +18,14 @@ and API documentation stay upstream. No math site has been deployed by this chan
 
 **Status:** Phase 0 light inventory and the Phase 1 local HTML gate are complete.
 Foundation Python checks passed; the pinned site build now passes under `/math/`.
-The [IG outline](docs/plan/ig-entry-outline.md) and first entry batch are implemented.
-See the [foundation record](docs/records/phase-0-1-verification.md) and
-[IG verification record](docs/records/ig-entry-verification.md) for results and
+The [IG outline](docs/plan/ig-entry-outline.md), first IG entry batch, and
+[Incerto Batch 1](docs/plan/phase-2-incerto-batch-1.md) are implemented.
+See the [foundation record](docs/records/phase-0-1-verification.md),
+[IG verification record](docs/records/ig-entry-verification.md), and
+[Incerto verification record](docs/records/phase-2-batch-1-verification.md) for results and
 remaining publication checks.
-No wiki bodies or private history have been imported, and no CI is configured.
+Only the nine approved Incerto concept bodies have been imported; no private
+history was imported and no CI is configured. Further imports remain planned.
 
 ## Install and run Python
 
@@ -74,7 +77,7 @@ BASE_URL=/math ./node_modules/.bin/myst build --html --strict --ci
 MyST takes the path prefix from `BASE_URL`; `site.domains` contains the host
 without a path. This follows the [MyST base URL documentation](https://mystmd.org/guide/deployment).
 HTML should be written to `_build/html/`, ready for later assembly into the hub's
-`math/` directory. `check:html` checks the twelve expected pages, local
+`math/` directory. `check:html` checks the twenty-one expected pages, local
 links/assets/fragments, prefix, shared CSS, and rendered equations, including
 KaTeX error markers. It is not a browser review. These commands pass locally;
 browser inspection and its limits are recorded separately.
@@ -106,5 +109,6 @@ route redirects belong to later phases.
 
 Repository-owned code, prose, figures, notebooks, Lean, and guidance use the root
 [MIT license](LICENSE). Identify third-party exceptions when introducing them;
-retain upstream notices on future imports. See the
+the [import notices](THIRD_PARTY_NOTICES.md) retain the Incerto copyright and MIT
+permission text, also carried on each adapted page. See the
 [license advice](docs/design/LICENSE_ADVICE.md) for the adopted Incerto decision.

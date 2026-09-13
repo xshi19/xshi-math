@@ -1,7 +1,8 @@
 # Repository Consolidation Plan
 
-Status: Phase 0 light inventory and Phase 1 local HTML gate complete; later
-consolidation remains planned. See the [planning index](index.md) for current work.
+Status: Phase 0 light inventory and Phase 1 local HTML gate complete; Phase 2
+Incerto Batch 1 executed locally. Further consolidation remains planned.
+See the [planning index](index.md) for current work.
 Source review date: 2026-09-13.
 
 Use `xshi-math` as the authoring home for mathematical explanations and their
@@ -12,8 +13,10 @@ own repository.
 
 This document plans the remaining consolidation. The original source scaffold
 now exists; see [architecture](../../ARCHITECTURE.md) and the
-[verification record](../records/phase-0-1-verification.md). No sibling content,
-code, history, or deployment configuration has been migrated.
+[verification record](../records/phase-0-1-verification.md). Nine approved Incerto
+concept bodies are now adapted; see the
+[Batch 1 record](../records/phase-2-batch-1-verification.md). Sibling code,
+private history, and deployment configuration have not been migrated.
 
 ## Repository boundaries
 
