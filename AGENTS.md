@@ -1,9 +1,9 @@
 # Agent Router
 
-This repository is currently a planning and design workspace for mathematical
-notes, Python demos, and optional Lean. Read [README.md](README.md) for scope.
-MIT licensing and Codex project defaults are adopted. Files and commands still
-described as proposed in the plans do not yet exist.
+This repository contains a minimal MyST/Python source foundation for mathematical
+notes. Read [README.md](README.md) and [ARCHITECTURE.md](ARCHITECTURE.md) for scope.
+MIT applies to repository-owned material. The pinned HTML build gate remains open;
+files still described as proposed in the plans do not yet exist.
 
 ## Model selection
 
@@ -37,7 +37,7 @@ do not assume a client has loaded instructions below its starting directory.
 ## Working boundaries
 
 - Follow the user's task scope. A future phase in a plan is not an instruction
-  to execute that phase. This planning task does not authorize content migration.
+  to execute that phase. Foundation work does not authorize content migration.
 - Preserve the [Normix boundary](docs/plan/consolidation.md#repository-boundaries).
 - Keep durable decisions in the repository. Use links to canonical guidance;
   load rules and recipes only for the task they govern.
@@ -46,13 +46,25 @@ do not assume a client has loaded instructions below its starting directory.
 - Preserve assumptions, notation, attribution, and the distinction between
   proof and numerical evidence when editing mathematical prose.
 
+## Verification commands
+
+- Install/test: `uv sync --locked`, then `uv run pytest`.
+- Demo: `uv run python demos/incerto/exceedances.py`.
+- Packaging: `uv build`; verify editable and wheel imports when mapping changes.
+- Site: `npm ci`, `npm run build`, then `npm run check:html`.
+- Review rendered equations, links, and desktop/mobile navigation under `/math/`.
+
+See [README](README.md) for preview commands and the
+[verification record](docs/records/phase-0-1-verification.md) for current limits.
+There is no Lean project or CI workflow.
+
 ## Completion in the current phase
 
 Review the diff and the full contents of new files; `git diff` alone omits
 untracked files. Check relative links, factual citations, scope, and consistency
 between current state and proposals. Run `git diff --check` and check new files
-for whitespace errors separately. No site, Python, or Lean test command is
-configured in this repository yet.
+for whitespace errors separately. Run the checks relevant to changed artifacts;
+record blocked checks without calling an unverified build complete.
 
 Report changed files, verification actually performed, checks not run, and any
 remaining limitations. Report Git state accurately; a written file is not a

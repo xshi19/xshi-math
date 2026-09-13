@@ -1,39 +1,107 @@
 # xshi-math
 
-Mathematical notes and tutorials, supported by Python visualizations and numerical
-demos, with optional Lean formalization as a way to learn while using it.
+Mathematical notes and tutorials, supported by small Python demonstrations and
+optional future Lean formalization.
 
-The planned monorepo has three tracks:
+The foundation has three tracks:
 
-- **Incerto / fat tails:** concepts, reading guides, and computational examples
-  from the existing Incerto project, subject to a future public-release review.
-- **Information Geometry:** new notes, tutorials, and numerical explorations.
-- **Normix theory:** mathematical explanations and demos that use the separately
+- **Incerto / fat tails:** an original finite-sample exceedance example;
+  existing concepts and reading guides await a reviewed import.
+- **Information Geometry:** an entry placeholder awaiting the owner's concept list.
+- **Normix theory:** an original conditioning example linked to the independently
   maintained [normix package](https://github.com/xshi19/normix).
 
-The hub is the [xshi19.github.io repository](https://github.com/xshi19/xshi19.github.io),
-the assembly and publishing boundary for the [personal site](https://xshi19.github.io/).
-It hosts the existing
-[Normix documentation](https://xshi19.github.io/normix/) and
-[Incerto Wiki](https://xshi19.github.io/incerto-wiki/). The future math site will
-use the owner-selected `/math/` base and a shared MyST presentation with a
-Kami-like reading experience. Normix's JAX implementation, public API, package
-releases, and API documentation stay in `xshi19/normix`.
+The [hub](https://github.com/xshi19/xshi19.github.io) owns assembly and publication
+at `https://xshi19.github.io/math/`. Normix's implementation, public API, releases,
+and API documentation stay upstream. No math site has been deployed by this change.
 
-**Status:** planning and design, with an adopted MIT license and active Codex
-project defaults. This repository has no migrated wiki content, configured site
-build, executable demos, Lean project, or CI workflow.
+**Status:** Phase 0 light inventory complete. Phase 1 source scaffold is present
+and Python checks pass; the required pinned HTML build and rendered review remain
+blocked in the authoring environment. See the
+[verification record](docs/records/phase-0-1-verification.md) for exact results.
+No wiki bodies or private history have been imported, and no CI is configured.
 
-Start with the [planning index](docs/plan/index.md):
+## Install and run Python
+
+Use Python 3.13 (the `.python-version` development default) and `uv`. Package
+metadata supports Python >=3.12; only Python 3.13.5 was tested here.
+
+```sh
+uv sync --locked
+uv run pytest
+uv run python demos/incerto/exceedances.py
+```
+
+The distribution is named `xshi-math`, but the import is `xmath`. Setuptools maps
+it explicitly to `src/math/`; do not add `src/` to `PYTHONPATH`. Both editable and
+wheel installations were checked alongside stdlib `math` and NumPy.
+
+```python
+from xmath import exceedance_fraction
+
+assert exceedance_fraction([1, 2, 2, 4], 2) == 0.25
+```
+
+To check the ordinary wheel installation in a separate environment:
+
+```sh
+uv build
+UV_PROJECT_ENVIRONMENT=.venv-wheel uv sync --locked --no-editable
+.venv-wheel/bin/python -I -c 'import math, xmath; print(math.sqrt(9), xmath.__file__)'
+```
+
+## Build the site
+
+Use Node.js >=20 and npm >=8.6. MyST CLI 1.10.1 is pinned in the npm manifest and
+lock. The book-theme alias downloads a separate theme on its first build, so a
+fresh build needs network access. The npm scripts below use POSIX shell syntax.
+
+```sh
+npm ci
+npm run build
+npm run check:html
+```
+
+The exact configured MyST command is:
+
+```sh
+BASE_URL=/math ./node_modules/.bin/myst build --html --strict
+```
+
+MyST takes the path prefix from `BASE_URL`; `site.domains` contains the host
+without a path. This follows the [MyST base URL documentation](https://mystmd.org/guide/deployment).
+HTML should be written to `_build/html/`, ready for later assembly into the hub's
+`math/` directory. `check:html` checks the foundation's expected pages, local
+links/assets, prefix, shared CSS, and sample equations. It is not a browser review.
+These HTML commands still need a successful run in an environment with package
+network access and child-process execution; they did not pass here.
+
+For interactive local authoring, use `npm start`. To inspect the exported site
+under the real base path, stage it beneath `math/` rather than serving its files
+at the host root:
+
+```sh
+mkdir -p _build/preview/math
+cp -R _build/html/. _build/preview/math/
+python3 -m http.server 8000 --directory _build/preview
+```
+
+Then open `http://localhost:8000/math/`. Review equations, navigation, and narrow
+screens before declaring the foundation build gate complete. Publishing into the
+hub and legacy route redirects belong to later phases.
+
+## Repository map
 
 | Document | Purpose |
 | --- | --- |
-| [Consolidation plan](docs/plan/consolidation.md) | Repository boundaries, target tree, publishing, URLs, phases, and risks |
-| [Agent framework](docs/design/AGENT_FRAMEWORK.md) | Shared guidance for Codex and Cursor, with one canonical skill tree |
-| [License advice](docs/design/LICENSE_ADVICE.md) | Adopted MIT scope, deferred MIT/CC-BY alternative, and publication review |
-| [Agent router](AGENTS.md) | Task-specific entry points and current verification expectations |
+| [Architecture](ARCHITECTURE.md) | What the scaffold contains and its dependency boundaries |
+| [Planning index](docs/plan/index.md) | Phase status and remaining decisions |
+| [Light inventory](docs/plan/phase-0-inventory.md) | Source revisions, representative dispositions, routes, and publisher findings |
+| [Consolidation plan](docs/plan/consolidation.md) | Future import, assembly, and cutover gates |
+| [Agent router](AGENTS.md) | Task routes and verification entry points |
+| [Agent framework](docs/design/AGENT_FRAMEWORK.md) | Guidance ownership and optional future rules/skills |
 
-Repository-owned code, prose, figures, notebooks, Lean, and guidance are licensed
-under [MIT](LICENSE). Third-party exceptions will be recorded in
-`THIRD_PARTY_NOTICES.md` when needed; see the [adopted scope and Incerto import
-decision](docs/design/LICENSE_ADVICE.md).
+Repository-owned code, prose, figures, notebooks, Lean, and guidance use the root
+[MIT license](LICENSE). Identify third-party exceptions when introducing them;
+retain upstream notices on future imports. See the
+[license advice](docs/design/LICENSE_ADVICE.md) for the adopted Incerto decision.

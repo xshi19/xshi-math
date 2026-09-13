@@ -1,7 +1,7 @@
 # Repository Consolidation Plan
 
-Status: owner decisions adopted; architecture and implementation sequence remain planned.
-Source review date: 2026-09-12.
+Status: Phase 0 light inventory complete; Phase 1 scaffold present with HTML gate open.
+Source review date: 2026-09-13.
 
 Use `xshi-math` as the authoring home for mathematical explanations and their
 computational demonstrations. Organize the material into three tracks with
@@ -9,8 +9,10 @@ shared notation, citations, presentation, and verification. Publish the resultin
 site through the existing personal hub. Keep Normix's software product in its
 own repository.
 
-This document plans a future consolidation. No source content, code, history,
-build artifact, or deployment configuration is migrated by this change.
+This document plans the remaining consolidation. The original source scaffold
+now exists; see [architecture](../../ARCHITECTURE.md) and the
+[verification record](../records/phase-0-1-verification.md). No sibling content,
+code, history, or deployment configuration has been migrated.
 
 ## Repository boundaries
 
@@ -58,16 +60,17 @@ specifies how prose review preserves those distinctions.
 
 ## Proposed tree
 
-Among the paths below, README, the root agent router, LICENSE, the
-planning/design/rule-index documents, header-only planning CSVs, and
-`.codex/config.toml` with its README exist after this change. The rest of this
-tree is a target, not scaffold already installed:
+The MyST/Python source scaffold, original track samples, shared CSS, architecture
+map, verification record, and representative planning CSVs now exist. The tree
+below remains the broader target: bibliography, shared notation, most demos,
+Lean, data provenance, skills, and adapters are still deferred. See
+[architecture](../../ARCHITECTURE.md) for the current implementation.
 
 ```text
 xshi-math/
   README.md
   AGENTS.md
-  ARCHITECTURE.md                  # current implementation map, added with scaffold
+  ARCHITECTURE.md                  # current implementation map; present
   LICENSE                         # adopted MIT; present
   THIRD_PARTY_NOTICES.md           # introduced with material needing notices
   myst.yml                        # one project, explicit TOC, MIT owner-material metadata
@@ -94,7 +97,7 @@ xshi-math/
     incerto/                      # scripts or notebooks, linked from notes
     information-geometry/
     normix/
-  src/math/                       # unified NumPy educational library; import name TBD
+  src/math/                       # NumPy educational library; imports as xmath
   tests/                          # checks of implemented numerical behavior
   data/README.md                   # provenance, retrieval, licenses, checksums
   assets/
@@ -111,8 +114,8 @@ xshi-math/
     plan/
       index.md
       consolidation.md
-      migration-manifest.csv      # header-only inventory/disposition stub; present
-      url-map.csv                 # header-only old-to-new URL mapping stub; present
+      migration-manifest.csv      # representative inventory; present
+      url-map.csv                 # representative old-to-new candidates; present
     design/
       AGENT_FRAMEWORK.md
       LICENSE_ADVICE.md
@@ -134,25 +137,18 @@ necessary for v1; local installation is enough for reproducible imports.
 
 ### Python import name
 
-**Open question / recommendation pending owner confirmation:** keep the selected
-directory `src/math/`, but expose it as `xmath` through explicit package
-configuration. A top-level import package named `math` can shadow Python's
-stdlib `math` and break NumPy or other dependencies. Merely changing the
-distribution name does not change imports. See [Python's module search
-path](https://docs.python.org/3/tutorial/modules.html#the-module-search-path).
-
-For example, a future setuptools configuration can explicitly list `xmath`
-under `[tool.setuptools]` and map `xmath = "src/math"` under
-`[tool.setuptools.package-dir]`; include its subpackages as they are added.
-Verify both editable and wheel installs, including that `import math` still
-resolves to the stdlib. This is a packaging recommendation, not a selected build
-backend or an implemented configuration.
+**Resolved owner decision:** keep `src/math/` and expose it as `xmath` through
+explicit setuptools package configuration. The distribution name is `xshi-math`.
+`[tool.setuptools]` lists `xmath`; `[tool.setuptools.package-dir]` maps it to
+`src/math`. Both editable and wheel imports were verified with stdlib `math`
+and NumPy. No `src/` path injection is configured. List any future subpackages
+explicitly when adding them and repeat the import checks.
 [Setuptools package mapping](https://setuptools.pypa.io/en/latest/userguide/package_discovery.html).
 
-Using a top-level `math` package requires explicit owner acceptance of the
-shadowing risk; calling it a namespace package is not a reliable fix. Renaming
-the directory to `src/xmath/` is a simpler alternative only if the owner changes
-the directory decision. The proposed tree retains `src/math/`.
+A distribution name alone does not change imports. Avoid adding `src/` to
+`PYTHONPATH`, which could expose the physical `math` directory as a conflicting
+package on Python builds where stdlib `math` is an extension module.
+[Python module search path](https://docs.python.org/3/tutorial/modules.html#the-module-search-path).
 
 ### Dependencies
 
@@ -187,14 +183,15 @@ apply when history is omitted; see [license advice](../design/LICENSE_ADVICE.md)
 
 **Open question:** do existing consumers import the `incerto` Python package?
 Inspect those consumers before renaming it. Use the selected `src/math/`
-directory and resolve the [import name](#python-import-name) before packaging;
+directory and adopted [import name](#python-import-name);
 preserve or stage compatibility where needed. Do not promise import compatibility
 before the inventory establishes its scope.
 
 ### Migration records
 
-The two CSVs have different jobs. Both currently contain headers only; no source
-inventory or URL review has been completed by adding them.
+The two CSVs have different jobs. Both now contain representative rows from the
+[light inventory](phase-0-inventory.md), with unknowns and proposed destinations
+marked. They are not a complete source, rights, or fragment audit.
 
 - [migration-manifest.csv](migration-manifest.csv) inventories candidate material
   by stable source ID, repository/revision/path, disposition (`move`, `adapt`,
@@ -206,8 +203,8 @@ inventory or URL review has been completed by adding them.
   behavior, and verification status. One source item may have several legacy
   URLs. It drives compatibility pages and route checks, not content disposition.
 
-Populate and review these records in Phase 0, then update them as preparation
-and the static-host rehearsal establish actual destinations and results.
+Expand and review these records as preparation and the static-host rehearsal
+establish actual destinations and results.
 
 ### Information Geometry timing
 
@@ -219,9 +216,10 @@ list then sets the first substantive IG learning path.
 
 ## Site and execution design
 
-Recommend one MyST Markdown site with the book theme, one table of contents, one
-bibliography, explicit page slugs, and shared CSS. “Kami-like” describes the
-reading experience: restrained typography, readable equations, quiet navigation,
+The foundation configures one MyST Markdown site with the book theme, one table
+of contents, explicit page slugs, and shared CSS. Add a shared bibliography when
+source-citing material requires it. “Kami-like” describes the reading experience:
+restrained typography, readable equations, quiet navigation,
 clear theorem/proof treatment, and usable mobile layouts. It does not imply a
 new application framework or a theme fork.
 
@@ -243,9 +241,9 @@ requirement for a hosted notebook kernel or GPU service.
 
 MyST supports a static HTML export, and its documented deployment requires the
 destination base path at build time. The owner-selected base is `/math/`; the
-future build will use `BASE_URL=/math` and the pinned toolchain's
-`myst build --html` entry point.
-These are design examples, not commands configured or run here.
+configured build uses `BASE_URL=/math myst build --html --strict` via
+`npm run build`. The pinned HTML build has not passed in this environment; see
+the [verification record](../records/phase-0-1-verification.md).
 [MyST static export](https://mystmd.org/guide/deployment),
 [MyST GitHub Pages deployment](https://mystmd.org/guide/deployment-github-pages).
 
@@ -279,10 +277,12 @@ documents deployment permissions and environment protection. If that path is
 chosen, configure it in the hub after the local build works.
 [GitHub Pages custom workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
-**Open question:** which workflows currently write `/normix/` and
-`/incerto-wiki/`, and does the hub publish from a branch or an Actions artifact?
-Phase 0 must inspect those writers and their concurrency before selecting the
-implementation. No existing CI or deployment behavior is claimed by this plan.
+The [light inventory](phase-0-inventory.md#hub-publishing-findings) identifies
+Incerto repository Pages deployment, Normix writers of its own `gh-pages`, and
+successful hub dynamic Pages runs alongside committed artifact trees. None of
+the inspected source workflows writes the hub repository. The transfer/root
+writer, exact hub Pages settings, live-prefix precedence, and coordinated
+serialization remain open before implementing artifact transfer.
 
 ## URL strategy
 
@@ -297,16 +297,17 @@ web routes. The source tree can remain organized by track.
 | --- | --- |
 | `/` | Personal hub with links to math and package documentation |
 | `/math/` | Selected math base and future landing page |
-| `/math/incerto` | Proposed Incerto track entry |
-| `/math/information-geometry` | Proposed Information Geometry track entry |
-| `/math/normix-theory` | Proposed Normix theory track entry |
+| `/math/incerto` | Configured Incerto track entry |
+| `/math/information-geometry` | Configured Information Geometry track entry |
+| `/math/normix-theory` | Configured Normix theory track entry |
 | `/normix/` and retained API routes | Continue serving the package documentation |
 | `/incerto-wiki/` | Continue serving the old site until cutover; then compatibility entry to `/math/incerto` |
 | Inventoried old Incerto pages and moved Normix theory pages | Individual mappings to corresponding new pages, including fragments |
 
-The base path is decided; page slugs remain proposals and none of these new
-routes is live. Confirm the generated URL form, including trailing slash and
-`.html` variants, in the static-host rehearsal.
+The base path is decided; the three track slugs are configured in the scaffold,
+while migration destinations remain proposals. None of the new math routes has
+been deployed by this work. Confirm the generated URL form, including trailing
+slash and `.html` variants, in the static-host rehearsal.
 
 Do not derive the migration map from Markdown filenames alone. Inventory the
 actual published pages, redirects, fragments, downloads, and source links as
@@ -339,8 +340,8 @@ Normix's independent software product remain outside the consolidation boundary.
 
 | Phase | Work | Exit gate |
 | --- | --- | --- |
-| 0. Inventory and decisions | Classify source material; record source revisions, rights, Python consumers, actual URLs, build differences, and all hub writers; apply the adopted MIT scope and `/math/` base | Every candidate has a disposition and any third-party exceptions; rollback revisions are recorded |
-| 1. Working foundation | Add the minimal site and Python scaffold with the selected `src/math/` directory and confirmed import mapping, shared style, original sample pages for the three tracks, and only useful rules/skills | Fresh-environment MyST build works with `BASE_URL=/math`; one demo runs; cross-track references and actual static output are inspected; commands are recorded where implemented |
+| 0. Inventory and decisions — light scope done | Classify source material; record source revisions, rights, Python consumers, actual URLs, build differences, and all hub writers; apply the adopted MIT scope and `/math/` base | Representative sample and unknowns recorded; full candidate/rights/consumer coverage remains required before import, with rollback artifacts before cutover |
+| 1. Working foundation — scaffold present, HTML gate open | Add the minimal site and Python scaffold with the selected `src/math/` directory and adopted import mapping, shared style, original sample pages for the three tracks, and only useful rules/skills | Fresh-environment MyST build works with `BASE_URL=/math`; one demo runs; cross-track references and actual static output are inspected; commands are recorded where implemented |
 | 2. Complete eligible preparation | Export rights-cleared Incerto material and selected Normix theory/demos; reconcile notation/citations; move corresponding tests and optional Lean units | All eligible manifest entries are accounted for; semantic review and relevant execution succeed; private/source-license audit covers staged source and output |
 | 3. Publication rehearsal | Assemble `/math/` and compatibility routes beside the existing hub and Normix artifacts; review the cutover diff | Direct URLs, fragments, assets, search, downloads, and mobile pages work; sibling output is preserved; rollback is rehearsed |
 | 4. Coordinated cutover | Briefly freeze affected source authoring, import the final delta, rerun gates, publish the reviewed hub revision, update sibling links, and disable obsolete publishers | Public math and legacy entry paths work; only the new repo is edited for moved material; old publishers cannot overwrite compatibility pages |
@@ -358,7 +359,7 @@ source and artifact review precede publication.
 | Risk | Mitigation and evidence |
 | --- | --- |
 | Private material or unclear licenses cross into public history | Sanitized export, rights disposition, staged-file and built-output inspection; apply the owner-controlled Incerto MIT decision, retain copyright notices, and identify third-party exceptions |
-| Internal package shadows stdlib `math` | Confirm `xmath` mapping for `src/math/`; check stdlib resolution in editable and wheel installs before numerical work |
+| Internal package shadows stdlib `math` | Maintain explicit `xmath` mapping for `src/math/`; check stdlib resolution in editable and wheel installs before numerical work |
 | Legacy links or fragments break | Inventory published routes, preserve labels, test a complete mapping against static output |
 | Independent publishers overwrite the hub | Explicit prefix ownership, assembly from latest revision, serialized publication, rollback of the combined artifact |
 | Sphinx/MyST differences change equations or reference behavior | Representative directive and equation checks before bulk adaptation, then rendered review of changed material |
@@ -381,5 +382,6 @@ source and artifact review precede publication.
 - Installing speculative CI, autonomous maintenance loops, or agent review panels
   before there is working code and a demonstrated need.
 
-Implementation checks and publication evidence belong to the future changes
-that actually run them. This plan establishes their completion contracts.
+Current checks are recorded in the [foundation verification record](../records/phase-0-1-verification.md).
+Phase 2 and later remain pending. Add publication evidence only when those
+phases actually run; this plan establishes their completion contracts.

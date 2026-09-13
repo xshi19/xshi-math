@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# MyST / Node tooling and generated site output
+node_modules/
+.venv-wheel/
+_build/

@@ -1,0 +1,17 @@
+{
+  "name": "xshi-math-site",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "BASE_URL=/math myst build --html --strict --ci",
+    "start": "myst start",
+    "check:html": "python3 scripts/check_html.py"
+  },
+  "devDependencies": {
+    "mystmd": "1.10.1"
+  }
+}

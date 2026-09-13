@@ -99,13 +99,13 @@ that a scholarly citation request is an extra MIT license condition.
 ## Applying the adopted MIT policy
 
 The root license and README scope statement are in place. The remaining work
-belongs to the future scaffold and import changes:
+belongs to the scaffold verification and future import changes:
 
 1. Keep applicable upstream notices for imported Normix/Incerto material; do not
    replace earlier author/year information merely because files moved.
-2. Align future package metadata, MyST metadata, rendered footers, downloadable
-   source, and exports with MIT for repository-owned material and any identified
-   exceptions. No MyST or package metadata exists here yet.
+2. Keep package and MyST metadata aligned with MIT for repository-owned material
+   and any identified exceptions. Both metadata files now declare MIT; rendered
+   footers, downloadable source, and exports still need the HTML artifact review.
 3. Add `THIRD_PARTY_NOTICES.md` when incoming assets require it. Record origin,
    rights holder, license/permission, modifications, affected paths, and required
    attribution. Carry relevant notices into the deployed artifact as well.

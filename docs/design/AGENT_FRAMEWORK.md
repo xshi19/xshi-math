@@ -92,7 +92,7 @@ paths accepted by another client are not a reason to multiply sources of truth.
 | --- | --- | --- |
 | Task routing and essential repo boundaries | Root `AGENTS.md` | Link to deeper guidance; avoid reproducing the full manual |
 | Proposed repository architecture and cutover | `docs/plan/consolidation.md` | Reference its boundaries and phase gates |
-| Implemented structure, once a scaffold exists | Future `ARCHITECTURE.md` | Describe actual paths and dependency direction, linking to design rationale |
+| Implemented structure | [ARCHITECTURE.md](../../ARCHITECTURE.md) | Describe actual paths and dependency direction, linking to design rationale |
 | Active phase and pending decisions | `docs/plan/index.md` | Update status without duplicating the design |
 | Framework rationale | This document | Link to active rules/skills as they are introduced |
 | Stable task constraints/preferences | `docs/rules/*.md` | Route directly or through a thin adapter |
@@ -193,9 +193,9 @@ is not a substitute for either.
 | Task | Minimum useful completion evidence | Availability |
 | --- | --- | --- |
 | Planning/design edit | Read changed and new files, check relative links and citations, separate current state from proposals, check whitespace and the actual diff | Current documentation workflow; `git diff --check` exists, but does not cover untracked files |
-| Math page or reading guide | Assumptions, notation, claim scope, proof coverage, attribution, and bibliography reviewed; changed equations and links inspected in a rendered page | Future content/build workflow |
-| Python helper or numerical demo | Relevant behavior tests plus execution of the actual demo; known cases, units, seeds, data provenance, numerical tolerances, and generated figures checked | Future Python scaffold; use its implemented test and execution entry points |
-| MyST/CSS change | Pinned static build, changed pages viewed at desktop/mobile sizes, equations and navigation checked under the real base path | Future site scaffold |
+| Math page or reading guide | Assumptions, notation, claim scope, proof coverage, attribution, and bibliography reviewed; changed equations and links inspected in a rendered page | Content exists; pinned HTML build gate remains open |
+| Python helper or numerical demo | Relevant behavior tests plus execution of the actual demo; known cases, units, seeds, data provenance, numerical tolerances, and generated figures checked | Current Python scaffold; see README for test and demo commands |
+| MyST/CSS change | Pinned static build, changed pages viewed at desktop/mobile sizes, equations and navigation checked under the real base path | Site scaffold exists; HTML/rendered verification remains pending |
 | Lean declaration | Build with the pinned toolchain; inspect assumptions and proof dependencies; map the exact checked statement to the informal claim | Optional future Lean project, using its actual `lake build` target |
 | Guidance or skill change | Check pointers/metadata and unique names; try a representative trigger and a non-trigger; inspect the resulting diff or artifact | Metadata checks when files exist; client execution checks only in clients actually available |
 | Public import or publication | Rights/provenance review of source and artifact, complete URL mapping, sibling-prefix preservation, recorded revision and rollback artifact | Future consolidation/publishing phases |
@@ -217,9 +217,11 @@ missing citation keys, or suspicious prose patterns. It should not automatically
 rewrite theorem statements, proofs, or surrounding mathematical qualifications.
 Editorial warnings require judgment and counterexamples, not token bans.
 
-No Python tests, site build, Lean checks, adapter tests, or CI are implemented by
-this document. Add deterministic checks with the code they verify, run them
-locally, and only then wire useful checks into CI. Do not add a workflow whose
+This design document does not itself implement checks. The foundation now has
+Python tests and configured site commands; see [README](../../README.md) for their
+actual verification status. Lean, adapter checks, and CI remain deferred. Add
+deterministic checks with the code they verify, run them locally, and only then
+wire useful checks into CI. Do not add a workflow whose
 commands refer to nonexistent files or whose success implies unperformed review.
 
 ## Starter skills
