@@ -29,8 +29,15 @@ class Site:
         return sorted((REPO / "content").glob(f"{self.prefix}*.md")) if self.key else []
 
     @property
+    def shared_pages(self):
+        """Landing-owned pages shared by every track (single canon, no copies)."""
+        if self.key:
+            return []
+        return [REPO / "content" / "notation.md"]
+
+    @property
     def pages(self):
-        return [self.index, *self.notes]
+        return [self.index, *self.shared_pages, *self.notes]
 
     def url(self, page):
         return f"{self.base}/" if page == self.index else f"{self.base}/{page.stem}/"

@@ -93,8 +93,7 @@ variance-gamma theory links to the existing Normix notes.
 These twenty-six concept imports comprise twenty-three body notes and three
 indexes, alongside the original counting-exceedances example and this track hub.
 The notes retain mathematical arguments and use static calculations; they do
-not execute notebooks during the site build. Shared notation, data examples,
-reading guides, and dependency-graph navigation remain planned.
+not execute notebooks during the site build. Use the [shared notation](https://xshi19.github.io/math/notation/) canon for overlapping symbols. Data examples, reading guides, and dependency-graph navigation remain planned.
 
 The [mixture sample](https://xshi19.github.io/math/normix-theory/normix-conditioning-a-mixture/) introduces a
 complementary question: how conditioning specifies a model rather than counts

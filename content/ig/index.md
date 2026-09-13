@@ -45,6 +45,9 @@ information-theory course is not required.
 
 ## Conventions
 
+Prefer the site-wide [shared notation](https://xshi19.github.io/math/notation/) canon for symbols that appear in more than one track. The local conventions below specialize that canon for this reading path.
+
+
 Densities are taken with respect to a stated common measure, which may be
 counting measure. Logarithms are natural. In exponential families, $\theta$
 denotes natural coordinates, $\psi$ the log-partition function, and

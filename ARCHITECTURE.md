@@ -22,6 +22,7 @@ covers five further theory notes and the standard 51-page HTML gate.
 | Surface | Current responsibility |
 | --- | --- |
 | `myst.{landing,incerto,ig,normix-theory}.yml`, `content/` | Four independent projects: landing (1 page), Incerto (28), Information Geometry (7), and Normix theory (15); `myst.yml` extends the landing for default authoring |
+| `content/notation.md` | One shared notation canon for all three tracks (`/math/notation/`) |
 | `assets/styles/math.css` | Original typography, equation overflow, and focus styles layered over the theme |
 | `package.json`, `package-lock.json` | MyST CLI 1.10.1; `npm run build` builds and assembles all four sites with their own `BASE_URL` |
 | `pyproject.toml`, `uv.lock`, `.python-version` | Locked NumPy/pytest environment; Python 3.13 development default |

@@ -45,6 +45,12 @@ do not assume a client has loaded instructions below its starting directory.
   installed here yet. See the framework before adding a rule, skill, or adapter.
 - Preserve assumptions, notation, attribution, and the distinction between
   proof and numerical evidence when editing mathematical prose.
+- **Shared notation canon:** reuse symbols from
+  [content/notation.md](content/notation.md) (public URL `/math/notation/`).
+  New math notes must not invent parallel symbols for the same concept across
+  Incerto, Information Geometry, or Normix theory. Extend the shared page when
+  a concept needs a cross-track name; do not create per-track glossaries that
+  drift.
 
 ## Verification commands
 

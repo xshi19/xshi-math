@@ -12,8 +12,12 @@ tracks. Choose a track to open its reading paths and navigation.
 - [Normix theory](https://xshi19.github.io/math/normix-theory/) — the mathematics of normal mixtures,
   GIG/GH distributions, and latent-variable estimation.
 
+Shared symbols live in one place: the
+[shared notation](https://xshi19.github.io/math/notation/) page. New notes must
+reuse that canon rather than inventing parallel symbols for the same concept.
+
 The separate [Normix package documentation](https://xshi19.github.io/normix/)
 covers installation, implementation, and the package API.
 
-Assumptions and notation are stated in the notes. Numerical examples illustrate
-calculations; they do not establish asymptotic theorems.
+Assumptions that are local to a note are stated there. Numerical examples
+illustrate calculations; they do not establish asymptotic theorems.
