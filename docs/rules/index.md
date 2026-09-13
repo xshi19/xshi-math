@@ -1,7 +1,8 @@
 # Rule Index
 
 Status: routing stub. No standalone rule bodies or Cursor adapters have been
-installed. The current repository contains planning documents only.
+installed. The repository remains a planning workspace with an adopted MIT
+license and active Codex project defaults.
 
 For now, use these existing sources:
 

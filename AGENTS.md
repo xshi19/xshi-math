@@ -2,7 +2,23 @@
 
 This repository is currently a planning and design workspace for mathematical
 notes, Python demos, and optional Lean. Read [README.md](README.md) for scope.
-The files and commands described as proposed in the plans do not yet exist.
+MIT licensing and Codex project defaults are adopted. Files and commands still
+described as proposed in the plans do not yet exist.
+
+## Model selection
+
+Before coding or command-execution tasks in this portfolio, ask the owner to
+choose a model unless they have already named one for the task or session:
+
+- Cursor Grok 4.6 xhigh.
+- Cursor Fable 5.1 high.
+- Codex GPT-6-Astra xhigh (recommended; Codex is the primary client).
+
+Honor an existing choice without asking again. Cursor quota may be exhausted;
+do not assume it is available or silently switch the owner's selected model.
+The active [Codex defaults](.codex/config.toml) select `gpt-6-astra` with `xhigh`;
+they do not replace the owner choice when none has been supplied. See the
+[framework](docs/design/AGENT_FRAMEWORK.md#model-selection-policy) for rationale.
 
 ## Read only what the task needs
 

@@ -1,19 +1,20 @@
 # License Advice
 
-Status: recommendation for a future licensing/publication decision.
+Status: MIT adopted by the owner for v1 on 2026-09-12; import review remains pending.
 Source review date: 2026-09-12.
 
-Recommend **MIT for v1 across repository-owned code, documentation, mathematical
-prose, original figures, notebooks, and Lean files**, subject to ownership review
-and explicit third-party exceptions. It is the simplest policy for a repo that
-mixes explanations with executable examples and follows the sibling root
-licenses. The alternative is MIT for software and CC-BY-4.0 for authored
-educational content when content-specific attribution is worth maintaining that
-boundary.
+The owner adopted **MIT for repository-owned code, prose, figures, notebooks,
+Lean, documentation, and agent guidance**, with third-party exceptions recorded
+in `THIRD_PARTY_NOTICES.md` when needed. The root [LICENSE](../../LICENSE) now
+contains the standard MIT text with `Copyright (c) 2026 Xiang Shi / xshi19`, and
+the [README](../../README.md) states its scope.
 
-This planning change does not add a `LICENSE`, grant new permissions, or relicense
-source material. The owner still needs to adopt the policy and resolve the
-Incerto source ambiguity before a public import.
+This decision keeps one default for explanations and executable examples. The
+MIT software + CC-BY-4.0 content alternative is **deferred, not chosen for v1**.
+The owner also chose MIT for owner-controlled Incerto material on future import,
+despite its conflicting root and MyST declarations. No source material is
+imported by this change; item-level provenance and third-party rights still need
+review before publication.
 
 ## Evidence from the siblings
 
@@ -22,9 +23,10 @@ Incerto source ambiguity before a public import.
 | [Normix root LICENSE](https://github.com/xshi19/normix/blob/master/LICENSE) | MIT; copyright 2020 xshi19 | Retain the notice when transferring covered material |
 | [Incerto root LICENSE](https://github.com/xshi19/incerto-wiki/blob/main/LICENSE) (private) | MIT; copyright 2023 xshi19 | Evidence of a repository-level MIT declaration |
 | [Incerto Python metadata](https://github.com/xshi19/incerto-wiki/blob/main/pyproject.toml) (private) | Package license is MIT | Consistent with MIT for its Python package |
-| [Incerto MyST metadata](https://github.com/xshi19/incerto-wiki/blob/main/myst.yml) (private) | `project.license: CC-BY-4.0` | A separate content/site license signal that must be reconciled |
+| [Incerto MyST metadata](https://github.com/xshi19/incerto-wiki/blob/main/myst.yml) (private) | `project.license: CC-BY-4.0` | Conflicting historical site signal; owner chose MIT for owner-controlled material on import |
 
-These files were read through authenticated GitHub access. The two root license
+The original planning review read these files through authenticated GitHub access.
+The two root license
 blob IDs were `b5cdc35c9593c920aa7f9e365ed3d3114c11d949` (Normix) and
 `691e65ea893346051a2827d654b79ad47549b1dc` (Incerto). Incerto's inspected MyST
 configuration blob was `3134a9ab0caf6067a8423b42a82d3666246bee2e`.
@@ -41,15 +43,20 @@ configuration default, or multiple grants by the owner. The files alone do not
 settle which interpretation was intended or which permissions cover contributed
 material.
 
-**Open question:** what do the Incerto MIT and CC-BY-4.0 declarations each cover?
-Before importing, inspect page-level metadata, published notices and exports,
-contributor provenance, and earlier release declarations. Record the owner's
-intended scope and the permissions available for each incoming work. Until then,
-preserve the known notices and do not silently replace a content license with
-MIT.
+**Resolved owner decision:** treat owner-controlled Incerto material as material
+to be published under MIT on import. The owner chose this despite the MIT root
+license and `project.license: CC-BY-4.0` ambiguity. Preserve applicable copyright
+notices, including earlier holders and years; align the new MyST/site metadata
+to MIT when the foundation and imports add that metadata. Do not copy the old
+CC-BY-4.0 setting into the new site by default.
 
-For material the owner fully controls, a new MIT grant can be considered without
-assuming an earlier CC grant disappears. Creative Commons explains that its
+The remaining import work is to inspect page-level metadata, published notices
+and exports, contributor provenance, and earlier release declarations. Record
+the permissions available for each incoming work and identify third-party
+exceptions; the owner's decision does not establish ownership of external work.
+
+For material the owner fully controls, publication under MIT does not assume
+an earlier CC grant disappears. Creative Commons explains that its
 licenses are irrevocable for compliant users. A new repository policy does not
 erase permissions already granted for published versions.
 [CC-BY-4.0 terms](https://creativecommons.org/licenses/by/4.0/).
@@ -61,7 +68,7 @@ for resolving rights.
 
 ## Compare the two policies
 
-| Dimension | MIT across repository-owned material — recommended v1 | MIT software + CC-BY-4.0 content |
+| Dimension | MIT across repository-owned material — adopted v1 | MIT software + CC-BY-4.0 content — deferred |
 | --- | --- | --- |
 | Scope | One default for code, prose, figures, notebooks, Lean, and developer guidance | Distinct licenses for software and educational expression |
 | Reuse | Straightforward copying of an explanation together with its example | Familiar educational-content attribution terms; software keeps a software license |
@@ -80,7 +87,7 @@ CC-BY-4.0 permits sharing and adaptation, including commercial use, with
 attribution, a license link, and an indication of changes under its terms.
 Creative Commons recommends software-specific licenses for software, while
 allowing CC licenses for documentation. Keep Python and Lean code under MIT in
-either proposal.
+the adopted policy and any future split alternative.
 [CC-BY-4.0 summary](https://creativecommons.org/licenses/by/4.0/),
 [CC guidance on software](https://creativecommons.org/faq/#can-i-apply-a-creative-commons-license-to-software).
 
@@ -89,16 +96,16 @@ either policy, the project's mathematical writing should still identify sources
 and distinguish original derivation from an adapted explanation. Do not imply
 that a scholarly citation request is an extra MIT license condition.
 
-## Applying the MIT recommendation later
+## Applying the adopted MIT policy
 
-After the owner resolves scope and adopts MIT:
+The root license and README scope statement are in place. The remaining work
+belongs to the future scaffold and import changes:
 
-1. Add the standard MIT license with the appropriate rights-holder notice. Keep
-   applicable upstream notices for imported Normix/Incerto material; do not
+1. Keep applicable upstream notices for imported Normix/Incerto material; do not
    replace earlier author/year information merely because files moved.
-2. State in the README that MIT covers repository-owned material except for
-   identified third-party items. Align package metadata, MyST metadata, rendered
-   footers, downloadable source, and any exports with that scope.
+2. Align future package metadata, MyST metadata, rendered footers, downloadable
+   source, and exports with MIT for repository-owned material and any identified
+   exceptions. No MyST or package metadata exists here yet.
 3. Add `THIRD_PARTY_NOTICES.md` when incoming assets require it. Record origin,
    rights holder, license/permission, modifications, affected paths, and required
    attribution. Carry relevant notices into the deployed artifact as well.
@@ -111,7 +118,10 @@ material. It does not overwrite licenses of dependencies, datasets, quoted text,
 fonts, images, or bundled site assets. A public site needs to retain applicable
 notices even though its source is maintained elsewhere.
 
-## If the dual policy is chosen
+## Deferred dual-policy alternative
+
+This alternative was not chosen for v1. Revisit it only through a later owner
+decision; the following describes the additional scope work that would require.
 
 Use an explicit division by material, not an unexplained pair of license badges.
 A reasonable initial scope would be:
@@ -135,7 +145,7 @@ material. It is not an `MIT OR CC-BY-4.0` offer allowing either license for ever
 file, nor a blanket requirement to satisfy both licenses for all files. If the
 same work is intentionally offered under either license, state that separately.
 
-The extra boundary work is the main reason to prefer MIT for v1. A later policy
+The extra boundary work supports the owner's choice of MIT for v1. A later policy
 change must account for contributions and existing grants; it is not merely an
 edit to the root license file.
 
@@ -196,7 +206,6 @@ permission/license review for uncertain substantial reuse instead of inventing
 an automatic excerpt allowance.
 [U.S. Copyright Office fair-use guidance](https://www.copyright.gov/fair-use/).
 
-**Open question:** is content-specific CC attribution important enough to justify
-the mixed-file policy now? The recommendation remains MIT for v1 once ownership
-and the Incerto declarations are resolved. This advice prepares that decision;
-it does not make it on the owner's behalf.
+**Decision closed:** MIT is adopted for v1; the mixed MIT/CC-BY policy is deferred.
+Remaining publication work concerns provenance, notices, third-party exceptions,
+and consistent metadata, not another choice of the repository's default license.

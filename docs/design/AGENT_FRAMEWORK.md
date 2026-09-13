@@ -14,8 +14,23 @@ discover it. Put shared rule bodies in `docs/rules/` and use thin
 The framework must remain usable with Codex alone: no task requires Cursor
 quota, an editor-specific command, or a cross-provider review panel.
 
-Only the root router and rule-index stub are installed by this planning change.
-The skill names, adapters, nested routers, and configuration below are proposed.
+The root router, rule-index stub, and active [Codex project defaults](../../.codex/config.toml)
+with a short [README](../../.codex/README.md) are present. The skill names,
+adapters, and nested routers below remain proposed.
+
+## Model selection policy
+
+The owner's portfolio policy is to ask for a model before coding or command
+execution unless a choice is already named for the task or session. The
+[root router](../../AGENTS.md#model-selection) owns the chooser: Cursor Grok 4.6
+xhigh, Cursor Fable 5.1 high, or Codex GPT-6-Astra xhigh. These are owner-selected
+options, not a claim that every account has access.
+
+Codex is primary and its project defaults are active. Cursor quota may be
+exhausted, so the workflow must remain usable with Codex alone. Respect an
+existing owner choice without asking again; if that model is unavailable,
+report the limitation and ask for an alternative rather than silently switching.
+Keep the chooser here and in the router, out of reusable skill bodies.
 
 ## Synthesis of the three approaches
 
@@ -25,7 +40,7 @@ The skill names, adapters, nested routers, and configuration below are proposed.
 | [Incerto agent framework](https://github.com/xshi19/incerto-wiki/blob/main/docs/design/AGENT_FRAMEWORK.md) (private) | Routing, context budget, verification as the completion criterion, local versioned memory, mathematical and bibliographic rigor, semantics-preserving prose review | Generalize track-specific procedures to the math monorepo; retain optional Lean and task-specific verification |
 | Project-CC thin adapters, as supplied in the project brief | Canonical bodies under `guidelines/AI协作/模块/`, with small discovery adapters rather than copied policy | Preserve the separation of meaning from client metadata; use this repo's `docs/rules` and shared skills instead of recreating its multilingual module tree or three client skill trees |
 
-The two sibling design documents were inspected through an authenticated GitHub
+The original planning review inspected the two sibling design documents through an authenticated GitHub
 read after the requested `gh api` reads were unavailable in the authoring
 environment. Their content blob IDs were respectively
 `9d68744f122bd2891b08698102a4b471daf4f10d` and
@@ -51,7 +66,7 @@ not promises made by a directory name.
 | `.cursor/skills/` | Not the shared discovery contract | Also a project skill location | Do not create it, including as a symlink or mirror |
 | `docs/rules/*.md` | Read through explicit routing | Read through routing or an adapter | Canonical shared rule bodies; ordinary Markdown is not automatically injected merely by being here |
 | `.cursor/rules/*.mdc` | Do not rely on Codex reading these automatically | Supports rule metadata and scoped activation | Thin adapters, with no independent policy body |
-| `.codex/config.toml` | Project defaults for trusted projects | Not shared client configuration | Optional Codex settings only |
+| `.codex/config.toml` | Project defaults for trusted projects | Not shared client configuration | Active owner-selected model and reasoning defaults only |
 
 Sources: [Codex instructions](https://developers.openai.com/codex/guides/agents-md/),
 [Codex skills](https://developers.openai.com/codex/skills/),
@@ -243,28 +258,26 @@ transcript paths, or mandatory delegation in shared recipe bodies.
 
 ## Codex project configuration
 
-Project defaults may live in `.codex/config.toml`. Codex loads these layers for
-trusted projects, with command-line overrides taking precedence. Keep personal
+Project defaults live in [`.codex/config.toml`](../../.codex/config.toml).
+Codex loads these layers for trusted projects, with command-line overrides
+taking precedence. Keep personal
 settings in user configuration and follow any enforced environment policy.
 [Official Codex configuration](https://developers.openai.com/codex/config-basic/).
 
-Prefer no active project model pin initially. A model's account availability and
-appropriate reasoning effort can change without changing the math workflow. If
-a shared default later helps, select an available model and verify the setting
-with the installed client. This is an illustrative, fully commented file:
+The owner selected these active defaults:
 
 ```toml
-# Optional project defaults. Replace the placeholder before uncommenting.
-# model = "<available-model-id>"
-# model_reasoning_effort = "medium"
-# Check that the selected model supports the requested reasoning effort.
+model = "gpt-6-astra"
+model_reasoning_effort = "xhigh"
 ```
 
 The setting names are documented in the
 [Codex configuration reference](https://developers.openai.com/codex/config-reference/).
 
-No `.codex/config.toml` is created by this change. Do not put secrets, personal
-absolute paths, canonical prose rules, or skill bodies in configuration. Leave
+Authentication and provider settings stay in the user's `~/.codex/`; do not put
+secrets, personal absolute paths, canonical prose rules, or skill bodies in the
+repository configuration. A configured default does not establish account access
+or override the [model chooser](#model-selection-policy). Leave
 permissions and sandbox controls to the user's environment; a repo default must
 not be used to work around an execution restriction. Defer `.codex/agents/`
 until a repeated bounded role needs it, and have that role reference shared

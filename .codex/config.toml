@@ -1,0 +1,4 @@
+# Owner-selected project defaults; keep authentication and provider settings in ~/.codex/.
+# No secrets or repository rules/skills belong in this file.
+model = "gpt-6-astra"
+model_reasoning_effort = "xhigh"
