@@ -50,7 +50,7 @@ All paths below are relative to `content/`. These are implemented pages.
 
 | Order | Page | Mathematical task | Worked anchor |
 | --- | --- | --- | --- |
-| Hub | [information-geometry.md](../../content/information-geometry.md) | Give prerequisites, notation, reading routes, and the boundary of the present material | The same probability law in different coordinates |
+| Hub | [information-geometry.md](../../content/ig/index.md) | Give prerequisites, notation, reading routes, and the boundary of the present material | The same probability law in different coordinates |
 | 1 | [information-geometry-euclidean-to-manifold.md](../../content/information-geometry-euclidean-to-manifold.md) | Explain charts, tangent vectors, metrics, and connections from coordinate changes | Polar coordinates and the interior probability simplex |
 | 2 | [information-geometry-exponential-families.md](../../content/information-geometry-exponential-families.md) | Motivate exponential form through sufficient statistics; derive moments, covariance, and moment matching | Bernoulli counts and the normal location-scale family |
 | 3 | [information-geometry-latent-variables-em.md](../../content/information-geometry-latent-variables-em.md) | Separate joint, marginal, and posterior; derive ordinary EM and its likelihood inequality | Estimating one mixing weight with fixed component densities |

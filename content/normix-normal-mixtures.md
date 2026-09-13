@@ -138,7 +138,7 @@ For the four named mixing families, [GH theory](./normix-generalized-hyperbolic.
 and its limits give density and higher-moment formulas.
 [EM](./normix-em-algorithm.md) replaces missing mixing statistics by posterior
 expectations before maximizing the joint likelihood. Its monotonicity and
-limitations follow the [ordinary EM entry](./information-geometry-latent-variables-em.md).
+limitations follow the [ordinary EM entry](https://xshi19.github.io/math/ig/information-geometry-latent-variables-em/).
 A fitted location or scale should still be interpreted through
 [](#normix-normal-mixture-moments), not as an automatic estimate of a raw
 marginal moment.

@@ -112,7 +112,7 @@ S_\tau(v)=\frac{v+\tau\eta_0}{1+\tau}.
 
 With a fresh full-data E-step and exact or improving penalized maximization,
 this is EM for the observed likelihood minus the fixed complete-data KL
-penalty. In [IG dual coordinates](./information-geometry-duality.md), the
+penalty. In [IG dual coordinates](https://xshi19.github.io/math/ig/information-geometry-duality/), the
 penalty is $D_\phi(\eta_0\Vert\eta)$; it is not generally a squared
 Euclidean distance in expectation coordinates.
 

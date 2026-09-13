@@ -73,8 +73,9 @@ map, verification record, and representative planning CSVs now exist. The tree
 below remains the broader target: bibliography, shared notation, most demos,
 Lean, data provenance, skills, and adapters are still deferred. See
 [architecture](../../ARCHITECTURE.md) for the current implementation.
-Content routes use unique flat Markdown stems because MyST 1.10.1 ignores
-`slug:`; the TOC supplies the track hierarchy.
+Content routes retain unique Markdown stems because MyST 1.10.1 ignores
+`slug:`. Four independent configs now supply the landing and track base paths;
+see the [subsite split record](../records/subsite-split-verification.md).
 
 ```text
 xshi-math/
@@ -83,7 +84,11 @@ xshi-math/
   ARCHITECTURE.md                  # current implementation map; present
   LICENSE                         # adopted MIT; present
   THIRD_PARTY_NOTICES.md           # introduced with material needing notices
-  myst.yml                        # one project, explicit TOC, MIT owner-material metadata
+  myst.yml                        # extends landing for default authoring
+  myst.landing.yml                # small /math/ hub
+  myst.incerto.yml                # independent /math/incerto/ project
+  myst.ig.yml                     # independent /math/ig/ project
+  myst.normix-theory.yml          # independent /math/normix-theory/ project
   package.json                    # pinned MyST tooling
   package-lock.json
   pyproject.toml                   # NumPy library packaging and dependency groups
@@ -92,11 +97,11 @@ xshi-math/
     index.md
     bibliography.bib
     notation.md                   # proposed shared notation
-    incerto.md
+    incerto/index.md
     incerto-counting-exceedances.md
-    information-geometry.md
+    ig/index.md
     information-geometry-*.md      # six entry notes present; later stems in IG outline
-    normix-theory.md
+    normix-theory/index.md
     normix-conditioning-a-mixture.md
   demos/
     incerto/                      # scripts or notebooks, linked from notes
@@ -295,25 +300,29 @@ serialization remain open before implementing artifact transfer.
 **Resolved by the owner:** `/math/` is the stable public base, independent of
 the repository name. Keep `/` as the personal hub and `/normix/` as the package/API
 entry point.
-Use explicit, globally unique page slugs within the math site. A flat slug such
-as `incerto-pareto` avoids relying on source-directory nesting to produce nested
-web routes. The source tree can remain organized by track.
+Use globally unique note stems within the math sources. Independent builds
+supply each track base: `incerto-pareto.md` becomes
+`/math/incerto/incerto-pareto/`. Each track hub is the sole `index.md` in its
+project and resolves directly at its base.
 
 | Public route | Intended behavior |
 | --- | --- |
 | `/` | Personal hub with links to math and package documentation |
-| `/math/` | Selected math base and future landing page |
-| `/math/incerto` | Configured Incerto track entry |
-| `/math/information-geometry` | Configured Information Geometry track entry |
-| `/math/normix-theory` | Configured Normix theory track entry |
+| `/math/` | Small landing linking three independent subsites |
+| `/math/incerto/` | Incerto subsite home; existing path retained |
+| `/math/ig/` | Information Geometry subsite home |
+| `/math/information-geometry/` | Static redirect to `/math/ig/` |
+| `/math/normix-theory/` | Normix theory subsite home; existing path retained |
+| `/math/<note-stem>/` | Static redirect to the note under its track base |
 | `/normix/` and retained API routes | Continue serving the package documentation |
-| `/incerto-wiki/` | Continue serving the old site until cutover; then compatibility entry to `/math/incerto` |
+| `/incerto-wiki/` | Continue serving the old site until cutover; then compatibility entry to `/math/incerto/` |
 | Inventoried old Incerto pages and moved Normix theory pages | Individual mappings to corresponding new pages, including fragments |
 
-The base path is decided; the three track routes are configured in the scaffold,
-while migration destinations remain proposals. None of the new math routes has
-been deployed by this work. Confirm the generated URL form, including trailing
-slash and `.html` variants, in the static-host rehearsal.
+The landing, three subsite bases, and 48 old flat math redirects are implemented
+in the assembled artifact; see the [verification record](../records/subsite-split-verification.md).
+This source change does not republish the hub. Older `/incerto-wiki/` and upstream
+Normix compatibility routes remain proposals. Confirm live URL forms and
+fragments in the parent publication rehearsal.
 
 Do not derive the migration map from Markdown filenames alone. Inventory the
 actual published pages, redirects, fragments, downloads, and source links as

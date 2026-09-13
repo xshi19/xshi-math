@@ -164,4 +164,4 @@ For further definitions, see §2 of Frank Nielsen's
 The calculations above require only the chain rule and inner products.
 
 Continue with [exponential families](./information-geometry-exponential-families.md),
-or return to the [Information Geometry hub](./information-geometry.md).
+or return to the [Information Geometry hub](./ig/index.md).

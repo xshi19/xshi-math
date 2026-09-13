@@ -1,0 +1,23 @@
+version: 1
+project:
+  id: xshi-math-landing
+  title: Mathematical notes
+  description: A hub for Incerto, Information Geometry, and Normix theory.
+  license: MIT
+  github: https://github.com/xshi19/xshi-math
+  toc:
+    - file: content/index.md
+site:
+  template: book-theme
+  title: Mathematical notes
+  # The build script supplies BASE_URL=/math.
+  domains:
+    - xshi19.github.io
+  options:
+    logo_text: Mathematical notes
+    favicon: assets/favicon.svg
+    style: assets/styles/math.css
+    hide_toc: true
+    hide_outline: true
+    hide_footer_links: true
+    hide_search: true

@@ -192,5 +192,5 @@ construction must specify a suitable observable density and its support.
 
 Continue with [conditional expectation as projection](./information-geometry-conditional-expectation.md).
 The [duality note](./information-geometry-duality.md) introduces a different,
-KL-based projection, and the [hub](./information-geometry.md) places both in
+KL-based projection, and the [hub](./ig/index.md) places both in
 the reading path.

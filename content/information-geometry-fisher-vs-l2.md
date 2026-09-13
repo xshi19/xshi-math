@@ -200,4 +200,4 @@ The [conditional-expectation note](./information-geometry-conditional-expectatio
 explains projection in the other Hilbert space used here, $L^2(P_\theta)$.
 
 Continue with [dual coordinates and KL projections](./information-geometry-duality.md),
-or return to the [Information Geometry hub](./information-geometry.md).
+or return to the [Information Geometry hub](./ig/index.md).

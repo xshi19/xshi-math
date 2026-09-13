@@ -1,0 +1,54 @@
+version: 1
+project:
+  id: xshi-math-incerto
+  title: Incerto
+  description: Mathematical notes in the Incerto track.
+  license: MIT
+  github: https://github.com/xshi19/xshi-math
+  toc:
+    - file: content/incerto/index.md
+    - file: content/incerto-counting-exceedances.md
+    - file: content/incerto-pareto.md
+    - file: content/incerto-regular-variation.md
+    - file: content/incerto-karamata.md
+    - file: content/incerto-pareto-moment-existence.md
+    - file: content/incerto-mean-excess-function.md
+    - file: content/incerto-hill-estimator.md
+    - file: content/incerto-extreme-value-index.md
+    - file: content/incerto-generalized-pareto.md
+    - file: content/incerto-plug-in-tail-estimation.md
+    - title: Peaks over threshold & maxima
+      children:
+        - file: content/incerto-pickands-balkema-de-haan.md
+        - file: content/incerto-generalized-extreme-value.md
+        - file: content/incerto-frechet.md
+        - file: content/incerto-tail-threshold-selection.md
+    - title: One-big-jump diagnostics
+      children:
+        - file: content/incerto-subexponentiality.md
+        - file: content/incerto-survival-tail-ratio.md
+        - file: content/incerto-max-to-sum-ratio.md
+        - file: content/incerto-double-pareto.md
+        - file: content/incerto-body-shoulder-tail.md
+        - file: content/incerto-iso-density-tail-geometry.md
+    - title: Sums, stable limits, and thin-tail contrast
+      children:
+        - file: content/incerto-cramer-condition.md
+        - file: content/incerto-generalized-central-limit-theorem.md
+        - file: content/incerto-lln-failure.md
+    - title: Tail catalog & indexes
+      children:
+        - file: content/incerto-tail-class-catalog.md
+        - file: content/incerto-theorem-concepts.md
+        - file: content/incerto-method-concepts.md
+        - file: content/incerto-distribution-concepts.md
+site:
+  template: book-theme
+  title: Incerto
+  # The build script supplies BASE_URL=/math/incerto.
+  domains:
+    - xshi19.github.io
+  options:
+    logo_text: Incerto
+    favicon: assets/favicon.svg
+    style: assets/styles/math.css

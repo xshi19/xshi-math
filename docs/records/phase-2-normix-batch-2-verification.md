@@ -16,7 +16,7 @@ source checkout was not modified. The destination working tree started clean.
 
 The [executed plan](../plan/phase-2-normix-theory-batch-2.md) retains the exact
 source paths, stems, dispositions, and exclusions. Batch 2 follows the eight
-Batch 1 notes beneath the [Normix hub](../../content/normix-theory.md):
+Batch 1 notes beneath the [Normix hub](../../content/normix-theory/index.md):
 
 | Adapted file / route stem below `/math/` | Disposition | Explicit source labels retained | Rendered display equations |
 | --- | --- | --- | --- |

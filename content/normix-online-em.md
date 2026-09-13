@@ -11,7 +11,7 @@ upstream regret identity, and applies the same statistic order as
 [batch EM for GH](./normix-em-algorithm.md).
 
 Read the [exponential-family core](./normix-exponential-family-core.md) for
-natural and expectation coordinates and [IG duality](./information-geometry-duality.md)
+natural and expectation coordinates and [IG duality](https://xshi19.github.io/math/ig/information-geometry-duality/)
 for Bregman divergences. Throughout the full-family derivation, assume a
 regular minimal family, finite posterior statistics, and iterates in an
 interior region where the expectation-to-natural map exists. Matrix statistic

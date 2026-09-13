@@ -193,7 +193,7 @@ Differentiation yields
 
 The [exponential-family core](./normix-exponential-family-core.md) relates
 $\eta=\nabla\psi$ and $\nabla^2\psi=\operatorname{Cov}(t(Y))$ to Fisher
-information. The [IG entry](./information-geometry-exponential-families.md)
+information. The [IG entry](https://xshi19.github.io/math/ig/information-geometry-exponential-families/)
 states the regularity and minimality assumptions behind these identities.
 
 ## Maximum likelihood and numerical limits
