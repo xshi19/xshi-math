@@ -1,0 +1,25 @@
+version: 1
+project:
+  id: xshi-math
+  title: xshi-math
+  description: Mathematical notes with small, reproducible numerical examples.
+  license: MIT
+  github: https://github.com/xshi19/xshi-math
+  toc:
+    - file: content/index.md
+    - file: content/incerto.md
+      children:
+        - file: content/incerto-counting-exceedances.md
+    - file: content/information-geometry.md
+    - file: content/normix-theory.md
+      children:
+        - file: content/normix-conditioning-a-mixture.md
+site:
+  template: book-theme
+  title: xshi-math
+  # BASE_URL=/math is supplied by the build script, not a YAML substitution.
+  domains:
+    - xshi19.github.io
+  options:
+    logo_text: xshi-math
+    style: assets/styles/math.css

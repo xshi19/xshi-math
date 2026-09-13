@@ -1,8 +1,8 @@
 # Rule Index
 
 Status: routing stub. No standalone rule bodies or Cursor adapters have been
-installed. The repository remains a planning workspace with an adopted MIT
-license and active Codex project defaults.
+installed. The repository now has a minimal MyST/Python source scaffold;
+[README](../../README.md) records commands and current verification limits.
 
 For now, use these existing sources:
 
@@ -12,7 +12,7 @@ For now, use these existing sources:
 | Repository and publishing boundaries | [Consolidation plan](../plan/consolidation.md#repository-boundaries) |
 | Guidance placement and maintenance | [Agent framework](../design/AGENT_FRAMEWORK.md) |
 | Source rights and public-release review | [License advice](../design/LICENSE_ADVICE.md) |
-| Future task completion contracts | [Verification contracts](../design/AGENT_FRAMEWORK.md#verification-contracts) |
+| Task completion contracts | [Verification contracts](../design/AGENT_FRAMEWORK.md#verification-contracts) |
 
 Create a rule body only when implementation or repeated friction requires it.
 Likely first subjects are mathematical writing, reproducible computation, and
