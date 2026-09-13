@@ -1,7 +1,7 @@
 # Repository Consolidation Plan
 
 Status: Phase 0 light inventory and Phase 1 local HTML gate complete; Phase 2
-Incerto Batch 1 executed locally. Further consolidation remains planned.
+Incerto and Normix Theory Batch 1 executed locally. Further consolidation remains planned.
 See the [planning index](index.md) for current work.
 Source review date: 2026-09-13.
 
@@ -15,8 +15,9 @@ This document plans the remaining consolidation. The original source scaffold
 now exists; see [architecture](../../ARCHITECTURE.md) and the
 [verification record](../records/phase-0-1-verification.md). Nine approved Incerto
 concept bodies are now adapted; see the
-[Batch 1 record](../records/phase-2-batch-1-verification.md). Sibling code,
-private history, and deployment configuration have not been migrated.
+[Incerto Batch 1 record](../records/phase-2-batch-1-verification.md). Eight Normix
+notes are also adapted; see the [Normix record](../records/phase-2-normix-batch-1-verification.md).
+Sibling code, private history, and deployment configuration have not been migrated.
 
 ## Repository boundaries
 

@@ -30,6 +30,14 @@ project:
     - file: content/normix-theory.md
       children:
         - file: content/normix-conditioning-a-mixture.md
+        - file: content/normix-generalized-inverse-gaussian.md
+        - file: content/normix-generalized-hyperbolic.md
+        - file: content/normix-em-algorithm.md
+        - file: content/normix-exponential-family-core.md
+        - file: content/normix-mixture-architecture.md
+        - file: content/normix-why-not-gradient-descent.md
+        - file: content/normix-gh-family-tour.md
+        - file: content/normix-normal-mixtures.md
 site:
   template: book-theme
   title: xshi-math
