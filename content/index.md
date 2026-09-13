@@ -17,7 +17,7 @@ should remain explicit when an idea crosses between tracks.
   with implementation links to the independently maintained package.
 
 The original entry notes and worked examples are joined by
-[nine adapted Incerto concepts](./incerto.md) and
+[eighteen adapted Incerto concepts](./incerto.md) and
 [eight Normix theory notes](./normix-theory.md), each carrying its source notice.
 Further Incerto and Normix imports remain planned.
 Numerical examples illustrate stated calculations; they do not establish

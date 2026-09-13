@@ -6,7 +6,8 @@ optional future Lean formalization.
 The foundation has three tracks:
 
 - **Incerto / fat tails:** an original finite-sample exceedance example and
-  nine adapted notes on Pareto tails, moments, and tail estimation.
+  eighteen adapted notes on Pareto tails, moments, estimation, extreme-value
+  limits, and diagnostics.
 - **Information Geometry:** six original entry notes on manifolds, exponential
   families, EM, conditional expectation, Fisher geometry, and duality.
 - **Normix theory:** an original conditioning example and eight adapted notes
@@ -20,13 +21,15 @@ and API documentation stay upstream. No math site has been deployed by this chan
 **Status:** Phase 0 light inventory and the Phase 1 local HTML gate are complete.
 Foundation Python checks passed; the pinned site build now passes under `/math/`.
 The [IG outline](docs/plan/ig-entry-outline.md), first IG entry batch,
-[Incerto Batch 1](docs/plan/phase-2-incerto-batch-1.md), and
+[Incerto Batch 1](docs/plan/phase-2-incerto-batch-1.md),
+[Incerto Batch 2](docs/plan/phase-2-incerto-batch-2.md), and
 [Normix Theory Batch 1](docs/plan/phase-2-normix-theory-batch-1.md) are implemented.
 See the [foundation record](docs/records/phase-0-1-verification.md),
 [IG verification record](docs/records/ig-entry-verification.md),
-[Incerto verification record](docs/records/phase-2-batch-1-verification.md), and
+[Incerto Batch 1 record](docs/records/phase-2-batch-1-verification.md),
+[Incerto Batch 2 record](docs/records/phase-2-batch-2-verification.md), and
 [Normix verification record](docs/records/phase-2-normix-batch-1-verification.md)
-for results and remaining publication checks. Nine Incerto and eight Normix
+for results and remaining publication checks. Eighteen Incerto and eight Normix
 notes have been imported; no private history was imported and no CI is
 configured. Further imports remain planned.
 
@@ -80,7 +83,7 @@ BASE_URL=/math ./node_modules/.bin/myst build --html --strict --ci
 MyST takes the path prefix from `BASE_URL`; `site.domains` contains the host
 without a path. This follows the [MyST base URL documentation](https://mystmd.org/guide/deployment).
 HTML should be written to `_build/html/`, ready for later assembly into the hub's
-`math/` directory. `check:html` checks the twenty-nine expected pages, local
+`math/` directory. `check:html` checks the thirty-eight expected pages, local
 links/assets/fragments, prefix, shared CSS, and rendered equations, including
 KaTeX error markers. It is not a browser review. These commands pass locally;
 browser inspection and its limits are recorded separately.

@@ -1,4 +1,4 @@
-"""Check all 29 foundation, IG, Incerto, and Normix pages under BASE_URL=/math.
+"""Check all 38 foundation, IG, Incerto, and Normix pages under BASE_URL=/math.
 
 Run after ``npm run build``. This checks files and URLs, not browser behavior.
 """
@@ -22,6 +22,15 @@ PAGES = (
     "incerto-extreme-value-index/index.html",
     "incerto-generalized-pareto/index.html",
     "incerto-plug-in-tail-estimation/index.html",
+    "incerto-pickands-balkema-de-haan/index.html",
+    "incerto-generalized-extreme-value/index.html",
+    "incerto-frechet/index.html",
+    "incerto-tail-threshold-selection/index.html",
+    "incerto-subexponentiality/index.html",
+    "incerto-survival-tail-ratio/index.html",
+    "incerto-max-to-sum-ratio/index.html",
+    "incerto-double-pareto/index.html",
+    "incerto-body-shoulder-tail/index.html",
     "information-geometry/index.html",
     "information-geometry-euclidean-to-manifold/index.html",
     "information-geometry-exponential-families/index.html",
@@ -40,7 +49,7 @@ PAGES = (
     "normix-gh-family-tour/index.html",
     "normix-normal-mixtures/index.html",
 )
-# Every note (including all seventeen imports) and the IG hub require KaTeX display
+# Every note (including all twenty-six imports) and the IG hub require KaTeX display
 # equations. Exclude only the three hubs without equations, so new notes inherit
 # the math check instead of silently passing with unrendered source formulas.
 MATH_PAGES = set(PAGES) - {
