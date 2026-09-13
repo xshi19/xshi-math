@@ -12,7 +12,7 @@ from site_layout import BASE, HTML, ORIGIN, REPO, SITES, redirects
 
 # The IG home contains a display equation. Only these indexes lack equations.
 NO_MATH = {
-    "/math/", "/math/incerto/", "/math/normix-theory/",
+    "/math/", "/math/incerto/", "/math/normix-theory/", "/math/notation/",
     "/math/incerto/incerto-theorem-concepts/",
     "/math/incerto/incerto-method-concepts/",
     "/math/incerto/incerto-distribution-concepts/",
@@ -143,7 +143,7 @@ def main():
                 urlsplit(record["url"]).path.rstrip("/")
                 for record in json.loads(search.read_text()).get("records", [])
             }
-            expected_paths = {"", *(f"/{page.stem}" for page in site.notes)}
+            expected_paths = {"", *(f"/{page.stem}" for page in site.pages if page != site.index)}
             if search_paths != expected_paths:
                 failures.append(f"{site.base}/: search data does not match this track")
         config_path = directory / "config.json"
@@ -163,7 +163,7 @@ def main():
                 if projects[0].get("index") != "index":
                     failures.append(f"{site.base}/: hub is not the project index")
                 slugs = {page["slug"] for page in projects[0].get("pages", []) if "slug" in page}
-                if slugs != {page.stem for page in site.notes}:
+                if slugs != {page.stem for page in site.pages if page != site.index}:
                     failures.append(f"{site.base}/: exported pages differ from this track")
             if not site.key:
                 for option in ("hide_toc", "hide_outline", "hide_footer_links", "hide_search"):
@@ -193,10 +193,14 @@ def main():
                 failures.append(f"{url}: shared math.css not found in linked styles")
             if "incerto-wiki/blob/" in source or "Technical-Incerto-Python" in source:
                 failures.append(f"{url}: stale private source link")
-            if not site.key:
+            if not site.key and url == "/math/":
                 for track in SITES[1:]:
                     if not any(urlsplit(link).path == f"{track.base}/" for link in parser.urls):
                         failures.append(f"landing: missing link to {track.title}")
+                if not any(
+                    urlsplit(link).path.rstrip("/") == "/math/notation" for link in parser.urls
+                ):
+                    failures.append("landing: missing link to shared notation")
             elif (directory / site.old_hub / "index.html").exists():
                 failures.append(f"{site.base}/: duplicate nested hub route")
 

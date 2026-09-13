@@ -120,3 +120,11 @@ library, dependency, package mapping, or numerical behavior changed. Interactive
 `npm start:*` servers were not separately exercised; their configs were validated
 by the strict exports. There is no CI workflow in this repository. Existing
 untracked `.codex/prompts/` files are outside this change.
+
+## Shared notation (owner steering)
+
+- Single canon: `content/notation.md` published at `/math/notation/` by the landing config.
+- Landing and each track hub link to `https://xshi19.github.io/math/notation/`.
+- `AGENTS.md`, README, and `content/{incerto,ig,normix-theory}/AGENTS.md` require reusing shared symbols (no parallel per-track glossaries).
+- HTML checker expects the notation page and a landing link to it.
+

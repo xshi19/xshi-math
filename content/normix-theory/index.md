@@ -67,6 +67,8 @@ explains the score covariance appearing in the varentropy formula; the
 
 ## Notation and implementation
 
+Cross-track symbols follow the [shared notation](https://xshi19.github.io/math/notation/) canon. Do not introduce a second name for a concept already fixed there.
+
 The thirteen imported notes are static mathematical explanations, each retaining
 its pinned source and MIT notice. Their literature mixing variable is called
 $Y$; it corresponds to $W$ in the conditioning introduction. Standard normal

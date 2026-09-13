@@ -15,6 +15,10 @@ The foundation has three tracks:
   shrinkage, and information quantities, linked to the
   independently maintained [normix package](https://github.com/xshi19/normix).
 
+Shared mathematical symbols live in one canon at
+`https://xshi19.github.io/math/notation/` (`content/notation.md`). New notes must
+reuse those symbols rather than inventing parallel names for the same concept.
+
 The [hub](https://github.com/xshi19/xshi19.github.io) owns assembly and publication
 at `https://xshi19.github.io/math/`. Normix's implementation, public API, releases,
 and API documentation stay upstream. No math site has been deployed by this change.
