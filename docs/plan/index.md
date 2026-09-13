@@ -1,7 +1,7 @@
 # Planning Index
 
 Status: Phase 0 light inventory and Phase 1 local HTML gate complete; IG outline
-and first entry batch implemented; Phase 2 Incerto Batches 1–2 and Normix
+and first entry batch implemented; Phase 2 Incerto Batches 1–3 and Normix
 Theory Batch 1 executed locally.
 Source review date: 2026-09-13.
 
@@ -21,6 +21,7 @@ personal hub. Normix remains an independent JAX package and API project.
 | [IG entry outline](ig-entry-outline.md) | Implemented Basics / early IG pages, prerequisites, and the later GH/Normix research sequence |
 | [Incerto Batch 1](phase-2-incerto-batch-1.md) | Executed nine-page import scope, adaptations, and deferred material |
 | [Incerto Batch 2](phase-2-incerto-batch-2.md) | Executed nine-page EVT and diagnostics import, adaptations, and deferred material |
+| [Incerto Batch 3](phase-2-incerto-batch-3.md) | Executed eight-page sums, geometry, catalog, and concept-index import |
 | [Normix Theory Batch 1](phase-2-normix-theory-batch-1.md) | Executed eight-page import scope, adaptations, and deferred material |
 | [Rule index](../rules/index.md) | Current rule routes and intentionally deferred rule bodies |
 
@@ -42,9 +43,11 @@ The [owner curriculum](ig-entry-curriculum-draft.md) has been organized into the
 [IG entry outline](ig-entry-outline.md), and the hub now links six original
 Basics / early IG notes. Their checks and remaining publication limits are in
 the [IG verification record](../records/ig-entry-verification.md).
-Eighteen approved Incerto concept bodies have now been adapted under MIT; see
-the [Batch 1 record](../records/phase-2-batch-1-verification.md) and
-[Batch 2 record](../records/phase-2-batch-2-verification.md).
+Twenty-six approved Incerto concept pages (twenty-three bodies and three indexes)
+have now been adapted under MIT; see
+the [Batch 1 record](../records/phase-2-batch-1-verification.md),
+[Batch 2 record](../records/phase-2-batch-2-verification.md), and
+[Batch 3 record](../records/phase-2-batch-3-verification.md).
 Eight approved Normix theory/design/tutorial bodies have also been adapted
 under MIT; see the [Normix verification record](../records/phase-2-normix-batch-1-verification.md).
 No private history or Normix implementation was imported. No site
@@ -71,6 +74,10 @@ full import coverage remains a later gate:
   aligned notation, static mathematics, and the 29-page local HTML gate.
 - [x] Phase 2 Incerto Batch 2: adapt nine EVT and diagnostic notes with
   provenance, static calculations, and the 38-page local HTML gate.
+- [x] Phase 2 Incerto Batch 3: adapt five body notes and rewrite three concept
+  indexes with provenance and static calculations; the 46-page checker passes
+  on a separate theme-rendered export. Standard build/browser checks are
+  sandbox-blocked; see the Batch 3 record.
 - [ ] Phase 2 remainder: prepare further eligible imports in separate changes
   with provenance and semantic checks; these batches do not complete this phase.
 - [ ] Phase 3: rehearse the combined hub artifact and every mapped legacy route.
