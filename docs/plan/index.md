@@ -2,7 +2,7 @@
 
 Status: Phase 0 light inventory and Phase 1 local HTML gate complete; IG outline
 and first entry batch implemented; Phase 2 Incerto Batches 1–3 and Normix
-Theory Batch 1 executed locally.
+Theory Batches 1–2 executed locally.
 Source review date: 2026-09-13.
 
 This planning set guides the foundation, approved imports, and later
@@ -23,6 +23,7 @@ personal hub. Normix remains an independent JAX package and API project.
 | [Incerto Batch 2](phase-2-incerto-batch-2.md) | Executed nine-page EVT and diagnostics import, adaptations, and deferred material |
 | [Incerto Batch 3](phase-2-incerto-batch-3.md) | Executed eight-page sums, geometry, catalog, and concept-index import |
 | [Normix Theory Batch 1](phase-2-normix-theory-batch-1.md) | Executed eight-page import scope, adaptations, and deferred material |
+| [Normix Theory Batch 2](phase-2-normix-theory-batch-2.md) | Executed five-page sequential EM, factor analysis, shrinkage, varentropy, and EM-framework math import |
 | [Rule index](../rules/index.md) | Current rule routes and intentionally deferred rule bodies |
 
 [ARCHITECTURE.md](../../ARCHITECTURE.md) describes the source scaffold now present.
@@ -48,8 +49,9 @@ have now been adapted under MIT; see
 the [Batch 1 record](../records/phase-2-batch-1-verification.md),
 [Batch 2 record](../records/phase-2-batch-2-verification.md), and
 [Batch 3 record](../records/phase-2-batch-3-verification.md).
-Eight approved Normix theory/design/tutorial bodies have also been adapted
-under MIT; see the [Normix verification record](../records/phase-2-normix-batch-1-verification.md).
+Thirteen approved Normix theory/design/tutorial bodies have also been adapted
+under MIT; see the [Normix Batch 1 record](../records/phase-2-normix-batch-1-verification.md)
+and [Batch 2 record](../records/phase-2-normix-batch-2-verification.md).
 No private history or Normix implementation was imported. No site
 was deployed, CI configured, Lean project created, or agent skills installed.
 
@@ -78,6 +80,9 @@ full import coverage remains a later gate:
   indexes with provenance and static calculations; the 46-page checker passes
   on a separate theme-rendered export. Standard build/browser checks are
   sandbox-blocked; see the Batch 3 record.
+- [x] Phase 2 Normix Theory Batch 2: adapt four theory notes and retain a
+  standalone mathematical EM-framework rewrite; standard strict build and
+  the extended 51-page HTML checker pass in the current execution environment.
 - [ ] Phase 2 remainder: prepare further eligible imports in separate changes
   with provenance and semantic checks; these batches do not complete this phase.
 - [ ] Phase 3: rehearse the combined hub artifact and every mapped legacy route.

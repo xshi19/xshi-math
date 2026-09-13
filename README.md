@@ -10,8 +10,9 @@ The foundation has three tracks:
   and stable limits, and diagnostics, plus three concept indexes.
 - **Information Geometry:** six original entry notes on manifolds, exponential
   families, EM, conditional expectation, Fisher geometry, and duality.
-- **Normix theory:** an original conditioning example and eight adapted notes
-  on GIG/GH distributions, mixtures, exponential families, and EM, linked to the
+- **Normix theory:** an original conditioning example and thirteen adapted notes
+  on GIG/GH distributions, mixtures, exponential families, EM, factor analysis,
+  shrinkage, and information quantities, linked to the
   independently maintained [normix package](https://github.com/xshi19/normix).
 
 The [hub](https://github.com/xshi19/xshi19.github.io) owns assembly and publication
@@ -23,15 +24,17 @@ Foundation Python checks and earlier pinned site builds passed under `/math/`.
 The [IG outline](docs/plan/ig-entry-outline.md), first IG entry batch,
 [Incerto Batch 1](docs/plan/phase-2-incerto-batch-1.md),
 [Incerto Batch 2](docs/plan/phase-2-incerto-batch-2.md),
-[Incerto Batch 3](docs/plan/phase-2-incerto-batch-3.md), and
-[Normix Theory Batch 1](docs/plan/phase-2-normix-theory-batch-1.md) are implemented.
+[Incerto Batch 3](docs/plan/phase-2-incerto-batch-3.md),
+[Normix Theory Batches 1](docs/plan/phase-2-normix-theory-batch-1.md) and
+[2](docs/plan/phase-2-normix-theory-batch-2.md) are implemented.
 See the [foundation record](docs/records/phase-0-1-verification.md),
 [IG verification record](docs/records/ig-entry-verification.md),
 [Incerto Batch 1 record](docs/records/phase-2-batch-1-verification.md),
 [Incerto Batch 2 record](docs/records/phase-2-batch-2-verification.md),
-[Incerto Batch 3 record](docs/records/phase-2-batch-3-verification.md), and
-[Normix verification record](docs/records/phase-2-normix-batch-1-verification.md)
-for results and remaining publication checks. Twenty-six Incerto concept pages and eight Normix
+[Incerto Batch 3 record](docs/records/phase-2-batch-3-verification.md),
+[Normix Batch 1 record](docs/records/phase-2-normix-batch-1-verification.md), and
+[Normix Batch 2 record](docs/records/phase-2-normix-batch-2-verification.md)
+for results and remaining publication checks. Twenty-six Incerto concept pages and thirteen Normix
 notes have been imported; no private history was imported and no CI is
 configured. Further imports remain planned.
 
@@ -84,13 +87,13 @@ BASE_URL=/math ./node_modules/.bin/myst build --html --strict --ci
 
 MyST takes the path prefix from `BASE_URL`; `site.domains` contains the host
 without a path. This follows the [MyST base URL documentation](https://mystmd.org/guide/deployment).
-The Batch 3 sandbox blocks the localhost servers required by `npm run build`.
-The 46-page checker passes on a separate export using the cached theme renderer;
-the standard build and browser gate still need a runner that permits localhost.
-See the [Batch 3 record](docs/records/phase-2-batch-3-verification.md).
+The standard build and extended 51-page checker pass in the Normix Batch 2
+execution environment; the earlier Batch 3 localhost restriction is recorded
+as a historical limit in its verification record. See the
+[Normix Batch 2 record](docs/records/phase-2-normix-batch-2-verification.md).
 
 HTML should be written to `_build/html/`, ready for later assembly into the hub's
-`math/` directory. `check:html` checks the forty-six expected pages, local
+`math/` directory. `check:html` checks the fifty-one expected pages, local
 links/assets/fragments, prefix, shared CSS, and rendered equations, including
 KaTeX error markers. It is not a browser review.
 Build and browser inspection results and limits are recorded separately.

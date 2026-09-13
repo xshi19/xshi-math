@@ -1,7 +1,10 @@
-# Phase 2 — Normix Theory Batch 2 (proposed)
+# Phase 2 — Normix Theory Batch 2 (imported)
 
-Status: **proposal only** — not executed. Writes under `/tmp` only; do not
-modify `/workspace/xshi-math` from this planning pass.
+Status: **imported / executed locally** — five mathematical notes adapted or
+rewritten under `content/`; the EM-framework extract stands alone and was not
+folded. Navigation, provenance, migration records, and the 51-page checker are
+updated. See the [verification record](../records/phase-2-normix-batch-2-verification.md)
+for checks and publication limits. Changes are left uncommitted.
 Date: 2026-09-12 (ET) / 2026-09-13 UTC.
 Source: public `https://github.com/xshi19/normix` at
 `763bb3608920661a012cf089888d349fbf680aad`, read from `/workspace/normix`.
@@ -32,9 +35,10 @@ ASV / release machinery. Package how-tos remain at
 | `normix-gh-family-tour` | `docs/tutorials/core/02_gh_family_tour.md` |
 | `normix-normal-mixtures` | `docs/tutorials/distributions/04_normal_mixtures.md` |
 
-Scaffold (unchanged): `normix-theory`, `normix-conditioning-a-mixture`.
+Existing scaffold: `normix-theory` gains the Batch 2 reading path;
+`normix-conditioning-a-mixture` is unchanged.
 
-## Source survey residual (`docs/` @ 763bb36)
+## Source survey before Batch 2 (`docs/` @ 763bb36)
 
 | Area | Remaining after Batch 1 | Batch 2? |
 | --- | --- | --- |
@@ -46,7 +50,7 @@ Scaffold (unchanged): `normix-theory`, `normix-conditioning-a-mixture`.
 | Tutorials (core Bessel/sampling, em/*, stats/*, finance/*) | — | **defer** |
 | `docs/research/*`, `docs/pdfs/*` | — | defer / stay |
 
-## Batch 2 pages (5)
+## Imported Batch 2 pages (5)
 
 MyST flat stems under `content/<stem>.md`; public slugs `/math/<stem>`.
 Cross-links to package behavior remain absolute to
@@ -88,6 +92,12 @@ Reading path continuing Batch 1 EM / EF / mixture geometry:
    math, fold those two sections into `normix-online-em` /
    `normix-shrinkage` instead of a fifth stem (fallback: **4 pages**).
 
+The standalone fifth note retains aggregation and recovery maps, general and
+affine rules, the scalar Bregman penalty, composition algebra, and the limits
+of blockwise and sequential shrinkage. This exceeds the fallback threshold
+without API tables or fitting recipes. The conditional fallback below records
+the original decision criterion; it was not needed.
+
 ### Per-page notes
 
 #### 1. `normix-online-em` — adapt
@@ -128,7 +138,7 @@ Reading path continuing Batch 1 EM / EF / mixture geometry:
   models”; no ``normix`` API names required for the math to stand alone.
 - **IG value:** varentropy as L² surprisal; fat-tail-friendly vs kurtosis.
 
-#### 5. `normix-em-framework` — rewrite (conditional)
+#### 5. `normix-em-framework` — rewrite (retained)
 
 - **Source:** `docs/design/em_framework.md` (~394 lines). Keep §3–§4 math;
   drop §1–§2 API, §5 product modes, §6 loop dispatch, §7 cross-ref tables
@@ -170,7 +180,7 @@ Reading path continuing Batch 1 EM / EF / mixture geometry:
 - Do **not** claim new GH curvature / marginal Fisher formulas beyond what
   adapted pages prove; `information-geometry-gh-*` remains a separate track.
 
-## Proposed adaptation contract
+## Executed adaptation contract
 
 1. Read selected Markdown + MIT license from the pinned checkout; record pin in
    provenance. Source tree read-only.
@@ -190,7 +200,7 @@ Reading path continuing Batch 1 EM / EF / mixture geometry:
    varentropy; optional EM-framework math note); update manifest / URL map /
    checker; run strict MyST HTML build.
 
-## Suggested TOC extension under `normix-theory.md`
+## Reading-path extension under `normix-theory.md`
 
 After Batch 1 EM / why-not-GD:
 
@@ -202,11 +212,13 @@ After Batch 1 EM / why-not-GD:
 Keep absolute links to upstream design (full EM framework, Bessel solvers) and
 API for implementers.
 
-## Non-goals (publication)
+## Execution and publication boundaries
 
-- Opening a PR / committing / pushing from this planning workspace.
-- Modifying `/workspace/xshi-math` as part of this `/tmp` plan write.
-- Importing finance, API, or package code.
+- All writes are confined to `/workspace/xshi-math`; the pinned Normix source
+  checkout remains read-only.
+- Changes remain uncommitted for the parent; no branch change, push, PR, or
+  publication is part of this execution.
+- Finance, API, and package code remain excluded.
 
 ## After Batch 2 (residual)
 
@@ -219,12 +231,13 @@ Optional later: thin NumPy demos under `demos/normix/` (separate PR, pinned
 ## Survey counts (reference)
 
 - Theory body pages: 12 · Design body: 5 (excl. indexes).
-- Batch 1 = **8** pages; Batch 2 proposes **5** (or **4** if `em_framework`
-  rewrite is folded).
+- Batch 1 = **8** pages; Batch 2 imported **5**, including the standalone
+  `em_framework` mathematical rewrite. The four-page fallback was not used.
 - Finance theory pages: 5 — still excluded.
 - Already present scaffold hubs: **2**.
 
 ## Page count & path
 
-- **Pages proposed in Batch 2:** 5 (fallback 4 if EM-framework math is folded)
-- **Plan file:** `/tmp/xshi-math-next-batches/phase-2-normix-theory-batch-2.md`
+- **Pages imported in Batch 2:** 5; total site pages: 51.
+- **Plan file:** `docs/plan/phase-2-normix-theory-batch-2.md`
+- **Verification:** [Batch 2 record](../records/phase-2-normix-batch-2-verification.md).
