@@ -19,6 +19,19 @@ project:
         - file: content/incerto-extreme-value-index.md
         - file: content/incerto-generalized-pareto.md
         - file: content/incerto-plug-in-tail-estimation.md
+        - title: Peaks over threshold & maxima
+          children:
+            - file: content/incerto-pickands-balkema-de-haan.md
+            - file: content/incerto-generalized-extreme-value.md
+            - file: content/incerto-frechet.md
+            - file: content/incerto-tail-threshold-selection.md
+        - title: One-big-jump diagnostics
+          children:
+            - file: content/incerto-subexponentiality.md
+            - file: content/incerto-survival-tail-ratio.md
+            - file: content/incerto-max-to-sum-ratio.md
+            - file: content/incerto-double-pareto.md
+            - file: content/incerto-body-shoulder-tail.md
     - file: content/information-geometry.md
       children:
         - file: content/information-geometry-euclidean-to-manifold.md
