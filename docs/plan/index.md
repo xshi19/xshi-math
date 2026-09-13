@@ -1,7 +1,8 @@
 # Planning Index
 
 Status: Phase 0 light inventory and Phase 1 local HTML gate complete; IG outline
-and first entry batch implemented; Phase 2 Incerto Batch 1 executed locally.
+and first entry batch implemented; Phase 2 Incerto and Normix Theory Batch 1
+executed locally.
 Source review date: 2026-09-13.
 
 This planning set guides the foundation, approved imports, and later
@@ -19,6 +20,7 @@ personal hub. Normix remains an independent JAX package and API project.
 | [License advice](../design/LICENSE_ADVICE.md) | Adopted MIT scope, deferred alternative, Incerto import decision, private-to-public review |
 | [IG entry outline](ig-entry-outline.md) | Implemented Basics / early IG pages, prerequisites, and the later GH/Normix research sequence |
 | [Incerto Batch 1](phase-2-incerto-batch-1.md) | Executed nine-page import scope, adaptations, and deferred material |
+| [Normix Theory Batch 1](phase-2-normix-theory-batch-1.md) | Executed eight-page import scope, adaptations, and deferred material |
 | [Rule index](../rules/index.md) | Current rule routes and intentionally deferred rule bodies |
 
 [ARCHITECTURE.md](../../ARCHITECTURE.md) describes the source scaffold now present.
@@ -41,6 +43,8 @@ Basics / early IG notes. Their checks and remaining publication limits are in
 the [IG verification record](../records/ig-entry-verification.md).
 The nine approved Incerto concept bodies have now been adapted under MIT; see
 the [Batch 1 verification record](../records/phase-2-batch-1-verification.md).
+Eight approved Normix theory/design/tutorial bodies have also been adapted
+under MIT; see the [Normix verification record](../records/phase-2-normix-batch-1-verification.md).
 No private history or Normix implementation was imported. No site
 was deployed, CI configured, Lean project created, or agent skills installed.
 
@@ -61,6 +65,8 @@ full import coverage remains a later gate:
   Incerto import. Later marginalization and GH/Normix pages remain planned.
 - [x] Phase 2 Batch 1: adapt the nine approved Incerto concepts with provenance,
   static calculations, semantic review, and local HTML checks.
+- [x] Phase 2 Normix Theory Batch 1: adapt eight approved notes with provenance,
+  aligned notation, static mathematics, and the 29-page local HTML gate.
 - [ ] Phase 2 remainder: prepare further eligible imports in separate changes
   with provenance and semantic checks; Batch 1 does not complete this phase.
 - [ ] Phase 3: rehearse the combined hub artifact and every mapped legacy route.

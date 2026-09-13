@@ -1,4 +1,4 @@
-"""Check the foundation, IG, and Incerto Batch 1 artifact under BASE_URL=/math.
+"""Check all 29 foundation, IG, Incerto, and Normix pages under BASE_URL=/math.
 
 Run after ``npm run build``. This checks files and URLs, not browser behavior.
 """
@@ -31,8 +31,16 @@ PAGES = (
     "information-geometry-duality/index.html",
     "normix-theory/index.html",
     "normix-conditioning-a-mixture/index.html",
+    "normix-generalized-inverse-gaussian/index.html",
+    "normix-generalized-hyperbolic/index.html",
+    "normix-em-algorithm/index.html",
+    "normix-exponential-family-core/index.html",
+    "normix-mixture-architecture/index.html",
+    "normix-why-not-gradient-descent/index.html",
+    "normix-gh-family-tour/index.html",
+    "normix-normal-mixtures/index.html",
 )
-# Every note (including all nine imports) and the IG hub require KaTeX display
+# Every note (including all seventeen imports) and the IG hub require KaTeX display
 # equations. Exclude only the three hubs without equations, so new notes inherit
 # the math check instead of silently passing with unrendered source formulas.
 MATH_PAGES = set(PAGES) - {

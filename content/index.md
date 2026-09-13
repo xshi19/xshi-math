@@ -13,10 +13,12 @@ should remain explicit when an idea crosses between tracks.
   [exponential families](./information-geometry-exponential-families.md) to
   [Fisher geometry](./information-geometry-fisher-vs-l2.md), EM, and duality.
 - [Normix theory](./normix-theory.md) starts with conditioning a mixture and links
-  to the independently maintained package.
+  to eight notes on GIG/GH distributions, mixtures, exponential families, and EM,
+  with implementation links to the independently maintained package.
 
 The original entry notes and worked examples are joined by
-[nine adapted Incerto concepts](./incerto.md), each carrying its source notice.
+[nine adapted Incerto concepts](./incerto.md) and
+[eight Normix theory notes](./normix-theory.md), each carrying its source notice.
 Further Incerto and Normix imports remain planned.
 Numerical examples illustrate stated calculations; they do not establish
 asymptotic theorems. No Lean statements are claimed to be checked here.

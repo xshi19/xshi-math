@@ -40,6 +40,13 @@ mean $\mu+\beta$ and variance $\sigma^2$. The second-moment assumption is a
 sufficient condition for the displayed calculation, not a definition of every
 possible normal mixture.
 
+The [normal-mixtures note](./normix-normal-mixtures.md) extends this calculation
+to vectors. The [GH note](./normix-generalized-hyperbolic.md) uses the literature
+symbols $Y=W$, $\gamma=\beta$, and $\Sigma=\sigma^2$ in one dimension,
+while keeping $Z$ standard normal and independent. Choosing a
+[GIG law](./normix-generalized-inverse-gaussian.md) for the mixing variable
+leads to the posterior calculations in [EM for GH](./normix-em-algorithm.md).
+
 This original derivation introduces a mathematical model, not an assertion
 about a specific `normix` constructor or parameterization. Consult the
 [upstream package](https://github.com/xshi19/normix) when writing executable
