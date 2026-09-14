@@ -1,0 +1,7 @@
+interface:
+  display_name: "xshi-math Hub Publish"
+  short_description: "Build math site; optional hub rsync"
+  default_prompt: "Use $xshi-math-hub-publish to rebuild or transfer /math/."
+
+policy:
+  allow_implicit_invocation: true

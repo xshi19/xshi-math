@@ -14,9 +14,11 @@ discover it. Put shared rule bodies in `docs/rules/` and use thin
 The framework must remain usable with Codex alone: no task requires Cursor
 quota, an editor-specific command, or a cross-provider review panel.
 
-The root router, rule-index stub, and active [Codex project defaults](../../.codex/config.toml)
-with a short [README](../../.codex/README.md) are present. The skill names,
-adapters, and nested routers below remain proposed.
+The root router, rule index, and active [Codex project defaults](../../.codex/config.toml)
+with a short [README](../../.codex/README.md) are present. P0 writing/math skills
+and two rule bodies are installed; see
+[AGENT_HARNESS_MIGRATION.md](AGENT_HARNESS_MIGRATION.md). Cursor adapters and
+Lean/deep-math skills remain deferred.
 
 ## Model selection policy
 
@@ -226,8 +228,11 @@ commands refer to nonexistent files or whose success implies unperformed review.
 
 ## Starter skills
 
-Start with the recipes that actual authoring repeats. These are candidates, not
-an installed catalog:
+Start with the recipes that actual authoring repeats. P0 installed the
+`xshi-math-*` writing/math set documented in
+[AGENT_HARNESS_MIGRATION.md](AGENT_HARNESS_MIGRATION.md). The table below remains
+the design rationale (names differ slightly: installed skills use the
+`xshi-math-` prefix):
 
 | Candidate under `.agents/skills/` | Trigger and non-trigger | Output / completion |
 | --- | --- | --- |

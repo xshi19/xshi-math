@@ -1,0 +1,7 @@
+interface:
+  display_name: "xshi-math Git Conventions"
+  short_description: "Safe commits and PRs"
+  default_prompt: "Use $xshi-math-git-conventions for git commit and PR work."
+
+policy:
+  allow_implicit_invocation: true

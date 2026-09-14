@@ -1,0 +1,7 @@
+interface:
+  display_name: "xshi-math Concept Page"
+  short_description: "Create or revise math notes"
+  default_prompt: "Use $xshi-math-concept-page to create or update a math note."
+
+policy:
+  allow_implicit_invocation: true

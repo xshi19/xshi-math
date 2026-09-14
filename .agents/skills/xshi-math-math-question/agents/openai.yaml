@@ -1,0 +1,7 @@
+interface:
+  display_name: "xshi-math Math Question"
+  short_description: "Answer math questions before editing"
+  default_prompt: "Use $xshi-math-math-question to answer a math-content question."
+
+policy:
+  allow_implicit_invocation: true
