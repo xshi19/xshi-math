@@ -7,12 +7,18 @@ project:
   github: https://github.com/xshi19/xshi-math
   toc:
     - file: content/ig/index.md
-    - file: content/information-geometry-euclidean-to-manifold.md
-    - file: content/information-geometry-exponential-families.md
-    - file: content/information-geometry-latent-variables-em.md
-    - file: content/information-geometry-conditional-expectation.md
-    - file: content/information-geometry-fisher-vs-l2.md
-    - file: content/information-geometry-duality.md
+    - title: Foundations
+      children:
+        - file: content/information-geometry-euclidean-to-manifold.md
+        - file: content/information-geometry-exponential-families.md
+    - title: Geometry
+      children:
+        - file: content/information-geometry-fisher-vs-l2.md
+        - file: content/information-geometry-conditional-expectation.md
+        - file: content/information-geometry-duality.md
+    - title: Examples
+      children:
+        - file: content/information-geometry-latent-variables-em.md
 site:
   template: book-theme
   title: Information Geometry
