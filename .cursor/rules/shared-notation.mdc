@@ -1,0 +1,9 @@
+---
+description: Reuse cross-track symbols from the shared notation canon before inventing new ones.
+globs: "content/**/*.md"
+alwaysApply: false
+---
+Read and apply the canonical rule before introducing or changing symbols:
+@docs/rules/shared-notation.md
+Also consult the public canon page:
+@content/notation.md

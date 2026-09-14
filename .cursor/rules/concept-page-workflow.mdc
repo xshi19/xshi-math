@@ -1,0 +1,7 @@
+---
+description: Load the concept-page skill for substantial math-note creation or revision under content/.
+globs: "content/**/*.md"
+alwaysApply: false
+---
+For creating or substantially revising notes under `content/` (not narrow typo fixes), read and follow:
+@.agents/skills/xshi-math-concept-page/SKILL.md

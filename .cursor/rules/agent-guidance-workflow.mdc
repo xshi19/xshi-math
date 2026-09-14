@@ -1,0 +1,16 @@
+---
+description: Load the agent-guidance skill when changing routers, rules, skills, or harness design docs.
+globs:
+  - AGENTS.md
+  - "**/AGENTS.md"
+  - docs/design/AGENT_*.md
+  - docs/rules/**
+  - .agents/skills/**
+  - .cursor/rules/**
+alwaysApply: false
+---
+When maintaining agent routers, rules, skills, or harness docs, read and follow:
+@.agents/skills/xshi-math-agent-guidance/SKILL.md
+Canonical framework and migration plan:
+@docs/design/AGENT_FRAMEWORK.md
+@docs/design/AGENT_HARNESS_MIGRATION.md

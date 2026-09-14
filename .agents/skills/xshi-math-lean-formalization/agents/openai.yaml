@@ -1,0 +1,4 @@
+interface:
+  display_name: "xshi-math Lean Formalization"
+  short_description: "Scope Lean work; no project yet"
+  default_prompt: "Use $xshi-math-lean-formalization to scope a formalization claim honestly (no Lean tree exists yet unless one was just added)."

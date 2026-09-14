@@ -15,10 +15,11 @@ The framework must remain usable with Codex alone: no task requires Cursor
 quota, an editor-specific command, or a cross-provider review panel.
 
 The root router, rule index, and active [Codex project defaults](../../.codex/config.toml)
-with a short [README](../../.codex/README.md) are present. P0 writing/math skills
-and two rule bodies are installed; see
-[AGENT_HARNESS_MIGRATION.md](AGENT_HARNESS_MIGRATION.md). Cursor adapters and
-Lean/deep-math skills remain deferred.
+with a short [README](../../.codex/README.md) are present. P0 writing/math skills,
+two rule bodies, P1 thin `.cursor/rules/*.mdc` adapters, and P2
+reading-guide / lean-formalization / deep-math skills are installed; see
+[AGENT_HARNESS_MIGRATION.md](AGENT_HARNESS_MIGRATION.md). Lean project and
+deep-math Python deps remain optional prerequisites, not present by default.
 
 ## Model selection policy
 
@@ -143,8 +144,8 @@ policy and records only the local difference. Keep skills in the single root
 
 ## Thin adapters and symlinks
 
-Prefer small checked-in adapters for Cursor rules. A future adapter might look
-like this **after** `docs/rules/mathematical-writing.md` has been created:
+Prefer small checked-in adapters for Cursor rules. Installed adapters follow
+this shape (see `.cursor/rules/`):
 
 ```mdc
 ---
@@ -241,11 +242,11 @@ the design rationale (names differ slightly: installed skills use the
 | `numerical-demo` | Add or change a reproducible computation/visualization; skip a static link update | Executed demo, inspectable figures, dependency/input record, and meaningful numerical checks |
 | `agent-guidance` | Repair a recurring routing failure, adapt a common workflow, or prune guidance after a phase | One canonical change, updated pointers, and evidence that the route helps without creating duplicate triggers |
 
-Keep source-to-concept reading-guide steps within `math-page` at first; split
-them out when that procedure becomes distinct and common. Add
-`lean-formalization` only when Lean work starts, and `publish-site` only after
-the publication path exists and has been rehearsed. A one-time migration can
-remain a phase checklist instead of becoming a permanent skill.
+`xshi-math-reading-guide` and `xshi-math-lean-formalization` are installed as
+honest procedures (no reading-guides tree; no Lean project yet).
+`xshi-math-hub-publish` covers local site build and optional hub transfer.
+A one-time migration can remain a phase checklist instead of becoming a
+permanent skill.
 
 Each implemented skill should contain:
 

@@ -18,6 +18,9 @@ Use the root [AGENTS.md](../../AGENTS.md) skill table. Typical load:
 - Substantial note work: `$xshi-math-concept-page`
 - Proofs: `$xshi-math-proof-writing`
 - Settled prose: `$xshi-math-prose-review` / `$xshi-math-unslop`
+- Source→concept map: `$xshi-math-reading-guide`
+- Lean scoping (no Lean tree yet): `$xshi-math-lean-formalization`
+- Hard consult: `$xshi-math-deep-math-agent`
 - Writing constraints: [mathematical-writing](../../docs/rules/mathematical-writing.md)
 
 Keep relative Markdown links inside this subsite. Cross-track links need full

@@ -1,0 +1,7 @@
+interface:
+  display_name: "xshi-math Reading Guide"
+  short_description: "Map sources onto flat stems and hubs"
+  default_prompt: "Use $xshi-math-reading-guide to map a source onto xshi-math notes without inventing a reading-guides tree."
+
+policy:
+  allow_implicit_invocation: true

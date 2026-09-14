@@ -1,0 +1,7 @@
+---
+description: Apply shared mathematical writing constraints to content and docs prose edits.
+globs: "content/**/*.md"
+alwaysApply: false
+---
+Read and apply the canonical rule before editing mathematical content:
+@docs/rules/mathematical-writing.md

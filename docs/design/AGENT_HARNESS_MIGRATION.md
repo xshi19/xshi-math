@@ -9,8 +9,8 @@ This document decides what to port from the Incerto and Normix agent trees,
 where the canonical copies live, and how an agent should load them day-to-day.
 It implements the discovery contract in
 [AGENT_FRAMEWORK.md](AGENT_FRAMEWORK.md): one skill tree at `.agents/skills/`,
-shared rule bodies in `docs/rules/`, and optional thin `.cursor/rules` adapters
-later.
+shared rule bodies in `docs/rules/`, and thin `.cursor/rules` adapters for
+Cursor activation metadata.
 
 ## Upstream inventories (cite these)
 
@@ -64,9 +64,10 @@ Do **not** create `.cursor/skills/` (symlink or copy). Cursor discovers
 | Math hub publish | **Thin note →** `xshi-math-hub-publish` | Local `npm run build` / `check:html`, then optional rsync into hub `math/`; hub owns Pages |
 | Normix `principles` / `how` / `why` | **Leave upstream for now** | Heavy JAX/package/design-table grounding. Revisit thin doc kernels only after friction |
 | Normix `tdd`, `arena`, `running-tests`, `architect`, `interrogate`, `show-me`, `figure-it-out`, `agent-maintenance` | **Leave upstream** | Package/TDD/JAX workflows do not match this MyST monorepo |
-| Incerto `reading-guide` | **Defer (P2)** | No reading-guide tree yet; fold source-to-concept steps into concept-page until needed |
-| Incerto `lean-formalization`, `deep-math-agent` | **Defer (P2)** | No Lean project or deep-math runner here |
-| Normix `.cursor/rules/*` | **Selectively extract** | P0: mathematical writing + shared notation as `docs/rules/` bodies. P1: thin `.mdc` adapters only |
+| Incerto `reading-guide` | **Adapt →** `xshi-math-reading-guide` | No `content/reading-guides/` tree; author on demand via flat stems/hubs; fold short maps into concept-page |
+| Incerto `lean-formalization` | **Adapt →** `xshi-math-lean-formalization` | Honest: no Lean project yet; skill states prerequisites and when to open a Lean subtree |
+| Incerto `deep-math-agent` | **Adapt →** `xshi-math-deep-math-agent` | Runner + archive under `docs/records/deep-math/`; deps optional until a paid run |
+| Normix `.cursor/rules/*` | **Selectively extract** | P0: mathematical writing + shared notation as `docs/rules/` bodies. P1: thin `.mdc` adapters installed |
 | Incerto `docs/rules/{writing,content,agent-guidance}.md` | **Synthesize** | Writing → `mathematical-writing.md`; notation invariants → `shared-notation.md`; do not clone the full Incerto rule set |
 
 ## Target layout
@@ -81,11 +82,15 @@ Do **not** create `.cursor/skills/` (symlink or copy). Cursor discovers
   xshi-math-git-conventions/SKILL.md
   xshi-math-unslop/SKILL.md (+ references/writing-registers.md)
   xshi-math-hub-publish/SKILL.md
+  xshi-math-reading-guide/SKILL.md
+  xshi-math-lean-formalization/SKILL.md
+  xshi-math-deep-math-agent/SKILL.md (+ scripts/, references/, archive README)
 docs/rules/
   index.md                 # routes to bodies
   mathematical-writing.md  # P0
   shared-notation.md       # P0
-.cursor/rules/*.mdc        # P1 only: activation metadata + pointer, no policy body
+.cursor/rules/*.mdc        # P1: activation metadata + pointer, no policy body
+docs/records/deep-math/    # deep-math report archive convention
 AGENTS.md                  # router lists installed skills
 content/{incerto,ig,normix-theory}/AGENTS.md  # track + skill pointers
 .codex/config.toml         # already: gpt-6-astra + xhigh
@@ -145,21 +150,33 @@ transfer; this repo does not own Pages settings. See
 5. Leave Lean/deep-math/reading-guide, Cursor adapters, and package-centric
    Normix skills out.
 
-### P1 — Cursor adapters (deferred)
+### P1 — Cursor adapters (done)
 
-Add thin `.cursor/rules/*.mdc` files that only set `description` / `globs` /
-`alwaysApply: false` and point at `docs/rules/*.md`. Candidates:
+Installed thin `.cursor/rules/*.mdc` files that only set `description` /
+`globs` / `alwaysApply: false` and point at canonical bodies (no policy text
+in the adapters):
 
-- mathematical-writing → `content/**/*.md`
-- shared-notation → `content/**/*.md`
+- `mathematical-writing.mdc` → `docs/rules/mathematical-writing.md`
+- `shared-notation.mdc` → `docs/rules/shared-notation.md` (+ `content/notation.md`)
+- `concept-page-workflow.mdc` → `.agents/skills/xshi-math-concept-page/SKILL.md`
+- `prose-review-workflow.mdc` → prose-review / unslop skills + writing rule
+- `agent-guidance-workflow.mdc` → agent-guidance skill + framework docs
 
-No independent policy in the adapters. Skip if Codex-only workflow is enough.
+Normix `.cursor/rules` were used only as activation-pattern reference (globs /
+alwaysApply), not as package/JAX policy to copy.
 
-### P2 — lean / deep-math / reading-guide (if needed)
+### P2 — lean / deep-math / reading-guide (done as honest adaptations)
 
-Port only when a Lean tree, deep-math runner, or reading-guide directory exists
-and the workflow repeats. Until then, keep formalization notes out of public
-prose and use concept-page + proof-writing.
+Installed adapted skills even though supporting trees are incomplete:
+
+- `xshi-math-reading-guide` — how to author a map on flat stems/hubs; no fake
+  `content/reading-guides/` pages.
+- `xshi-math-lean-formalization` — prerequisites and when to open a Lean
+  subtree; does not claim `lean-blueprint` exists.
+- `xshi-math-deep-math-agent` — adapted runner + `docs/records/deep-math/`
+  archive; document deps; dry-run before paid calls.
+
+Keep formalization claims out of public prose until a real `lake build` exists.
 
 ### Explicitly not blocking this harness PR
 
@@ -189,6 +206,9 @@ Load the smallest useful set:
    - git/PR → `$xshi-math-git-conventions`
    - guidance maintenance → `$xshi-math-agent-guidance`
    - local site build / hub transfer note → `$xshi-math-hub-publish`
+   - source→concept reading map → `$xshi-math-reading-guide`
+   - Lean scoping / future formalization → `$xshi-math-lean-formalization`
+   - hard external math consult → `$xshi-math-deep-math-agent`
 5. **Touched sources** (page, notation, citations, demos) and only then broader
    design docs when changing a boundary.
 
@@ -212,5 +232,14 @@ Installed with this plan:
 - `docs/rules/mathematical-writing.md`, `docs/rules/shared-notation.md`
 - Updated `docs/rules/index.md`, root `AGENTS.md`, and the three track routers
 
-Deferred: P1 Cursor adapters; P2 lean/deep-math/reading-guide; Normix
-package/TDD/arena skills; theme/TOC/IG content polish.
+## P1 / P2 install record
+
+- `.cursor/rules/{mathematical-writing,shared-notation,concept-page-workflow,prose-review-workflow,agent-guidance-workflow}.mdc`
+- `.agents/skills/xshi-math-{reading-guide,lean-formalization,deep-math-agent}/`
+- `docs/records/deep-math/README.md`
+- Updated migration plan, framework status, rule index, root and track `AGENTS.md`
+
+Honest gaps: no Lean project / blueprint; no `content/reading-guides/` tree;
+deep-math Python deps (`openai` / `openai-agents`) may be absent until a run.
+
+Still deferred: Normix package/TDD/arena skills; theme/TOC/IG content polish.

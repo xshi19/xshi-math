@@ -1,8 +1,8 @@
 # Rule Index
 
 Shared rule bodies live here. Skills under `.agents/skills/` own procedures;
-thin `.cursor/rules/*.mdc` adapters (P1, not installed yet) may point here but
-must not duplicate policy. See
+thin `.cursor/rules/*.mdc` adapters point here (and to skills) but must not
+duplicate policy. See
 [AGENT_FRAMEWORK.md](../design/AGENT_FRAMEWORK.md) and
 [AGENT_HARNESS_MIGRATION.md](../design/AGENT_HARNESS_MIGRATION.md).
 
@@ -12,6 +12,19 @@ must not duplicate policy. See
 | --- | --- |
 | Mathematical prose, voice, AI-pattern signals | [mathematical-writing.md](mathematical-writing.md) |
 | Cross-track symbol reuse (`/math/notation/`) | [shared-notation.md](shared-notation.md) |
+
+## Cursor adapters (activation only)
+
+| Adapter | Points to |
+| --- | --- |
+| `.cursor/rules/mathematical-writing.mdc` | [mathematical-writing.md](mathematical-writing.md) |
+| `.cursor/rules/shared-notation.mdc` | [shared-notation.md](shared-notation.md), `content/notation.md` |
+| `.cursor/rules/concept-page-workflow.mdc` | `$xshi-math-concept-page` |
+| `.cursor/rules/prose-review-workflow.mdc` | `$xshi-math-prose-review` / `$xshi-math-unslop` |
+| `.cursor/rules/agent-guidance-workflow.mdc` | `$xshi-math-agent-guidance` |
+
+Adapters set `description` / `globs` / `alwaysApply: false` only. Codex does
+not rely on them; routers and skills remain the shared discovery path.
 
 ## Other durable sources
 

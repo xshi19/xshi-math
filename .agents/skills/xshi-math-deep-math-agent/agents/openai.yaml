@@ -1,0 +1,7 @@
+interface:
+  display_name: "xshi-math Deep Math Agent"
+  short_description: "Consult GPT-5.5 pro on hard math"
+  default_prompt: "Use $xshi-math-deep-math-agent to investigate this hard math question and return a rigorous Markdown report."
+
+policy:
+  allow_implicit_invocation: true
