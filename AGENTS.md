@@ -1,9 +1,11 @@
 # Agent Router
 
-This repository contains a minimal MyST/Python source foundation for mathematical
-notes. Read [README.md](README.md) and [ARCHITECTURE.md](ARCHITECTURE.md) for scope.
-MIT applies to repository-owned material. The [planning index](docs/plan/index.md)
-records completed gates; files still described as proposed do not yet exist.
+This repository contains a MyST/Python foundation for mathematical notes across
+three subsites (Incerto, Information Geometry, Normix theory) plus a landing
+page. Read [README.md](README.md) and [ARCHITECTURE.md](ARCHITECTURE.md) for
+scope. MIT applies to repository-owned material. The
+[planning index](docs/plan/index.md) records completed gates; files still
+described as proposed do not yet exist.
 
 ## Model selection
 
@@ -27,12 +29,35 @@ they do not replace the owner choice when none has been supplied. See the
 | Roadmap, current phase, unresolved decisions | [Planning index](docs/plan/index.md) |
 | Repository boundaries, tracks, URLs, deployment | [Consolidation plan](docs/plan/consolidation.md) |
 | Agent instructions, rules, skills, client configuration | [Agent framework](docs/design/AGENT_FRAMEWORK.md) |
+| Harness migration, port decisions, day-to-day read order | [Harness migration](docs/design/AGENT_HARNESS_MIGRATION.md) |
 | Licensing, source reuse, private-to-public preparation | [License advice](docs/design/LICENSE_ADVICE.md) |
 | Locate a task-specific rule | [Rule index](docs/rules/index.md) |
 
 Before changing a subtree, inspect any more specific `AGENTS.md` along its path.
 When working from the repo root, explicitly read applicable nested guidance;
 do not assume a client has loaded instructions below its starting directory.
+
+Day-to-day load order: this router → track `AGENTS.md` if editing a track → one
+relevant rule → one skill → touched sources. Details:
+[harness read order](docs/design/AGENT_HARNESS_MIGRATION.md#day-to-day-harness-read-order).
+
+## Skills (`.agents/skills/`)
+
+Canonical skills live only in `.agents/skills/` (no `.cursor/skills/` mirror).
+
+| Trigger | Skill |
+| --- | --- |
+| Math-content question before editing | `$xshi-math-math-question` |
+| Create or substantially revise a note | `$xshi-math-concept-page` |
+| Theorem / proof scoping | `$xshi-math-proof-writing` |
+| Semantics-preserving prose pass | `$xshi-math-prose-review` |
+| AI-pattern scrub / writing registers | `$xshi-math-unslop` |
+| Git commit, branch, push, PR | `$xshi-math-git-conventions` |
+| Maintain routers, rules, or skills | `$xshi-math-agent-guidance` |
+| Rebuild site / optional hub `/math/` transfer | `$xshi-math-hub-publish` |
+
+Deferred: reading-guide, lean-formalization, deep-math (P2); Cursor `.mdc`
+adapters (P1). Normix package `docs-publish` stays upstream.
 
 ## Working boundaries
 
@@ -41,16 +66,12 @@ do not assume a client has loaded instructions below its starting directory.
 - Preserve the [Normix boundary](docs/plan/consolidation.md#repository-boundaries).
 - Keep durable decisions in the repository. Use links to canonical guidance;
   load rules and recipes only for the task they govern.
-- Canonical repository skills belong only in `.agents/skills/`. None are
-  installed here yet. See the framework before adding a rule, skill, or adapter.
 - Preserve assumptions, notation, attribution, and the distinction between
   proof and numerical evidence when editing mathematical prose.
 - **Shared notation canon:** reuse symbols from
   [content/notation.md](content/notation.md) (public URL `/math/notation/`).
-  New math notes must not invent parallel symbols for the same concept across
-  Incerto, Information Geometry, or Normix theory. Extend the shared page when
-  a concept needs a cross-track name; do not create per-track glossaries that
-  drift.
+  See [shared-notation rule](docs/rules/shared-notation.md). New math notes must
+  not invent parallel symbols for the same concept across tracks.
 
 ## Verification commands
 

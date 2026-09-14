@@ -1,0 +1,7 @@
+interface:
+  display_name: "xshi-math Proof Writing"
+  short_description: "Scope proofs vs citations"
+  default_prompt: "Use $xshi-math-proof-writing to scope theorem statements and proofs."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,7 @@
+interface:
+  display_name: "xshi-math Prose Review"
+  short_description: "Semantics-preserving prose pass"
+  default_prompt: "Use $xshi-math-prose-review for a final math prose pass."
+
+policy:
+  allow_implicit_invocation: true

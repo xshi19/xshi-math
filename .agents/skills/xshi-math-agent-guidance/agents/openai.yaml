@@ -1,0 +1,7 @@
+interface:
+  display_name: "xshi-math Agent Guidance"
+  short_description: "Maintain lean math-hub agent guidance"
+  default_prompt: "Use $xshi-math-agent-guidance to update xshi-math agent guidance."
+
+policy:
+  allow_implicit_invocation: true

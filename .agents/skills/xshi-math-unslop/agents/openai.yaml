@@ -1,0 +1,7 @@
+interface:
+  display_name: "xshi-math Unslop"
+  short_description: "Strip AI patterns; keep math voice"
+  default_prompt: "Use $xshi-math-unslop to scrub AI writing patterns."
+
+policy:
+  allow_implicit_invocation: true
