@@ -1,0 +1,11 @@
+---
+description: After claims settle, load prose-review (and unslop when scrubbing AI patterns) for content prose.
+globs: "content/**/*.md"
+alwaysApply: false
+---
+When polishing settled mathematical prose, read and follow:
+@.agents/skills/xshi-math-prose-review/SKILL.md
+For AI-pattern scrubbing / registers:
+@.agents/skills/xshi-math-unslop/SKILL.md
+Writing constraints remain in:
+@docs/rules/mathematical-writing.md

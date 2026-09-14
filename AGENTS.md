@@ -55,9 +55,12 @@ Canonical skills live only in `.agents/skills/` (no `.cursor/skills/` mirror).
 | Git commit, branch, push, PR | `$xshi-math-git-conventions` |
 | Maintain routers, rules, or skills | `$xshi-math-agent-guidance` |
 | Rebuild site / optional hub `/math/` transfer | `$xshi-math-hub-publish` |
+| Source→concept reading map | `$xshi-math-reading-guide` |
+| Lean scoping / future formalization | `$xshi-math-lean-formalization` |
+| Hard external math consult (GPT-5.5 pro) | `$xshi-math-deep-math-agent` |
 
-Deferred: reading-guide, lean-formalization, deep-math (P2); Cursor `.mdc`
-adapters (P1). Normix package `docs-publish` stays upstream.
+Cursor thin adapters live under `.cursor/rules/*.mdc` (metadata + pointers only).
+Normix package `docs-publish` stays upstream. No Lean project in-repo yet.
 
 ## Working boundaries
 
