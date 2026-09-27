@@ -103,7 +103,8 @@ chart: that changes the geometry.
 ## The normal running example
 
 For $X\sim N(\mu,\sigma^2)$ with $\mu\in\mathbb R$ and $\sigma>0$, use
-$\theta=(\mu,\sigma)^\mathsf{T}$. The
+$\theta=(\mu,\sigma)^\mathsf{T}$ locally (the $\xi$ chart in the introductory
+note). The
 [introductory calculation](./information-geometry-euclidean-to-manifold.md#ig-normal-fisher-metric)
 gives the Fisher matrix $I(\theta)=\operatorname{diag}(\sigma^{-2},2\sigma^{-2})$.
 Its transformation to mean and variance coordinates is worked out
