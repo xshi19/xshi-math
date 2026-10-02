@@ -1,9 +1,13 @@
 # Repository Consolidation Plan
 
 Status: Phase 0 light inventory and Phase 1 local HTML gate complete; Phase 2
-Incerto Batches 1–3 and Normix Theory Batches 1–2 executed locally. Further consolidation remains planned.
+eligible preparation accounted for. Phase 3 local rehearsal recorded as
+passed for the local exit gate (fresh build, check:html, staging beside
+siblings, flat `/math/` routes). Public cutover remains pending Xiang's
+explicit go-ahead. No live Pages verification was performed for this closeout.
+
 See the [planning index](index.md) for current work.
-Source review date: 2026-09-13.
+Source review date: 2026-09-13. Closeout/rehearsal review: 2026-10-02.
 
 Use `xshi-math` as the authoring home for mathematical explanations and their
 computational demonstrations. Organize the material into three tracks with
@@ -70,8 +74,9 @@ specifies how prose review preserves those distinctions.
 
 The MyST/Python source scaffold, original track samples, shared CSS, architecture
 map, verification record, and representative planning CSVs now exist. The tree
-below remains the broader target: bibliography, shared notation, most demos,
-Lean, data provenance, skills, and adapters are still deferred. See
+below remains the broader target: bibliography, most demos, Lean, and data
+provenance are still deferred. Shared notation, skills, and adapters already
+exist. See
 [architecture](../../ARCHITECTURE.md) for the current implementation.
 Content routes retain unique Markdown stems because MyST 1.10.1 ignores
 `slug:`. Four independent configs now supply the landing and track base paths;
@@ -96,7 +101,7 @@ xshi-math/
   content/
     index.md
     bibliography.bib
-    notation.md                   # proposed shared notation
+    notation.md                   # shared canon at /math/notation/; present
     incerto/index.md
     incerto-counting-exceedances.md
     ig/index.md
@@ -357,10 +362,25 @@ Normix's independent software product remain outside the consolidation boundary.
 | --- | --- | --- |
 | 0. Inventory and decisions — light scope done | Classify source material; record source revisions, rights, Python consumers, actual URLs, build differences, and all hub writers; apply the adopted MIT scope and `/math/` base | Representative sample and unknowns recorded; full candidate/rights/consumer coverage remains required before import, with rollback artifacts before cutover |
 | 1. Working foundation — local HTML gate complete | Add the minimal site and Python scaffold with the selected `src/math/` directory and adopted import mapping, shared style, original sample pages for the three tracks, and only useful rules/skills | Fresh-environment MyST build works with `BASE_URL=/math`; one demo runs; cross-track references and actual static output are inspected; commands are recorded where implemented |
-| 2. Complete eligible preparation | Export rights-cleared Incerto material and selected Normix theory/demos; reconcile notation/citations; move corresponding tests and optional Lean units | All eligible manifest entries are accounted for; semantic review and relevant execution succeed; private/source-license audit covers staged source and output |
-| 3. Publication rehearsal | Assemble `/math/` and compatibility routes beside the existing hub and Normix artifacts; review the cutover diff | Direct URLs, fragments, assets, search, downloads, and mobile pages work; sibling output is preserved; rollback is rehearsed |
+| 2. Complete eligible preparation — eligible scope accounted for | Incerto Batches 1–3 and Normix Theory Batches 1–2 are imported; existing home/shared notation entries satisfy their rows; deferred and upstream material is explicitly separated | All eligible manifest entries are accounted for; batch records retain semantic, execution, and source/notice checks; no further eligible concept body import remains |
+| 3. Local publication rehearsal — local gate recorded | Build/check the assembled `/math/` artifact and stage its flat compatibility routes beside copied `/normix/` and `/incerto-wiki/` trees; record checks and rollback without changing the hub | Fresh strict multi-subsite build and `check:html` pass; mapped flat `/math/` routes and representative track URLs/fragments resolve in staging; sibling output is preserved. Browser/mobile matrix and live Pages remain separate; local staging rollback is discarding `_build/phase3-rehearsal/` |
 | 4. Coordinated cutover | Briefly freeze affected source authoring, import the final delta, rerun gates, publish the reviewed hub revision, update sibling links, and disable obsolete publishers | Public math and legacy entry paths work; only the new repo is edited for moved material; old publishers cannot overwrite compatibility pages |
 | 5. Stabilize and prune | Check the live artifact, resolve remaining mapped-link defects, archive superseded guidance, and remove duplicate build paths | Publication evidence is recorded; compatibility and rollback artifacts are retained; each fact/rule/recipe has one owner |
+
+Phase 2 closeout uses the [manifest](migration-manifest.csv) to account for the
+existing original adapted Incerto hub and the single shared notation canon.
+SCoFT rights, examples/data, dependency-DAG navigation, and other deferred
+shared references and reading guides remain separate work. Incerto mixture/VG
+duplicates are excluded in favor of existing Normix notes; finance theory and
+the package API stay upstream. No new mathematical pages were imported here.
+
+The [Phase 3 record](../records/phase-3-rehearsal-verification.md) records a
+passing local rehearsal on a fresh build. The math build implements flat
+`/math/` redirects; `/incerto-wiki/` and upstream Normix compatibility cutover
+routes remain separate publication work. Before Phase 4, complete any remaining
+cutover route/fragment audit, browser/mobile review, and combined hub rollback
+preparation the owner wants. Public cutover requires Xiang's explicit go-ahead;
+Phase 4 and Phase 5 remain pending.
 
 If preparation reveals a new issue, stay before the relevant gate; the old site
 continues serving. If cutover fails, restore the recorded combined hub artifact
@@ -381,7 +401,7 @@ source and artifact review precede publication.
 | Notebook outputs look plausible but no longer reproduce | Pinned inputs/dependencies, reruns of affected demos, checks of known cases and numerical error |
 | Two copies of theory or guidance diverge | One canonical source, explicit links/adapters, disable obsolete authoring and publishing paths at cutover |
 | Lean work becomes a prerequisite for all progress | Independent toolchain and explicit proof status; formalize only useful bounded statements |
-| A large import hides unfinished work | Complete manifest accounting with move/adapt/stay/exclude decisions and phase gates, rather than blanket claims of completeness |
+| A large import hides unfinished work | Complete manifest accounting with imported/stay/exclude/deferred dispositions and explicit reasons; retain separate publication gates |
 
 ## V1 non-goals
 
@@ -397,6 +417,8 @@ source and artifact review precede publication.
 - Installing speculative CI, autonomous maintenance loops, or agent review panels
   before there is working code and a demonstrated need.
 
-Current checks are recorded in the [foundation verification record](../records/phase-0-1-verification.md).
-Phase 2 and later remain pending. Add publication evidence only when those
-phases actually run; this plan establishes their completion contracts.
+Historical foundation and import checks remain in their verification records.
+Phase 2 eligible preparation is accounted for; the
+[Phase 3 local rehearsal record](../records/phase-3-rehearsal-verification.md)
+records a passing local build/staging gate. Phase 4/5 public cutover and live
+verification remain pending Xiang's explicit go-ahead.

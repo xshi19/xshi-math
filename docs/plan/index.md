@@ -1,9 +1,10 @@
 # Planning Index
 
-Status: Phase 0 light inventory and Phase 1 local HTML gate complete; IG outline
-and first entry batch implemented; Phase 2 Incerto Batches 1–3 and Normix
-Theory Batches 1–2 executed locally.
-Source review date: 2026-09-13.
+Status: Phase 0 light inventory, Phase 1 local HTML gate, Phase 2 eligible
+scope, and Phase 3 local rehearsal complete; IG outline and first entry batch
+implemented. Phase 4 public cutover waits for Xiang's explicit go-ahead.
+
+Source review date: 2026-09-13. Closeout/rehearsal review: 2026-10-02.
 
 This planning set guides the foundation, approved imports, and later
 consolidation. The agreed product boundary is a math monorepo with
@@ -24,6 +25,7 @@ personal hub. Normix remains an independent JAX package and API project.
 | [Incerto Batch 3](phase-2-incerto-batch-3.md) | Executed eight-page sums, geometry, catalog, and concept-index import |
 | [Normix Theory Batch 1](phase-2-normix-theory-batch-1.md) | Executed eight-page import scope, adaptations, and deferred material |
 | [Normix Theory Batch 2](phase-2-normix-theory-batch-2.md) | Executed five-page sequential EM, factor analysis, shrinkage, varentropy, and EM-framework math import |
+| [Phase 3 rehearsal record](../records/phase-3-rehearsal-verification.md) | Local staging, fresh build/check:html pass, flat math route checks, sibling preservation; live Pages and Phase 4 still pending |
 | [Rule index](../rules/index.md) | Current rule routes and intentionally deferred rule bodies |
 
 [ARCHITECTURE.md](../../ARCHITECTURE.md) describes the source scaffold now present.
@@ -37,8 +39,8 @@ adds original track entries and sample explanations, shared CSS, pinned MyST
 configuration, and the `xmath` Python package mapped to `src/math/`.
 
 Python installation, six tests, the demo, and wheel import isolation passed in
-the foundation checks. The pinned MyST HTML build and `check:html` now pass
-locally with `BASE_URL=/math`; see the
+the foundation checks. The pinned MyST HTML build and `check:html` passed
+in the foundation environment with `BASE_URL=/math`; see the
 [foundation verification record](../records/phase-0-1-verification.md).
 The [owner curriculum](ig-entry-curriculum-draft.md) has been organized into the
 [IG entry outline](ig-entry-outline.md), and the hub now links six original
@@ -52,14 +54,21 @@ the [Batch 1 record](../records/phase-2-batch-1-verification.md),
 Thirteen approved Normix theory/design/tutorial bodies have also been adapted
 under MIT; see the [Normix Batch 1 record](../records/phase-2-normix-batch-1-verification.md)
 and [Batch 2 record](../records/phase-2-normix-batch-2-verification.md).
-No private history or Normix implementation was imported. No site
-was deployed, CI configured, Lean project created, or agent skills installed.
+The [migration manifest](migration-manifest.csv) accounts for the eligible
+Phase 2 remainder. The original adapted Incerto entry and shared notation canon
+satisfy the home and notation rows; no new math body or duplicate table was
+imported. Deferred and upstream material remains outside this closeout.
+The [Phase 3 record](../records/phase-3-rehearsal-verification.md) covers the
+local publication rehearsal: fresh strict build, HTML check, staging beside
+sibling hub prefixes, and flat `/math/` route verification. Live Pages and
+Phase 4 cutover remain owner-gated. No private history or Normix implementation
+was imported, and this closeout did not publish a site or change the hub clone.
 
 ## Implementation sequence
 
 The [one-time consolidation phases](consolidation.md#one-time-consolidation-phases)
-define acceptance gates and rollback. The light Phase 0 scope is complete;
-full import coverage remains a later gate:
+define acceptance gates and rollback. Eligible preparation is accounted for;
+deferred imports and public cutover retain their own gates:
 
 - [x] Phase 0 (light): inspect source/build/publisher configurations, record
   representative dispositions and URLs, and retain explicit unknowns. Full rights,
@@ -82,15 +91,23 @@ full import coverage remains a later gate:
   sandbox-blocked; see the Batch 3 record.
 - [x] Phase 2 Normix Theory Batch 2: adapt four theory notes and retain a
   standalone mathematical EM-framework rewrite; standard strict build and
-  the extended 51-page HTML checker pass in the current execution environment.
+  the extended 51-page HTML checker passed in the Batch 2 execution environment.
 - [x] Split the combined math book into a landing and three independent MyST
   subsites, with old flat math redirects; see the
   [subsite verification record](../records/subsite-split-verification.md). Parent
   hub republishing and live verification remain separate gates.
-- [ ] Phase 2 remainder: prepare further eligible imports in separate changes
-  with provenance and semantic checks; these batches do not complete this phase.
-- [ ] Phase 3: rehearse the combined hub artifact and every mapped legacy route.
-- [ ] Phase 4: perform one coordinated public cutover and stop duplicate authoring.
+- [x] Phase 2 eligible remainder: account for every manifest row as imported,
+  stay, exclude, or deferred. SCoFT rights, empirical examples/data, dependency-DAG
+  navigation/assets, and other shared-reference/reading-guide work remain
+  deferred. Incerto mixture/VG duplicates are excluded in favor of existing
+  Normix notes; finance theory and the package API stay upstream.
+- [x] Phase 3 local rehearsal: fresh `npm run build` and `npm run check:html`
+  pass; `_build/phase3-rehearsal/` stages `/math/` beside hub `normix/` and
+  `incerto-wiki/` copies; mapped flat `/math/` redirects and representative track
+  URLs resolve locally. Live Pages and browser matrix were not rerun; see the
+  [rehearsal record](../records/phase-3-rehearsal-verification.md).
+- [ ] Phase 4: perform one coordinated public cutover and stop duplicate authoring;
+  requires Xiang's explicit go-ahead after the remaining gates pass.
 - [ ] Phase 5: verify the live result and prune obsolete guidance and machinery.
 
 “一次性全合” means one bounded consolidation and one canonical authoring source
