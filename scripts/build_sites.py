@@ -57,6 +57,7 @@ def main():
         shutil.copytree(exports / site.key, HTML / site.key)
     subprocess.run([sys.executable, str(REPO / "scripts/write_redirects.py")], check=True)
     write_sitemaps()
+    subprocess.run([sys.executable, str(REPO / "scripts/write_legacy_incerto.py")], check=True)
     print(f"Assembled all four sites at {HTML}")
 
 

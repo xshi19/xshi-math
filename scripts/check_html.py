@@ -8,7 +8,11 @@ import json
 from urllib.parse import unquote, urljoin, urlsplit
 from xml.etree import ElementTree as ET
 
-from site_layout import BASE, HTML, ORIGIN, REPO, SITES, redirects
+from site_layout import (
+    BASE, HTML, LEGACY_BASE, LEGACY_HTML, ORIGIN, REPO, SITES,
+    page_file, redirects,
+)
+from write_legacy_incerto import load_legacy_routes, report_skipped
 
 # The IG home contains a display equation. Only these indexes lack equations.
 NO_MATH = {
@@ -32,6 +36,11 @@ class Links(HTMLParser):
         self.math_errors = 0
         self.canonical = []
         self.refresh = []
+        self.robots = []
+        self.visible_links = []
+        self.redirect_data = []
+        self._anchor = None
+        self._redirect_data = None
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -55,6 +64,75 @@ class Links(HTMLParser):
             self.canonical.append(attrs.get("href"))
         if tag == "meta" and attrs.get("http-equiv", "").lower() == "refresh":
             self.refresh.append(attrs.get("content"))
+        if tag == "meta" and attrs.get("name", "").lower() == "robots":
+            self.robots.extend(attrs.get("content", "").lower().replace(",", " ").split())
+        if tag == "a":
+            self._anchor = [attrs.get("href"), ""]
+        if tag == "script" and attrs.get("id") == "legacy-redirect":
+            self._redirect_data = ""
+
+    def handle_data(self, data):
+        if self._anchor is not None:
+            self._anchor[1] += data
+        if self._redirect_data is not None:
+            self._redirect_data += data
+
+    def handle_endtag(self, tag):
+        if tag == "a" and self._anchor is not None:
+            if self._anchor[1].strip():
+                self.visible_links.append(self._anchor[0])
+            self._anchor = None
+        if tag == "script" and self._redirect_data is not None:
+            self.redirect_data.append(self._redirect_data)
+            self._redirect_data = None
+
+
+def check_legacy(failures, document):
+    pages, mapped, skipped = load_legacy_routes()
+    report_skipped(skipped)
+    expected_files = {page_file(LEGACY_HTML, old, LEGACY_BASE) for old in pages}
+    actual_files = set(LEGACY_HTML.rglob("*.html"))
+    for extra in actual_files - expected_files:
+        failures.append(f"unexpected legacy compatibility file: {extra}")
+    targets = set()
+    for page in pages.values():
+        path = page_file(LEGACY_HTML, page.old, LEGACY_BASE)
+        if not path.is_file():
+            failures.append(f"missing legacy compatibility page: {page.old}")
+        else:
+            source, parser = document(path)
+            if parser.canonical != [page.target] or parser.refresh != [f"0; url={page.target}"]:
+                failures.append(f"{page.old}: incorrect legacy refresh/canonical")
+            if "noindex" not in parser.robots:
+                failures.append(f"{page.old}: missing legacy noindex")
+            if parser.visible_links != [page.target, *page.fragments.values()]:
+                failures.append(f"{page.old}: incorrect visible legacy destinations")
+            try:
+                data = [json.loads(value) for value in parser.redirect_data]
+            except ValueError:
+                data = []
+            if data != [{"target": page.target, "fragments": page.fragments}]:
+                failures.append(f"{page.old}: incorrect legacy JavaScript mapping")
+            if not all(code in source for code in (
+                "window.location.replace(target.href);",
+                "target.search = window.location.search;",
+                "target.hash = window.location.hash;",
+            )):
+                failures.append(f"{page.old}: missing legacy query/hash redirect script")
+        for url in page.targets.values():
+            parsed = urlsplit(url)
+            target = page_file(HTML, parsed.path, BASE)
+            targets.add(target)
+            if not target.is_file():
+                failures.append(f"{page.old}: missing legacy destination: {url}")
+                continue
+            _, target_parser = document(target)
+            if target_parser.refresh:
+                failures.append(f"{page.old}: legacy destination is another redirect: {url}")
+            if parsed.fragment and unquote(parsed.fragment) not in target_parser.ids:
+                failures.append(f"{page.old}: missing legacy destination fragment: {url}")
+    print(f"Checked {len(pages)} legacy compatibility pages for {mapped} mapped rows, "
+          f"{len(targets)} distinct target pages; {len(skipped)} unresolved rows skipped.")
 
 
 def toc_files(entries):
@@ -217,6 +295,8 @@ def main():
         if "window.location.search + window.location.hash" not in source:
             failures.append(f"{old}: redirect does not preserve queries/fragments")
         check_links(old, parser)
+
+    check_legacy(failures, document)
 
     if failures:
         raise SystemExit("\n".join(sorted(set(failures))))
