@@ -167,9 +167,10 @@ git -C "$cutover_hub" diff --cached --stat
 git -C "$cutover_hub" diff --cached --name-status
 ```
 
-Confirm the staged changes contain only the full `math/` artifact and the exact
-generated legacy HTML paths. `/`, `/normix/`, and all other prefixes must remain
-unchanged. Then commit once and push normally:
+Confirm the staged changes contain only the full `math/` artifact, generated
+legacy HTML, and missing legacy files required by the switchover ordering below.
+`/`, `/normix/`, and all other prefixes must remain unchanged. Then commit once
+and push normally:
 
 ```bash
 git -C "$cutover_hub" commit -m "Publish math cutover and Incerto compatibility pages"
@@ -180,6 +181,38 @@ git -C "$cutover_hub" push origin main
 Never force-push `main`. If a concurrent update
 rejects the push, assemble again from the latest hub revision in a clean clone,
 review its inventory, and repeat the checks before a normal push.
+
+## Pages switchover ordering (finding 2026-10-10)
+
+Finding: `https://xshi19.github.io/incerto-wiki/` is served by the private
+`incerto-wiki` repository's own GitHub Pages (`build_type: workflow`), which
+shadows the hub's `incerto-wiki/` folder. Publishing to the hub alone changes
+nothing at the live legacy URL until that Pages site is removed.
+
+Keep the URL available throughout the switchover:
+
+1. Publish the single hub commit above: replace `math/` and overlay the
+   compatibility pages. Before committing, also fill any gaps in the hub's
+   `incerto-wiki/` tree compared with the live legacy site; delete nothing there.
+2. Wait for the hub Pages build and deployment of that commit. Verify the
+   compatibility pages from the hub clone or hub raw files while the legacy
+   Pages site still shadows the folder.
+3. Record the previous `incerto-wiki` Pages settings with
+   `gh api repos/xshi19/incerto-wiki/pages`: `build_type`, `source`,
+   `https_enforced`, and custom domain (`cname`). Then unpublish with
+   `gh api -X DELETE repos/xshi19/incerto-wiki/pages` so the hub folder serves
+   the legacy URL.
+4. Run the live curl verification below.
+5. The `incerto-wiki` repository's `main` has no Pages deploy workflow, and its
+   earlier live artifact cannot be reproduced from the repository, so re-enabling
+   Pages alone restores no site. Before unpublishing, the live site was
+   snapshotted: the cutover hub commit includes every live legacy file missing
+   from or differing in the hub's `incerto-wiki/` tree. Reverting that commit
+   restores only the older hub tree and cannot restore those live-only files.
+   Prefer keeping the hub's `incerto-wiki/` copy; restore the old Pages site with
+   the recorded settings only if a deployable artifact is available.
+
+The private repository is neither archived nor deleted in this step.
 
 ## Verify the live deployment
 
@@ -261,8 +294,12 @@ git -C "$cutover_hub" push origin main
 ```
 
 Review any conflicts against intervening hub changes; do not reset or force-push
-history. Wait for Pages, then verify the restored legacy behavior and sibling
-prefixes. Keep the source revision and combined artifact checksum. The owner decides
+history. Prefer preserving the hub's `incerto-wiki/` copy across the revert,
+which alone loses the snapshotted live-only files; restore the old Pages site
+only if a deployable artifact is available, as specified in the
+[switchover ordering](#pages-switchover-ordering-finding-2026-10-10).
+Wait for any resulting Pages deployments, then verify the restored legacy behavior and
+sibling prefixes. Keep the source revision and combined artifact checksum. The owner decides
 which authoring source remains authoritative while the defect is repaired.
 
 ## After successful go-live (owner actions)
