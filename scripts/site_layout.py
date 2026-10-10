@@ -2,11 +2,35 @@
 
 from dataclasses import dataclass
 from pathlib import Path
+from urllib.parse import unquote
 
 REPO = Path(__file__).resolve().parents[1]
 BASE = "/math"
 ORIGIN = "https://xshi19.github.io"
 HTML = REPO / "_build" / "html"
+LEGACY_BASE = "/incerto-wiki"
+LEGACY_HTML = REPO / "_build" / "legacy" / "incerto-wiki"
+URL_MAP = REPO / "docs" / "plan" / "url-map.csv"
+
+
+def normalize_page_path(path):
+    """Normalize directory URLs and literal index.html aliases safely."""
+    if (not path.startswith("/") or "\\" in path
+            or any(part in {".", ".."} for part in unquote(path).split("/"))
+            or "//" in path or any(ord(char) < 32 for char in unquote(path))):
+        raise ValueError(f"Invalid page path: {path!r}")
+    if path.endswith("/index.html"):
+        path = path.removesuffix("index.html")
+    return path if path.endswith(".html") else path.rstrip("/") + "/"
+
+
+def page_file(root, path, base):
+    """Resolve a public page path inside one artifact, never a sibling tree."""
+    path = normalize_page_path(path)
+    if not path.startswith(base + "/"):
+        raise ValueError(f"Page outside {base}/: {path}")
+    relative = path.removeprefix(base + "/")
+    return root / relative if relative.endswith(".html") else root / relative / "index.html"
 
 
 @dataclass(frozen=True)

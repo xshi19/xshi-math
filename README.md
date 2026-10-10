@@ -88,7 +88,7 @@ The build runs these four independent MyST projects sequentially:
 
 | Config | Home source | Public base | Pages |
 | --- | --- | --- | --- |
-| `myst.landing.yml` | `content/index.md` | `/math/` | 1 |
+| `myst.landing.yml` | `content/index.md` plus shared notation | `/math/` | 2 |
 | `myst.incerto.yml` | `content/incerto/index.md` | `/math/incerto/` | 28 |
 | `myst.ig.yml` | `content/ig/index.md` | `/math/ig/` | 7 |
 | `myst.normix-theory.yml` | `content/normix-theory/index.md` | `/math/normix-theory/` | 15 |
@@ -111,14 +111,21 @@ retains the downloaded theme and DOI cache, and saves each export in
 to `_build/html/` and the tracks beneath `incerto/`, `ig/`, and `normix-theory/`.
 Finally, `scripts/write_redirects.py` adds 48 compatibility pages for old flat
 math URLs. Assembly also replaces localhost sitemap/discovery URLs with the
-public nested URLs; the root sitemap covers all 51 pages. **Only the assembled `_build/html/` is the publication artifact.**
+public nested URLs; the root sitemap covers all 52 pages. The assembled
+`_build/html/` is the `/math/` publication artifact. The build also runs
+`scripts/write_legacy_incerto.py` to produce a separate compatibility tree at
+`_build/legacy/incerto-wiki/` from the URL map, reporting unresolved rows.
+The [Phase 4 runbook](docs/plan/phase-4-cutover-runbook.md) describes its owner-run
+hub overlay, retained legacy files, and live verification.
 Running an individual MyST build overwrites that directory; rerun `npm run build`
 before checking or publishing the combined site. Do not run builds concurrently.
 
-The checker validates all 51 pages, each project's branding, TOC and search membership,
+The checker validates all 52 pages, each project's branding, TOC and search membership,
 nested prefixes, local links/assets/fragments, shared CSS, 45 pages with display
 math, public sitemaps, and every redirect. Fully qualified links to this site's `/math/` paths
-are checked against the local artifact too. Browser results and limitations are
+are checked against the local artifact too. It also checks every mapped legacy
+compatibility page, its noindex/redirect/link agreement, and its destination page
+and any mapped fragment. Browser results and limitations are
 in the [subsite split record](docs/records/subsite-split-verification.md).
 
 Within a track, use relative Markdown links. Cross-track links use
@@ -133,7 +140,8 @@ remain real pages. Other old flat routes redirect, for example
 `/math/information-geometry/` → `/math/ig/`. Redirects include a meta refresh,
 canonical URL, and visible link; JavaScript preserves query strings and fragments.
 The [URL map](docs/plan/url-map.csv) distinguishes these implemented math redirects
-from the still-proposed `/incerto-wiki/` and upstream Normix migration routes.
+from generated but unpublished `/incerto-wiki/` compatibility pages, unresolved
+legacy routes, and proposed upstream Normix migration routes.
 
 For interactive authoring, use `npm start` for the landing or
 `npm run start:incerto`, `npm run start:ig`, or `npm run start:normix-theory`.

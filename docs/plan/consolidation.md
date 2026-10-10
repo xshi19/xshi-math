@@ -3,8 +3,9 @@
 Status: Phase 0 light inventory and Phase 1 local HTML gate complete; Phase 2
 eligible preparation accounted for. Phase 3 local rehearsal recorded as
 passed for the local exit gate (fresh build, check:html, staging beside
-siblings, flat `/math/` routes). Public cutover remains pending Xiang's
-explicit go-ahead. No live Pages verification was performed for this closeout.
+siblings, flat `/math/` routes). Phase 4 is ready / in progress — artifacts in
+this PR; pending owner merge + hub push. Xiang approved preparation on
+2026-10-07 and reserved confirmation before merge. Live cutover remains pending.
 
 See the [planning index](index.md) for current work.
 Source review date: 2026-09-13. Closeout/rehearsal review: 2026-10-02.
@@ -325,9 +326,12 @@ project and resolves directly at its base.
 
 The landing, three subsite bases, and 48 old flat math redirects are implemented
 in the assembled artifact; see the [verification record](../records/subsite-split-verification.md).
-This source change does not republish the hub. Older `/incerto-wiki/` and upstream
-Normix compatibility routes remain proposals. Confirm live URL forms and
-fragments in the parent publication rehearsal.
+The build also generates mapped `/incerto-wiki/` compatibility pages in the
+separate `_build/legacy/incerto-wiki/` tree. The
+[Phase 4 runbook](phase-4-cutover-runbook.md) records unresolved rows and committed
+hub routes outside the map; these keep their existing artifacts at cutover.
+This source change does not republish the hub. Upstream Normix compatibility
+routes remain proposals. Confirm live URL forms and fragments at publication.
 
 Do not derive the migration map from Markdown filenames alone. Inventory the
 actual published pages, redirects, fragments, downloads, and source links as
@@ -364,7 +368,7 @@ Normix's independent software product remain outside the consolidation boundary.
 | 1. Working foundation — local HTML gate complete | Add the minimal site and Python scaffold with the selected `src/math/` directory and adopted import mapping, shared style, original sample pages for the three tracks, and only useful rules/skills | Fresh-environment MyST build works with `BASE_URL=/math`; one demo runs; cross-track references and actual static output are inspected; commands are recorded where implemented |
 | 2. Complete eligible preparation — eligible scope accounted for | Incerto Batches 1–3 and Normix Theory Batches 1–2 are imported; existing home/shared notation entries satisfy their rows; deferred and upstream material is explicitly separated | All eligible manifest entries are accounted for; batch records retain semantic, execution, and source/notice checks; no further eligible concept body import remains |
 | 3. Local publication rehearsal — local gate recorded | Build/check the assembled `/math/` artifact and stage its flat compatibility routes beside copied `/normix/` and `/incerto-wiki/` trees; record checks and rollback without changing the hub | Fresh strict multi-subsite build and `check:html` pass; mapped flat `/math/` routes and representative track URLs/fragments resolve in staging; sibling output is preserved. Browser/mobile matrix and live Pages remain separate; local staging rollback is discarding `_build/phase3-rehearsal/` |
-| 4. Coordinated cutover | Briefly freeze affected source authoring, import the final delta, rerun gates, publish the reviewed hub revision, update sibling links, and disable obsolete publishers | Public math and legacy entry paths work; only the new repo is edited for moved material; old publishers cannot overwrite compatibility pages |
+| 4. Coordinated cutover — ready / in progress | Artifacts in this PR; pending owner merge + hub push. After Xiang's merge confirmation, rerun gates and publish math plus mapped compatibility pages in one hub commit; serialize writers, verify live, then freeze Incerto authoring upstream | Public math and mapped legacy entry paths work; retained gaps are recorded; xshi-math is the only Incerto authoring home; old publishers cannot overwrite compatibility pages. Check Phase 4 only once live |
 | 5. Stabilize and prune | Check the live artifact, resolve remaining mapped-link defects, archive superseded guidance, and remove duplicate build paths | Publication evidence is recorded; compatibility and rollback artifacts are retained; each fact/rule/recipe has one owner |
 
 Phase 2 closeout uses the [manifest](migration-manifest.csv) to account for the
@@ -375,12 +379,29 @@ duplicates are excluded in favor of existing Normix notes; finance theory and
 the package API stay upstream. No new mathematical pages were imported here.
 
 The [Phase 3 record](../records/phase-3-rehearsal-verification.md) records a
-passing local rehearsal on a fresh build. The math build implements flat
-`/math/` redirects; `/incerto-wiki/` and upstream Normix compatibility cutover
-routes remain separate publication work. Before Phase 4, complete any remaining
-cutover route/fragment audit, browser/mobile review, and combined hub rollback
-preparation the owner wants. Public cutover requires Xiang's explicit go-ahead;
-Phase 4 and Phase 5 remain pending.
+passing local rehearsal on a fresh build. The math build retains its 48 flat
+`/math/` redirects and now produces a separate CSV-driven legacy Incerto tree.
+The [Phase 4 runbook](phase-4-cutover-runbook.md) owns the exact publication,
+verification, retention, and rollback steps. The
+[preparation record](../records/phase-4-cutover-prep-verification.md) distinguishes
+local checks from the pending live gate. Xiang's 2026-10-07 approval authorizes
+preparation; merge confirmation, hub push, and archive are owner actions.
+
+After go-live verification, the owner freezes authoring in `incerto-wiki`,
+disables obsolete publishing paths, and then archives the private repository.
+`xshi-math` becomes the only Incerto authoring home, including later work on
+currently deferred material. Retained legacy output is a frozen compatibility
+and recovery artifact, not a second authoring source. Private history stays private.
+
+The next content work from `incerto-wiki` plan PR #54 moves here as plan items:
+
+- Moment-Estimation Failure, followed by Inference Asymmetry.
+- Shadow Mean as a separate page, with its own scope decision before drafting.
+- Chapter 4 Cauchy Running Statistics as the next bounded empirical page.
+
+These pages are not authored by this preparation change. The source plan's
+near-term priorities were inspected read-only on 2026-10-07; no private source
+text or book material is imported.
 
 If preparation reveals a new issue, stay before the relevant gate; the old site
 continues serving. If cutover fails, restore the recorded combined hub artifact
@@ -420,5 +441,6 @@ source and artifact review precede publication.
 Historical foundation and import checks remain in their verification records.
 Phase 2 eligible preparation is accounted for; the
 [Phase 3 local rehearsal record](../records/phase-3-rehearsal-verification.md)
-records a passing local build/staging gate. Phase 4/5 public cutover and live
-verification remain pending Xiang's explicit go-ahead.
+records a passing local build/staging gate. Phase 4 preparation is approved;
+owner merge confirmation, hub publication, and live verification remain pending.
+Phase 5 begins after the verified cutover and owner freeze/archive sequence.

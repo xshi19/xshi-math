@@ -2,7 +2,12 @@
 
 Status: Phase 0 light inventory, Phase 1 local HTML gate, Phase 2 eligible
 scope, and Phase 3 local rehearsal complete; IG outline and first entry batch
-implemented. Phase 4 public cutover waits for Xiang's explicit go-ahead.
+implemented. Phase 4 is ready / in progress — artifacts in this PR; pending
+owner merge + hub push. Xiang approved cutover preparation on 2026-10-07;
+merge, publication, and private-repository archive remain owner actions.
+The fresh Phase 4 build and `check:html` gate passed on 2026-10-07 in the
+operator's run outside the sandbox; see the
+[preparation record](../records/phase-4-cutover-prep-verification.md).
 
 Source review date: 2026-09-13. Closeout/rehearsal review: 2026-10-02.
 
@@ -26,6 +31,8 @@ personal hub. Normix remains an independent JAX package and API project.
 | [Normix Theory Batch 1](phase-2-normix-theory-batch-1.md) | Executed eight-page import scope, adaptations, and deferred material |
 | [Normix Theory Batch 2](phase-2-normix-theory-batch-2.md) | Executed five-page sequential EM, factor analysis, shrinkage, varentropy, and EM-framework math import |
 | [Phase 3 rehearsal record](../records/phase-3-rehearsal-verification.md) | Local staging, fresh build/check:html pass, flat math route checks, sibling preservation; live Pages and Phase 4 still pending |
+| [Phase 4 cutover runbook](phase-4-cutover-runbook.md) | Generated legacy compatibility tree, route gaps, one hub commit, live checks, rollback, and owner freeze/archive sequence |
+| [Phase 4 preparation record](../records/phase-4-cutover-prep-verification.md) | Preparation commands, compatibility counts, results, and remaining live gates |
 | [Rule index](../rules/index.md) | Current rule routes and intentionally deferred rule bodies |
 
 [ARCHITECTURE.md](../../ARCHITECTURE.md) describes the source scaffold now present.
@@ -61,8 +68,10 @@ imported. Deferred and upstream material remains outside this closeout.
 The [Phase 3 record](../records/phase-3-rehearsal-verification.md) covers the
 local publication rehearsal: fresh strict build, HTML check, staging beside
 sibling hub prefixes, and flat `/math/` route verification. Live Pages and
-Phase 4 cutover remain owner-gated. No private history or Normix implementation
-was imported, and this closeout did not publish a site or change the hub clone.
+Phase 4 publication remain owner-gated. The 2026-10-07 preparation adds generated
+legacy compatibility pages and their checks; see the [runbook](phase-4-cutover-runbook.md).
+No private history or Normix implementation was imported, and preparation did
+not publish a site or change either neighboring repository.
 
 ## Implementation sequence
 
@@ -106,8 +115,10 @@ deferred imports and public cutover retain their own gates:
   `incerto-wiki/` copies; mapped flat `/math/` redirects and representative track
   URLs resolve locally. Live Pages and browser matrix were not rerun; see the
   [rehearsal record](../records/phase-3-rehearsal-verification.md).
-- [ ] Phase 4: perform one coordinated public cutover and stop duplicate authoring;
-  requires Xiang's explicit go-ahead after the remaining gates pass.
+- [ ] Phase 4: ready / in progress — artifacts in this PR; pending owner merge +
+  hub push. Xiang approved preparation on 2026-10-07, with confirmation before
+  merge. Follow the [runbook](phase-4-cutover-runbook.md); check this box only
+  after live verification and the Incerto authoring freeze.
 - [ ] Phase 5: verify the live result and prune obsolete guidance and machinery.
 
 “一次性全合” means one bounded consolidation and one canonical authoring source
@@ -127,6 +138,7 @@ Owner decisions recorded on 2026-09-12; `xmath` confirmed for this foundation:
 | Hub | `xshi19.github.io` is the assembly and publishing boundary. See [repository boundaries](consolidation.md#repository-boundaries). |
 | Agent model policy | Ask for a model before coding/exec work unless already named; Codex is primary and its project defaults are active. See [model selection](../../AGENTS.md#model-selection). |
 | Information Geometry timing | Both prerequisites are met: the Phase 1 `/math` build passes and the owner curriculum is supplied. The outline and first entry batch are implemented; full Incerto migration is not a prerequisite. |
+| Phase 4 preparation (2026-10-07) | Xiang: "现在切：让 Codex 先开 Phase 4 cutover PR（兼容页 + 计划更新），合之前等我确认". Prepare reviewable artifacts now; the operator handles commit/PR, owner confirmation precedes merge, and hub publication/archive follow separately. |
 
 | Open question | Recommended starting point | Resolve before |
 | --- | --- | --- |
