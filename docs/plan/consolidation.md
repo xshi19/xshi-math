@@ -3,9 +3,10 @@
 Status: Phase 0 light inventory and Phase 1 local HTML gate complete; Phase 2
 eligible preparation accounted for. Phase 3 local rehearsal recorded as
 passed for the local exit gate (fresh build, check:html, staging beside
-siblings, flat `/math/` routes). Phase 4 is ready / in progress — artifacts in
-this PR; pending owner merge + hub push. Xiang approved preparation on
-2026-10-07 and reserved confirmation before merge. Live cutover remains pending.
+siblings, flat `/math/` routes). Phase 4 is live as of 2026-10-10: the hub serves
+`/math/` and the full `/incerto-wiki/` mirror plus 28 compatibility pages;
+the private repository's own Pages was removed. Phase 5 cleanup is partial;
+its [verification record](../records/phase-5-verification.md) lists open gates.
 
 See the [planning index](index.md) for current work.
 Source review date: 2026-09-13. Closeout/rehearsal review: 2026-10-02.
@@ -33,8 +34,8 @@ Sibling code, private history, and deployment configuration have not been migrat
 | --- | --- | --- |
 | [xshi-math](https://github.com/xshi19/xshi-math) | Math notes/tutorials, educational Python helpers and demos, optional Lean, source bibliography, site source | May depend on an installable `normix`; does not vendor its implementation or maintain its API reference |
 | [normix](https://github.com/xshi19/normix) | JAX package, public API, package tests and releases, implementation design, API documentation | Theory pages selected for consolidation gain links or redirects to their new canonical home |
-| [incerto-wiki](https://github.com/xshi19/incerto-wiki) (private) | Private provenance and rollback archive after cutover; material excluded from publication | Eligible math, educational code, and verification move through a reviewed export; private history stays private |
-| [xshi19.github.io](https://github.com/xshi19/xshi19.github.io) | Hub: assembly and publishing boundary for the personal landing page and public build artifacts | Hosts `/normix/` and the existing `/incerto-wiki/`; `/math/` is the selected future math base; mathematical source editing happens upstream |
+| [incerto-wiki](https://github.com/xshi19/incerto-wiki) (private) | Private provenance and rollback source; owner freeze/archive remains outstanding | Own Pages removed; all Incerto authoring belongs in `xshi-math`; private history stays private |
+| [xshi19.github.io](https://github.com/xshi19/xshi19.github.io) | Hub: assembly and publishing boundary for the personal landing page and public build artifacts | Serves `/math/` and the `/incerto-wiki/` mirror plus compatibility pages; preserve `/normix/`; mathematical source editing happens in `xshi-math` |
 
 Here, **hub** means the `xshi19.github.io` repository and its assembled site at
 `https://xshi19.github.io/`. It combines upstream build artifacts and owns their
@@ -188,7 +189,7 @@ file has been inventoried:
 | Incerto drafts, private notes, source PDFs, credentials, large data, raw agent transcripts | Keep in the private source/archive or exclude | Any later publication gets an explicit rights/privacy disposition |
 | Normix authored theory pages and theory-oriented demos | Move selected source pages; link to the installed package | Preserve mathematical and bibliographic meaning; account for existing theory URLs |
 | Normix JAX modules, public API docs, release machinery, package tests, implementation notes | Stay in `normix` | New theory pages use supported imports and link to upstream API documentation |
-| Existing generated HTML, search indexes, caches, downloaded assets | Rebuild from approved source; retain old output only for rollback | Public artifact passes content and URL review |
+| Existing generated HTML, search indexes, caches, downloaded assets | Rebuild math from approved source; preserve the hub's legacy mirror for compatibility and rollback | Public artifact passes content and URL review; retained legacy routes/downloads keep their required assets |
 | Information Geometry | Author new material directly here after Phase 1 builds with `BASE_URL=/math`, using the owner's entry concept list | One coherent learning path; no dependency on completing the Incerto import |
 
 Inventory every candidate as move, adapt, stay, or exclude with a reason. Maintain
@@ -233,8 +234,8 @@ research sequence. Full Incerto migration is not a prerequisite.
 
 ## Site and execution design
 
-The foundation configures one MyST Markdown site with the book theme, one table
-of contents, unique filename-derived page routes, and shared CSS. Add a shared
+Four MyST projects use the book theme, independent tables of contents and
+branding, unique filename-derived page routes, and shared CSS. Add a shared
 bibliography when source-citing material requires it. “Kami-like” describes the reading experience:
 restrained typography, readable equations, quiet navigation,
 clear theorem/proof treatment, and usable mobile layouts. It does not imply a
@@ -258,24 +259,26 @@ requirement for a hosted notebook kernel or GPU service.
 
 MyST supports a static HTML export, and its documented deployment requires the
 destination base path at build time. The owner-selected base is `/math/`; the
-configured build uses `BASE_URL=/math myst build --html --strict --ci` via
-`npm run build`. The pinned HTML build passes locally in this environment; see
-the [verification record](../records/phase-0-1-verification.md).
+configured `npm run build` supplies each project's `/math` base or track prefix
+to `myst build --html --strict --ci`. Historical build results are in the
+[foundation record](../records/phase-0-1-verification.md); current checks are in
+the [Phase 5 record](../records/phase-5-verification.md).
 [MyST static export](https://mystmd.org/guide/deployment),
 [MyST GitHub Pages deployment](https://mystmd.org/guide/deployment-github-pages).
 
 ## Hub deployment
 
 Use `xshi19.github.io` as the assembly and publishing boundary described above.
-The planned publication sequence is:
+The publication sequence is:
 
 1. Build an immutable, reviewed math artifact from a recorded `xshi-math` commit.
    Include source revision, toolchain versions, and an artifact checksum in its
    publication record.
 2. Start from the current hub revision. Replace only the owned `math/` output
    directory; add the exact compatibility pages authorized by the URL manifest.
-   Preserve the personal landing page and Normix output except for separately
-   reviewed navigation or theory-link changes.
+   Preserve the personal landing page, `/normix/`, and the entire legacy mirror.
+   Generate compatibility pages from the URL map and overlay them without
+   `--delete`; they are not a replacement for the retained legacy tree.
 3. Validate the assembled root with all hosted prefixes present. Publish a single
    combined hub revision/artifact, so a math update cannot erase a sibling site.
 4. Serialize hub writes and deployments. On a concurrent update, rebuild the
@@ -284,22 +287,21 @@ The planned publication sequence is:
 
 For v1, updating generated files in the hub fits its existing role. Cross-repo
 writes need credentials scoped to the destination and a deliberate trigger; a
-source repository token should not be assumed to authorize hub writes. A later
-hub workflow could pull immutable artifacts instead. Choose the transfer method
-after inspecting the current publishers, not by installing a second competing
-Pages deployment now.
+source repository token should not be assumed to authorize hub writes. The
+[cutover runbook](phase-4-cutover-runbook.md) records the reviewed transfer.
+A later hub workflow could pull immutable artifacts instead; it must preserve
+the same prefix boundaries and serialize writers.
 
 GitHub's Pages Actions path separates artifact building from publication and
 documents deployment permissions and environment protection. If that path is
 chosen, configure it in the hub after the local build works.
 [GitHub Pages custom workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
-The [light inventory](phase-0-inventory.md#hub-publishing-findings) identifies
-Incerto repository Pages deployment, Normix writers of its own `gh-pages`, and
-successful hub dynamic Pages runs alongside committed artifact trees. None of
-the inspected source workflows writes the hub repository. The transfer/root
-writer, exact hub Pages settings, live-prefix precedence, and coordinated
-serialization remain open before implementing artifact transfer.
+The [light inventory](phase-0-inventory.md#hub-publishing-findings) records the
+publishers before cutover. The private Incerto Pages site shadowed the hub
+folder until its removal on 2026-10-10; the hub now serves both math and legacy
+Incerto URLs. Normix's package publisher remains upstream. Future transfers
+must still check the current hub revision and coordinate concurrent writers.
 
 ## URL strategy
 
@@ -321,17 +323,18 @@ project and resolves directly at its base.
 | `/math/normix-theory/` | Normix theory subsite home; existing path retained |
 | `/math/<note-stem>/` | Static redirect to the note under its track base |
 | `/normix/` and retained API routes | Continue serving the package documentation |
-| `/incerto-wiki/` | Continue serving the old site until cutover; then compatibility entry to `/math/incerto/` |
+| `/incerto-wiki/` | Live compatibility entry to `/math/incerto/`; hub retains the full old-site mirror beneath this prefix |
 | Inventoried old Incerto pages and moved Normix theory pages | Individual mappings to corresponding new pages, including fragments |
 
 The landing, three subsite bases, and 48 old flat math redirects are implemented
 in the assembled artifact; see the [verification record](../records/subsite-split-verification.md).
 The build also generates mapped `/incerto-wiki/` compatibility pages in the
 separate `_build/legacy/incerto-wiki/` tree. The
-[Phase 4 runbook](phase-4-cutover-runbook.md) records unresolved rows and committed
-hub routes outside the map; these keep their existing artifacts at cutover.
-This source change does not republish the hub. Upstream Normix compatibility
-routes remain proposals. Confirm live URL forms and fragments at publication.
+[Phase 4 runbook](phase-4-cutover-runbook.md) records unresolved rows and retained
+hub routes outside the map. The compatibility pages are live on the hub; the
+[Phase 5 record](../records/phase-5-verification.md) records the operator's direct
+live curl recheck. Upstream Normix compatibility routes remain proposals; historical
+automatic fragments are not fully audited.
 
 Do not derive the migration map from Markdown filenames alone. Inventory the
 actual published pages, redirects, fragments, downloads, and source links as
@@ -351,6 +354,8 @@ query strings and translate fragments. Do not assume a static Pages deployment
 provides configurable HTTP 301 rules. Test direct navigation, old `.html` paths,
 browser refresh, fragments, and navigation without JavaScript. Retain compatibility
 pages long term; removing them is a separate URL-breaking decision.
+The no-JS meta-refresh fallback drops incoming query/hash values. This is an
+accepted limitation of the static fallback, not an unresolved redirect defect.
 
 The former `/math/` versus `/xshi-math/` question is closed: use `/math/` when
 freezing the URL map. Do not publish both as competing canonical sites.
@@ -368,8 +373,8 @@ Normix's independent software product remain outside the consolidation boundary.
 | 1. Working foundation — local HTML gate complete | Add the minimal site and Python scaffold with the selected `src/math/` directory and adopted import mapping, shared style, original sample pages for the three tracks, and only useful rules/skills | Fresh-environment MyST build works with `BASE_URL=/math`; one demo runs; cross-track references and actual static output are inspected; commands are recorded where implemented |
 | 2. Complete eligible preparation — eligible scope accounted for | Incerto Batches 1–3 and Normix Theory Batches 1–2 are imported; existing home/shared notation entries satisfy their rows; deferred and upstream material is explicitly separated | All eligible manifest entries are accounted for; batch records retain semantic, execution, and source/notice checks; no further eligible concept body import remains |
 | 3. Local publication rehearsal — local gate recorded | Build/check the assembled `/math/` artifact and stage its flat compatibility routes beside copied `/normix/` and `/incerto-wiki/` trees; record checks and rollback without changing the hub | Fresh strict multi-subsite build and `check:html` pass; mapped flat `/math/` routes and representative track URLs/fragments resolve in staging; sibling output is preserved. Browser/mobile matrix and live Pages remain separate; local staging rollback is discarding `_build/phase3-rehearsal/` |
-| 4. Coordinated cutover — ready / in progress | Artifacts in this PR; pending owner merge + hub push. After Xiang's merge confirmation, rerun gates and publish math plus mapped compatibility pages in one hub commit; serialize writers, verify live, then freeze Incerto authoring upstream | Public math and mapped legacy entry paths work; retained gaps are recorded; xshi-math is the only Incerto authoring home; old publishers cannot overwrite compatibility pages. Check Phase 4 only once live |
-| 5. Stabilize and prune | Check the live artifact, resolve remaining mapped-link defects, archive superseded guidance, and remove duplicate build paths | Publication evidence is recorded; compatibility and rollback artifacts are retained; each fact/rule/recipe has one owner |
+| 4. Coordinated cutover — live 2026-10-10 | Hub `2386290` serves math and the complete legacy mirror plus 28 compatibility pages; private Incerto Pages removed | Public math and mapped legacy paths verified; `xshi-math` is the only authoring home for all three tracks. Owner freeze/archive confirmation remains outstanding in Phase 5 |
+| 5. Stabilize and prune — incomplete | Check the live artifact, resolve remaining mapped-link defects, archive superseded guidance, and remove duplicate build paths | Publication evidence is recorded; compatibility and rollback artifacts are retained; each fact/rule/recipe has one owner. Open items are listed below |
 
 Phase 2 closeout uses the [manifest](migration-manifest.csv) to account for the
 existing original adapted Incerto hub and the single shared notation canon.
@@ -383,15 +388,32 @@ passing local rehearsal on a fresh build. The math build retains its 48 flat
 `/math/` redirects and now produces a separate CSV-driven legacy Incerto tree.
 The [Phase 4 runbook](phase-4-cutover-runbook.md) owns the exact publication,
 verification, retention, and rollback steps. The
-[preparation record](../records/phase-4-cutover-prep-verification.md) distinguishes
-local checks from the pending live gate. Xiang's 2026-10-07 approval authorizes
-preparation; merge confirmation, hub push, and archive are owner actions.
+[preparation record](../records/phase-4-cutover-prep-verification.md) retains the
+local checks; the [live record](../records/phase-4-live-verification.md) records
+the completed cutover. The operator ran the Phase 5 live curl recheck against
+`xshi-math` main `3765783` and hub `2386290` on 2026-10-10.
 
-After go-live verification, the owner freezes authoring in `incerto-wiki`,
-disables obsolete publishing paths, and then archives the private repository.
-`xshi-math` becomes the only Incerto authoring home, including later work on
-currently deferred material. Retained legacy output is a frozen compatibility
-and recovery artifact, not a second authoring source. Private history stays private.
+`xshi-math` is the only authoring home for Incerto, IG, and Normix-theory notes,
+including later work on deferred material. The private repository is not
+archived; its formal authoring freeze/archive remains an owner action.
+Retained legacy output is a compatibility and recovery artifact. Private
+history stays private.
+
+- [ ] Phase 5 complete. The operator's live curl recheck is recorded, current
+  guidance including the hub-publish skill is updated, and local build/HTML
+  checks and redirect tests passed. Compatibility/rollback artifacts are
+  retained. No unreferenced rehearsal-only script or duplicate build path was
+  found to remove.
+  Remaining work:
+  - Owner confirms the `incerto-wiki` authoring freeze and archives the private
+    repository, including confirmation obsolete publishers stay disabled.
+  - Owner settles `incerto-scoft-intro` (`/incerto-wiki/intro/`, rights review)
+    and `hub-incerto-home-export` (the retained Markdown download).
+  - A hub change repairs the missing `/incerto-wiki/build/routes/$-O2KOSX5W.js`
+    requested by retained `intro/` and `sp500-tail/`, followed by live checks.
+  - Republish the locally verified IG title correction through the hub and
+    recheck the live title. The [Phase 5 record](../records/phase-5-verification.md)
+    records the passing checks and remaining browser review limits.
 
 The next content work from `incerto-wiki` plan PR #54 moves here as plan items:
 
@@ -399,16 +421,16 @@ The next content work from `incerto-wiki` plan PR #54 moves here as plan items:
 - Shadow Mean as a separate page, with its own scope decision before drafting.
 - Chapter 4 Cauchy Running Statistics as the next bounded empirical page.
 
-These pages are not authored by this preparation change. The source plan's
+These pages are not authored by this cleanup. The source plan's
 near-term priorities were inspected read-only on 2026-10-07; no private source
 text or book material is imported.
 
-If preparation reveals a new issue, stay before the relevant gate; the old site
-continues serving. If cutover fails, restore the recorded combined hub artifact
-and its route behavior, then coordinate which source remains authoritative before
-resuming edits. Keep the private source repository and prior hub artifacts for
-recovery. A public content leak cannot be undone by a site rollback, which is why
-source and artifact review precede publication.
+For a live defect, follow the runbook's rollback procedure while preserving the
+snapshotted legacy mirror. Reverting the cutover commit alone loses live-only
+legacy files; restoring the private Pages settings alone does not redeploy a
+site. Keep the private source repository and prior hub artifacts for recovery.
+A public content leak cannot be undone by a site rollback, which is why source
+and artifact review precede publication.
 
 ## Risks and mitigations
 
@@ -441,6 +463,6 @@ source and artifact review precede publication.
 Historical foundation and import checks remain in their verification records.
 Phase 2 eligible preparation is accounted for; the
 [Phase 3 local rehearsal record](../records/phase-3-rehearsal-verification.md)
-records a passing local build/staging gate. Phase 4 preparation is approved;
-owner merge confirmation, hub publication, and live verification remain pending.
-Phase 5 begins after the verified cutover and owner freeze/archive sequence.
+records a passing local build/staging gate. Phase 4 is live. Phase 5 remains
+incomplete until the open items above and the verification limits in the
+[Phase 5 record](../records/phase-5-verification.md) are resolved.

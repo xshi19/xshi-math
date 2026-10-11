@@ -1,8 +1,8 @@
 # Agent Router
 
-This repository contains a MyST/Python foundation for mathematical notes across
-three subsites (Incerto, Information Geometry, Normix theory) plus a landing
-page. Read [README.md](README.md) and [ARCHITECTURE.md](ARCHITECTURE.md) for
+This repository is the sole authoring home for mathematical notes across three
+subsites (Incerto, Information Geometry, Normix theory), published by the hub
+under `/math/`. Read [README.md](README.md) and [ARCHITECTURE.md](ARCHITECTURE.md) for
 scope. MIT applies to repository-owned material. The
 [planning index](docs/plan/index.md) records completed gates; files still
 described as proposed do not yet exist.
@@ -65,8 +65,11 @@ Normix package `docs-publish` stays upstream. No Lean project in-repo yet.
 ## Working boundaries
 
 - Follow the user's task scope. A future phase in a plan is not an instruction
-  to execute that phase. Foundation work does not authorize content migration.
+  to execute that phase. Cleanup does not authorize deferred content imports.
 - Preserve the [Normix boundary](docs/plan/consolidation.md#repository-boundaries).
+- For hub updates, use `$xshi-math-hub-publish` and the
+  [cutover runbook](docs/plan/phase-4-cutover-runbook.md); preserve the live
+  `/incerto-wiki/` mirror and compatibility pages alongside `/math/`.
 - Keep durable decisions in the repository. Use links to canonical guidance;
   load rules and recipes only for the task they govern.
 - Preserve assumptions, notation, attribution, and the distinction between
@@ -85,7 +88,7 @@ Normix package `docs-publish` stays upstream. No Lean project in-repo yet.
 - Review rendered equations, links, and desktop/mobile navigation under `/math/`.
 
 See [README](README.md) for preview commands and the
-[verification record](docs/records/phase-0-1-verification.md) for current limits.
+[planning index](docs/plan/index.md) for current verification and remaining gates.
 There is no Lean project or CI workflow.
 
 ## Completion in the current phase

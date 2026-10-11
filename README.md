@@ -3,7 +3,7 @@
 Mathematical notes and tutorials, supported by small Python demonstrations and
 optional future Lean formalization.
 
-The foundation has three tracks:
+The site has three tracks:
 
 - **Incerto / fat tails:** an original finite-sample exceedance example and
   twenty-three adapted notes on Pareto tails, moments, estimation, extreme-value
@@ -21,9 +21,15 @@ reuse those symbols rather than inventing parallel names for the same concept.
 
 The [hub](https://github.com/xshi19/xshi19.github.io) owns assembly and publication
 at `https://xshi19.github.io/math/`. Normix's implementation, public API, releases,
-and API documentation stay upstream. No math site has been deployed by this change.
+and API documentation stay upstream. The cutover is live as of 2026-10-10;
+`xshi-math` is the only authoring home for all three tracks. The hub also retains
+the old `/incerto-wiki/` site mirror with 28 generated compatibility pages.
+The private repository's own Pages was removed; its freeze/archive remains an
+owner action.
 
-**Status:** Phase 0 light inventory and the Phase 1 local HTML gate are complete.
+**Status:** Phases 0–4 are recorded complete for their scoped gates. Phase 5
+guidance cleanup and outstanding gates are recorded in the
+[Phase 5 verification record](docs/records/phase-5-verification.md).
 Foundation Python checks and earlier pinned site builds passed under `/math/`.
 The [IG outline](docs/plan/ig-entry-outline.md), first IG entry batch,
 [Incerto Batch 1](docs/plan/phase-2-incerto-batch-1.md),
@@ -38,10 +44,10 @@ See the [foundation record](docs/records/phase-0-1-verification.md),
 [Incerto Batch 3 record](docs/records/phase-2-batch-3-verification.md),
 [Normix Batch 1 record](docs/records/phase-2-normix-batch-1-verification.md), and
 [Normix Batch 2 record](docs/records/phase-2-normix-batch-2-verification.md)
-for results and remaining publication checks. The [subsite split](docs/records/subsite-split-verification.md)
+for historical results and check coverage. The [subsite split](docs/records/subsite-split-verification.md)
 replaces the combined book with a landing and three independent sites. Twenty-six Incerto concept pages and thirteen Normix
 notes have been imported; no private history was imported and no CI is
-configured. Further imports remain planned.
+configured. Further imports remain deferred.
 
 ## Install and run Python
 
@@ -115,8 +121,8 @@ public nested URLs; the root sitemap covers all 52 pages. The assembled
 `_build/html/` is the `/math/` publication artifact. The build also runs
 `scripts/write_legacy_incerto.py` to produce a separate compatibility tree at
 `_build/legacy/incerto-wiki/` from the URL map, reporting unresolved rows.
-The [Phase 4 runbook](docs/plan/phase-4-cutover-runbook.md) describes its owner-run
-hub overlay, retained legacy files, and live verification.
+The [Phase 4 runbook](docs/plan/phase-4-cutover-runbook.md) records the completed
+hub cutover, required legacy-file retention, live verification, and rollback.
 Running an individual MyST build overwrites that directory; rerun `npm run build`
 before checking or publishing the combined site. Do not run builds concurrently.
 
@@ -139,8 +145,10 @@ remain real pages. Other old flat routes redirect, for example
 `/math/incerto-pareto/` → `/math/incerto/incerto-pareto/` and
 `/math/information-geometry/` → `/math/ig/`. Redirects include a meta refresh,
 canonical URL, and visible link; JavaScript preserves query strings and fragments.
+Without JavaScript, the static meta-refresh fallback drops the incoming query
+and hash; this limitation is accepted.
 The [URL map](docs/plan/url-map.csv) distinguishes these implemented math redirects
-from generated but unpublished `/incerto-wiki/` compatibility pages, unresolved
+from live generated `/incerto-wiki/` compatibility pages, unresolved
 legacy routes, and proposed upstream Normix migration routes.
 
 For interactive authoring, use `npm start` for the landing or
@@ -154,7 +162,7 @@ python3 -m http.server 8000 --directory _build/preview
 ```
 
 Open `http://localhost:8000/math/`, then the three track bases. Fully qualified
-cross-track links point to the public host; when previewing before publication,
+cross-track links point to the public host; to preview local changes,
 open their `/math/...` paths on localhost. Review equations and desktop/mobile
 navigation when changing content or the theme.
 
@@ -167,8 +175,12 @@ rsync -a --delete /workspace/xshi-math/_build/html/ /workspace/xshi19.github.io/
 
 The trailing slashes copy the assembled contents into the hub's `math/`
 directory. Adjust only the destination checkout path if it lives elsewhere.
-Review and publish that hub change separately; this repository does not run the
-transfer or change `/normix/`.
+Preserve the hub's entire `incerto-wiki/` mirror and compatibility overlay.
+That mirror includes retained pages, downloads, and assets absent from the
+generated tree. For compatibility updates, follow the
+[runbook](docs/plan/phase-4-cutover-runbook.md); overlay the generator's output
+without `--delete`. Review and publish the hub change separately; this repository
+does not run the transfer or change `/normix/`.
 
 ## Repository map
 
@@ -177,7 +189,7 @@ transfer or change `/normix/`.
 | [Architecture](ARCHITECTURE.md) | What the scaffold contains and its dependency boundaries |
 | [Planning index](docs/plan/index.md) | Phase status and remaining decisions |
 | [Light inventory](docs/plan/phase-0-inventory.md) | Source revisions, representative dispositions, routes, and publisher findings |
-| [Consolidation plan](docs/plan/consolidation.md) | Future import, assembly, and cutover gates |
+| [Consolidation plan](docs/plan/consolidation.md) | Repository boundaries, publication, and remaining stabilization gates |
 | [Agent router](AGENTS.md) | Task routes and verification entry points |
 | [Agent framework](docs/design/AGENT_FRAMEWORK.md) | Guidance ownership and optional future rules/skills |
 
