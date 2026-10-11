@@ -36,7 +36,7 @@ def fragment_value(url_fragment, column):
 
 
 def load_legacy_routes(csv_path=URL_MAP):
-    """Return pages, mapped row count, and explicitly unresolved rows.
+    """Return pages, mapped row count, and rows skipped with a recorded reason.
 
     Fragment overrides need a page-level row for the static/no-JS fallback.
     Aliases may share a file, but must agree on all destinations.
@@ -89,7 +89,7 @@ def load_legacy_routes(csv_path=URL_MAP):
 
 def report_skipped(skipped):
     for row in skipped:
-        print(f"UNRESOLVED (skipped, line {row['line']}): {row['old_url']} — {row['reason']}")
+        print(f"SKIPPED (line {row['line']}): {row['old_url']} — {row['reason']}")
 
 
 def script_json(value):
@@ -148,7 +148,7 @@ def main():
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text(render_page(page), encoding="utf-8")
     print(f"Wrote {len(pages)} legacy compatibility pages for {mapped} mapped rows; "
-          f"{len(skipped)} unresolved rows skipped. Output: {LEGACY_HTML}")
+          f"{len(skipped)} rows skipped with recorded reasons. Output: {LEGACY_HTML}")
 
 
 if __name__ == "__main__":

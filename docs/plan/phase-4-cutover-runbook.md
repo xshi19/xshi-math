@@ -10,13 +10,17 @@ The [preparation record](../records/phase-4-cutover-prep-verification.md) retain
 the 2026-10-07 local gate; the [live record](../records/phase-4-live-verification.md)
 records go-live. The [Phase 5 record](../records/phase-5-verification.md) records
 the supplied live recheck against `xshi-math` main `3765783` and hub `2386290`.
-Owner freeze/archive, two URL-map decisions, and the retained-page asset 404
-remain open. The no-JS query/hash loss is accepted.
+Xiang settled both URL-map decisions on 2026-10-11: retain `intro/` as is and
+delete the stale Markdown build export in the hub separately; see the
+[owner decision record](../records/phase-5-owner-decisions-2026-10-11.md).
+Owner freeze/archive and the retained-page asset 404 remain open. The no-JS
+query/hash loss is accepted.
 
 The original cutover sequence below is retained for audit and recovery; merge,
 hub publication, and Pages removal are completed steps, not pending tasks.
 For routine updates, replace only `math/` and preserve the whole legacy mirror
-with its compatibility pages. If compatibility changes are authorized, overlay
+with its compatibility pages, except for the owner-decided export deletion
+recorded below. If compatibility changes are authorized, overlay
 only the generated tree without `--delete`. Never touch `/normix/`.
 
 ## Original cutover preconditions (historical)
@@ -30,7 +34,7 @@ only the generated tree without `--delete`. Never touch `/normix/`.
 - The owner confirms the effective Pages source/settings and pauses competing
   publishers/transfers for the publication window. Confirm that neither the
   private source publisher nor a hub writer can restore old mapped pages.
-- Review the two unresolved rows and the retained gaps below. Their preservation
+- Review the two then-unresolved rows and the retained gaps below. Their preservation
   was the adopted cutover treatment; it does not clear deferred rights reviews.
 
 ## Artifacts and URL rules
@@ -42,7 +46,8 @@ and writes 48 flat `/math/` redirects. It then invokes
 No sibling checkout is needed to build or check either artifact.
 
 The CSV currently has 31 legacy rows: 29 mapped rows produce **28 HTML files**
-pointing to **28 distinct built pages**; two rows are unresolved and skipped.
+pointing to **28 distinct built pages**; two owner-decided rows are skipped
+(one retained page and one deleted export). No legacy rows remain unresolved.
 The root `/incerto-wiki/` and literal `/incerto-wiki/index.html` share the same
 generated `index.html`. Directory routes normalize to a trailing slash;
 `index-1/` explicitly targets `/math/notation/`, normalizing the CSV's
@@ -69,15 +74,15 @@ CSV mappings are rejected because these files preserve queries at runtime.
 `npm run check:html` verifies coverage, refresh/canonical/visible-link agreement,
 noindex, JavaScript mapping data, and built destinations (including mapped IDs).
 It rejects unexpected generated HTML and destinations that are themselves
-redirects. It prints counts and every unresolved row with its reason.
+redirects. It prints counts and every skipped row with its recorded reason.
 Both output trees stay under the existing `_build/` ignore rule.
 
-## Unresolved rows and retained route gaps
+## Owner-decided rows and retained route gaps
 
-| Legacy URL (relative to `/incerto-wiki/`) | Retained disposition |
+| Legacy URL (relative to `/incerto-wiki/`) | Owner decision (2026-10-11) and generator treatment |
 | --- | --- |
-| `intro/` | Skip: the manifest defers SCoFT intro for rights review. The earlier `/math/incerto/incerto-scoft-intro/` proposal has no built page; preparation cleared that stale target. Retain existing hub output pending an owner decision. |
-| `build/index-995d9205321c1213987db72d01de44bf.md` | Skip: no target is recorded; download treatment and artifact rights remain unresolved. Retain the existing file without changing its notices or relabeling it. |
+| `intro/` | Decided: retain the legacy page as is, with no compatibility page. Keep `new_url` empty and skip generation. The manifest's deferred SCoFT source import still requires rights review. |
+| `build/index-995d9205321c1213987db72d01de44bf.md` | Deleted by owner decision: stale hub build leftover; hub deletion is handled separately and not live-verified here. Keep the CSV row for audit with an empty target; skip generation. |
 
 The pre-cutover hub inventory below uses committed filenames only, from
 `1511d5e358cc8040327e5a4df33d30ac3983fcef`:
@@ -104,10 +109,12 @@ notes have related Normix pages but no asserted one-to-one Incerto destination.
 The deployed mirror also includes files recovered from the old live site;
 these pre-cutover counts do not describe the full deployed tree. Refresh this
 filename audit against a clean clone before future compatibility updates. Preserve
-all unmapped HTML, the unresolved `intro/`, and every non-overwritten file:
+all unmapped HTML, the retained `intro/`, and every non-overwritten file except
+the exact Markdown export marked deleted above:
 `build/` downloads and bundled assets (1,394 files at the inspected revision),
 the entire `api/` tree, images, JSON/search data, styles, discovery files, and
-service-worker files. **Preserve the entire hub `incerto-wiki/` tree.**
+service-worker files. **Preserve the hub `incerto-wiki/` tree apart from that
+owner-decided export deletion.**
 The compatibility tree overlays only its exact HTML paths. Retained pages may
 still expose old navigation/search; this is frozen legacy output whose eventual
 treatment belongs to Phase 5. Do not copy private source or newly generated
@@ -326,11 +333,14 @@ which authoring source remains authoritative while the defect is repaired.
 2. Archive the private `incerto-wiki` repository, keeping it private as provenance
    and rollback history. This is an owner action only, after live verification
    and the authoring freeze. No archive action has been performed here.
-3. Finish Phase 5: settle the two unresolved routes/download retention and fix
-   the hub-only asset 404 requested by retained `intro/` and `sp500-tail/`:
+3. Finish Phase 5: fix the hub-only asset 404 requested by retained `intro/`
+   and `sp500-tail/`:
    `/incerto-wiki/build/routes/$-O2KOSX5W.js`. This asset belongs to the hub mirror
    and cannot be repaired by regenerating compatibility pages in this repo.
    Track guidance cleanup and verification in the
    [Phase 5 record](../records/phase-5-verification.md).
+   The two URL-map decisions are closed by the
+   [2026-10-11 owner decision record](../records/phase-5-owner-decisions-2026-10-11.md);
+   the export deletion is a separate hub change.
    Keep compatibility URLs and rollback artifacts. The next content plan is in
    [consolidation](consolidation.md#one-time-consolidation-phases).

@@ -6,6 +6,8 @@ implemented. Phase 4 cutover is live as of 2026-10-10; see the
 [live verification record](../records/phase-4-live-verification.md).
 `xshi-math` is the sole authoring home for all three tracks. Phase 5 cleanup is
 partial; see the [Phase 5 verification record](../records/phase-5-verification.md).
+The two legacy URL-map decisions were settled by Xiang on 2026-10-11; see the
+[owner decision record](../records/phase-5-owner-decisions-2026-10-11.md).
 The `incerto-wiki` authoring freeze/archive remains an owner action.
 The fresh Phase 4 build and `check:html` gate passed on 2026-10-07 in the
 operator's run outside the sandbox; see the
@@ -37,6 +39,7 @@ personal hub. Normix remains an independent JAX package and API project.
 | [Phase 4 preparation record](../records/phase-4-cutover-prep-verification.md) | Preparation commands, compatibility counts, results, and prepublication gates |
 | [Phase 4 live verification record](../records/phase-4-live-verification.md) | Live cutover revisions, compatibility and kept-page checks, browser findings, and Phase 5 follow-ups |
 | [Phase 5 verification record](../records/phase-5-verification.md) | Operator curl recheck, guidance cleanup, machinery audit, locally verified IG title change, passing build/HTML checks, and remaining gates |
+| [Phase 5 owner decisions (2026-10-11)](../records/phase-5-owner-decisions-2026-10-11.md) | Retain the legacy intro page, delete the stale hub build export separately, and preserve generated redirect behavior |
 | [Rule index](../rules/index.md) | Current rule routes and intentionally deferred rule bodies |
 
 [ARCHITECTURE.md](../../ARCHITECTURE.md) describes the source scaffold now present.
@@ -137,9 +140,6 @@ Remaining Phase 5 work:
 
 - Owner confirms the `incerto-wiki` authoring freeze/archive and disabled
   obsolete publishers. The repository has not been archived.
-- Owner resolves `incerto-scoft-intro` (`intro/`, rights review) and
-  `hub-incerto-home-export` (the retained `build/index-995d9205321c1213987db72d01de44bf.md`
-  download); their URL-map semantics remain unchanged.
 - Repair the 404 `/incerto-wiki/build/routes/$-O2KOSX5W.js` in the hub mirror
   and recheck retained `intro/` and `sp500-tail/` pages. This is a hub change.
 - Republish the locally verified IG title correction through the hub and recheck
@@ -167,6 +167,7 @@ Owner decisions recorded on 2026-09-12; `xmath` confirmed for this foundation:
 | Agent model policy | Ask for a model before coding/exec work unless already named; Codex is primary and its project defaults are active. See [model selection](../../AGENTS.md#model-selection). |
 | Information Geometry timing | Both prerequisites are met: the Phase 1 `/math` build passes and the owner curriculum is supplied. The outline and first entry batch are implemented; full Incerto migration is not a prerequisite. |
 | Phase 4 cutover (2026-10-10) | Preparation approved 2026-10-07; merge and hub publication completed. Hub `2386290` serves `/math/` and the full legacy mirror plus 28 compatibility pages; private Incerto Pages removed. Operator ran Phase 5 live curl checks against math main `3765783`. Freeze/archive remains an owner action. |
+| Legacy URL-map dispositions (2026-10-11) | Xiang decided to retain `/incerto-wiki/intro/` as is with no compatibility page and delete the stale `build/index-995d9205321c1213987db72d01de44bf.md` export in the hub separately. Both rows keep empty targets and are skipped; no legacy URL-map decisions remain unresolved. See the [owner decision record](../records/phase-5-owner-decisions-2026-10-11.md). |
 | Live prefix ownership | Hub serves `/math/` and `/incerto-wiki/`; Normix package docs at `/normix/` stay upstream. The removed private Pages site no longer shadows the hub mirror. See the [runbook](phase-4-cutover-runbook.md). |
 | No-JS redirect behavior | Accept query/hash loss in the static meta-refresh fallback; JavaScript forwards them. |
 

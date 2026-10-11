@@ -40,19 +40,24 @@ class LegacyRedirectTests(unittest.TestCase):
             for old, old_fragment, new, new_fragment in rows:
                 writer.writerow(["test", ORIGIN + old, old_fragment,
                                  ORIGIN + new if new else "", new_fragment,
-                                 "owner decision pending", "test fixture"])
+                                 "no compatibility page", "test fixture"])
         return load_legacy_routes(self.csv)
 
-    def test_home_alias_notation_and_unresolved(self):
+    def test_home_alias_notation_and_skipped_rows(self):
         pages, mapped, skipped = self.load([
             ("/incerto-wiki/", "", "/math/incerto", ""),
             ("/incerto-wiki/index.html", "", "/math/incerto/", ""),
             ("/incerto-wiki/index-1", "", "/math/notation", ""),
+            ("/incerto-wiki/intro/", "", "", ""),
             ("/incerto-wiki/build/index-export.md", "", "", ""),
         ])
-        self.assertEqual((len(pages), mapped, len(skipped)), (2, 3, 1))
+        self.assertEqual((len(pages), mapped, len(skipped)), (2, 3, 2))
         self.assertEqual(pages["/incerto-wiki/index-1/"].target, ORIGIN + "/math/notation/")
-        self.assertIn("owner decision pending", skipped[0]["reason"])
+        self.assertEqual([row["old_url"] for row in skipped], [
+            ORIGIN + "/incerto-wiki/intro/",
+            ORIGIN + "/incerto-wiki/build/index-export.md",
+        ])
+        self.assertTrue(all("no compatibility page" in row["reason"] for row in skipped))
         self.assertEqual(page_file(self.root, "/incerto-wiki/index.html", "/incerto-wiki"),
                          self.root / "index.html")
 

@@ -32,7 +32,7 @@ covers five further theory notes and the standard 51-page HTML gate.
 | `src/math/` | Source directory explicitly installed as `xmath` by setuptools; no top-level `math` package |
 | `demos/`, `tests/` | A deterministic exceedance example; checks of counting, invalid input, import isolation, and legacy redirect generation/validation |
 | `scripts/build_sites.py`, `scripts/site_layout.py`, `scripts/write_redirects.py` | Export separately, assemble `_build/html/`, and generate 48 old flat math redirects from the shared route layout |
-| `scripts/write_legacy_incerto.py` | Generates 28 compatibility pages at `_build/legacy/incerto-wiki/` from `url-map.csv`; reports two unresolved rows |
+| `scripts/write_legacy_incerto.py` | Generates 28 compatibility pages at `_build/legacy/incerto-wiki/` from `url-map.csv`; skips two owner-decided rows with empty targets (one retained page and one deleted export) |
 | `scripts/check_html.py` | Checks all pages and redirects, including the legacy compatibility tree, independent branding/TOCs, local routes/assets/fragments, nested base paths, shared CSS, and rendered equations |
 | `docs/plan/` | Representative inventory, imported Incerto Batch 1/2/3 and Normix Batch 1/2 dispositions, remaining proposals, URL mappings, and pending gates |
 
