@@ -120,7 +120,8 @@ math URLs. Assembly also replaces localhost sitemap/discovery URLs with the
 public nested URLs; the root sitemap covers all 52 pages. The assembled
 `_build/html/` is the `/math/` publication artifact. The build also runs
 `scripts/write_legacy_incerto.py` to produce a separate compatibility tree at
-`_build/legacy/incerto-wiki/` from the URL map, reporting unresolved rows.
+`_build/legacy/incerto-wiki/` from the URL map, reporting skipped rows and their
+recorded reasons.
 The [Phase 4 runbook](docs/plan/phase-4-cutover-runbook.md) records the completed
 hub cutover, required legacy-file retention, live verification, and rollback.
 Running an individual MyST build overwrites that directory; rerun `npm run build`
@@ -148,8 +149,8 @@ canonical URL, and visible link; JavaScript preserves query strings and fragment
 Without JavaScript, the static meta-refresh fallback drops the incoming query
 and hash; this limitation is accepted.
 The [URL map](docs/plan/url-map.csv) distinguishes these implemented math redirects
-from live generated `/incerto-wiki/` compatibility pages, unresolved
-legacy routes, and proposed upstream Normix migration routes.
+from live generated `/incerto-wiki/` compatibility pages, owner-decided retained
+or deleted legacy routes, and proposed upstream Normix migration routes.
 
 For interactive authoring, use `npm start` for the landing or
 `npm run start:incerto`, `npm run start:ig`, or `npm run start:normix-theory`.

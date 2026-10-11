@@ -132,7 +132,7 @@ def check_legacy(failures, document):
             if parsed.fragment and unquote(parsed.fragment) not in target_parser.ids:
                 failures.append(f"{page.old}: missing legacy destination fragment: {url}")
     print(f"Checked {len(pages)} legacy compatibility pages for {mapped} mapped rows, "
-          f"{len(targets)} distinct target pages; {len(skipped)} unresolved rows skipped.")
+          f"{len(targets)} distinct target pages; {len(skipped)} rows skipped with recorded reasons.")
 
 
 def toc_files(entries):

@@ -7,6 +7,8 @@ siblings, flat `/math/` routes). Phase 4 is live as of 2026-10-10: the hub serve
 `/math/` and the full `/incerto-wiki/` mirror plus 28 compatibility pages;
 the private repository's own Pages was removed. Phase 5 cleanup is partial;
 its [verification record](../records/phase-5-verification.md) lists open gates.
+The two legacy URL-map decisions were settled on 2026-10-11; see the
+[owner decision record](../records/phase-5-owner-decisions-2026-10-11.md).
 
 See the [planning index](index.md) for current work.
 Source review date: 2026-09-13. Closeout/rehearsal review: 2026-10-02.
@@ -330,9 +332,12 @@ The landing, three subsite bases, and 48 old flat math redirects are implemented
 in the assembled artifact; see the [verification record](../records/subsite-split-verification.md).
 The build also generates mapped `/incerto-wiki/` compatibility pages in the
 separate `_build/legacy/incerto-wiki/` tree. The
-[Phase 4 runbook](phase-4-cutover-runbook.md) records unresolved rows and retained
-hub routes outside the map. The compatibility pages are live on the hub; the
-[Phase 5 record](../records/phase-5-verification.md) records the operator's direct
+[Phase 4 runbook](phase-4-cutover-runbook.md) records two owner-decided skipped
+rows and retained hub routes outside the map. Xiang decided on 2026-10-11 to
+retain `/incerto-wiki/intro/` as is with no compatibility page and delete the
+stale Markdown build export in the hub separately. Both targets remain empty;
+no legacy URL-map decisions remain unresolved. The compatibility pages are live
+on the hub; the [Phase 5 record](../records/phase-5-verification.md) records the operator's direct
 live curl recheck. Upstream Normix compatibility routes remain proposals; historical
 automatic fragments are not fully audited.
 
@@ -407,8 +412,6 @@ history stays private.
   Remaining work:
   - Owner confirms the `incerto-wiki` authoring freeze and archives the private
     repository, including confirmation obsolete publishers stay disabled.
-  - Owner settles `incerto-scoft-intro` (`/incerto-wiki/intro/`, rights review)
-    and `hub-incerto-home-export` (the retained Markdown download).
   - A hub change repairs the missing `/incerto-wiki/build/routes/$-O2KOSX5W.js`
     requested by retained `intro/` and `sp500-tail/`, followed by live checks.
   - Republish the locally verified IG title correction through the hub and
