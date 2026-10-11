@@ -1,26 +1,37 @@
 # Phase 4 public cutover runbook
 
-Status (2026-10-07): ready / in progress — artifacts in this PR; pending owner
-merge + hub push. Xiang approved preparation on 2026-10-07, with confirmation
-before merge. This document contains operator instructions; preparing it does
-not publish, merge, freeze authoring, or archive a repository.
-See the [preparation record](../records/phase-4-cutover-prep-verification.md):
-the fresh build and `check:html` gate passed on 2026-10-07 in the operator's run
-outside the sandbox. The remaining owner gates below still apply.
+Status (2026-10-10): cutover live. Hub `2386290` serves `/math/` from this repo
+and `/incerto-wiki/` as a full mirror of the old live site plus 28 compatibility
+pages. The private repository's own Pages was removed; it is not archived.
+`xshi-math` is the only authoring home for Incerto, IG, and Normix-theory notes.
+Normix package docs at `/normix/` remain upstream.
 
-## Preconditions
+The [preparation record](../records/phase-4-cutover-prep-verification.md) retains
+the 2026-10-07 local gate; the [live record](../records/phase-4-live-verification.md)
+records go-live. The [Phase 5 record](../records/phase-5-verification.md) records
+the supplied live recheck against `xshi-math` main `3765783` and hub `2386290`.
+Owner freeze/archive, two URL-map decisions, and the retained-page asset 404
+remain open. The no-JS query/hash loss is accepted.
 
-- Xiang has confirmed the merge and this PR is merged. Use the reviewed
+The original cutover sequence below is retained for audit and recovery; merge,
+hub publication, and Pages removal are completed steps, not pending tasks.
+For routine updates, replace only `math/` and preserve the whole legacy mirror
+with its compatibility pages. If compatibility changes are authorized, overlay
+only the generated tree without `--delete`. Never touch `/normix/`.
+
+## Original cutover preconditions (historical)
+
+- Xiang has confirmed the merge and the cutover PR is merged. Use the reviewed
   `xshi-math` revision, with no further source changes during publication.
 - A fresh `npm run build && npm run check:html` passes. Record the source
   revision, toolchain versions, artifact checksum, and resulting hub commit.
-- Use a **new clean hub clone**. The existing `/workspace/xshi19.github.io`
-  checkout has unrelated deletions and must not be used or repaired for this task.
+- Use a **new clean hub clone**. At preparation time, the existing
+  `/workspace/xshi19.github.io` checkout had unrelated deletions and was excluded.
 - The owner confirms the effective Pages source/settings and pauses competing
   publishers/transfers for the publication window. Confirm that neither the
   private source publisher nor a hub writer can restore old mapped pages.
 - Review the two unresolved rows and the retained gaps below. Their preservation
-  is the proposed cutover treatment; it does not clear deferred rights reviews.
+  was the adopted cutover treatment; it does not clear deferred rights reviews.
 
 ## Artifacts and URL rules
 
@@ -41,6 +52,8 @@ Each compatibility file has no external assets: noindex, an absolute canonical
 URL, immediate meta refresh, JavaScript, and a visible destination link. The
 script preserves the query and unknown hash. Without JavaScript, the refresh
 and visible link use the static fallback; query/hash forwarding requires JS.
+Loss of the incoming query/hash is inherent to this static meta-refresh target
+and accepted. Live no-JS browser coverage is still unrecorded.
 
 Fragment columns are currently empty. When supplied, `old_fragment` and
 `new_fragment` accept labels with or without `#`; URL-embedded fragments must
@@ -61,12 +74,12 @@ Both output trees stay under the existing `_build/` ignore rule.
 
 ## Unresolved rows and retained route gaps
 
-| Legacy URL (relative to `/incerto-wiki/`) | Preparation disposition |
+| Legacy URL (relative to `/incerto-wiki/`) | Retained disposition |
 | --- | --- |
-| `intro/` | Skip: the manifest defers SCoFT intro for rights review. The earlier `/math/incerto/incerto-scoft-intro/` proposal has no built page; this PR clears that stale target. Retain existing hub output pending an owner decision. |
+| `intro/` | Skip: the manifest defers SCoFT intro for rights review. The earlier `/math/incerto/incerto-scoft-intro/` proposal has no built page; preparation cleared that stale target. Retain existing hub output pending an owner decision. |
 | `build/index-995d9205321c1213987db72d01de44bf.md` | Skip: no target is recorded; download treatment and artifact rights remain unresolved. Retain the existing file without changing its notices or relabeling it. |
 
-The hub inventory uses committed filenames only, from
+The pre-cutover hub inventory below uses committed filenames only, from
 `1511d5e358cc8040327e5a4df33d30ac3983fcef`:
 
 ```sh
@@ -76,7 +89,7 @@ git -C /workspace/xshi19.github.io ls-tree -r --name-only HEAD incerto-wiki/
 Of 1,755 committed files, 55 are HTML. **37 HTML files are absent from the CSV**:
 21 MyST routes and 16 files in `api/`. The latter include two HTML template
 assets, listed conservatively rather than assumed to be reader entry points.
-No new mappings are proposed for these files in this PR. The excluded mixture
+No mappings were added for these files at cutover. The excluded mixture
 notes have related Normix pages but no asserted one-to-one Incerto destination.
 
 | Unmapped group | Paths relative to `incerto-wiki/` |
@@ -88,20 +101,23 @@ notes have related Normix pages but no asserted one-to-one Incerto destination.
 | API module views (5) | `api/_modules/index.html`, `api/_modules/incerto/distributions.html`, `api/_modules/incerto/estimators.html`, `api/_modules/incerto/figures.html`, `api/_modules/incerto/stats.html` |
 | API template assets (2) | `api/_static/sbt-webpack-macros.html`, `api/_static/webpack-macros.html` |
 
-Refresh this filename audit against the clean clone before publishing. Preserve
+The deployed mirror also includes files recovered from the old live site;
+these pre-cutover counts do not describe the full deployed tree. Refresh this
+filename audit against a clean clone before future compatibility updates. Preserve
 all unmapped HTML, the unresolved `intro/`, and every non-overwritten file:
 `build/` downloads and bundled assets (1,394 files at the inspected revision),
 the entire `api/` tree, images, JSON/search data, styles, discovery files, and
-service-worker files. **Remove nothing under `incerto-wiki/` in Phase 4.**
+service-worker files. **Preserve the entire hub `incerto-wiki/` tree.**
 The compatibility tree overlays only its exact HTML paths. Retained pages may
 still expose old navigation/search; this is frozen legacy output whose eventual
 treatment belongs to Phase 5. Do not copy private source or newly generated
 legacy book exports into the hub.
 
-## Publish one hub commit (owner/operator only)
+## Original publication sequence (completed; owner/operator reference)
 
-Run these commands only after the preconditions hold. Edit the clone destination
-to a new, unused directory. `rsync` is required. Do not run builds concurrently.
+These commands document the completed cutover. Reuse only the relevant build,
+overlay, and review steps for an authorized future publication. Edit the clone
+destination to a new, unused directory. `rsync` is required. Do not run builds concurrently.
 
 ```bash
 set -euo pipefail
@@ -184,12 +200,12 @@ review its inventory, and repeat the checks before a normal push.
 
 ## Pages switchover ordering (finding 2026-10-10)
 
-Finding: `https://xshi19.github.io/incerto-wiki/` is served by the private
-`incerto-wiki` repository's own GitHub Pages (`build_type: workflow`), which
-shadows the hub's `incerto-wiki/` folder. Publishing to the hub alone changes
-nothing at the live legacy URL until that Pages site is removed.
+Finding before removal: `https://xshi19.github.io/incerto-wiki/` was served by
+the private repository's own GitHub Pages (`build_type: workflow`), shadowing
+the hub folder. That Pages site has now been removed and the hub serves the
+legacy URL. Do not repeat Pages removal for routine math updates.
 
-Keep the URL available throughout the switchover:
+The completed switchover used this ordering to keep the URL available:
 
 1. Publish the single hub commit above: replace `math/` and overlay the
    compatibility pages. Before committing, also fill any gaps in the hub's
@@ -212,7 +228,7 @@ Keep the URL available throughout the switchover:
    Prefer keeping the hub's `incerto-wiki/` copy; restore the old Pages site with
    the recorded settings only if a deployable artifact is available.
 
-The private repository is neither archived nor deleted in this step.
+The private repository was neither archived nor deleted by the switchover.
 
 ## Verify the live deployment
 
@@ -302,16 +318,19 @@ Wait for any resulting Pages deployments, then verify the restored legacy behavi
 sibling prefixes. Keep the source revision and combined artifact checksum. The owner decides
 which authoring source remains authoritative while the defect is repaired.
 
-## After successful go-live (owner actions)
+## Outstanding owner and Phase 5 actions
 
-1. Record the deployed hub commit and passing live/browser checks. Freeze all
-   Incerto authoring in the private `incerto-wiki` repository; `xshi-math` is the
-   only Incerto authoring home. Confirm obsolete publishers cannot overwrite
-   the compatibility files, then mark Phase 4 complete in the planning index.
+1. Confirm the formal authoring freeze in private `incerto-wiki` and that
+   obsolete publishers stay disabled. The deployed revision and live checks
+   are already recorded; Phase 4 is marked live in the planning index.
 2. Archive the private `incerto-wiki` repository, keeping it private as provenance
    and rollback history. This is an owner action only, after live verification
-   and the authoring freeze; no archive API or command runs in this PR.
-3. Start Phase 5: verify stability, settle unresolved routes/download retention,
-   and prune obsolete guidance or build machinery in separate reviewed changes.
+   and the authoring freeze. No archive action has been performed here.
+3. Finish Phase 5: settle the two unresolved routes/download retention and fix
+   the hub-only asset 404 requested by retained `intro/` and `sp500-tail/`:
+   `/incerto-wiki/build/routes/$-O2KOSX5W.js`. This asset belongs to the hub mirror
+   and cannot be repaired by regenerating compatibility pages in this repo.
+   Track guidance cleanup and verification in the
+   [Phase 5 record](../records/phase-5-verification.md).
    Keep compatibility URLs and rollback artifacts. The next content plan is in
    [consolidation](consolidation.md#one-time-consolidation-phases).

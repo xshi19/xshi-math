@@ -3,10 +3,13 @@
 The repository contains three independent mathematical subsites, a landing,
 and one educational Python package. The
 [consolidation plan](docs/plan/consolidation.md) owns future migration and
-publication decisions; the [verification record](docs/records/phase-0-1-verification.md)
+publication decisions; the [Phase 5 record](docs/records/phase-5-verification.md)
+tracks post-cutover cleanup and open gates. The hub serves `/math/` from this
+repository, the sole authoring home for all three tracks. The
+[verification record](docs/records/phase-0-1-verification.md)
 records the completed local foundation gate. The
 [IG verification record](docs/records/ig-entry-verification.md) covers the first
-substantive entry batch and remaining publication checks.
+substantive entry batch and its historical check coverage.
 The [Incerto Batch 1 record](docs/records/phase-2-batch-1-verification.md) covers
 the nine adapted tail notes. The
 [Normix Batch 1 record](docs/records/phase-2-normix-batch-1-verification.md)
@@ -21,15 +24,16 @@ covers five further theory notes and the standard 51-page HTML gate.
 
 | Surface | Current responsibility |
 | --- | --- |
-| `myst.{landing,incerto,ig,normix-theory}.yml`, `content/` | Four independent projects: landing (1 page), Incerto (28), Information Geometry (7), and Normix theory (15); `myst.yml` extends the landing for default authoring |
+| `myst.{landing,incerto,ig,normix-theory}.yml`, `content/` | Four independent projects: landing with shared notation (2 pages), Incerto (28), Information Geometry (7), and Normix theory (15); `myst.yml` extends the landing for default authoring |
 | `content/notation.md` | One shared notation canon for all three tracks (`/math/notation/`) |
 | `assets/styles/math.css` | Original typography, equation overflow, and focus styles layered over the theme |
 | `package.json`, `package-lock.json` | MyST CLI 1.10.1; `npm run build` builds and assembles all four sites with their own `BASE_URL` |
 | `pyproject.toml`, `uv.lock`, `.python-version` | Locked NumPy/pytest environment; Python 3.13 development default |
 | `src/math/` | Source directory explicitly installed as `xmath` by setuptools; no top-level `math` package |
-| `demos/`, `tests/` | A deterministic exceedance example and checks of counting, invalid input, and import isolation |
+| `demos/`, `tests/` | A deterministic exceedance example; checks of counting, invalid input, import isolation, and legacy redirect generation/validation |
 | `scripts/build_sites.py`, `scripts/site_layout.py`, `scripts/write_redirects.py` | Export separately, assemble `_build/html/`, and generate 48 old flat math redirects from the shared route layout |
-| `scripts/check_html.py` | Checks all pages and redirects, independent branding/TOCs, local routes/assets/fragments, nested base paths, shared CSS, and rendered equations |
+| `scripts/write_legacy_incerto.py` | Generates 28 compatibility pages at `_build/legacy/incerto-wiki/` from `url-map.csv`; reports two unresolved rows |
+| `scripts/check_html.py` | Checks all pages and redirects, including the legacy compatibility tree, independent branding/TOCs, local routes/assets/fragments, nested base paths, shared CSS, and rendered equations |
 | `docs/plan/` | Representative inventory, imported Incerto Batch 1/2/3 and Normix Batch 1/2 dispositions, remaining proposals, URL mappings, and pending gates |
 
 Body notes and concept indexes keep globally unique Markdown stems flat under
@@ -66,16 +70,23 @@ _build/html/
 
 Each site carries its own assets alongside these pages. Assembly replaces the
 theme's localhost sitemap/discovery URLs with public URLs; the root sitemap
-covers all 51 canonical pages and track sitemaps cover their own pages. All 47 body/concept
+covers all 52 canonical pages and track sitemaps cover their own pages. All 47 body/concept
 note URLs and the old IG hub get static redirects with canonical links and
 visible destinations; JavaScript preserves queries and fragments. Incerto and
 Normix hub paths already match, so they remain real pages without self-redirects.
-Older `/incerto-wiki/` and upstream Normix migration routes remain separate
-publication work. See the [URL map](docs/plan/url-map.csv) and
+The 28 generated `/incerto-wiki/` compatibility pages are live on the hub;
+upstream Normix migration routes remain proposals. Static no-JS refreshes drop
+incoming queries and hashes, an accepted limitation. See the [URL map](docs/plan/url-map.csv) and
 [subsite verification record](docs/records/subsite-split-verification.md).
 
-The intended artifact is the assembled `_build/html/`, copied by the parent into
-`math/` in the hub; the exact rsync is in the [README](README.md#build-the-sites).
+The publication artifact is the assembled `_build/html/`, copied into `math/`
+in the hub; the exact rsync is in the [README](README.md#build-the-sites).
+The separate generated compatibility tree overlays only mapped HTML in the
+hub's full `incerto-wiki/` mirror. Preserve that mirror, its assets/downloads,
+and compatibility pages when replacing `math/`; never touch `/normix/`.
+The private `incerto-wiki` repository's Pages was removed on 2026-10-10;
+owner freeze/archive remains outstanding. The
+[cutover runbook](docs/plan/phase-4-cutover-runbook.md) owns retention and rollback.
 Build outputs, environments, and installed tools are ignored by Git. The CLI is
 pinned; the upstream `book-theme` alias downloads a separate theme whose build
 identity is recorded with verification.
@@ -84,7 +95,7 @@ The dependency direction remains `xshi-math -> normix` for future package demos.
 This foundation links upstream without installing or vendoring Normix. The hub
 owns public assembly; no workflow here writes to it. Twenty-six Incerto concept pages and thirteen
 Normix notes are adapted with source notices; no private history, Lean project, CI
-workflow, or public math deployment was added. The
+workflow, or Pages publisher lives in this repository. The
 [Information Geometry outline](docs/plan/ig-entry-outline.md) separates the
 implemented Basics / early IG notes from later marginalization and GH/Normix
 research pages.

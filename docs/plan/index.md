@@ -4,8 +4,9 @@ Status: Phase 0 light inventory, Phase 1 local HTML gate, Phase 2 eligible
 scope, and Phase 3 local rehearsal complete; IG outline and first entry batch
 implemented. Phase 4 cutover is live as of 2026-10-10; see the
 [live verification record](../records/phase-4-live-verification.md).
-The `incerto-wiki` authoring freeze/archive remains an owner action. Phase 5
-cleanup remains pending.
+`xshi-math` is the sole authoring home for all three tracks. Phase 5 cleanup is
+partial; see the [Phase 5 verification record](../records/phase-5-verification.md).
+The `incerto-wiki` authoring freeze/archive remains an owner action.
 The fresh Phase 4 build and `check:html` gate passed on 2026-10-07 in the
 operator's run outside the sandbox; see the
 [preparation record](../records/phase-4-cutover-prep-verification.md).
@@ -35,6 +36,7 @@ personal hub. Normix remains an independent JAX package and API project.
 | [Phase 4 cutover runbook](phase-4-cutover-runbook.md) | Generated legacy compatibility tree, route gaps, one hub commit, live checks, rollback, and owner freeze/archive sequence |
 | [Phase 4 preparation record](../records/phase-4-cutover-prep-verification.md) | Preparation commands, compatibility counts, results, and prepublication gates |
 | [Phase 4 live verification record](../records/phase-4-live-verification.md) | Live cutover revisions, compatibility and kept-page checks, browser findings, and Phase 5 follow-ups |
+| [Phase 5 verification record](../records/phase-5-verification.md) | Operator curl recheck, guidance cleanup, machinery audit, locally verified IG title change, passing build/HTML checks, and remaining gates |
 | [Rule index](../rules/index.md) | Current rule routes and intentionally deferred rule bodies |
 
 [ARCHITECTURE.md](../../ARCHITECTURE.md) describes the source scaffold now present.
@@ -53,7 +55,7 @@ in the foundation environment with `BASE_URL=/math`; see the
 [foundation verification record](../records/phase-0-1-verification.md).
 The [owner curriculum](ig-entry-curriculum-draft.md) has been organized into the
 [IG entry outline](ig-entry-outline.md), and the hub now links six original
-Basics / early IG notes. Their checks and remaining publication limits are in
+Basics / early IG notes. Their original checks and publication limits are in
 the [IG verification record](../records/ig-entry-verification.md).
 Twenty-six approved Incerto concept pages (twenty-three bodies and three indexes)
 have now been adapted under MIT; see
@@ -87,7 +89,7 @@ deferred imports and Phase 5 cleanup retain their own gates:
   consumer, and route coverage is required before import/cutover.
 - [x] Phase 1 local HTML gate: the pinned `BASE_URL=/math` build and HTML
   checker pass. Foundation Python verification is recorded separately; hub
-  assembly and public-host review remain later gates.
+  assembly and public-host review were recorded in later phases.
 - [x] Start the IG outline and entry pages from the supplied owner curriculum:
   [outline and first batch](ig-entry-outline.md) implemented independently of
   Incerto import. Later marginalization and GH/Normix pages remain planned.
@@ -107,7 +109,7 @@ deferred imports and Phase 5 cleanup retain their own gates:
 - [x] Split the combined math book into a landing and three independent MyST
   subsites, with old flat math redirects; see the
   [subsite verification record](../records/subsite-split-verification.md). Parent
-  hub republishing and live verification remain separate gates.
+  hub republishing and live verification were recorded in Phase 4.
 - [x] Phase 2 eligible remainder: account for every manifest row as imported,
   stay, exclude, or deferred. SCoFT rights, empirical examples/data, dependency-DAG
   navigation/assets, and other shared-reference/reading-guide work remain
@@ -124,14 +126,28 @@ deferred imports and Phase 5 cleanup retain their own gates:
   plus 28 compatibility pages. See the
   [live verification record](../records/phase-4-live-verification.md).
   The `incerto-wiki` authoring freeze/archive remains an owner action.
-- [ ] Phase 5: verify the live result and prune obsolete guidance and machinery.
+- [ ] Phase 5: operator live curl recheck recorded; current docs and hub-publish
+  skill updated, and machinery audited. No unreferenced rehearsal-only script
+  found. Local build, HTML checks, and redirect tests passed; the IG title fix
+  awaits hub republishing. Remaining acceptance items are in
+  [consolidation](consolidation.md#one-time-consolidation-phases) and the
+  [verification record](../records/phase-5-verification.md).
 
-Known Phase 5 candidates from the live checks:
+Remaining Phase 5 work:
 
-- Investigate the 404 request for `/incerto-wiki/build/routes/$-O2KOSX5W.js`
-  from the kept `intro/` and `sp500-tail/` pages, which otherwise render fine.
-- Review query/hash loss in the meta-refresh fallback and test clients without
-  JavaScript live; the no-JS path was not tested live.
+- Owner confirms the `incerto-wiki` authoring freeze/archive and disabled
+  obsolete publishers. The repository has not been archived.
+- Owner resolves `incerto-scoft-intro` (`intro/`, rights review) and
+  `hub-incerto-home-export` (the retained `build/index-995d9205321c1213987db72d01de44bf.md`
+  download); their URL-map semantics remain unchanged.
+- Repair the 404 `/incerto-wiki/build/routes/$-O2KOSX5W.js` in the hub mirror
+  and recheck retained `intro/` and `sp500-tail/` pages. This is a hub change.
+- Republish the locally verified IG title correction through the hub and recheck
+  the live title; browser review limits are recorded in the verification record.
+
+No-JS meta-refresh query/hash loss is accepted as inherent to the static
+fallback. Live no-JS browser testing remains unrecorded, not a requested change
+to redirect semantics.
 
 “一次性全合” means one bounded consolidation and one canonical authoring source
 after cutover. Preparation can use several reviewable changes. It does not mean
@@ -150,12 +166,14 @@ Owner decisions recorded on 2026-09-12; `xmath` confirmed for this foundation:
 | Hub | `xshi19.github.io` is the assembly and publishing boundary. See [repository boundaries](consolidation.md#repository-boundaries). |
 | Agent model policy | Ask for a model before coding/exec work unless already named; Codex is primary and its project defaults are active. See [model selection](../../AGENTS.md#model-selection). |
 | Information Geometry timing | Both prerequisites are met: the Phase 1 `/math` build passes and the owner curriculum is supplied. The outline and first entry batch are implemented; full Incerto migration is not a prerequisite. |
-| Phase 4 preparation (2026-10-07) | Xiang: "现在切：让 Codex 先开 Phase 4 cutover PR（兼容页 + 计划更新），合之前等我确认". Prepare reviewable artifacts now; the operator handles commit/PR, owner confirmation precedes merge, and hub publication/archive follow separately. |
+| Phase 4 cutover (2026-10-10) | Preparation approved 2026-10-07; merge and hub publication completed. Hub `2386290` serves `/math/` and the full legacy mirror plus 28 compatibility pages; private Incerto Pages removed. Operator ran Phase 5 live curl checks against math main `3765783`. Freeze/archive remains an owner action. |
+| Live prefix ownership | Hub serves `/math/` and `/incerto-wiki/`; Normix package docs at `/normix/` stay upstream. The removed private Pages site no longer shadows the hub mirror. See the [runbook](phase-4-cutover-runbook.md). |
+| No-JS redirect behavior | Accept query/hash loss in the static meta-refresh fallback; JavaScript forwards them. |
 
 | Open question | Recommended starting point | Resolve before |
 | --- | --- | --- |
 | **Open question:** which existing Incerto Python imports have outside consumers? | One internal helper package; compatibility only where an actual consumer needs it | Moving or renaming code |
-| **Open question:** which writer refreshes the hub trees, and which Pages site effectively owns each live prefix? | Source Pages publishers and hub dynamic Pages runs identified; transfer/root writer, Pages settings, and cross-repo coordination unknown. See [inventory](phase-0-inventory.md#hub-publishing-findings). | Implementing artifact transfer |
+| **Open question:** are obsolete Incerto publishers durably disabled with the owner freeze/archive? | Private Pages was removed; retain the runbook's serialized hub transfer and confirm the owner action | Phase 5 completion |
 | **Open question:** which Lean statement is a useful first exercise? | One small theorem linked to a note, with exact proof status | Starting optional formalization |
 
 Update the owning document when a decision changes. This index tracks the next
