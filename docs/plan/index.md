@@ -2,9 +2,10 @@
 
 Status: Phase 0 light inventory, Phase 1 local HTML gate, Phase 2 eligible
 scope, and Phase 3 local rehearsal complete; IG outline and first entry batch
-implemented. Phase 4 is ready / in progress — artifacts in this PR; pending
-owner merge + hub push. Xiang approved cutover preparation on 2026-10-07;
-merge, publication, and private-repository archive remain owner actions.
+implemented. Phase 4 cutover is live as of 2026-10-10; see the
+[live verification record](../records/phase-4-live-verification.md).
+The `incerto-wiki` authoring freeze/archive remains an owner action. Phase 5
+cleanup remains pending.
 The fresh Phase 4 build and `check:html` gate passed on 2026-10-07 in the
 operator's run outside the sandbox; see the
 [preparation record](../records/phase-4-cutover-prep-verification.md).
@@ -30,9 +31,10 @@ personal hub. Normix remains an independent JAX package and API project.
 | [Incerto Batch 3](phase-2-incerto-batch-3.md) | Executed eight-page sums, geometry, catalog, and concept-index import |
 | [Normix Theory Batch 1](phase-2-normix-theory-batch-1.md) | Executed eight-page import scope, adaptations, and deferred material |
 | [Normix Theory Batch 2](phase-2-normix-theory-batch-2.md) | Executed five-page sequential EM, factor analysis, shrinkage, varentropy, and EM-framework math import |
-| [Phase 3 rehearsal record](../records/phase-3-rehearsal-verification.md) | Local staging, fresh build/check:html pass, flat math route checks, sibling preservation; live Pages and Phase 4 still pending |
+| [Phase 3 rehearsal record](../records/phase-3-rehearsal-verification.md) | Local staging, fresh build/check:html pass, flat math route checks, and sibling preservation before cutover |
 | [Phase 4 cutover runbook](phase-4-cutover-runbook.md) | Generated legacy compatibility tree, route gaps, one hub commit, live checks, rollback, and owner freeze/archive sequence |
-| [Phase 4 preparation record](../records/phase-4-cutover-prep-verification.md) | Preparation commands, compatibility counts, results, and remaining live gates |
+| [Phase 4 preparation record](../records/phase-4-cutover-prep-verification.md) | Preparation commands, compatibility counts, results, and prepublication gates |
+| [Phase 4 live verification record](../records/phase-4-live-verification.md) | Live cutover revisions, compatibility and kept-page checks, browser findings, and Phase 5 follow-ups |
 | [Rule index](../rules/index.md) | Current rule routes and intentionally deferred rule bodies |
 
 [ARCHITECTURE.md](../../ARCHITECTURE.md) describes the source scaffold now present.
@@ -67,17 +69,18 @@ satisfy the home and notation rows; no new math body or duplicate table was
 imported. Deferred and upstream material remains outside this closeout.
 The [Phase 3 record](../records/phase-3-rehearsal-verification.md) covers the
 local publication rehearsal: fresh strict build, HTML check, staging beside
-sibling hub prefixes, and flat `/math/` route verification. Live Pages and
-Phase 4 publication remain owner-gated. The 2026-10-07 preparation adds generated
-legacy compatibility pages and their checks; see the [runbook](phase-4-cutover-runbook.md).
-No private history or Normix implementation was imported, and preparation did
-not publish a site or change either neighboring repository.
+sibling hub prefixes, and flat `/math/` route verification. The 2026-10-07
+preparation added generated legacy compatibility pages and their checks; see
+the [runbook](phase-4-cutover-runbook.md). The 2026-10-10 cutover is live through
+the hub; the [live record](../records/phase-4-live-verification.md) records the
+checks and remaining follow-ups. No private history or Normix implementation
+was imported.
 
 ## Implementation sequence
 
 The [one-time consolidation phases](consolidation.md#one-time-consolidation-phases)
 define acceptance gates and rollback. Eligible preparation is accounted for;
-deferred imports and public cutover retain their own gates:
+deferred imports and Phase 5 cleanup retain their own gates:
 
 - [x] Phase 0 (light): inspect source/build/publisher configurations, record
   representative dispositions and URLs, and retain explicit unknowns. Full rights,
@@ -115,11 +118,20 @@ deferred imports and public cutover retain their own gates:
   `incerto-wiki/` copies; mapped flat `/math/` redirects and representative track
   URLs resolve locally. Live Pages and browser matrix were not rerun; see the
   [rehearsal record](../records/phase-3-rehearsal-verification.md).
-- [ ] Phase 4: ready / in progress — artifacts in this PR; pending owner merge +
-  hub push. Xiang approved preparation on 2026-10-07, with confirmation before
-  merge. Follow the [runbook](phase-4-cutover-runbook.md); check this box only
-  after live verification and the Incerto authoring freeze.
+- [x] Phase 4: cutover live 2026-10-10 (`xshi-math` `fd9406d` + docs #20
+  `49481f7`; hub `2386290`). The `incerto-wiki` repository's own Pages was
+  removed; the hub serves `/incerto-wiki/` as a full mirror of the old live site
+  plus 28 compatibility pages. See the
+  [live verification record](../records/phase-4-live-verification.md).
+  The `incerto-wiki` authoring freeze/archive remains an owner action.
 - [ ] Phase 5: verify the live result and prune obsolete guidance and machinery.
+
+Known Phase 5 candidates from the live checks:
+
+- Investigate the 404 request for `/incerto-wiki/build/routes/$-O2KOSX5W.js`
+  from the kept `intro/` and `sp500-tail/` pages, which otherwise render fine.
+- Review query/hash loss in the meta-refresh fallback and test clients without
+  JavaScript live; the no-JS path was not tested live.
 
 “一次性全合” means one bounded consolidation and one canonical authoring source
 after cutover. Preparation can use several reviewable changes. It does not mean
