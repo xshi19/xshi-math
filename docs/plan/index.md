@@ -27,6 +27,7 @@ personal hub. Normix remains an independent JAX package and API project.
 | [Agent framework](../design/AGENT_FRAMEWORK.md) | Guidance sources of truth, Codex/Cursor discovery, shared skills, adapters, verification contracts, maintenance |
 | [License advice](../design/LICENSE_ADVICE.md) | Adopted MIT scope, deferred alternative, Incerto import decision, private-to-public review |
 | [IG entry outline](ig-entry-outline.md) | Implemented Basics / early IG pages, prerequisites, and the later GH/Normix research sequence |
+| [Incerto program](incerto-program/README.md) | Design-only seven-book and technical-paper curriculum, existing coverage, Lean/Python integration proposal, milestones and resumable state |
 | [Incerto Batch 1](phase-2-incerto-batch-1.md) | Executed nine-page import scope, adaptations, and deferred material |
 | [Incerto Batch 2](phase-2-incerto-batch-2.md) | Executed nine-page EVT and diagnostics import, adaptations, and deferred material |
 | [Incerto Batch 3](phase-2-incerto-batch-3.md) | Executed eight-page sums, geometry, catalog, and concept-index import |

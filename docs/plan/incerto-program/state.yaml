@@ -1,0 +1,6818 @@
+# Canonical program inventory. See validation.md for semantics and checks.
+schema_version: 1
+updated: '2026-10-16'
+repository: xshi19/xshi-math
+baseline_revision: 998a4a11a17b7ae7ba4c306005a4c8e3109f4392
+branch: plan/incerto-program
+scope: design-only
+implementation_authorized: false
+status_semantics:
+  todo: Program work has not satisfied its evidence gates; existing prose is recorded separately.
+  in-progress: A named chunk is active and has a recorded checkpoint.
+  done: Required artifacts, source review, and applicable checks are recorded; a source unit closes only when its
+    mapped scope is reviewed.
+  concept_dependencies: Conceptual prerequisites, not a requirement to finish every evidence mode first. Only chunk
+    and milestone dependencies are execution gates.
+roles:
+  astra-max:
+    client: Codex
+    model: gpt-6-astra
+    reasoning: max
+    owns: hard mathematics, Lean, design
+  astra-xhigh:
+    client: Codex
+    model: gpt-6-astra
+    reasoning: xhigh
+    owns: writing and complex code
+  cursor-grok:
+    client: Cursor
+    model: Grok 4.7
+    reasoning: xhigh
+    owns: simple code, review, site code
+  math-site-editor:
+    client: Math Site Editor
+    owns: manager, source reconciliation, chunk selection and evidence records
+role_constraints:
+- Owner explicitly selected Astra max for this design task.
+- No Cursor third-party models.
+- Role assignments describe future work, not availability or permission to delegate.
+milestones:
+  M0:
+    title: Design and inventory
+    status: done
+    dependencies: []
+    assigned_role: astra-max
+  M1:
+    title: One-concept Lean pilot
+    status: todo
+    dependencies:
+    - M0
+    assigned_role: astra-max
+  M2:
+    title: Queued estimation notes and bounded simulation
+    status: todo
+    dependencies:
+    - M1
+    assigned_role: astra-xhigh
+  M3:
+    title: Incerto decisions and interpretive spine
+    status: todo
+    dependencies:
+    - M2
+    assigned_role: astra-xhigh
+  M4:
+    title: Tail estimation and empirical studies
+    status: todo
+    dependencies:
+    - M2
+    assigned_role: astra-xhigh
+  M5:
+    title: Finite-model hedging curriculum
+    status: todo
+    dependencies:
+    - M3
+    assigned_role: astra-max
+  M6:
+    title: Advanced formalization and coverage closeout
+    status: todo
+    dependencies:
+    - M3
+    - M4
+    - M5
+    assigned_role: astra-max
+next_chunk: '#/chunks/m1-scope'
+chunks:
+  m1-scope:
+    id: m1-scope
+    title: Confirm the existing finite-count statements and pin a feasible toolchain
+    status: todo
+    dependencies: []
+    assigned_role: astra-max
+    milestone: M1
+    concept_ids:
+    - c-exceedances
+    requires_owner_input: Before proof coding, confirm the informal claim as required by the Lean skill; design-only
+      authorization does not authorize implementation.
+    acceptance:
+    - Record n >= 1, real observations, strict > u, bounds, and antitonicity.
+    - Find suitable pinned Mathlib finite-set lemmas; record exact Lean and Mathlib versions.
+    - Record the owner confirmation and proceed only under a future implementation task.
+  m1-proof:
+    id: m1-proof
+    title: Implement and audit the two finite-count results
+    status: todo
+    dependencies:
+    - m1-scope
+    assigned_role: astra-max
+    milestone: M1
+    concept_ids:
+    - c-exceedances
+    acceptance:
+    - Build the imported module with no sorry/admit or new placeholder axioms.
+    - Review declaration hypotheses and dependency axioms against the informal statements.
+  m1-integration:
+    id: m1-integration
+    title: Link checked declarations and retain the existing numerical example
+    status: todo
+    dependencies:
+    - m1-proof
+    assigned_role: astra-xhigh
+    milestone: M1
+    concept_ids:
+    - c-exceedances
+    acceptance:
+    - Link the exact checked declaration at an immutable revision.
+    - Run the existing example and relevant Python, Lean, site, and HTML checks.
+    - Record proof versus floating-point implementation limits.
+  m1-checks:
+    id: m1-checks
+    title: Review local and proposed CI checks
+    status: todo
+    dependencies:
+    - m1-integration
+    assigned_role: cursor-grok
+    milestone: M1
+    concept_ids:
+    - c-exceedances
+    acceptance:
+    - Review root imports and failure-on-placeholder behavior.
+    - Review separate Lean, Python, and site jobs if CI is introduced.
+    - Math Site Editor records evidence before closing M1.
+  m2-moments:
+    id: m2-moments
+    title: Moment-estimation failure, first queued new note
+    status: todo
+    dependencies:
+    - m1-checks
+    assigned_role: astra-max
+    milestone: M2
+    concept_ids:
+    - c-pareto-moments
+    - c-plugin
+    - c-moment-estimation
+    acceptance:
+    - Scope exact claims and finite versus infinite moments before original writing.
+    - Reconcile the selected source chapter and citation locators.
+  m2-inference:
+    id: m2-inference
+    title: Inference asymmetry, second queued new note
+    status: todo
+    dependencies:
+    - m2-moments
+    assigned_role: astra-max
+    milestone: M2
+    concept_ids:
+    - c-inference-asymmetry
+    acceptance:
+    - State and verify one finite-sample contamination counterexample.
+    - Separate model-relative theorem from philosophical induction.
+  m2-cauchy:
+    id: m2-cauchy
+    title: Bounded Cauchy running-statistics simulation
+    status: todo
+    dependencies:
+    - m2-inference
+    assigned_role: astra-xhigh
+    milestone: M2
+    concept_ids:
+    - c-cauchy-running
+    acceptance:
+    - Use a fixed seed, repeated paths, bounded runtime, and uncertainty summaries.
+    - Resolve the old Chapter 4 locator; classify synthetic data as numeric-demo.
+  edition-review:
+    id: edition-review
+    title: Reconcile selected editions and supplemental units
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M2
+    concept_ids: []
+    acceptance:
+    - Compare each selected copy with its chapter map; verify appendices and page locators.
+    - Resolve expanded Procrustes and 2025 Technical Incerto scope without renumbering existing IDs.
+    - Pin exact paper section and theorem locators before adopting their claims.
+sources:
+  src-fbr:
+    id: src-fbr
+    title: Fooled by Randomness publisher edition record
+    url: https://www.penguinrandomhouse.com/books/176225/fooled-by-randomness-by-nassim-nicholas-taleb/9781400067930/
+    checked: '2026-10-16'
+    verification: edition-or-contents-metadata-only
+  src-tbs:
+    id: src-tbs
+    title: The Black Swan publisher edition record
+    url: https://www.penguinrandomhouse.com/books/176226/the-black-swan-second-edition-by-nassim-nicholas-taleb/9780812973815/
+    checked: '2026-10-16'
+    verification: edition-or-contents-metadata-only
+  src-bop:
+    id: src-bop
+    title: The Bed of Procrustes hardcover record
+    url: https://www.penguinrandomhouse.com/books/210246/the-bed-of-procrustes-by-nassim-nicholas-taleb/hardcover/
+    checked: '2026-10-16'
+    verification: edition-or-contents-metadata-only
+  src-bop-expanded:
+    id: src-bop-expanded
+    title: The Bed of Procrustes expanded edition record
+    url: https://www.penguinrandomhouse.com/books/210246/the-bed-of-procrustes-by-nassim-nicholas-taleb/
+    checked: '2026-10-16'
+    verification: edition-or-contents-metadata-only
+  src-af:
+    id: src-af
+    title: Antifragile publisher edition record
+    url: https://www.penguinrandomhouse.com/books/176227/antifragile-by-nassim-nicholas-taleb/
+    checked: '2026-10-16'
+    verification: edition-or-contents-metadata-only
+  src-sitg:
+    id: src-sitg
+    title: Skin in the Game publisher edition record
+    url: https://www.penguinrandomhouse.com/books/537828/skin-in-the-game-by-nassim-nicholas-taleb/9780425284636/
+    checked: '2026-10-16'
+    verification: edition-or-contents-metadata-only
+  src-incerto-toc:
+    id: src-incerto-toc
+    title: Five-volume bibliographic contents locator
+    url: https://www.kriso.ee/incerto-fooled-randomness-black-swan-bed-db-9780593243657.html?lang=en
+    checked: '2026-10-16'
+    verification: edition-or-contents-metadata-only
+  src-scft-toc:
+    id: src-scft-toc
+    title: 2020 Statistical Consequences print contents locator
+    url: https://www.kriso.lt/statistical-consequences-fat-tails-real-world-db-9781544508054.html
+    checked: '2026-10-16'
+    verification: edition-or-contents-metadata-only
+  src-scft-v2:
+    id: src-scft-v2
+    title: Technical Incerto preprint, 2020 revision
+    url: https://arxiv.org/abs/2001.10488v2
+    checked: '2026-10-16'
+    verification: edition-or-contents-metadata-only
+  src-scft-v4:
+    id: src-scft-v4
+    title: Technical Incerto preprint, 2025 third revised edition
+    url: https://arxiv.org/abs/2001.10488v4
+    checked: '2026-10-16'
+    verification: edition-or-contents-metadata-only
+  src-dh:
+    id: src-dh
+    title: Dynamic Hedging publisher edition and contents
+    url: https://www.wiley-vch.de/en/areas-interest/finance-economics-law/dynamic-hedging-978-0-471-15280-4
+    checked: '2026-10-16'
+    verification: edition-or-contents-metadata-only
+  src-dh-toc:
+    id: src-dh-toc
+    title: Dynamic Hedging complete bibliographic contents locator
+    url: https://www.yes24.com/product/goods/80530
+    checked: '2026-10-16'
+    verification: edition-or-contents-metadata-only
+books:
+  fbr:
+    id: fbr
+    title: Fooled by Randomness
+    edition: Updated second edition, 2008 hardcover, ISBN 9781400067930
+    source_ids:
+    - src-fbr
+    - src-incerto-toc
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    expected_numbered_chapters: 14
+    edition_review: todo
+    notes: Check postscript locators against the selected copy; page numbers are intentionally unset.
+    chapters:
+    - fbr-ch01
+    - fbr-ch02
+    - fbr-ch03
+    - fbr-ch04
+    - fbr-ch05
+    - fbr-ch06
+    - fbr-ch07
+    - fbr-ch08
+    - fbr-ch09
+    - fbr-ch10
+    - fbr-ch11
+    - fbr-ch12
+    - fbr-ch13
+    - fbr-ch14
+    - fbr-opening
+    - fbr-closing
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids:
+    - c-pareto-moments
+  tbs:
+    id: tbs
+    title: The Black Swan
+    edition: Second edition, 2010, ISBN 9780812973815
+    source_ids:
+    - src-tbs
+    - src-incerto-toc
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    expected_numbered_chapters: 19
+    edition_review: todo
+    notes: Include the second-edition robustness essay as nine essay sections, not extra numbered chapters.
+    chapters:
+    - tbs-ch01
+    - tbs-ch02
+    - tbs-ch03
+    - tbs-ch04
+    - tbs-ch05
+    - tbs-ch06
+    - tbs-ch07
+    - tbs-ch08
+    - tbs-ch09
+    - tbs-ch10
+    - tbs-ch11
+    - tbs-ch12
+    - tbs-ch13
+    - tbs-ch14
+    - tbs-ch15
+    - tbs-ch16
+    - tbs-ch17
+    - tbs-ch18
+    - tbs-ch19
+    - tbs-opening
+    - tbs-es01
+    - tbs-es02
+    - tbs-es03
+    - tbs-es04
+    - tbs-es05
+    - tbs-es06
+    - tbs-es07
+    - tbs-es08
+    - tbs-es09
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids:
+    - c-cramer
+    - c-pareto
+    - c-pareto-moments
+    - c-regular-variation
+    - c-stable-clt
+    - c-tail-catalog
+  bop:
+    id: bop
+    title: The Bed of Procrustes
+    edition: 2010 thematic spine, ISBN 9781400069972; expanded 2016 edition reconciliation open
+    source_ids:
+    - src-bop
+    - src-bop-expanded
+    - src-incerto-toc
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    expected_numbered_chapters: 0
+    edition_review: todo
+    notes: Sections are unnumbered in the source. s01-s22 are planner identifiers, not chapter numbers; this is
+      not a verified exhaustive map of the expanded edition.
+    chapters:
+    - bop-s01
+    - bop-s02
+    - bop-s03
+    - bop-s04
+    - bop-s05
+    - bop-s06
+    - bop-s07
+    - bop-s08
+    - bop-s09
+    - bop-s10
+    - bop-s11
+    - bop-s12
+    - bop-s13
+    - bop-s14
+    - bop-s15
+    - bop-s16
+    - bop-s17
+    - bop-s18
+    - bop-s19
+    - bop-s20
+    - bop-s21
+    - bop-s22
+    - bop-opening
+    - bop-postface
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  af:
+    id: af
+    title: Antifragile
+    edition: 2014 paperback, ISBN 9780812979688; first published 2012
+    source_ids:
+    - src-af
+    - src-incerto-toc
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    expected_numbered_chapters: 25
+    edition_review: todo
+    notes: Map the two appendices separately. Mathematical companion details require direct copy review.
+    chapters:
+    - af-ch01
+    - af-ch02
+    - af-ch03
+    - af-ch04
+    - af-ch05
+    - af-ch06
+    - af-ch07
+    - af-ch08
+    - af-ch09
+    - af-ch10
+    - af-ch11
+    - af-ch12
+    - af-ch13
+    - af-ch14
+    - af-ch15
+    - af-ch16
+    - af-ch17
+    - af-ch18
+    - af-ch19
+    - af-ch20
+    - af-ch21
+    - af-ch22
+    - af-ch23
+    - af-ch24
+    - af-ch25
+    - af-prologue
+    - af-app1
+    - af-app2
+    - af-glossary
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids:
+    - c-tail-catalog
+  sitg:
+    id: sitg
+    title: Skin in the Game
+    edition: 2018 ebook, ISBN 9780425284636
+    source_ids:
+    - src-sitg
+    - src-incerto-toc
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    expected_numbered_chapters: 19
+    edition_review: todo
+    notes: Treat the three prologue parts and the two appendices separately from the numbered chapters.
+    chapters:
+    - sitg-ch01
+    - sitg-ch02
+    - sitg-ch03
+    - sitg-ch04
+    - sitg-ch05
+    - sitg-ch06
+    - sitg-ch07
+    - sitg-ch08
+    - sitg-ch09
+    - sitg-ch10
+    - sitg-ch11
+    - sitg-ch12
+    - sitg-ch13
+    - sitg-ch14
+    - sitg-ch15
+    - sitg-ch16
+    - sitg-ch17
+    - sitg-ch18
+    - sitg-ch19
+    - sitg-pro1
+    - sitg-pro2
+    - sitg-pro3
+    - sitg-app-intro
+    - sitg-app-book3
+    - sitg-epilogue
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  scft:
+    id: scft
+    title: Statistical Consequences of Fat Tails / Technical Incerto, volume 1
+    edition: 2020 print spine, ISBN 9781544508054; compare arXiv:2001.10488v2; v4 expansion not yet reconciled
+    source_ids:
+    - src-scft-toc
+    - src-scft-v2
+    - src-scft-v4
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    expected_numbered_chapters: 25
+    edition_review: todo
+    notes: Do not equate print pagination with the preprint. v4 (2025) announces three added chapters and an appendix;
+      exact added locators remain open, not invented here.
+    chapters:
+    - scft-ch01
+    - scft-ch02
+    - scft-ch03
+    - scft-ch04
+    - scft-ch05
+    - scft-ch06
+    - scft-ch07
+    - scft-ch08
+    - scft-ch09
+    - scft-ch10
+    - scft-ch11
+    - scft-ch12
+    - scft-ch13
+    - scft-ch14
+    - scft-ch15
+    - scft-ch16
+    - scft-ch17
+    - scft-ch18
+    - scft-ch19
+    - scft-ch20
+    - scft-ch21
+    - scft-ch22
+    - scft-ch23
+    - scft-ch24
+    - scft-ch25
+    - scft-appa
+    - scft-appb
+    - scft-appc
+    - scft-appd
+    - scft-appe
+    - scft-appf
+    - scft-appg
+    - scft-apph
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids:
+    - c-body-shoulder
+    - c-cramer
+    - c-double-pareto
+    - c-evi
+    - c-exceedances
+    - c-frechet
+    - c-gev
+    - c-gpd
+    - c-hill
+    - c-karamata
+    - c-lln-failure
+    - c-max-sum
+    - c-mean-excess
+    - c-pareto
+    - c-pareto-moments
+    - c-pbdh
+    - c-plugin
+    - c-regular-variation
+    - c-stable-clt
+    - c-subexponential
+    - c-tail-catalog
+    - c-tail-geometry
+    - c-tail-ratio
+    - c-threshold
+  dh:
+    id: dh
+    title: Dynamic Hedging
+    edition: 1997 Wiley, ISBN 9780471152804
+    source_ids:
+    - src-dh
+    - src-dh-toc
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    expected_numbered_chapters: 23
+    edition_review: todo
+    notes: Modules A-G have separate locators. Finance notes are new original theory, not a Normix package or finance-code
+      import.
+    chapters:
+    - dh-ch01
+    - dh-ch02
+    - dh-ch03
+    - dh-ch04
+    - dh-ch05
+    - dh-ch06
+    - dh-ch07
+    - dh-ch08
+    - dh-ch09
+    - dh-ch10
+    - dh-ch11
+    - dh-ch12
+    - dh-ch13
+    - dh-ch14
+    - dh-ch15
+    - dh-ch16
+    - dh-ch17
+    - dh-ch18
+    - dh-ch19
+    - dh-ch20
+    - dh-ch21
+    - dh-ch22
+    - dh-ch23
+    - dh-moda
+    - dh-modb
+    - dh-modc
+    - dh-modd
+    - dh-mode
+    - dh-modf
+    - dh-modg
+    - dh-opening
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+chapters:
+  fbr-ch01:
+    id: fbr-ch01
+    book_id: fbr
+    kind: chapter
+    locator: ch. 1
+    topic: Performance attribution
+    concept_ids:
+    - c-luck-skill
+    - c-counterfactuals
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  fbr-ch02:
+    id: fbr-ch02
+    book_id: fbr
+    kind: chapter
+    locator: ch. 2
+    topic: Outcome and exposure
+    concept_ids:
+    - c-counterfactuals
+    - c-asymmetric-payoffs
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  fbr-ch03:
+    id: fbr-ch03
+    book_id: fbr
+    kind: chapter
+    locator: ch. 3
+    topic: Simulation and observation
+    concept_ids:
+    - c-counterfactuals
+    - c-noise-monitoring
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  fbr-ch04:
+    id: fbr-ch04
+    book_id: fbr
+    kind: chapter
+    locator: ch. 4
+    topic: Expertise and explanation
+    concept_ids:
+    - c-causal-narrative
+    - c-skepticism
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  fbr-ch05:
+    id: fbr-ch05
+    book_id: fbr
+    kind: chapter
+    locator: ch. 5
+    topic: Selection on success
+    concept_ids:
+    - c-survivorship
+    - c-luck-skill
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  fbr-ch06:
+    id: fbr-ch06
+    book_id: fbr
+    kind: chapter
+    locator: ch. 6
+    topic: Payoff imbalance
+    concept_ids:
+    - c-asymmetric-payoffs
+    - c-pareto-moments
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids:
+    - c-pareto-moments
+  fbr-ch07:
+    id: fbr-ch07
+    book_id: fbr
+    kind: chapter
+    locator: ch. 7
+    topic: Generalizing from observations
+    concept_ids:
+    - c-induction
+    - c-inference-asymmetry
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  fbr-ch08:
+    id: fbr-ch08
+    book_id: fbr
+    kind: chapter
+    locator: ch. 8
+    topic: Comparison populations
+    concept_ids:
+    - c-survivorship
+    - c-inequality-mobility
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  fbr-ch09:
+    id: fbr-ch09
+    book_id: fbr
+    kind: chapter
+    locator: ch. 9
+    topic: Searching for patterns
+    concept_ids:
+    - c-multiple-testing
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  fbr-ch10:
+    id: fbr-ch10
+    book_id: fbr
+    kind: chapter
+    locator: ch. 10
+    topic: Feedback and concentration
+    concept_ids:
+    - c-path-dependence
+    - c-scalability
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  fbr-ch11:
+    id: fbr-ch11
+    book_id: fbr
+    kind: chapter
+    locator: ch. 11
+    topic: Judgments about chance
+    concept_ids:
+    - c-biases
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - prose-only
+    existing_concept_ids: []
+  fbr-ch12:
+    id: fbr-ch12
+    book_id: fbr
+    kind: chapter
+    locator: ch. 12
+    topic: Learned causal stories
+    concept_ids:
+    - c-causal-narrative
+    - c-biases
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  fbr-ch13:
+    id: fbr-ch13
+    book_id: fbr
+    kind: chapter
+    locator: ch. 13
+    topic: Belief revision
+    concept_ids:
+    - c-skepticism
+    - c-epistemic-uncertainty
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  fbr-ch14:
+    id: fbr-ch14
+    book_id: fbr
+    kind: chapter
+    locator: ch. 14
+    topic: Responding to chance
+    concept_ids:
+    - c-stoicism
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  fbr-opening:
+    id: fbr-opening
+    book_id: fbr
+    kind: paratext
+    locator: prologue and prefatory material
+    topic: Evidence and interpretation
+    concept_ids:
+    - c-luck-skill
+    - c-skepticism
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  fbr-closing:
+    id: fbr-closing
+    book_id: fbr
+    kind: paratext
+    locator: epilogue and postscript
+    topic: Reflection and remaining limits
+    concept_ids:
+    - c-stoicism
+    - c-induction
+    - c-ludic
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  tbs-ch01:
+    id: tbs-ch01
+    book_id: tbs
+    kind: chapter
+    locator: ch. 1
+    topic: Unexpected historical events
+    concept_ids:
+    - c-black-swan
+    - c-skepticism
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  tbs-ch02:
+    id: tbs-ch02
+    book_id: tbs
+    kind: chapter
+    locator: ch. 2
+    topic: Success with scalable rewards
+    concept_ids:
+    - c-scalability
+    - c-luck-skill
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  tbs-ch03:
+    id: tbs-ch03
+    book_id: tbs
+    kind: chapter
+    locator: ch. 3
+    topic: Aggregation regimes
+    concept_ids:
+    - c-scalability
+    - c-pareto-moments
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids:
+    - c-pareto-moments
+  tbs-ch04:
+    id: tbs-ch04
+    book_id: tbs
+    kind: chapter
+    locator: ch. 4
+    topic: Induction from a finite record
+    concept_ids:
+    - c-induction
+    - c-inference-asymmetry
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  tbs-ch05:
+    id: tbs-ch05
+    book_id: tbs
+    kind: chapter
+    locator: ch. 5
+    topic: Selective confirmation
+    concept_ids:
+    - c-biases
+    - c-multiple-testing
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  tbs-ch06:
+    id: tbs-ch06
+    book_id: tbs
+    kind: chapter
+    locator: ch. 6
+    topic: Retrospective explanation
+    concept_ids:
+    - c-causal-narrative
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  tbs-ch07:
+    id: tbs-ch07
+    book_id: tbs
+    kind: chapter
+    locator: ch. 7
+    topic: Delayed and concentrated rewards
+    concept_ids:
+    - c-asymmetric-payoffs
+    - c-optionality
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  tbs-ch08:
+    id: tbs-ch08
+    book_id: tbs
+    kind: chapter
+    locator: ch. 8
+    topic: Missing unsuccessful cases
+    concept_ids:
+    - c-survivorship
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  tbs-ch09:
+    id: tbs-ch09
+    book_id: tbs
+    kind: chapter
+    locator: ch. 9
+    topic: Closed-world uncertainty
+    concept_ids:
+    - c-ludic
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  tbs-ch10:
+    id: tbs-ch10
+    book_id: tbs
+    kind: chapter
+    locator: ch. 10
+    topic: Prediction and expertise
+    concept_ids:
+    - c-forecasting
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    existing_concept_ids: []
+  tbs-ch11:
+    id: tbs-ch11
+    book_id: tbs
+    kind: chapter
+    locator: ch. 11
+    topic: Unplanned discovery
+    concept_ids:
+    - c-optionality
+    - c-tacit-knowledge
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  tbs-ch12:
+    id: tbs-ch12
+    book_id: tbs
+    kind: chapter
+    locator: ch. 12
+    topic: Admitting limited knowledge
+    concept_ids:
+    - c-epistemic-uncertainty
+    - c-skepticism
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  tbs-ch13:
+    id: tbs-ch13
+    book_id: tbs
+    kind: chapter
+    locator: ch. 13
+    topic: Decisions with weak forecasts
+    concept_ids:
+    - c-barbell
+    - c-ruin
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  tbs-ch14:
+    id: tbs-ch14
+    book_id: tbs
+    kind: chapter
+    locator: ch. 14
+    topic: Concentration and feedback
+    concept_ids:
+    - c-path-dependence
+    - c-inequality-mobility
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    existing_concept_ids: []
+  tbs-ch15:
+    id: tbs-ch15
+    book_id: tbs
+    kind: chapter
+    locator: ch. 15
+    topic: Gaussian extrapolation
+    concept_ids:
+    - c-tail-catalog
+    - c-cramer
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids:
+    - c-tail-catalog
+    - c-cramer
+  tbs-ch16:
+    id: tbs-ch16
+    book_id: tbs
+    kind: chapter
+    locator: ch. 16
+    topic: Scale-free tails
+    concept_ids:
+    - c-regular-variation
+    - c-pareto
+    - c-stable-clt
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids:
+    - c-regular-variation
+    - c-pareto
+    - c-stable-clt
+  tbs-ch17:
+    id: tbs-ch17
+    book_id: tbs
+    kind: chapter
+    locator: ch. 17
+    topic: Distributional model misuse
+    concept_ids:
+    - c-model-risk
+    - c-moment-estimation
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  tbs-ch18:
+    id: tbs-ch18
+    book_id: tbs
+    kind: chapter
+    locator: ch. 18
+    topic: Irreducible limits of description
+    concept_ids:
+    - c-epistemic-uncertainty
+    - c-ludic
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  tbs-ch19:
+    id: tbs-ch19
+    book_id: tbs
+    kind: chapter
+    locator: ch. 19
+    topic: Personal exposure and restraint
+    concept_ids:
+    - c-stoicism
+    - c-barbell
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  tbs-opening:
+    id: tbs-opening
+    book_id: tbs
+    kind: paratext
+    locator: prologue
+    topic: Observer-relative surprise
+    concept_ids:
+    - c-black-swan
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  tbs-es01:
+    id: tbs-es01
+    book_id: tbs
+    kind: essay-section
+    locator: robustness essay, section 1
+    topic: Redundancy
+    concept_ids:
+    - c-decentralization
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  tbs-es02:
+    id: tbs-es02
+    book_id: tbs
+    kind: essay-section
+    locator: robustness essay, section 2
+    topic: System exposure
+    concept_ids:
+    - c-fragility
+    - c-ruin
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  tbs-es03:
+    id: tbs-es03
+    book_id: tbs
+    kind: essay-section
+    locator: robustness essay, section 3
+    topic: Claims and responses
+    concept_ids:
+    - c-skepticism
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  tbs-es04:
+    id: tbs-es04
+    book_id: tbs
+    kind: essay-section
+    locator: robustness essay, section 4
+    topic: Kinds of uncertainty
+    concept_ids:
+    - c-epistemic-uncertainty
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  tbs-es05:
+    id: tbs-es05
+    book_id: tbs
+    kind: essay-section
+    locator: robustness essay, section 5
+    topic: Statistical induction
+    concept_ids:
+    - c-inference-asymmetry
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  tbs-es06:
+    id: tbs-es06
+    book_id: tbs
+    kind: essay-section
+    locator: robustness essay, section 6
+    topic: Tail and payoff domains
+    concept_ids:
+    - c-asymmetric-payoffs
+    - c-tail-catalog
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids:
+    - c-tail-catalog
+  tbs-es07:
+    id: tbs-es07
+    book_id: tbs
+    kind: essay-section
+    locator: robustness essay, section 7
+    topic: Decisions under tail uncertainty
+    concept_ids:
+    - c-barbell
+    - c-optionality
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  tbs-es08:
+    id: tbs-es08
+    book_id: tbs
+    kind: essay-section
+    locator: robustness essay, section 8
+    topic: Institutional exposure
+    concept_ids:
+    - c-agency
+    - c-decentralization
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  tbs-es09:
+    id: tbs-es09
+    book_id: tbs
+    kind: essay-section
+    locator: robustness essay, section 9
+    topic: Personal stance
+    concept_ids:
+    - c-stoicism
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  bop-s01:
+    id: bop-s01
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 1 (planner ordinal)
+    topic: Opening observations
+    concept_ids:
+    - c-procrustean
+    - c-skepticism
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  bop-s02:
+    id: bop-s02
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 2 (planner ordinal)
+    topic: Competing explanations
+    concept_ids:
+    - c-causal-narrative
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  bop-s03:
+    id: bop-s03
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 3 (planner ordinal)
+    topic: Existence and categories
+    concept_ids:
+    - c-procrustean
+    - c-epistemic-uncertainty
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  bop-s04:
+    id: bop-s04
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 4 (planner ordinal)
+    topic: Sacred values
+    concept_ids:
+    - c-ethics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  bop-s05:
+    id: bop-s05
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 5 (planner ordinal)
+    topic: Chance and composure
+    concept_ids:
+    - c-luck-skill
+    - c-stoicism
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  bop-s06:
+    id: bop-s06
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 6 (planner ordinal)
+    topic: Exposure to persuasion
+    concept_ids:
+    - c-agency
+    - c-biases
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  bop-s07:
+    id: bop-s07
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 7 (planner ordinal)
+    topic: Continuity and adaptation
+    concept_ids:
+    - c-procrustean
+    - c-hormesis
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  bop-s08:
+    id: bop-s08
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 8 (planner ordinal)
+    topic: Intellectual institutions
+    concept_ids:
+    - c-tacit-knowledge
+    - c-agency
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  bop-s09:
+    id: bop-s09
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 9 (planner ordinal)
+    topic: General and particular claims
+    concept_ids:
+    - c-induction
+    - c-procrustean
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  bop-s10:
+    id: bop-s10
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 10 (planner ordinal)
+    topic: Judging randomness
+    concept_ids:
+    - c-luck-skill
+    - c-biases
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  bop-s11:
+    id: bop-s11
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 11 (planner ordinal)
+    topic: Taste and form
+    concept_ids:
+    - c-aesthetics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  bop-s12:
+    id: bop-s12
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 12 (planner ordinal)
+    topic: Responsibility
+    concept_ids:
+    - c-ethics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  bop-s13:
+    id: bop-s13
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 13 (planner ordinal)
+    topic: Response to shocks
+    concept_ids:
+    - c-fragility
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  bop-s14:
+    id: bop-s14
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 14 (planner ordinal)
+    topic: Transfer between domains
+    concept_ids:
+    - c-ludic
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  bop-s15:
+    id: bop-s15
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 15 (planner ordinal)
+    topic: Knowing by exclusion
+    concept_ids:
+    - c-skepticism
+    - c-iatrogenics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  bop-s16:
+    id: bop-s16
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 16 (planner ordinal)
+    topic: Predictive pretensions
+    concept_ids:
+    - c-forecasting
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    existing_concept_ids: []
+  bop-s17:
+    id: bop-s17
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 17 (planner ordinal)
+    topic: Philosophical practice
+    concept_ids:
+    - c-stoicism
+    - c-tacit-knowledge
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  bop-s18:
+    id: bop-s18
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 18 (planner ordinal)
+    topic: Economic incentives
+    concept_ids:
+    - c-agency
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  bop-s19:
+    id: bop-s19
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 19 (planner ordinal)
+    topic: Power and restraint
+    concept_ids:
+    - c-ethics
+    - c-stoicism
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  bop-s20:
+    id: bop-s20
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 20 (planner ordinal)
+    topic: Unspoken knowledge
+    concept_ids:
+    - c-tacit-knowledge
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  bop-s21:
+    id: bop-s21
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 21 (planner ordinal)
+    topic: Attachment and judgment
+    concept_ids:
+    - c-procrustean
+    - c-ethics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  bop-s22:
+    id: bop-s22
+    book_id: bop
+    kind: thematic-section
+    locator: unnumbered thematic section 22 (planner ordinal)
+    topic: Closing observations
+    concept_ids:
+    - c-skepticism
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  bop-opening:
+    id: bop-opening
+    book_id: bop
+    kind: paratext
+    locator: opening myth and notice
+    topic: The costs of forced fit
+    concept_ids:
+    - c-procrustean
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  bop-postface:
+    id: bop-postface
+    book_id: bop
+    kind: paratext
+    locator: postface
+    topic: Reading compressed arguments
+    concept_ids:
+    - c-procrustean
+    - c-ludic
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  af-ch01:
+    id: af-ch01
+    book_id: af
+    kind: chapter
+    locator: ch. 1
+    topic: Response to variability
+    concept_ids:
+    - c-fragility
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  af-ch02:
+    id: af-ch02
+    book_id: af
+    kind: chapter
+    locator: ch. 2
+    topic: Adaptation to stress
+    concept_ids:
+    - c-hormesis
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    existing_concept_ids: []
+  af-ch03:
+    id: af-ch03
+    book_id: af
+    kind: chapter
+    locator: ch. 3
+    topic: Living and engineered systems
+    concept_ids:
+    - c-hormesis
+    - c-decentralization
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  af-ch04:
+    id: af-ch04
+    book_id: af
+    kind: chapter
+    locator: ch. 4
+    topic: Selection at different levels
+    concept_ids:
+    - c-selection-levels
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  af-ch05:
+    id: af-ch05
+    book_id: af
+    kind: chapter
+    locator: ch. 5
+    topic: Central control and variation
+    concept_ids:
+    - c-decentralization
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  af-ch06:
+    id: af-ch06
+    book_id: af
+    kind: chapter
+    locator: ch. 6
+    topic: Suppressed volatility
+    concept_ids:
+    - c-fragility
+    - c-ruin
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  af-ch07:
+    id: af-ch07
+    book_id: af
+    kind: chapter
+    locator: ch. 7
+    topic: Intervention costs
+    concept_ids:
+    - c-iatrogenics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  af-ch08:
+    id: af-ch08
+    book_id: af
+    kind: chapter
+    locator: ch. 8
+    topic: Forecast dependence
+    concept_ids:
+    - c-forecasting
+    - c-fragility
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  af-ch09:
+    id: af-ch09
+    book_id: af
+    kind: chapter
+    locator: ch. 9
+    topic: Exposure and judgment
+    concept_ids:
+    - c-agency
+    - c-tacit-knowledge
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  af-ch10:
+    id: af-ch10
+    book_id: af
+    kind: chapter
+    locator: ch. 10
+    topic: Controlling downside
+    concept_ids:
+    - c-barbell
+    - c-stoicism
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  af-ch11:
+    id: af-ch11
+    book_id: af
+    kind: chapter
+    locator: ch. 11
+    topic: Separated risk allocations
+    concept_ids:
+    - c-barbell
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  af-ch12:
+    id: af-ch12
+    book_id: af
+    kind: chapter
+    locator: ch. 12
+    topic: Options and experimentation
+    concept_ids:
+    - c-optionality
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  af-ch13:
+    id: af-ch13
+    book_id: af
+    kind: chapter
+    locator: ch. 13
+    topic: Practice before explanation
+    concept_ids:
+    - c-tacit-knowledge
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  af-ch14:
+    id: af-ch14
+    book_id: af
+    kind: chapter
+    locator: ch. 14
+    topic: Causal accounts of discovery
+    concept_ids:
+    - c-causal-narrative
+    - c-tacit-knowledge
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  af-ch15:
+    id: af-ch15
+    book_id: af
+    kind: chapter
+    locator: ch. 15
+    topic: Evidence from technological history
+    concept_ids:
+    - c-survivorship
+    - c-tacit-knowledge
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  af-ch16:
+    id: af-ch16
+    book_id: af
+    kind: chapter
+    locator: ch. 16
+    topic: Learning through trials
+    concept_ids:
+    - c-optionality
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  af-ch17:
+    id: af-ch17
+    book_id: af
+    kind: chapter
+    locator: ch. 17
+    topic: Limits of explicit rules
+    concept_ids:
+    - c-tacit-knowledge
+    - c-ludic
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  af-ch18:
+    id: af-ch18
+    book_id: af
+    kind: chapter
+    locator: ch. 18
+    topic: Size and nonlinear response
+    concept_ids:
+    - c-jensen
+    - c-fragility
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  af-ch19:
+    id: af-ch19
+    book_id: af
+    kind: chapter
+    locator: ch. 19
+    topic: Curvature and estimation error
+    concept_ids:
+    - c-jensen
+    - c-fragility
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  af-ch20:
+    id: af-ch20
+    book_id: af
+    kind: chapter
+    locator: ch. 20
+    topic: Time and survival selection
+    concept_ids:
+    - c-lindy
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    existing_concept_ids: []
+  af-ch21:
+    id: af-ch21
+    book_id: af
+    kind: chapter
+    locator: ch. 21
+    topic: Uneven medical response
+    concept_ids:
+    - c-hormesis
+    - c-iatrogenics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  af-ch22:
+    id: af-ch22
+    book_id: af
+    kind: chapter
+    locator: ch. 22
+    topic: Subtractive choices
+    concept_ids:
+    - c-iatrogenics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  af-ch23:
+    id: af-ch23
+    book_id: af
+    kind: chapter
+    locator: ch. 23
+    topic: Incentives and transferred losses
+    concept_ids:
+    - c-agency
+    - c-ethics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  af-ch24:
+    id: af-ch24
+    book_id: af
+    kind: chapter
+    locator: ch. 24
+    topic: Professional responsibility
+    concept_ids:
+    - c-ethics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  af-ch25:
+    id: af-ch25
+    book_id: af
+    kind: chapter
+    locator: ch. 25
+    topic: Closing argument
+    concept_ids:
+    - c-fragility
+    - c-ruin
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  af-prologue:
+    id: af-prologue
+    book_id: af
+    kind: paratext
+    locator: prologue
+    topic: The response spectrum
+    concept_ids:
+    - c-fragility
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  af-app1:
+    id: af-app1
+    book_id: af
+    kind: appendix
+    locator: appendix I
+    topic: Concept relationships
+    concept_ids:
+    - c-fragility
+    - c-optionality
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  af-app2:
+    id: af-app2
+    book_id: af
+    kind: appendix
+    locator: appendix II
+    topic: Mathematical supplement
+    concept_ids:
+    - c-jensen
+    - c-fragility
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  af-glossary:
+    id: af-glossary
+    book_id: af
+    kind: reference
+    locator: glossary
+    topic: Terminology alignment
+    concept_ids:
+    - c-fragility
+    - c-tail-catalog
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids:
+    - c-tail-catalog
+  sitg-ch01:
+    id: sitg-ch01
+    book_id: sitg
+    kind: chapter
+    locator: ch. 1
+    topic: Information and transaction symmetry
+    concept_ids:
+    - c-agency
+    - c-ethics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  sitg-ch02:
+    id: sitg-ch02
+    book_id: sitg
+    kind: chapter
+    locator: ch. 2
+    topic: Collective preference thresholds
+    concept_ids:
+    - c-minority-rule
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    existing_concept_ids: []
+  sitg-ch03:
+    id: sitg-ch03
+    book_id: sitg
+    kind: chapter
+    locator: ch. 3
+    topic: Employment and dependence
+    concept_ids:
+    - c-agency
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  sitg-ch04:
+    id: sitg-ch04
+    book_id: sitg
+    kind: chapter
+    locator: ch. 4
+    topic: Delegating consequences
+    concept_ids:
+    - c-agency
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  sitg-ch05:
+    id: sitg-ch05
+    book_id: sitg
+    kind: chapter
+    locator: ch. 5
+    topic: Commitment and simulation
+    concept_ids:
+    - c-costly-signals
+    - c-ethics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - prose-only
+    existing_concept_ids: []
+  sitg-ch06:
+    id: sitg-ch06
+    book_id: sitg
+    kind: chapter
+    locator: ch. 6
+    topic: Credentials and decision authority
+    concept_ids:
+    - c-tacit-knowledge
+    - c-agency
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  sitg-ch07:
+    id: sitg-ch07
+    book_id: sitg
+    kind: chapter
+    locator: ch. 7
+    topic: Inequality over time
+    concept_ids:
+    - c-inequality-mobility
+    - c-gini
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  sitg-ch08:
+    id: sitg-ch08
+    book_id: sitg
+    kind: chapter
+    locator: ch. 8
+    topic: Age and survival
+    concept_ids:
+    - c-lindy
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    existing_concept_ids: []
+  sitg-ch09:
+    id: sitg-ch09
+    book_id: sitg
+    kind: chapter
+    locator: ch. 9
+    topic: Competence and appearance
+    concept_ids:
+    - c-costly-signals
+    - c-tacit-knowledge
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - prose-only
+    existing_concept_ids: []
+  sitg-ch10:
+    id: sitg-ch10
+    book_id: sitg
+    kind: chapter
+    locator: ch. 10
+    topic: Imposed preferences
+    concept_ids:
+    - c-procrustean
+    - c-agency
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  sitg-ch11:
+    id: sitg-ch11
+    book_id: sitg
+    kind: chapter
+    locator: ch. 11
+    topic: Action as evidence
+    concept_ids:
+    - c-costly-signals
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - prose-only
+    existing_concept_ids: []
+  sitg-ch12:
+    id: sitg-ch12
+    book_id: sitg
+    kind: chapter
+    locator: ch. 12
+    topic: Selection in public narratives
+    concept_ids:
+    - c-causal-narrative
+    - c-survivorship
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  sitg-ch13:
+    id: sitg-ch13
+    book_id: sitg
+    kind: chapter
+    locator: ch. 13
+    topic: Visible virtue and incentives
+    concept_ids:
+    - c-costly-signals
+    - c-ethics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - prose-only
+    existing_concept_ids: []
+  sitg-ch14:
+    id: sitg-ch14
+    book_id: sitg
+    kind: chapter
+    locator: ch. 14
+    topic: Scale and institutions
+    concept_ids:
+    - c-decentralization
+    - c-minority-rule
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  sitg-ch15:
+    id: sitg-ch15
+    book_id: sitg
+    kind: chapter
+    locator: ch. 15
+    topic: Belief categories
+    concept_ids:
+    - c-procrustean
+    - c-ethics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  sitg-ch16:
+    id: sitg-ch16
+    book_id: sitg
+    kind: chapter
+    locator: ch. 16
+    topic: Costly commitments
+    concept_ids:
+    - c-costly-signals
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - prose-only
+    existing_concept_ids: []
+  sitg-ch17:
+    id: sitg-ch17
+    book_id: sitg
+    kind: chapter
+    locator: ch. 17
+    topic: Stated and revealed belief
+    concept_ids:
+    - c-costly-signals
+    - c-rationality
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  sitg-ch18:
+    id: sitg-ch18
+    book_id: sitg
+    kind: chapter
+    locator: ch. 18
+    topic: Survival as a criterion
+    concept_ids:
+    - c-rationality
+    - c-ergodicity
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  sitg-ch19:
+    id: sitg-ch19
+    book_id: sitg
+    kind: chapter
+    locator: ch. 19
+    topic: Repeated exposure and ruin
+    concept_ids:
+    - c-ruin
+    - c-ergodicity
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  sitg-pro1:
+    id: sitg-pro1
+    book_id: sitg
+    kind: paratext
+    locator: prologue, part 1
+    topic: Risk sharing and reciprocity
+    concept_ids:
+    - c-agency
+    - c-ethics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  sitg-pro2:
+    id: sitg-pro2
+    book_id: sitg
+    kind: paratext
+    locator: prologue, part 2
+    topic: Risk sharing and reciprocity
+    concept_ids:
+    - c-ethics
+    - c-rationality
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  sitg-pro3:
+    id: sitg-pro3
+    book_id: sitg
+    kind: paratext
+    locator: prologue, part 3
+    topic: Risk sharing and reciprocity
+    concept_ids:
+    - c-agency
+    - c-costly-signals
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  sitg-app-intro:
+    id: sitg-app-intro
+    book_id: sitg
+    kind: appendix
+    locator: appendix following introduction
+    topic: Asymmetric exposure
+    concept_ids:
+    - c-agency
+    - c-asymmetric-payoffs
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  sitg-app-book3:
+    id: sitg-app-book3
+    book_id: sitg
+    kind: appendix
+    locator: appendix to book III
+    topic: Collective dynamics
+    concept_ids:
+    - c-minority-rule
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    existing_concept_ids: []
+  sitg-epilogue:
+    id: sitg-epilogue
+    book_id: sitg
+    kind: paratext
+    locator: epilogue
+    topic: Conduct and consequences
+    concept_ids:
+    - c-ethics
+    - c-stoicism
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - prose-only
+    existing_concept_ids: []
+  scft-ch01:
+    id: scft-ch01
+    book_id: scft
+    kind: chapter
+    locator: ch. 1
+    topic: Program and limits
+    concept_ids:
+    - c-tail-catalog
+    - c-induction
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids:
+    - c-tail-catalog
+  scft-ch02:
+    id: scft-ch02
+    book_id: scft
+    kind: chapter
+    locator: ch. 2
+    topic: Definitions and conventions
+    concept_ids:
+    - c-exceedances
+    - c-pareto
+    - c-evi
+    - c-tail-catalog
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids:
+    - c-exceedances
+    - c-pareto
+    - c-evi
+    - c-tail-catalog
+  scft-ch03:
+    id: scft-ch03
+    book_id: scft
+    kind: chapter
+    locator: ch. 3
+    topic: Inference and exposure
+    concept_ids:
+    - c-inference-asymmetry
+    - c-asymmetric-payoffs
+    - c-ruin
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  scft-ch04:
+    id: scft-ch04
+    book_id: scft
+    kind: chapter
+    locator: ch. 4
+    topic: Finite-moment heavy tails
+    concept_ids:
+    - c-mixture-uncertainty
+    - c-body-shoulder
+    - c-moment-estimation
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids:
+    - c-body-shoulder
+  scft-ch05:
+    id: scft-ch05
+    book_id: scft
+    kind: chapter
+    locator: ch. 5
+    topic: Power-law and sum-tail classes
+    concept_ids:
+    - c-pareto
+    - c-regular-variation
+    - c-subexponential
+    - c-double-pareto
+    - c-tail-ratio
+    - c-karamata
+    - c-pareto-moments
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids:
+    - c-pareto
+    - c-regular-variation
+    - c-subexponential
+    - c-double-pareto
+    - c-tail-ratio
+    - c-karamata
+    - c-pareto-moments
+  scft-ch06:
+    id: scft-ch06
+    book_id: scft
+    kind: chapter
+    locator: ch. 6
+    topic: Dependence in several dimensions
+    concept_ids:
+    - c-tail-geometry
+    - c-multivariate-tails
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids:
+    - c-tail-geometry
+  scft-ch07:
+    id: scft-ch07
+    book_id: scft
+    kind: chapter
+    locator: ch. 7
+    topic: Averaging and limiting laws
+    concept_ids:
+    - c-lln-failure
+    - c-stable-clt
+    - c-max-sum
+    - c-cauchy-running
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids:
+    - c-lln-failure
+    - c-stable-clt
+    - c-max-sum
+  scft-ch08:
+    id: scft-ch08
+    book_id: scft
+    kind: chapter
+    locator: ch. 8
+    topic: Finite-sum concentration
+    concept_ids:
+    - c-kappa
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  scft-ch09:
+    id: scft-ch09
+    book_id: scft
+    kind: chapter
+    locator: ch. 9
+    topic: Extremes and unobserved tails
+    concept_ids:
+    - c-gev
+    - c-frechet
+    - c-pbdh
+    - c-gpd
+    - c-evi
+    - c-hill
+    - c-mean-excess
+    - c-threshold
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids:
+    - c-gev
+    - c-frechet
+    - c-pbdh
+    - c-gpd
+    - c-evi
+    - c-hill
+    - c-mean-excess
+    - c-threshold
+  scft-ch10:
+    id: scft-ch10
+    book_id: scft
+    kind: chapter
+    locator: ch. 10
+    topic: Equity-return evidence
+    concept_ids:
+    - c-sp500
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    existing_concept_ids: []
+  scft-ch11:
+    id: scft-ch11
+    book_id: scft
+    kind: chapter
+    locator: ch. 11
+    topic: Probabilities and magnitudes
+    concept_ids:
+    - c-calibration-payoff
+    - c-point-forecast
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  scft-ch12:
+    id: scft-ch12
+    book_id: scft
+    kind: chapter
+    locator: ch. 12
+    topic: Coherent forecast updating
+    concept_ids:
+    - c-forecast-martingale
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    existing_concept_ids: []
+  scft-ch13:
+    id: scft-ch13
+    book_id: scft
+    kind: chapter
+    locator: ch. 13
+    topic: Heavy-tailed inequality estimation
+    concept_ids:
+    - c-gini
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  scft-ch14:
+    id: scft-ch14
+    book_id: scft
+    kind: chapter
+    locator: ch. 14
+    topic: Contributions above quantiles
+    concept_ids:
+    - c-quantile-share
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  scft-ch15:
+    id: scft-ch15
+    book_id: scft
+    kind: chapter
+    locator: ch. 15
+    topic: Finite bounds and tail transforms
+    concept_ids:
+    - c-shadow-mean
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  scft-ch16:
+    id: scft-ch16
+    book_id: scft
+    kind: chapter
+    locator: ch. 16
+    topic: Conflict-severity evidence
+    concept_ids:
+    - c-conflict-study
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    existing_concept_ids: []
+  scft-ch17:
+    id: scft-ch17
+    book_id: scft
+    kind: chapter
+    locator: ch. 17
+    topic: Uncertainty about parameters
+    concept_ids:
+    - c-mixture-uncertainty
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  scft-ch18:
+    id: scft-ch18
+    book_id: scft
+    kind: chapter
+    locator: ch. 18
+    topic: Uncertain power-law exponents
+    concept_ids:
+    - c-random-alpha
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  scft-ch19:
+    id: scft-ch19
+    book_id: scft
+    kind: chapter
+    locator: ch. 19
+    topic: Testing and selective inference
+    concept_ids:
+    - c-pvalues
+    - c-multiple-testing
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  scft-ch20:
+    id: scft-ch20
+    book_id: scft
+    kind: chapter
+    locator: ch. 20
+    topic: Option-model assumptions
+    concept_ids:
+    - c-model-risk
+    - c-stochastic-pricing
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  scft-ch21:
+    id: scft-ch21
+    book_id: scft
+    kind: chapter
+    locator: ch. 21
+    topic: Pricing under limited constraints
+    concept_ids:
+    - c-pricing-measures
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  scft-ch22:
+    id: scft-ch22
+    book_id: scft
+    kind: chapter
+    locator: ch. 22
+    topic: Trading practice and pricing narratives
+    concept_ids:
+    - c-tacit-knowledge
+    - c-model-risk
+    - c-hedging-error
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  scft-ch23:
+    id: scft-ch23
+    book_id: scft
+    kind: chapter
+    locator: ch. 23
+    topic: Power-law option tails
+    concept_ids:
+    - c-power-option
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  scft-ch24:
+    id: scft-ch24
+    book_id: scft
+    kind: chapter
+    locator: ch. 24
+    topic: Finance calculations under tail risk
+    concept_ids:
+    - c-moment-estimation
+    - c-jensen
+    - c-numeraire
+    - c-risk-measures
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  scft-ch25:
+    id: scft-ch25
+    book_id: scft
+    kind: chapter
+    locator: ch. 25
+    topic: Entropy under tail constraints
+    concept_ids:
+    - c-maximum-entropy
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  scft-appa:
+    id: scft-appa
+    book_id: scft
+    kind: appendix
+    locator: appendix A
+    topic: Additional tail models
+    concept_ids:
+    - c-tail-catalog
+    - c-pareto
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids:
+    - c-tail-catalog
+    - c-pareto
+  scft-appb:
+    id: scft-appb
+    book_id: scft
+    kind: appendix
+    locator: appendix B
+    topic: Growth transformations
+    concept_ids:
+    - c-ergodicity
+    - c-mixture-uncertainty
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  scft-appc:
+    id: scft-appc
+    book_id: scft
+    kind: appendix
+    locator: appendix C
+    topic: Large-deviation conditions
+    concept_ids:
+    - c-cramer
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids:
+    - c-cramer
+  scft-appd:
+    id: scft-appd
+    book_id: scft
+    kind: appendix
+    locator: appendix D
+    topic: Calibration with power-law tails
+    concept_ids:
+    - c-plugin
+    - c-hill
+    - c-threshold
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids:
+    - c-plugin
+    - c-hill
+    - c-threshold
+  scft-appe:
+    id: scft-appe
+    book_id: scft
+    kind: appendix
+    locator: appendix E
+    topic: Econometric assumptions
+    concept_ids:
+    - c-ml-econometrics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  scft-appf:
+    id: scft-appf
+    book_id: scft
+    kind: appendix
+    locator: appendix F
+    topic: Learning algorithms and tails
+    concept_ids:
+    - c-ml-econometrics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  scft-appg:
+    id: scft-appg
+    book_id: scft
+    kind: appendix
+    locator: appendix G
+    topic: Conflict risk interpretation
+    concept_ids:
+    - c-conflict-study
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    existing_concept_ids: []
+  scft-apph:
+    id: scft-apph
+    book_id: scft
+    kind: appendix
+    locator: appendix H
+    topic: Behavioral evidence and tails
+    concept_ids:
+    - c-biases
+    - c-ml-econometrics
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  dh-ch01:
+    id: dh-ch01
+    book_id: dh
+    kind: chapter
+    locator: ch. 1
+    topic: Instrument payoff definitions
+    concept_ids:
+    - c-payoff-algebra
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch02:
+    id: dh-ch02
+    book_id: dh
+    kind: chapter
+    locator: ch. 2
+    topic: Generalized payoff representations
+    concept_ids:
+    - c-payoff-algebra
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch03:
+    id: dh-ch03
+    book_id: dh
+    kind: chapter
+    locator: ch. 3
+    topic: Quoting and inventory
+    concept_ids:
+    - c-market-making
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch04:
+    id: dh-ch04
+    book_id: dh
+    kind: chapter
+    locator: ch. 4
+    topic: Discontinuous liquidity
+    concept_ids:
+    - c-liquidity
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch05:
+    id: dh-ch05
+    book_id: dh
+    kind: chapter
+    locator: ch. 5
+    topic: Arbitrage constraints
+    concept_ids:
+    - c-arbitrage
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    existing_concept_ids: []
+  dh-ch06:
+    id: dh-ch06
+    book_id: dh
+    kind: chapter
+    locator: ch. 6
+    topic: Volatility and dependence
+    concept_ids:
+    - c-volatility-surface
+    - c-correlation-constraints
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch07:
+    id: dh-ch07
+    book_id: dh
+    kind: chapter
+    locator: ch. 7
+    topic: First price sensitivity
+    concept_ids:
+    - c-greeks
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch08:
+    id: dh-ch08
+    book_id: dh
+    kind: chapter
+    locator: ch. 8
+    topic: Second price sensitivity
+    concept_ids:
+    - c-greeks
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch09:
+    id: dh-ch09
+    book_id: dh
+    kind: chapter
+    locator: ch. 9
+    topic: Volatility sensitivity
+    concept_ids:
+    - c-greeks
+    - c-volatility-surface
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch10:
+    id: dh-ch10
+    book_id: dh
+    kind: chapter
+    locator: ch. 10
+    topic: Time and mixed sensitivities
+    concept_ids:
+    - c-greeks
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch11:
+    id: dh-ch11
+    book_id: dh
+    kind: chapter
+    locator: ch. 11
+    topic: Joint sensitivity behavior
+    concept_ids:
+    - c-hedging-error
+    - c-greeks
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch12:
+    id: dh-ch12
+    book_id: dh
+    kind: chapter
+    locator: ch. 12
+    topic: Exposure matching
+    concept_ids:
+    - c-basis-buckets
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch13:
+    id: dh-ch13
+    book_id: dh
+    kind: chapter
+    locator: ch. 13
+    topic: Execution details
+    concept_ids:
+    - c-liquidity
+    - c-market-making
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - empirical
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch14:
+    id: dh-ch14
+    book_id: dh
+    kind: chapter
+    locator: ch. 14
+    topic: Risk decomposition
+    concept_ids:
+    - c-basis-buckets
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch15:
+    id: dh-ch15
+    book_id: dh
+    kind: chapter
+    locator: ch. 15
+    topic: Distribution and model choice
+    concept_ids:
+    - c-model-risk
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  dh-ch16:
+    id: dh-ch16
+    book_id: dh
+    kind: chapter
+    locator: ch. 16
+    topic: Trading and model use
+    concept_ids:
+    - c-model-risk
+    - c-hedging-error
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+  dh-ch17:
+    id: dh-ch17
+    book_id: dh
+    kind: chapter
+    locator: ch. 17
+    topic: Terminal digital claims
+    concept_ids:
+    - c-digitals
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch18:
+    id: dh-ch18
+    book_id: dh
+    kind: chapter
+    locator: ch. 18
+    topic: First-passage digital claims
+    concept_ids:
+    - c-digitals
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch19:
+    id: dh-ch19
+    book_id: dh
+    kind: chapter
+    locator: ch. 19
+    topic: Barrier structure
+    concept_ids:
+    - c-barriers
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch20:
+    id: dh-ch20
+    book_id: dh
+    kind: chapter
+    locator: ch. 20
+    topic: Barrier hedging
+    concept_ids:
+    - c-barriers
+    - c-hedging-error
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch21:
+    id: dh-ch21
+    book_id: dh
+    kind: chapter
+    locator: ch. 21
+    topic: Nested options
+    concept_ids:
+    - c-compound-options
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch22:
+    id: dh-ch22
+    book_id: dh
+    kind: chapter
+    locator: ch. 22
+    topic: Joint-asset claims
+    concept_ids:
+    - c-multiasset-options
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-ch23:
+    id: dh-ch23
+    book_id: dh
+    kind: chapter
+    locator: ch. 23
+    topic: Path-dependent claims
+    concept_ids:
+    - c-path-options
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-moda:
+    id: dh-moda
+    book_id: dh
+    kind: module
+    locator: module A
+    topic: Simulated diffusion paths
+    concept_ids:
+    - c-brownian
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-modb:
+    id: dh-modb
+    book_id: dh
+    kind: module
+    locator: module B
+    topic: Pricing probabilities
+    concept_ids:
+    - c-pricing-measures
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-modc:
+    id: dh-modc
+    book_id: dh
+    kind: module
+    locator: module C
+    topic: Relative price units
+    concept_ids:
+    - c-numeraire
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    existing_concept_ids: []
+  dh-modd:
+    id: dh-modd
+    book_id: dh
+    kind: module
+    locator: module D
+    topic: Correlation feasibility
+    concept_ids:
+    - c-correlation-constraints
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-mode:
+    id: dh-mode
+    book_id: dh
+    kind: module
+    locator: module E
+    topic: Loss quantiles
+    concept_ids:
+    - c-risk-measures
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-modf:
+    id: dh-modf
+    book_id: dh
+    kind: module
+    locator: module F
+    topic: Payoff ordering
+    concept_ids:
+    - c-arbitrage
+    - c-payoff-algebra
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-modg:
+    id: dh-modg
+    book_id: dh
+    kind: module
+    locator: module G
+    topic: Continuous-time pricing
+    concept_ids:
+    - c-stochastic-pricing
+    - c-barriers
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - lean-verifiable
+    - numeric-demo
+    existing_concept_ids: []
+  dh-opening:
+    id: dh-opening
+    book_id: dh
+    kind: paratext
+    locator: preface and introductory material
+    topic: Scope and trading conventions
+    concept_ids:
+    - c-model-risk
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: toc-mapped-content-review-pending
+    classification:
+    - numeric-demo
+    - prose-only
+    existing_concept_ids: []
+papers:
+  paper-fragility:
+    id: paper-fragility
+    title: Mathematical Definition, Mapping, and Detection of (Anti)Fragility
+    authors: N. N. Taleb; R. Douady
+    version: 1208.1189v1
+    url: https://arxiv.org/abs/1208.1189v1
+    source_role: primary
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: metadata-verified-full-text-scope-pending
+    units:
+    - id: paper-fragility-scope
+      locator: whole paper; exact sections and theorem numbers to verify
+      concept_ids:
+      - c-fragility
+      - c-jensen
+      status: todo
+      dependencies: []
+      assigned_role: math-site-editor
+      milestone: M6
+      classification:
+      - lean-verifiable
+      - numeric-demo
+    classification:
+    - lean-verifiable
+    - numeric-demo
+  paper-precaution:
+    id: paper-precaution
+    title: The Precautionary Principle (with Application to the Genetic Modification of Organisms)
+    authors: N. N. Taleb; R. Read; R. Douady; J. Norman; Y. Bar-Yam
+    version: 1410.5787v1
+    url: https://arxiv.org/abs/1410.5787v1
+    source_role: primary
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: metadata-verified-full-text-scope-pending
+    units:
+    - id: paper-precaution-scope
+      locator: whole paper; exact sections and theorem numbers to verify
+      concept_ids:
+      - c-ruin
+      - c-decentralization
+      - c-ethics
+      status: todo
+      dependencies: []
+      assigned_role: math-site-editor
+      milestone: M6
+      classification:
+      - empirical
+      - lean-verifiable
+      - numeric-demo
+      - prose-only
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+    - prose-only
+  paper-kappa:
+    id: paper-kappa
+    title: How Much Data Do You Need? An Operational, Pre-Asymptotic Metric for Fat-tailedness
+    authors: N. N. Taleb
+    version: 1802.05495v3
+    url: https://arxiv.org/abs/1802.05495v3
+    source_role: primary
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: metadata-verified-full-text-scope-pending
+    units:
+    - id: paper-kappa-scope
+      locator: whole paper; exact sections and theorem numbers to verify
+      concept_ids:
+      - c-kappa
+      - c-moment-estimation
+      status: todo
+      dependencies: []
+      assigned_role: math-site-editor
+      milestone: M6
+      classification:
+      - lean-verifiable
+      - numeric-demo
+    classification:
+    - lean-verifiable
+    - numeric-demo
+  paper-conflicts:
+    id: paper-conflicts
+    title: On the statistical properties and tail risk of violent conflicts
+    authors: P. Cirillo; N. N. Taleb
+    version: 1505.04722v2
+    url: https://arxiv.org/abs/1505.04722v2
+    source_role: primary
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: metadata-verified-full-text-scope-pending
+    units:
+    - id: paper-conflicts-scope
+      locator: whole paper; exact sections and theorem numbers to verify
+      concept_ids:
+      - c-shadow-mean
+      - c-conflict-study
+      status: todo
+      dependencies: []
+      assigned_role: math-site-editor
+      milestone: M6
+      classification:
+      - empirical
+      - lean-verifiable
+      - numeric-demo
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+  paper-diseases:
+    id: paper-diseases
+    title: Tail Risk of Contagious Diseases
+    authors: P. Cirillo; N. N. Taleb
+    version: 2004.08658v1
+    url: https://arxiv.org/abs/2004.08658v1
+    source_role: primary
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: metadata-verified-full-text-scope-pending
+    units:
+    - id: paper-diseases-scope
+      locator: whole paper; exact sections and theorem numbers to verify
+      concept_ids:
+      - c-shadow-mean
+      - c-disease-study
+      status: todo
+      dependencies: []
+      assigned_role: math-site-editor
+      milestone: M6
+      classification:
+      - empirical
+      - lean-verifiable
+      - numeric-demo
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+  paper-diseases-comment:
+    id: paper-diseases-comment
+    title: Scientific comment on Tail risk of contagious diseases
+    authors: A. Corral
+    version: 2007.06876v1
+    url: https://arxiv.org/abs/2007.06876v1
+    source_role: primary-critical-response
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: metadata-verified-full-text-scope-pending
+    units:
+    - id: paper-diseases-comment-scope
+      locator: whole paper; exact sections and theorem numbers to verify
+      concept_ids:
+      - c-disease-study
+      status: todo
+      dependencies: []
+      assigned_role: math-site-editor
+      milestone: M6
+      classification:
+      - empirical
+    classification:
+    - empirical
+  paper-gini:
+    id: paper-gini
+    title: Gini estimation under infinite variance
+    authors: A. Fontanari; N. N. Taleb; P. Cirillo
+    version: 1707.01370v4
+    url: https://arxiv.org/abs/1707.01370v4
+    source_role: primary
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: metadata-verified-full-text-scope-pending
+    units:
+    - id: paper-gini-scope
+      locator: whole paper; exact sections and theorem numbers to verify
+      concept_ids:
+      - c-gini
+      status: todo
+      dependencies: []
+      assigned_role: math-site-editor
+      milestone: M6
+      classification:
+      - empirical
+      - lean-verifiable
+      - numeric-demo
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+  paper-quantile:
+    id: paper-quantile
+    title: On the Super-Additivity and Estimation Biases of Quantile Contributions
+    authors: N. N. Taleb; R. Douady
+    version: 1405.1791v3
+    url: https://arxiv.org/abs/1405.1791v3
+    source_role: primary
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: metadata-verified-full-text-scope-pending
+    units:
+    - id: paper-quantile-scope
+      locator: whole paper; exact sections and theorem numbers to verify
+      concept_ids:
+      - c-quantile-share
+      status: todo
+      dependencies: []
+      assigned_role: math-site-editor
+      milestone: M6
+      classification:
+      - lean-verifiable
+      - numeric-demo
+    classification:
+    - lean-verifiable
+    - numeric-demo
+  paper-alpha:
+    id: paper-alpha
+    title: Stochastic Tail Exponent For Asymmetric Power Laws
+    authors: N. N. Taleb
+    version: 1609.02369v3
+    url: https://arxiv.org/abs/1609.02369v3
+    source_role: primary
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: metadata-verified-full-text-scope-pending
+    units:
+    - id: paper-alpha-scope
+      locator: whole paper; exact sections and theorem numbers to verify
+      concept_ids:
+      - c-random-alpha
+      status: todo
+      dependencies: []
+      assigned_role: math-site-editor
+      milestone: M6
+      classification:
+      - lean-verifiable
+      - numeric-demo
+    classification:
+    - lean-verifiable
+    - numeric-demo
+  paper-option-tail:
+    id: paper-option-tail
+    title: Tail Option Pricing Under Power Laws
+    authors: N. N. Taleb; B. Yarckin; C. Mann; D. Delic; M. Spitznagel
+    version: 1908.02347v3
+    url: https://arxiv.org/abs/1908.02347v3
+    source_role: primary
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: metadata-verified-full-text-scope-pending
+    units:
+    - id: paper-option-tail-scope
+      locator: whole paper; exact sections and theorem numbers to verify
+      concept_ids:
+      - c-power-option
+      status: todo
+      dependencies: []
+      assigned_role: math-site-editor
+      milestone: M6
+      classification:
+      - lean-verifiable
+      - numeric-demo
+    classification:
+    - lean-verifiable
+    - numeric-demo
+  paper-pricing:
+    id: paper-pricing
+    title: Risk Neutral Option Pricing With Neither Dynamic Hedging nor Complete Markets
+    authors: N. N. Taleb
+    version: 1405.2609v2
+    url: https://arxiv.org/abs/1405.2609v2
+    source_role: primary
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: metadata-verified-full-text-scope-pending
+    units:
+    - id: paper-pricing-scope
+      locator: whole paper; exact sections and theorem numbers to verify
+      concept_ids:
+      - c-pricing-measures
+      status: todo
+      dependencies: []
+      assigned_role: math-site-editor
+      milestone: M6
+      classification:
+      - lean-verifiable
+      - numeric-demo
+    classification:
+    - lean-verifiable
+    - numeric-demo
+  paper-entropy:
+    id: paper-entropy
+    title: Tail Risk Constraints and Maximum Entropy
+    authors: D. Geman; H. Geman; N. N. Taleb
+    version: 1412.7647v1
+    url: https://arxiv.org/abs/1412.7647v1
+    source_role: primary
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: metadata-verified-full-text-scope-pending
+    units:
+    - id: paper-entropy-scope
+      locator: whole paper; exact sections and theorem numbers to verify
+      concept_ids:
+      - c-maximum-entropy
+      status: todo
+      dependencies: []
+      assigned_role: math-site-editor
+      milestone: M6
+      classification:
+      - lean-verifiable
+      - numeric-demo
+    classification:
+    - lean-verifiable
+    - numeric-demo
+  paper-convex-response:
+    id: paper-convex-response
+    title: 'Working With Convex Responses: Antifragility From Finance to Oncology'
+    authors: N. N. Taleb; J. West
+    version: 2209.14631v2
+    url: https://arxiv.org/abs/2209.14631v2
+    source_role: primary
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: metadata-verified-full-text-scope-pending
+    units:
+    - id: paper-convex-response-scope
+      locator: whole paper; exact sections and theorem numbers to verify
+      concept_ids:
+      - c-jensen
+      - c-hormesis
+      status: todo
+      dependencies: []
+      assigned_role: math-site-editor
+      milestone: M6
+      classification:
+      - empirical
+      - lean-verifiable
+      - numeric-demo
+    classification:
+    - empirical
+    - lean-verifiable
+    - numeric-demo
+  paper-point-forecast:
+    id: paper-point-forecast
+    title: On Single Point Forecasts for Fat-Tailed Variables
+    authors: N. N. Taleb; Y. Bar-Yam; P. Cirillo
+    version: 2007.16096v1
+    url: https://arxiv.org/abs/2007.16096v1
+    source_role: primary
+    status: todo
+    dependencies: []
+    assigned_role: math-site-editor
+    milestone: M6
+    locator_review: metadata-verified-full-text-scope-pending
+    units:
+    - id: paper-point-forecast-scope
+      locator: whole paper; exact sections and theorem numbers to verify
+      concept_ids:
+      - c-point-forecast
+      status: todo
+      dependencies: []
+      assigned_role: math-site-editor
+      milestone: M6
+      classification:
+      - lean-verifiable
+      - numeric-demo
+    classification:
+    - lean-verifiable
+    - numeric-demo
+concepts:
+  c-exceedances:
+    id: c-exceedances
+    title: Finite-sample exceedance counts
+    classification:
+      lean-verifiable: Finite-set counting gives exact bounds and threshold monotonicity.
+      numeric-demo: The existing fixed sample checks the strict threshold convention.
+    scope: For n >= 1 and real observations, prove fraction bounds and antitonicity in u; no population inference.
+    status: todo
+    dependencies: []
+    assigned_role: astra-max
+    milestone: M1
+    page_path: content/incerto-counting-exceedances.md
+    canonical_url: /math/incerto/incerto-counting-exceedances/
+    coverage:
+      prose: existing
+      scope_note: Original page and xmath.exceedance_fraction; fixed synthetic demo exists. Neither implementation
+        nor population inference is formally verified.
+      lean: absent
+      python: existing-fixed-example
+    source_units:
+    - scft-ch02
+  c-pareto:
+    id: c-pareto
+    title: Pareto distribution
+    classification:
+      lean-verifiable: Density, survival, and support identities admit exact analysis.
+      numeric-demo: Compare simulated exceedances with the stated survival law.
+    scope: Positive scale x_m and alpha; distinguish normalized distribution from a tail approximation.
+    status: todo
+    dependencies: []
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-pareto.md
+    canonical_url: /math/incerto/incerto-pareto/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - tbs-ch16
+    - scft-ch02
+    - scft-ch05
+    - scft-appa
+  c-regular-variation:
+    id: c-regular-variation
+    title: Regular variation
+    classification:
+      lean-verifiable: Definitions and individual limit statements can be formalized.
+      numeric-demo: Ratios illustrate convergence and slowly varying corrections.
+    scope: Pointwise ratio limits at positive dilation; do not infer regular variation from a finite plot.
+    status: todo
+    dependencies:
+    - c-pareto
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-regular-variation.md
+    canonical_url: /math/incerto/incerto-regular-variation/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - tbs-ch16
+    - scft-ch05
+  c-karamata:
+    id: c-karamata
+    title: Karamata tail integrals
+    classification:
+      lean-verifiable: The integral theorem needs explicit measurable and asymptotic hypotheses.
+    scope: General theorem requires a library feasibility audit; p = alpha depends on the slowly varying factor.
+    status: todo
+    dependencies:
+    - c-regular-variation
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-karamata.md
+    canonical_url: /math/incerto/incerto-karamata/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch05
+  c-pareto-moments:
+    id: c-pareto-moments
+    title: Pareto moment boundary
+    classification:
+      lean-verifiable: Integrability and the exact positive-power integral have a small analytic scope.
+      numeric-demo: Truncation plots distinguish finite estimates from finite population moments.
+    scope: For p > 0, the pth Pareto moment is finite exactly when p < alpha; handle equality separately.
+    status: todo
+    dependencies:
+    - c-pareto
+    assigned_role: astra-max
+    milestone: M2
+    page_path: content/incerto-pareto-moment-existence.md
+    canonical_url: /math/incerto/incerto-pareto-moment-existence/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch06
+    - tbs-ch03
+    - scft-ch05
+  c-mean-excess:
+    id: c-mean-excess
+    title: Mean excess
+    classification:
+      lean-verifiable: Conditional expectation formulas require positive exceedance probability and integrability.
+      numeric-demo: Threshold curves compare exact models with finite samples.
+    scope: Separate a population conditional mean from its sample diagnostic.
+    status: todo
+    dependencies:
+    - c-pareto-moments
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-mean-excess-function.md
+    canonical_url: /math/incerto/incerto-mean-excess-function/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch09
+  c-hill:
+    id: c-hill
+    title: Hill tail-index estimation
+    classification:
+      lean-verifiable: Exact Pareto log-transform identities can precede asymptotic theory.
+      numeric-demo: Vary the number of upper order statistics to expose bias and noise.
+    scope: Do not claim general consistency without intermediate-sequence and tail conditions.
+    status: todo
+    dependencies:
+    - c-regular-variation
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-hill-estimator.md
+    canonical_url: /math/incerto/incerto-hill-estimator/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch09
+    - scft-appd
+  c-evi:
+    id: c-evi
+    title: Extreme-value index
+    classification:
+      lean-verifiable: Domain-specific parameter relations are precise statements.
+    scope: xi = 1/alpha only in the positive regularly varying regime; other signs need separate domains.
+    status: todo
+    dependencies: []
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-extreme-value-index.md
+    canonical_url: /math/incerto/incerto-extreme-value-index/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch02
+    - scft-ch09
+  c-gpd:
+    id: c-gpd
+    title: Generalized Pareto excess models
+    classification:
+      lean-verifiable: Support, survival, and exact threshold stability have explicit parameter cases.
+      numeric-demo: Check support and exponential limit numerically.
+    scope: Distinguish xi = 0, xi > 0, and finite-endpoint xi < 0.
+    status: todo
+    dependencies:
+    - c-evi
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-generalized-pareto.md
+    canonical_url: /math/incerto/incerto-generalized-pareto/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch09
+  c-plugin:
+    id: c-plugin
+    title: Plug-in tail estimation
+    classification:
+      lean-verifiable: A specified Pareto estimator permits exact transforms and singularity analysis.
+      numeric-demo: Compare sample and plug-in estimators on identical simulated samples.
+    scope: The unregularized mean estimator has a pole at estimated xi = 1; no uniform MSE superiority.
+    status: todo
+    dependencies:
+    - c-pareto-moments
+    - c-hill
+    assigned_role: astra-max
+    milestone: M2
+    page_path: content/incerto-plug-in-tail-estimation.md
+    canonical_url: /math/incerto/incerto-plug-in-tail-estimation/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-appd
+  c-pbdh:
+    id: c-pbdh
+    title: Threshold-limit theorem
+    classification:
+      lean-verifiable: The general theorem is a substantial probability formalization; the exact Pareto case is
+        smaller.
+    scope: Record the existing general result as cited; formalizing one excess identity does not certify the theorem.
+    status: todo
+    dependencies:
+    - c-gpd
+    - c-regular-variation
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-pickands-balkema-de-haan.md
+    canonical_url: /math/incerto/incerto-pickands-balkema-de-haan/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch09
+  c-gev:
+    id: c-gev
+    title: Generalized extreme-value laws
+    classification:
+      lean-verifiable: Distribution formulas and maxima limits have separate proof obligations.
+      numeric-demo: Block-maxima experiments illustrate normalization sensitivity.
+    scope: Specify the domain of attraction, centering, scaling, and convergence mode.
+    status: todo
+    dependencies:
+    - c-evi
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-generalized-extreme-value.md
+    canonical_url: /math/incerto/incerto-generalized-extreme-value/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch09
+  c-frechet:
+    id: c-frechet
+    title: Frechet maxima
+    classification:
+      lean-verifiable: The Pareto maximum limit provides a bounded first EVT target.
+      numeric-demo: Compare normalized maxima with the limiting distribution.
+    scope: Positive tail exponent and explicit normalization; finite-n errors remain numerical.
+    status: todo
+    dependencies:
+    - c-pareto
+    - c-gev
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-frechet.md
+    canonical_url: /math/incerto/incerto-frechet/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch09
+  c-subexponential:
+    id: c-subexponential
+    title: Subexponential sums
+    classification:
+      lean-verifiable: Convolution-tail statements need nonnegative support and fixed-sum hypotheses.
+      numeric-demo: Compare the sum tail with a single-large-observation approximation.
+    scope: Fixed n iid nonnegative variables; no automatic extension to growing n.
+    status: todo
+    dependencies:
+    - c-regular-variation
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-subexponentiality.md
+    canonical_url: /math/incerto/incerto-subexponentiality/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch05
+  c-tail-ratio:
+    id: c-tail-ratio
+    title: Survival-tail ratio diagnostic
+    classification:
+      lean-verifiable: Specified survival-function ratios allow exact limit calculations.
+      numeric-demo: Plot the diagnostic across models without treating it as a convolution proof.
+    scope: Independence is required for a joint-exceedance interpretation.
+    status: todo
+    dependencies:
+    - c-pareto
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-survival-tail-ratio.md
+    canonical_url: /math/incerto/incerto-survival-tail-ratio/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch05
+  c-max-sum:
+    id: c-max-sum
+    title: Maximum-to-sum ratio
+    classification:
+      lean-verifiable: Finite positive-sum bounds are elementary; limit regimes need probability theory.
+      numeric-demo: Compare finite-mean, alpha = 1, and alpha < 1 regimes.
+    scope: A nondegenerate heavy-tail limit need not equal one; define zero-sum behavior.
+    status: todo
+    dependencies:
+    - c-pareto-moments
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-max-to-sum-ratio.md
+    canonical_url: /math/incerto/incerto-max-to-sum-ratio/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch07
+  c-double-pareto:
+    id: c-double-pareto
+    title: Symmetric shifted Pareto construction
+    classification:
+      lean-verifiable: The stated sign-mixture construction has exact distribution and moment properties.
+      numeric-demo: Symmetry and unstable averages can be illustrated independently.
+    scope: Preserve the existing shifted construction; symmetry alone does not imply an existing mean.
+    status: todo
+    dependencies:
+    - c-pareto-moments
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-double-pareto.md
+    canonical_url: /math/incerto/incerto-double-pareto/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch05
+  c-threshold:
+    id: c-threshold
+    title: Tail-threshold selection
+    classification:
+      lean-verifiable: The stated body-plus-tail example and threshold-stability identities have exact model-specific
+        claims.
+      numeric-demo: Sensitivity curves show the bias and variance tradeoff.
+      empirical: Real-data threshold choice requires dependence and model-fit diagnostics.
+    scope: No universal optimal threshold from a visually straight tail plot.
+    status: todo
+    dependencies:
+    - c-hill
+    - c-mean-excess
+    assigned_role: astra-max
+    milestone: M2
+    page_path: content/incerto-tail-threshold-selection.md
+    canonical_url: /math/incerto/incerto-tail-threshold-selection/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch09
+    - scft-appd
+  c-body-shoulder:
+    id: c-body-shoulder
+    title: Body, shoulder, and tail under perturbation
+    classification:
+      lean-verifiable: Density derivatives locate sign changes for a specified perturbation.
+      numeric-demo: Original curves can display the signed effects.
+    scope: The existing normal variance perturbation is not a universal tail-threshold rule.
+    status: todo
+    dependencies: []
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-body-shoulder-tail.md
+    canonical_url: /math/incerto/incerto-body-shoulder-tail/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch04
+  c-tail-geometry:
+    id: c-tail-geometry
+    title: Multivariate tail geometry
+    classification:
+      lean-verifiable: Product-density comparisons are exact under their independence assumptions.
+      numeric-demo: Compare contours and integrated regional probabilities.
+    scope: Point density and probability mass must remain distinct.
+    status: todo
+    dependencies:
+    - c-pareto
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-iso-density-tail-geometry.md
+    canonical_url: /math/incerto/incerto-iso-density-tail-geometry/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch06
+  c-cramer:
+    id: c-cramer
+    title: Exponential-moment gate
+    classification:
+      lean-verifiable: Markov/Chernoff bounds are formalizable with finite exponential moments.
+      numeric-demo: Compare exponential and power-law tail bounds.
+    scope: An exponential-moment condition and a Chernoff bound do not prove a full large-deviation principle.
+    status: todo
+    dependencies: []
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-cramer-condition.md
+    canonical_url: /math/incerto/incerto-cramer-condition/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - tbs-ch15
+    - scft-appc
+  c-stable-clt:
+    id: c-stable-clt
+    title: Stable limits for sums
+    classification:
+      lean-verifiable: Stable attraction is an advanced formalization with explicit centering and scaling.
+      numeric-demo: Simulations compare Gaussian and stable scaling.
+    scope: Handle alpha = 1 centering and slowly varying factors explicitly.
+    status: todo
+    dependencies:
+    - c-regular-variation
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-generalized-central-limit-theorem.md
+    canonical_url: /math/incerto/incerto-generalized-central-limit-theorem/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - tbs-ch16
+    - scft-ch07
+  c-lln-failure:
+    id: c-lln-failure
+    title: Failure of finite-mean averaging assumptions
+    classification:
+      lean-verifiable: Nonnegative iid infinite-mean divergence has a precise theorem statement.
+      numeric-demo: Compare with a two-sided Cauchy example without conflating the arguments.
+    scope: The existing nonnegative divergence result does not apply to symmetric Cauchy sums.
+    status: todo
+    dependencies: []
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-lln-failure.md
+    canonical_url: /math/incerto/incerto-lln-failure/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch07
+  c-tail-catalog:
+    id: c-tail-catalog
+    title: Tail classes and implication boundaries
+    classification:
+      lean-verifiable: The convolution decomposition and exact light-tail ratios are precise proof targets.
+      numeric-demo: Population tail-ratio curves illustrate distinct asymptotic classes.
+    scope: Keep cited class memberships separate from the elementary convolution derivation and exact ratio checks.
+    status: todo
+    dependencies:
+    - c-regular-variation
+    - c-subexponential
+    - c-cramer
+    assigned_role: astra-max
+    milestone: M2
+    page_path: content/incerto-tail-class-catalog.md
+    canonical_url: /math/incerto/incerto-tail-class-catalog/
+    coverage:
+      prose: existing
+      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - tbs-ch15
+    - tbs-es06
+    - af-glossary
+    - scft-ch01
+    - scft-ch02
+    - scft-appa
+  c-luck-skill:
+    id: c-luck-skill
+    title: Luck, skill, and performance selection
+    classification:
+      numeric-demo: A controlled population exposes selection effects.
+      empirical: Observed performance needs a specified null and selection process.
+      prose-only: Attributing success involves causal assumptions beyond the simulation.
+    scope: Separate ex ante ability, realized payoff, and selection on realized payoff.
+    status: todo
+    dependencies: []
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-luck-skill.md
+    canonical_url: /math/incerto/incerto-luck-skill/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch01
+    - fbr-ch05
+    - fbr-opening
+    - tbs-ch02
+    - bop-s05
+    - bop-s10
+  c-counterfactuals:
+    id: c-counterfactuals
+    title: Alternative histories and decision quality
+    classification:
+      numeric-demo: Repeated simulated paths compare decisions under the same model.
+      prose-only: A single realized history cannot identify every counterfactual.
+    scope: State the generative assumptions and the chosen loss or utility.
+    status: todo
+    dependencies: []
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-counterfactuals.md
+    canonical_url: /math/incerto/incerto-counterfactuals/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch01
+    - fbr-ch02
+    - fbr-ch03
+  c-noise-monitoring:
+    id: c-noise-monitoring
+    title: Observation frequency and noise
+    classification:
+      lean-verifiable: Signal/noise scaling can be proved for a specified independent-increment model.
+      numeric-demo: Change monitoring frequency while holding the path model fixed.
+    scope: No universal claim that frequent observation is harmful.
+    status: todo
+    dependencies:
+    - c-counterfactuals
+    assigned_role: astra-max
+    milestone: M3
+    page_path: content/incerto-noise-monitoring.md
+    canonical_url: /math/incerto/incerto-noise-monitoring/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch03
+  c-survivorship:
+    id: c-survivorship
+    title: Survivorship and silent evidence
+    classification:
+      lean-verifiable: Finite conditional-probability examples can establish selection bias.
+      numeric-demo: Simulate observed survivors and the full cohort.
+      empirical: Historical missingness requires a documented observation model.
+    scope: Distinguish truncation, censoring, selection, and unobserved failures.
+    status: todo
+    dependencies:
+    - c-luck-skill
+    assigned_role: astra-max
+    milestone: M3
+    page_path: content/incerto-survivorship.md
+    canonical_url: /math/incerto/incerto-survivorship/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch05
+    - fbr-ch08
+    - tbs-ch08
+    - af-ch15
+    - sitg-ch12
+  c-asymmetric-payoffs:
+    id: c-asymmetric-payoffs
+    title: Asymmetric payoffs and exposure
+    classification:
+      lean-verifiable: Finite payoff tables separate win probability from expected payoff.
+      numeric-demo: Use original examples with visible rare-loss exposure.
+    scope: Expected payoff statements require integrability; a high hit rate is insufficient.
+    status: todo
+    dependencies: []
+    assigned_role: astra-max
+    milestone: M3
+    page_path: content/incerto-asymmetric-payoffs.md
+    canonical_url: /math/incerto/incerto-asymmetric-payoffs/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch02
+    - fbr-ch06
+    - tbs-ch07
+    - tbs-es06
+    - sitg-app-intro
+    - scft-ch03
+  c-induction:
+    id: c-induction
+    title: Induction and limits of finite evidence
+    classification:
+      prose-only: The philosophical problem cannot be settled by a finite statistical theorem.
+    scope: Separate logical underdetermination from model-relative confidence statements.
+    status: todo
+    dependencies: []
+    assigned_role: astra-xhigh
+    milestone: M2
+    page_path: content/incerto-induction.md
+    canonical_url: /math/incerto/incerto-induction/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch07
+    - fbr-closing
+    - tbs-ch04
+    - bop-s09
+    - scft-ch01
+  c-multiple-testing:
+    id: c-multiple-testing
+    title: Search, multiple testing, and regression effects
+    classification:
+      lean-verifiable: Finite-family error bounds and a specified regression example are formalizable.
+      numeric-demo: Repeat the full search procedure under a declared null.
+    scope: Selection must be included when interpreting a reported winner.
+    status: todo
+    dependencies:
+    - c-luck-skill
+    assigned_role: astra-max
+    milestone: M3
+    page_path: content/incerto-multiple-testing.md
+    canonical_url: /math/incerto/incerto-multiple-testing/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch09
+    - tbs-ch05
+    - scft-ch19
+  c-path-dependence:
+    id: c-path-dependence
+    title: Reinforcement and path-dependent outcomes
+    classification:
+      numeric-demo: A specified urn or preferential-attachment process demonstrates one mechanism.
+      empirical: Claims about actual inequality need data and alternative mechanisms.
+    scope: A toy process is not a universal explanation of social concentration.
+    status: todo
+    dependencies: []
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-path-dependence.md
+    canonical_url: /math/incerto/incerto-path-dependence/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch10
+    - tbs-ch14
+  c-biases:
+    id: c-biases
+    title: Probability judgments and cognitive biases
+    classification:
+      empirical: Psychological generalizations require primary studies and replication review.
+      prose-only: Explain the reasoning error without asserting its empirical prevalence.
+    scope: Keep normative probability arithmetic distinct from claims about human behavior.
+    status: todo
+    dependencies: []
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-biases.md
+    canonical_url: /math/incerto/incerto-biases/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch11
+    - fbr-ch12
+    - tbs-ch05
+    - bop-s06
+    - bop-s10
+    - scft-apph
+  c-causal-narrative:
+    id: c-causal-narrative
+    title: Narrative explanations and causal identification
+    classification:
+      prose-only: Discuss what observations do and do not distinguish.
+      numeric-demo: Observationally similar simulated models can have different interventions.
+    scope: Do not infer causation from a fitted story or a retrospective sequence.
+    status: todo
+    dependencies: []
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-causal-narrative.md
+    canonical_url: /math/incerto/incerto-causal-narrative/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch04
+    - fbr-ch12
+    - tbs-ch06
+    - bop-s02
+    - af-ch14
+    - sitg-ch12
+  c-skepticism:
+    id: c-skepticism
+    title: Fallibility and practical skepticism
+    classification:
+      prose-only: This is an epistemic stance, not a universal probability theorem.
+    scope: Distinguish uncertainty about a model from uncertainty within it.
+    status: todo
+    dependencies: []
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-skepticism.md
+    canonical_url: /math/incerto/incerto-skepticism/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch04
+    - fbr-ch13
+    - fbr-opening
+    - tbs-ch01
+    - tbs-ch12
+    - tbs-es03
+    - bop-s01
+    - bop-s15
+    - bop-s22
+  c-stoicism:
+    id: c-stoicism
+    title: Control, dignity, and responses to chance
+    classification:
+      prose-only: These are ethical and interpretive arguments.
+    scope: Use original commentary and cited chapter locators; no aphorism collection.
+    status: todo
+    dependencies: []
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-stoicism.md
+    canonical_url: /math/incerto/incerto-stoicism/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch14
+    - fbr-closing
+    - tbs-ch19
+    - tbs-es09
+    - bop-s05
+    - bop-s17
+    - bop-s19
+    - af-ch10
+    - sitg-epilogue
+  c-scalability:
+    id: c-scalability
+    title: Scalable outcomes and concentration
+    classification:
+      lean-verifiable: Specified finite payoff and aggregation examples can be checked.
+      numeric-demo: Compare bounded and unbounded-support model families.
+    scope: Do not treat occupational labels as distributional assumptions.
+    status: todo
+    dependencies:
+    - c-asymmetric-payoffs
+    assigned_role: astra-max
+    milestone: M3
+    page_path: content/incerto-scalability.md
+    canonical_url: /math/incerto/incerto-scalability/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch10
+    - tbs-ch02
+    - tbs-ch03
+  c-black-swan:
+    id: c-black-swan
+    title: Surprise, impact, and retrospective explanation
+    classification:
+      prose-only: Define the observer-relative concept and its limits.
+    scope: A surprising event is not automatically a power-law observation.
+    status: todo
+    dependencies:
+    - c-induction
+    - c-causal-narrative
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-black-swan.md
+    canonical_url: /math/incerto/incerto-black-swan/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - tbs-ch01
+    - tbs-opening
+  c-ludic:
+    id: c-ludic
+    title: Model boundaries and domain transfer
+    classification:
+      prose-only: Assess omitted mechanisms and the limits of closed-world games.
+    scope: Do not use a model-boundary critique as evidence for a particular alternative law.
+    status: todo
+    dependencies: []
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-ludic.md
+    canonical_url: /math/incerto/incerto-ludic/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-closing
+    - tbs-ch09
+    - tbs-ch18
+    - bop-s14
+    - bop-postface
+    - af-ch17
+  c-forecasting:
+    id: c-forecasting
+    title: Prediction limits and forecast evaluation
+    classification:
+      empirical: Skill claims need dated forecasts, baselines, and leakage control.
+      numeric-demo: Simulate horizon and parameter uncertainty.
+    scope: Score distributions and decisions separately; distinguish impossibility from poor calibration.
+    status: todo
+    dependencies: []
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-forecasting.md
+    canonical_url: /math/incerto/incerto-forecasting/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - tbs-ch10
+    - bop-s16
+    - af-ch08
+  c-epistemic-uncertainty:
+    id: c-epistemic-uncertainty
+    title: Model uncertainty and unseen mechanisms
+    classification:
+      prose-only: Classify what the model leaves unspecified.
+      numeric-demo: Compare predictions across explicitly declared model families.
+    scope: Do not assign an unsupported probability to unknown model classes.
+    status: todo
+    dependencies:
+    - c-skepticism
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-epistemic-uncertainty.md
+    canonical_url: /math/incerto/incerto-epistemic-uncertainty/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch13
+    - tbs-ch12
+    - tbs-ch18
+    - tbs-es04
+    - bop-s03
+  c-tacit-knowledge:
+    id: c-tacit-knowledge
+    title: Practice, tacit knowledge, and explicit models
+    classification:
+      prose-only: Historical and philosophical claims need attribution and counterexamples.
+    scope: Distinguish an account of discovery from a mathematical justification.
+    status: todo
+    dependencies: []
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-tacit-knowledge.md
+    canonical_url: /math/incerto/incerto-tacit-knowledge/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - tbs-ch11
+    - bop-s08
+    - bop-s17
+    - bop-s20
+    - af-ch09
+    - af-ch13
+    - af-ch14
+    - af-ch15
+    - af-ch17
+    - sitg-ch06
+    - sitg-ch09
+    - scft-ch22
+  c-procrustean:
+    id: c-procrustean
+    title: Category fit and forced measurement
+    classification:
+      prose-only: Evaluate the choice of categories and what they erase.
+    scope: Discuss the aphoristic themes in original prose; no close paraphrase or reconstructed aphorisms.
+    status: todo
+    dependencies: []
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-procrustean.md
+    canonical_url: /math/incerto/incerto-procrustean/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - bop-s01
+    - bop-s03
+    - bop-s07
+    - bop-s09
+    - bop-s21
+    - bop-opening
+    - bop-postface
+    - sitg-ch10
+    - sitg-ch15
+  c-aesthetics:
+    id: c-aesthetics
+    title: Aesthetic judgment and intellectual style
+    classification:
+      prose-only: Interpretive commentary has no theorem-like truth condition.
+    scope: Separate taste, rhetoric, and factual historical assertions.
+    status: todo
+    dependencies: []
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-aesthetics.md
+    canonical_url: /math/incerto/incerto-aesthetics/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - bop-s11
+  c-jensen:
+    id: c-jensen
+    title: Convexity and Jensen effects
+    classification:
+      lean-verifiable: Convexity inequalities have exact domain and integrability conditions.
+      numeric-demo: Mean-preserving perturbations illustrate expectation changes.
+    scope: Distinguish payoff curvature from a full claim about welfare or survival.
+    status: todo
+    dependencies: []
+    assigned_role: astra-max
+    milestone: M3
+    page_path: content/incerto-jensen.md
+    canonical_url: /math/incerto/incerto-jensen/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - af-ch18
+    - af-ch19
+    - af-app2
+    - scft-ch24
+    - paper-fragility-scope
+    - paper-convex-response-scope
+  c-fragility:
+    id: c-fragility
+    title: Sensitivity-based fragility
+    classification:
+      lean-verifiable: A chosen distribution family and response functional give a checkable sensitivity.
+      numeric-demo: Finite differences reveal dependence on the perturbation family.
+    scope: Specify response, adverse region, dispersion parameter, and derivative existence.
+    status: todo
+    dependencies:
+    - c-jensen
+    - c-asymmetric-payoffs
+    assigned_role: astra-max
+    milestone: M3
+    page_path: content/incerto-fragility.md
+    canonical_url: /math/incerto/incerto-fragility/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - tbs-es02
+    - bop-s13
+    - af-ch01
+    - af-ch06
+    - af-ch08
+    - af-ch18
+    - af-ch19
+    - af-ch25
+    - af-prologue
+    - af-app1
+    - af-app2
+    - af-glossary
+    - paper-fragility-scope
+  c-hormesis:
+    id: c-hormesis
+    title: Dose response and adaptation
+    classification:
+      numeric-demo: A declared response curve separates local convexity from global effects.
+      empirical: Biological claims need domain-specific evidence and confounding review.
+    scope: A curve calculation does not establish a clinical or biological benefit.
+    status: todo
+    dependencies:
+    - c-jensen
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-hormesis.md
+    canonical_url: /math/incerto/incerto-hormesis/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - bop-s07
+    - af-ch02
+    - af-ch03
+    - af-ch21
+    - paper-convex-response-scope
+  c-selection-levels:
+    id: c-selection-levels
+    title: Individual failure and population adaptation
+    classification:
+      numeric-demo: A branching or replacement toy model separates levels of aggregation.
+      prose-only: Ethical consequences do not follow from aggregate fitness.
+    scope: Specify whose outcome is improved, at what cost, and on which time scale.
+    status: todo
+    dependencies:
+    - c-survivorship
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-selection-levels.md
+    canonical_url: /math/incerto/incerto-selection-levels/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - af-ch04
+  c-decentralization:
+    id: c-decentralization
+    title: Redundancy, size, and decentralized exposure
+    classification:
+      numeric-demo: Network and concentration models permit controlled stress experiments.
+      empirical: Institutional claims require comparative evidence.
+      prose-only: State normative tradeoffs separately.
+    scope: No general theorem that decentralization dominates for every dependency structure.
+    status: todo
+    dependencies: []
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-decentralization.md
+    canonical_url: /math/incerto/incerto-decentralization/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - tbs-es01
+    - tbs-es08
+    - af-ch03
+    - af-ch05
+    - sitg-ch14
+    - paper-precaution-scope
+  c-iatrogenics:
+    id: c-iatrogenics
+    title: Intervention error and subtractive decisions
+    classification:
+      numeric-demo: Compare actions under explicit error costs and uncertain treatment effects.
+      empirical: Claims of harm require suitable causal evidence.
+      prose-only: A preference for restraint remains a decision rule with assumptions.
+    scope: Do not convert a medical illustration into treatment advice.
+    status: todo
+    dependencies:
+    - c-epistemic-uncertainty
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-iatrogenics.md
+    canonical_url: /math/incerto/incerto-iatrogenics/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - bop-s15
+    - af-ch07
+    - af-ch21
+    - af-ch22
+  c-barbell:
+    id: c-barbell
+    title: Bounded downside and barbell allocations
+    classification:
+      lean-verifiable: A specified finite allocation gives exact payoff bounds.
+      numeric-demo: Compare payoff distributions with the same budget constraints.
+    scope: Specify default, leverage, funding, and admissible losses; no investment prescription.
+    status: todo
+    dependencies:
+    - c-asymmetric-payoffs
+    - c-ruin
+    assigned_role: astra-max
+    milestone: M3
+    page_path: content/incerto-barbell.md
+    canonical_url: /math/incerto/incerto-barbell/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - tbs-ch13
+    - tbs-ch19
+    - tbs-es07
+    - af-ch10
+    - af-ch11
+  c-optionality:
+    id: c-optionality
+    title: Optionality and asymmetric experimentation
+    classification:
+      lean-verifiable: Taking a maximum over available actions gives precise order inequalities.
+      numeric-demo: Simulate exploration under explicit costs and stopping rules.
+    scope: An option with costs or constraints need not be beneficial in every model.
+    status: todo
+    dependencies:
+    - c-asymmetric-payoffs
+    assigned_role: astra-max
+    milestone: M3
+    page_path: content/incerto-optionality.md
+    canonical_url: /math/incerto/incerto-optionality/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - tbs-ch07
+    - tbs-ch11
+    - tbs-es07
+    - af-ch12
+    - af-ch16
+    - af-app1
+  c-lindy:
+    id: c-lindy
+    title: Conditional lifetime and Lindy models
+    classification:
+      lean-verifiable: Pareto conditional-life formulas have explicit moment conditions.
+      empirical: Historical longevity claims need censoring and cohort analysis.
+    scope: A selected lifetime model does not establish a universal age law.
+    status: todo
+    dependencies:
+    - c-pareto-moments
+    - c-survivorship
+    assigned_role: astra-max
+    milestone: M3
+    page_path: content/incerto-lindy.md
+    canonical_url: /math/incerto/incerto-lindy/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - af-ch20
+    - sitg-ch08
+  c-agency:
+    id: c-agency
+    title: Agency, incentives, and risk transfer
+    classification:
+      lean-verifiable: A finite principal-agent model can check incentive inequalities.
+      numeric-demo: Compare reward rules on identical outcome paths.
+      prose-only: Fairness and responsibility remain normative questions.
+    scope: State who bears losses, observes actions, and can leave.
+    status: todo
+    dependencies:
+    - c-asymmetric-payoffs
+    assigned_role: astra-max
+    milestone: M3
+    page_path: content/incerto-agency.md
+    canonical_url: /math/incerto/incerto-agency/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - tbs-es08
+    - bop-s06
+    - bop-s08
+    - bop-s18
+    - af-ch09
+    - af-ch23
+    - sitg-ch01
+    - sitg-ch03
+    - sitg-ch04
+    - sitg-ch06
+    - sitg-ch10
+    - sitg-pro1
+    - sitg-pro3
+    - sitg-app-intro
+  c-minority-rule:
+    id: c-minority-rule
+    title: Threshold preferences and collective outcomes
+    classification:
+      numeric-demo: A finite mixing model illustrates parameter-dependent collective effects.
+      empirical: Applications need actual network and preference data.
+    scope: Do not infer a universal sociological law from a threshold toy model.
+    status: todo
+    dependencies:
+    - c-path-dependence
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-minority-rule.md
+    canonical_url: /math/incerto/incerto-minority-rule/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - sitg-ch02
+    - sitg-ch14
+    - sitg-app-book3
+  c-costly-signals:
+    id: c-costly-signals
+    title: Commitment, signals, and revealed preferences
+    classification:
+      lean-verifiable: Specified signaling games admit finite incentive checks.
+      prose-only: Actions need not uniquely reveal beliefs or values.
+    scope: Separate an equilibrium calculation from claims about real motives.
+    status: todo
+    dependencies:
+    - c-agency
+    assigned_role: astra-max
+    milestone: M3
+    page_path: content/incerto-costly-signals.md
+    canonical_url: /math/incerto/incerto-costly-signals/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - sitg-ch05
+    - sitg-ch09
+    - sitg-ch11
+    - sitg-ch13
+    - sitg-ch16
+    - sitg-ch17
+    - sitg-pro3
+  c-inequality-mobility:
+    id: c-inequality-mobility
+    title: Inequality, mobility, and population definitions
+    classification:
+      empirical: Cross-sectional concentration and transitions require different data.
+      numeric-demo: Simulate equal marginals with different mobility.
+    scope: Fix units, population entry/exit, and observation windows.
+    status: todo
+    dependencies:
+    - c-path-dependence
+    assigned_role: astra-xhigh
+    milestone: M4
+    page_path: content/incerto-inequality-mobility.md
+    canonical_url: /math/incerto/incerto-inequality-mobility/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch08
+    - tbs-ch14
+    - sitg-ch07
+  c-ethics:
+    id: c-ethics
+    title: Reciprocity, responsibility, and professional ethics
+    classification:
+      prose-only: These are ethical arguments and institutional judgments.
+    scope: A formal payoff model cannot verify a moral conclusion.
+    status: todo
+    dependencies:
+    - c-agency
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-ethics.md
+    canonical_url: /math/incerto/incerto-ethics/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - bop-s04
+    - bop-s12
+    - bop-s19
+    - bop-s21
+    - af-ch23
+    - af-ch24
+    - sitg-ch01
+    - sitg-ch05
+    - sitg-ch13
+    - sitg-ch15
+    - sitg-pro1
+    - sitg-pro2
+    - sitg-epilogue
+    - paper-precaution-scope
+  c-rationality:
+    id: c-rationality
+    title: Rationality as an explicit decision criterion
+    classification:
+      prose-only: Compare consistency, survival, and welfare criteria without equating them.
+      numeric-demo: Counterexamples expose differences between decision criteria.
+    scope: State the criterion and information set before calling an action rational.
+    status: todo
+    dependencies: []
+    assigned_role: astra-xhigh
+    milestone: M3
+    page_path: content/incerto-rationality.md
+    canonical_url: /math/incerto/incerto-rationality/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - sitg-ch17
+    - sitg-ch18
+    - sitg-pro2
+  c-ruin:
+    id: c-ruin
+    title: Ruin and repeated exposure
+    classification:
+      lean-verifiable: Independent repeated trials with fixed positive ruin probability give an exact finite-horizon
+        formula and limit.
+      numeric-demo: Compare finite-horizon outcomes and dependence assumptions.
+      prose-only: Precaution adds a normative decision premise.
+    scope: No almost-sure ruin claim from unspecified dependence or a merely positive time-varying hazard.
+    status: todo
+    dependencies: []
+    assigned_role: astra-max
+    milestone: M3
+    page_path: content/incerto-ruin.md
+    canonical_url: /math/incerto/incerto-ruin/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - tbs-ch13
+    - tbs-es02
+    - af-ch06
+    - af-ch25
+    - sitg-ch19
+    - scft-ch03
+    - paper-precaution-scope
+  c-ergodicity:
+    id: c-ergodicity
+    title: Time averages and ensemble averages
+    classification:
+      lean-verifiable: Finite multiplicative examples and scoped log-growth results are formalizable.
+      numeric-demo: Compare cross-sectional wealth with one path through time.
+    scope: Separate ergodic theorems, absorbing ruin, and a chosen growth objective.
+    status: todo
+    dependencies:
+    - c-ruin
+    assigned_role: astra-max
+    milestone: M3
+    page_path: content/incerto-ergodicity.md
+    canonical_url: /math/incerto/incerto-ergodicity/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - sitg-ch18
+    - sitg-ch19
+    - scft-appb
+  c-moment-estimation:
+    id: c-moment-estimation
+    title: Moment-estimation failure
+    classification:
+      lean-verifiable: Separate moment existence from estimator integrability and consistency.
+      numeric-demo: Run bounded, reproducible repeated-sample comparisons.
+    scope: Start with Pareto regimes and the existing plug-in singularity; no universal estimator ranking.
+    status: todo
+    dependencies:
+    - c-pareto-moments
+    - c-plugin
+    assigned_role: astra-max
+    milestone: M2
+    page_path: content/incerto-moment-estimation.md
+    canonical_url: /math/incerto/incerto-moment-estimation/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - tbs-ch17
+    - scft-ch04
+    - scft-ch24
+    - paper-kappa-scope
+  c-inference-asymmetry:
+    id: c-inference-asymmetry
+    title: Finite-sample evidence and tail non-identification
+    classification:
+      lean-verifiable: Construct a specified rare-contamination counterexample with controlled sample discrepancy.
+      numeric-demo: Compare models indistinguishable in most finite samples.
+      prose-only: Explain the limits of the result without claiming a universal undecidability theorem.
+    scope: Quantify sample size, contamination probability, distance, and the moment that differs.
+    status: todo
+    dependencies:
+    - c-exceedances
+    - c-induction
+    - c-moment-estimation
+    assigned_role: astra-max
+    milestone: M2
+    page_path: content/incerto-inference-asymmetry.md
+    canonical_url: /math/incerto/incerto-inference-asymmetry/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - fbr-ch07
+    - tbs-ch04
+    - tbs-es05
+    - scft-ch03
+  c-cauchy-running:
+    id: c-cauchy-running
+    title: Cauchy running statistics
+    classification:
+      numeric-demo: Fixed-seed repeated paths expose unstable averages and Monte Carlo uncertainty.
+      lean-verifiable: Distributional stability is a separate later theorem candidate.
+    scope: Synthetic experiment only; the legacy Chapter 4 locator needs edition reconciliation.
+    status: todo
+    dependencies:
+    - c-stable-clt
+    - c-lln-failure
+    assigned_role: astra-max
+    milestone: M2
+    page_path: content/incerto-cauchy-running.md
+    canonical_url: /math/incerto/incerto-cauchy-running/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch07
+  c-mixture-uncertainty:
+    id: c-mixture-uncertainty
+    title: Parameter mixtures and recursive uncertainty
+    classification:
+      lean-verifiable: Specified mixtures permit moment and tail calculations.
+      numeric-demo: Simulate a declared finite hierarchy of parameter uncertainty.
+    scope: Reuse Normix mixture definitions; a recursive construction needs an explicit limiting model.
+    status: todo
+    dependencies:
+    - c-pareto-moments
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-mixture-uncertainty.md
+    canonical_url: /math/incerto/incerto-mixture-uncertainty/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+      related_foundations:
+      - content/normix-normal-mixtures.md
+      - content/normix-generalized-hyperbolic.md
+    source_units:
+    - scft-ch04
+    - scft-ch17
+    - scft-appb
+  c-multivariate-tails:
+    id: c-multivariate-tails
+    title: Multivariate tails and dependence summaries
+    classification:
+      lean-verifiable: A specified model can test existence of covariance and validity of dependence formulas.
+      numeric-demo: Contrast correlation, tail dependence, and geometric diagnostics.
+    scope: PCA and covariance interpretations require moments; mutual information needs its own existence checks.
+    status: todo
+    dependencies:
+    - c-tail-geometry
+    - c-mixture-uncertainty
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-multivariate-tails.md
+    canonical_url: /math/incerto/incerto-multivariate-tails/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+      related_foundations:
+      - content/normix-normal-mixtures.md
+    source_units:
+    - scft-ch06
+  c-kappa:
+    id: c-kappa
+    title: Finite-sum concentration metric
+    classification:
+      lean-verifiable: Re-derive the selected paper metric under its finite-first-moment assumptions.
+      numeric-demo: Estimate it over declared finite aggregation sizes.
+    scope: Do not extend the metric to undefined moments or claim a universal sample-size guarantee.
+    status: todo
+    dependencies:
+    - c-pareto-moments
+    - c-stable-clt
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-kappa.md
+    canonical_url: /math/incerto/incerto-kappa/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch08
+    - paper-kappa-scope
+  c-sp500:
+    id: c-sp500
+    title: Equity-return tail study
+    classification:
+      empirical: An actual return series permits a reproducible, dated model comparison.
+    scope: Record price adjustments, sampling interval, nonstationarity, dependence, and data rights.
+    status: todo
+    dependencies:
+    - c-threshold
+    - c-moment-estimation
+    assigned_role: astra-xhigh
+    milestone: M4
+    page_path: content/incerto-sp500.md
+    canonical_url: /math/incerto/incerto-sp500/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch10
+  c-calibration-payoff:
+    id: c-calibration-payoff
+    title: Probability calibration versus payoff accuracy
+    classification:
+      lean-verifiable: Finite examples separate event probabilities from magnitude-sensitive expectations.
+      numeric-demo: Compare scoring rules and payoff errors under the same forecasts.
+    scope: A calibrated event forecast need not estimate an unbounded payoff well.
+    status: todo
+    dependencies:
+    - c-asymmetric-payoffs
+    - c-moment-estimation
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-calibration-payoff.md
+    canonical_url: /math/incerto/incerto-calibration-payoff/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch11
+  c-forecast-martingale:
+    id: c-forecast-martingale
+    title: Forecast updating and martingale constraints
+    classification:
+      lean-verifiable: Conditional probabilities under one filtration satisfy scoped martingale identities.
+      empirical: Timestamped forecasts allow model-dependent diagnostics.
+    scope: Changing information sets or forecasting systems can break a naive empirical comparison.
+    status: todo
+    dependencies:
+    - c-calibration-payoff
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-forecast-martingale.md
+    canonical_url: /math/incerto/incerto-forecast-martingale/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+      related_foundations:
+      - content/information-geometry-conditional-expectation.md
+    source_units:
+    - scft-ch12
+  c-gini:
+    id: c-gini
+    title: Gini estimation with heavy tails
+    classification:
+      lean-verifiable: Population and estimator properties require nonnegative values and a finite positive mean.
+      numeric-demo: Compare finite-sample bias under stated Pareto regimes.
+      empirical: Application needs population and measurement definitions.
+    scope: Infinite variance and infinite mean are different regimes.
+    status: todo
+    dependencies:
+    - c-pareto-moments
+    - c-inequality-mobility
+    assigned_role: astra-max
+    milestone: M4
+    page_path: content/incerto-gini.md
+    canonical_url: /math/incerto/incerto-gini/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - sitg-ch07
+    - scft-ch13
+    - paper-gini-scope
+  c-quantile-share:
+    id: c-quantile-share
+    title: Quantile contributions and aggregation bias
+    classification:
+      lean-verifiable: A specified tail-share functional permits exact distribution calculations.
+      numeric-demo: Compare aggregation and estimation orders.
+    scope: Check the assumptions behind any super-additivity claim.
+    status: todo
+    dependencies:
+    - c-pareto-moments
+    assigned_role: astra-max
+    milestone: M4
+    page_path: content/incerto-quantile-share.md
+    canonical_url: /math/incerto/incerto-quantile-share/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch14
+    - paper-quantile-scope
+  c-shadow-mean:
+    id: c-shadow-mean
+    title: Bounded-tail transformations and shadow moments
+    classification:
+      lean-verifiable: A declared invertible transformation and support bound permit exact integrals.
+      numeric-demo: Vary endpoint, threshold, and fitted tail parameters.
+    scope: Keep the physical upper bound and model uncertainty explicit; scope remains an owner decision.
+    status: todo
+    dependencies:
+    - c-gpd
+    - c-mean-excess
+    assigned_role: astra-max
+    milestone: M4
+    page_path: content/incerto-shadow-mean.md
+    canonical_url: /math/incerto/incerto-shadow-mean/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch15
+    - paper-conflicts-scope
+    - paper-diseases-scope
+  c-conflict-study:
+    id: c-conflict-study
+    title: Historical conflict severity study
+    classification:
+      empirical: Reanalysis requires event definitions, reporting ranges, exposure adjustments, and licensed data.
+    scope: Do not treat uncertain historical counts as iid measurements or equate tail fit with a trend conclusion.
+    status: todo
+    dependencies:
+    - c-shadow-mean
+    - c-threshold
+    assigned_role: astra-xhigh
+    milestone: M4
+    page_path: content/incerto-conflict-study.md
+    canonical_url: /math/incerto/incerto-conflict-study/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch16
+    - scft-appg
+    - paper-conflicts-scope
+  c-disease-study:
+    id: c-disease-study
+    title: Historical epidemic severity study
+    classification:
+      empirical: Compare competing analyses with explicit selection, censoring, and finite-population bounds.
+    scope: Study historical severity distributions; no clinical or public-health policy claim follows from the tail
+      fit alone.
+    status: todo
+    dependencies:
+    - c-shadow-mean
+    - c-threshold
+    assigned_role: astra-xhigh
+    milestone: M4
+    page_path: content/incerto-disease-study.md
+    canonical_url: /math/incerto/incerto-disease-study/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - paper-diseases-scope
+    - paper-diseases-comment-scope
+  c-random-alpha:
+    id: c-random-alpha
+    title: Random tail exponents
+    classification:
+      lean-verifiable: A specified mixing law over alpha permits survival and integrability analysis.
+      numeric-demo: Compare finite-range apparent exponents with asymptotic behavior.
+    scope: The mixing law and its support near zero control the result.
+    status: todo
+    dependencies:
+    - c-regular-variation
+    - c-mixture-uncertainty
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-random-alpha.md
+    canonical_url: /math/incerto/incerto-random-alpha/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch18
+    - paper-alpha-scope
+  c-pvalues:
+    id: c-pvalues
+    title: P-value variability and selection
+    classification:
+      lean-verifiable: Distribution statements need a fully specified null, alternative, and testing rule.
+      numeric-demo: Repeat tests and selection under one declared model.
+    scope: A p-value is not a posterior probability; distinguish variability from invalid calibration.
+    status: todo
+    dependencies:
+    - c-multiple-testing
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-pvalues.md
+    canonical_url: /math/incerto/incerto-pvalues/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch19
+  c-maximum-entropy:
+    id: c-maximum-entropy
+    title: Tail constraints and maximum entropy
+    classification:
+      lean-verifiable: A constrained optimization problem needs feasibility, normalization, and uniqueness checks.
+      numeric-demo: Numerical solutions can be checked against constraints.
+    scope: Use IG exponential-family definitions; a formal optimum does not validate chosen constraints.
+    status: todo
+    dependencies: []
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-maximum-entropy.md
+    canonical_url: /math/incerto/incerto-maximum-entropy/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+      related_foundations:
+      - content/information-geometry-exponential-families.md
+      - content/normix-exponential-family-core.md
+    source_units:
+    - scft-ch25
+    - paper-entropy-scope
+  c-point-forecast:
+    id: c-point-forecast
+    title: Point forecasts under heavy-tailed losses
+    classification:
+      lean-verifiable: The optimal point summary depends on the loss and existence of its expectation.
+      numeric-demo: Compare losses on identical simulated draws.
+    scope: Specify median/mean/quantile targets and what happens when expected loss is infinite.
+    status: todo
+    dependencies:
+    - c-pareto-moments
+    - c-calibration-payoff
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-point-forecast.md
+    canonical_url: /math/incerto/incerto-point-forecast/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch11
+    - paper-point-forecast-scope
+  c-ml-econometrics:
+    id: c-ml-econometrics
+    title: Tail assumptions in statistical pipelines
+    classification:
+      numeric-demo: Stress a specified estimator under controlled contamination.
+      empirical: Evaluate one documented pipeline on data with leakage and dependence checks.
+      prose-only: Map which assumptions a published method actually requires.
+    scope: No blanket rejection of econometrics, machine learning, or behavioral economics.
+    status: todo
+    dependencies:
+    - c-moment-estimation
+    - c-multiple-testing
+    assigned_role: astra-xhigh
+    milestone: M4
+    page_path: content/incerto-ml-econometrics.md
+    canonical_url: /math/incerto/incerto-ml-econometrics/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-appe
+    - scft-appf
+    - scft-apph
+  c-payoff-algebra:
+    id: c-payoff-algebra
+    title: Option and forward payoff algebra
+    classification:
+      lean-verifiable: Piecewise real functions support exact parity and order identities.
+      numeric-demo: Original payoff diagrams illustrate cases and boundaries.
+    scope: Start with European terminal payoffs and explicit financing conventions.
+    status: todo
+    dependencies:
+    - c-asymmetric-payoffs
+    assigned_role: astra-max
+    milestone: M5
+    page_path: content/incerto-payoff-algebra.md
+    canonical_url: /math/incerto/incerto-payoff-algebra/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - dh-ch01
+    - dh-ch02
+    - dh-modf
+  c-arbitrage:
+    id: c-arbitrage
+    title: Finite-state arbitrage and price bounds
+    classification:
+      lean-verifiable: Finite portfolio inequalities and specified transaction costs are checkable.
+    scope: Separate terminal payoff identities from trading admissibility and market completeness.
+    status: todo
+    dependencies:
+    - c-payoff-algebra
+    assigned_role: astra-max
+    milestone: M5
+    page_path: content/incerto-arbitrage.md
+    canonical_url: /math/incerto/incerto-arbitrage/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - dh-ch05
+    - dh-modf
+  c-market-making:
+    id: c-market-making
+    title: Market making and inventory exposure
+    classification:
+      numeric-demo: An explicit quote/inventory model illustrates risk and execution.
+      empirical: Market claims require timestamped, licensed quote and trade data.
+    scope: Account for adverse selection and fill assumptions.
+    status: todo
+    dependencies:
+    - c-payoff-algebra
+    assigned_role: astra-xhigh
+    milestone: M5
+    page_path: content/incerto-market-making.md
+    canonical_url: /math/incerto/incerto-market-making/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - dh-ch03
+    - dh-ch13
+  c-liquidity:
+    id: c-liquidity
+    title: Liquidity gaps and hedge execution
+    classification:
+      numeric-demo: Discrete jumps and transaction costs expose replication error.
+      empirical: Empirical execution costs depend on venue, size, and timestamp.
+    scope: A continuous-path replication theorem does not cover discontinuous execution.
+    status: todo
+    dependencies:
+    - c-market-making
+    assigned_role: astra-xhigh
+    milestone: M5
+    page_path: content/incerto-liquidity.md
+    canonical_url: /math/incerto/incerto-liquidity/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - dh-ch04
+    - dh-ch13
+  c-volatility-surface:
+    id: c-volatility-surface
+    title: Volatility, correlation, and surface conventions
+    classification:
+      numeric-demo: Inspect parameter and quotation conventions on synthetic surfaces.
+      empirical: Market surfaces require licensed observations and cleaning.
+    scope: Distinguish realized, implied, local, and stochastic volatility.
+    status: todo
+    dependencies:
+    - c-payoff-algebra
+    assigned_role: astra-xhigh
+    milestone: M5
+    page_path: content/incerto-volatility-surface.md
+    canonical_url: /math/incerto/incerto-volatility-surface/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - dh-ch06
+    - dh-ch09
+  c-greeks:
+    id: c-greeks
+    title: Delta, gamma, vega, theta, and mixed sensitivities
+    classification:
+      lean-verifiable: Derivatives of a specified price function are exact local statements.
+      numeric-demo: Compare derivatives with finite differences and finite shocks.
+    scope: Keep Greek notation local and distinguish derivative exposure from realized hedge P&L.
+    status: todo
+    dependencies:
+    - c-payoff-algebra
+    - c-jensen
+    assigned_role: astra-max
+    milestone: M5
+    page_path: content/incerto-greeks.md
+    canonical_url: /math/incerto/incerto-greeks/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - dh-ch07
+    - dh-ch08
+    - dh-ch09
+    - dh-ch10
+    - dh-ch11
+  c-hedging-error:
+    id: c-hedging-error
+    title: Discrete hedging and joint Greek exposure
+    classification:
+      lean-verifiable: Finite rebalancing cash-flow identities can be formalized before continuous limits.
+      numeric-demo: Measure discretization, jump, cost, and model errors separately.
+    scope: Specify self-financing, funding, rebalancing, and transaction conventions.
+    status: todo
+    dependencies:
+    - c-greeks
+    - c-liquidity
+    assigned_role: astra-max
+    milestone: M5
+    page_path: content/incerto-hedging-error.md
+    canonical_url: /math/incerto/incerto-hedging-error/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch22
+    - dh-ch11
+    - dh-ch16
+    - dh-ch20
+  c-basis-buckets:
+    id: c-basis-buckets
+    title: Basis, fungibility, and risk buckets
+    classification:
+      lean-verifiable: Finite aggregation and cancellation identities have explicit matching conditions.
+      numeric-demo: Compare bucketed approximations with full repricing.
+    scope: Netting exposures across mismatched maturities or instruments leaves basis risk.
+    status: todo
+    dependencies:
+    - c-greeks
+    assigned_role: astra-max
+    milestone: M5
+    page_path: content/incerto-basis-buckets.md
+    canonical_url: /math/incerto/incerto-basis-buckets/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - dh-ch12
+    - dh-ch14
+  c-model-risk:
+    id: c-model-risk
+    title: Pricing-model and distribution risk
+    classification:
+      numeric-demo: Hold payoff fixed while changing calibrated model families.
+      prose-only: Separate trading practice from model-validity and historical claims.
+    scope: Agreement on several prices need not determine the full terminal distribution.
+    status: todo
+    dependencies:
+    - c-volatility-surface
+    - c-epistemic-uncertainty
+    assigned_role: astra-xhigh
+    milestone: M5
+    page_path: content/incerto-model-risk.md
+    canonical_url: /math/incerto/incerto-model-risk/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - tbs-ch17
+    - scft-ch20
+    - scft-ch22
+    - dh-ch15
+    - dh-ch16
+    - dh-opening
+  c-digitals:
+    id: c-digitals
+    title: European and American digital options
+    classification:
+      lean-verifiable: Terminal digital payoff limits and bounds are tractable; hitting-time results are separate.
+      numeric-demo: Resolution and path monitoring materially affect estimates.
+    scope: Separate terminal indicators from first-passage events.
+    status: todo
+    dependencies:
+    - c-payoff-algebra
+    assigned_role: astra-max
+    milestone: M5
+    page_path: content/incerto-digitals.md
+    canonical_url: /math/incerto/incerto-digitals/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - dh-ch17
+    - dh-ch18
+  c-barriers:
+    id: c-barriers
+    title: Barrier contracts and monitoring
+    classification:
+      lean-verifiable: Pathwise payoff decompositions can be proved with compatible conventions.
+      numeric-demo: Discrete monitoring and bridge corrections expose numerical assumptions.
+    scope: Specify inclusive boundaries, rebate timing, and continuous versus discrete monitoring.
+    status: todo
+    dependencies:
+    - c-digitals
+    - c-hedging-error
+    assigned_role: astra-max
+    milestone: M5
+    page_path: content/incerto-barriers.md
+    canonical_url: /math/incerto/incerto-barriers/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - dh-ch19
+    - dh-ch20
+    - dh-modg
+  c-compound-options:
+    id: c-compound-options
+    title: Compound and chooser options
+    classification:
+      lean-verifiable: Nested payoff identities admit exact finite-state statements.
+      numeric-demo: Use small trees with explicit exercise conventions.
+    scope: Exercise timing and information sets determine the payoff.
+    status: todo
+    dependencies:
+    - c-payoff-algebra
+    assigned_role: astra-max
+    milestone: M5
+    page_path: content/incerto-compound-options.md
+    canonical_url: /math/incerto/incerto-compound-options/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - dh-ch21
+  c-multiasset-options:
+    id: c-multiasset-options
+    title: Multi-asset payoff dependence
+    classification:
+      lean-verifiable: Pathwise bounds and finite-state prices can be formalized.
+      numeric-demo: Change dependence while preserving marginal distributions.
+    scope: A scalar correlation does not determine all nonlinear joint payoffs.
+    status: todo
+    dependencies:
+    - c-payoff-algebra
+    - c-multivariate-tails
+    assigned_role: astra-max
+    milestone: M5
+    page_path: content/incerto-multiasset-options.md
+    canonical_url: /math/incerto/incerto-multiasset-options/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - dh-ch22
+  c-path-options:
+    id: c-path-options
+    title: Asian and lookback path functionals
+    classification:
+      lean-verifiable: Finite monitored-path bounds and identities have a manageable scope.
+      numeric-demo: Compare sampling grids under the same stochastic model.
+    scope: Separate a finite average or maximum from a continuous-time functional.
+    status: todo
+    dependencies:
+    - c-payoff-algebra
+    assigned_role: astra-max
+    milestone: M5
+    page_path: content/incerto-path-options.md
+    canonical_url: /math/incerto/incerto-path-options/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - dh-ch23
+  c-brownian:
+    id: c-brownian
+    title: Brownian simulation and discretization
+    classification:
+      numeric-demo: Check sample increment moments and grid-refinement behavior for a declared scheme.
+      lean-verifiable: Distributional properties need a later probability-library audit.
+    scope: A finite random-walk approximation is not a proof of a Brownian theorem.
+    status: todo
+    dependencies: []
+    assigned_role: astra-max
+    milestone: M5
+    page_path: content/incerto-brownian.md
+    canonical_url: /math/incerto/incerto-brownian/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - dh-moda
+  c-pricing-measures:
+    id: c-pricing-measures
+    title: Pricing measures and incomplete markets
+    classification:
+      lean-verifiable: Finite-state examples show when moment constraints leave multiple pricing measures.
+      numeric-demo: Compute price intervals under explicit constraints.
+    scope: A forward-mean constraint alone does not identify a unique risk-neutral distribution.
+    status: todo
+    dependencies:
+    - c-arbitrage
+    assigned_role: astra-max
+    milestone: M5
+    page_path: content/incerto-pricing-measures.md
+    canonical_url: /math/incerto/incerto-pricing-measures/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch21
+    - dh-modb
+    - paper-pricing-scope
+  c-numeraire:
+    id: c-numeraire
+    title: Numeraire changes and relative prices
+    classification:
+      lean-verifiable: Finite-state change-of-measure identities require a positive numeraire and normalization.
+    scope: Keep physical and pricing measures distinct; continuous-time extension is later.
+    status: todo
+    dependencies:
+    - c-pricing-measures
+    assigned_role: astra-max
+    milestone: M5
+    page_path: content/incerto-numeraire.md
+    canonical_url: /math/incerto/incerto-numeraire/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch24
+    - dh-modc
+  c-correlation-constraints:
+    id: c-correlation-constraints
+    title: Feasible correlation matrices
+    classification:
+      lean-verifiable: Positive semidefiniteness gives exact three-variable feasibility bounds.
+      numeric-demo: Show incompatible pairwise inputs and their pricing consequences.
+    scope: Finite second moments and consistent normalization are required.
+    status: todo
+    dependencies: []
+    assigned_role: astra-max
+    milestone: M5
+    page_path: content/incerto-correlation-constraints.md
+    canonical_url: /math/incerto/incerto-correlation-constraints/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - dh-ch06
+    - dh-modd
+  c-risk-measures:
+    id: c-risk-measures
+    title: VaR, expected shortfall, and model limits
+    classification:
+      lean-verifiable: Finite-distribution counterexamples and scoped coherence statements are checkable.
+      numeric-demo: Show tail sensitivity and estimation uncertainty.
+    scope: Expected shortfall may be infinite; VaR subadditivity needs conditions.
+    status: todo
+    dependencies:
+    - c-pareto-moments
+    assigned_role: astra-max
+    milestone: M5
+    page_path: content/incerto-risk-measures.md
+    canonical_url: /math/incerto/incerto-risk-measures/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch24
+    - dh-mode
+  c-stochastic-pricing:
+    id: c-stochastic-pricing
+    title: Ito calculus and continuous-time pricing
+    classification:
+      lean-verifiable: A full development needs stochastic integrals, admissibility, and analytic hypotheses.
+      numeric-demo: Compare discretizations only after a model and convergence target are fixed.
+    scope: Library feasibility is unknown; do not promise a full BSM or stochastic-volatility proof in M5.
+    status: todo
+    dependencies:
+    - c-brownian
+    - c-pricing-measures
+    - c-hedging-error
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-stochastic-pricing.md
+    canonical_url: /math/incerto/incerto-stochastic-pricing/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch20
+    - dh-modg
+  c-power-option:
+    id: c-power-option
+    title: Option tails under power laws
+    classification:
+      lean-verifiable: Integrating a stated survival tail gives scoped price relations and moment gates.
+      numeric-demo: Compare exact power laws with finite-strike approximations.
+    scope: Specify pricing measure, tail regime, and finite call-price condition.
+    status: todo
+    dependencies:
+    - c-pareto-moments
+    - c-pricing-measures
+    assigned_role: astra-max
+    milestone: M6
+    page_path: content/incerto-power-option.md
+    canonical_url: /math/incerto/incerto-power-option/
+    coverage:
+      prose: absent
+      scope_note: Proposed original note; path is reserved in this plan only.
+      lean: absent
+      python: not-inventoried-as-runnable
+    source_units:
+    - scft-ch23
+    - paper-option-tail-scope
+edition_backlog:
+- id: edition-bop-expanded
+  book_id: bop
+  status: todo
+  assigned_role: math-site-editor
+  milestone: M2
+  depends_on_chunk: edition-review
+  question: Reconcile the expanded 2016 contents before claiming edition-complete coverage.
+- id: edition-scft-v4
+  book_id: scft
+  status: todo
+  assigned_role: math-site-editor
+  milestone: M2
+  depends_on_chunk: edition-review
+  question: Map added 2025 chapters and appendix from the actual source; preserve the 2020 locator namespace.
+counts:
+  books: 7
+  numbered_chapters: 125
+  book_source_units: 187
+  papers: 14
+  concepts: 101
+  existing_concept_pages: 24
+  checked_lean_concepts: 0
