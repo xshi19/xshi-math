@@ -20,7 +20,8 @@ project:
       children:
         - file: content/information-geometry-latent-variables-em.md
 site:
-  template: book-theme
+  # Pinned: book-theme v1.3.1 (myst-templates/book-theme 45706bc), the live theme.
+  template: https://github.com/myst-templates/book-theme/archive/45706bc.zip
   title: Information Geometry
   # The build script supplies BASE_URL=/math/ig.
   domains:

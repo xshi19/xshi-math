@@ -66,7 +66,8 @@ project:
         - file: content/incerto-api-reference.md
         - file: content/incerto-chinese-entry.md
 site:
-  template: book-theme
+  # Pinned: book-theme v1.3.1 (myst-templates/book-theme 45706bc), the live theme.
+  template: https://github.com/myst-templates/book-theme/archive/45706bc.zip
   title: Incerto
   # The build script supplies BASE_URL=/math/incerto.
   domains:

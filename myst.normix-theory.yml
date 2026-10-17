@@ -28,7 +28,8 @@ project:
         - file: content/normix-gh-family-tour.md
         - file: content/normix-factor-analysis.md
 site:
-  template: book-theme
+  # Pinned: book-theme v1.3.1 (myst-templates/book-theme 45706bc), the live theme.
+  template: https://github.com/myst-templates/book-theme/archive/45706bc.zip
   title: Normix theory
   # The build script supplies BASE_URL=/math/normix-theory.
   domains:
