@@ -70,6 +70,19 @@ def test_double_pareto_ppf_roundtrip_and_moments() -> None:
     assert np.isnan(double_pareto.pdf(0.0, 0.0))
 
 
+@pytest.mark.parametrize(
+    ("alpha", "expected_mean", "expected_variance"),
+    [(0.8, np.nan, np.inf), (1.0, np.nan, np.inf), (1.5, 0.0, np.inf), (3.0, 0.0, 1.0)],
+)
+def test_double_pareto_mean_and_variance_convention(
+    alpha: float, expected_mean: float, expected_variance: float
+) -> None:
+    mean, variance = double_pareto.stats(alpha, moments="mv")
+
+    np.testing.assert_allclose([mean, double_pareto.mean(alpha)], expected_mean)
+    np.testing.assert_allclose([variance, double_pareto.var(alpha)], expected_variance)
+
+
 def test_pareto_type1_matches_closed_forms() -> None:
     alpha = 3.0
     x = np.array([1.0, 2.0, 4.0])

@@ -83,9 +83,9 @@ $$
 \frac{\bar F(tx)}{\bar F(x)}=t^{-\alpha},\qquad t>0,\; x\ge x_m,\; tx\ge x_m.
 $$
 
-This is why the exponent $\alpha$ is the central knob.  Smaller $\alpha$ means
-that threshold doublings are punished less severely, so rare observations remain
-large enough to dominate sums, moments, and empirical estimates.
+Smaller $\alpha$ gives a larger exceedance probability at every $x>x_m$.
+The consequences for sums depend on whether the sample size or the exceedance
+threshold grows; moment existence also depends on the moment order.
 
 The density also shows how the distribution piles mass near the lower cutoff
 while leaving a long right tail. Its values and scaling make this explicit.
@@ -189,6 +189,94 @@ empirical tail thresholds are rarely known and must be diagnosed separately.
 The [symmetric shifted double Pareto model](./incerto-double-pareto.md)
 extends the tail construction to signed observations.
 
+## Sums and moment orders
+
+Let $X_1,X_2,\ldots$ be iid Pareto Type I variables with the same
+$\alpha>0$ and $x_m>0$, and put $S_n=\sum_{i=1}^nX_i$ and
+$M_n=\max_{1\le i\le n}X_i$. For a growing sample, the
+[max-to-sum ratio](./incerto-max-to-sum-ratio.md) has three regimes:
+
+- If $\alpha>1$, then $M_n/S_n\to0$ almost surely. The linked
+  finite-mean proof gives $S_n/n\to\mathbb E[X]>0$ and $M_n/n\to0$
+  almost surely, so their quotient tends to zero.
+- If $0<\alpha<1$, then $M_n/S_n\xrightarrow{d}R_\alpha$, where
+  $R_\alpha$ has a nondegenerate distribution on $(0,1)$. In particular,
+  the ratio does not tend to zero in probability, nor does it tend to one.
+  This is Darling's theorem, cited rather than proved here:
+  [Darling (1952), Theorem 5.1](https://doi.org/10.1090/S0002-9947-1952-0048726-0).
+  [Kevei and Mason (2014), p. 632](https://alea.impa.br/articles/v11/11-30.pdf#page=2)
+  restate the iid result and give the corresponding sum/maximum limit law;
+  our ratio is its reciprocal.
+- If $\alpha=1$, the mean is infinite but $M_n/S_n\to0$ in probability.
+  More precisely, $M_n/(x_m n)$ is bounded in probability and
+  $S_n/(x_m n\log n)\to1$ in probability. The calculation below proves
+  these exact-Pareto assertions; it does not assert almost-sure convergence
+  of the ratio.
+
+For every $\alpha>0$, a different limit holds when the integer $n\ge1$
+is fixed and the threshold grows:
+
+$$
+\mathbb P(S_n>x)\sim\mathbb P(M_n>x)
+\sim n\mathbb P(X>x),\qquad x\to\infty.
+$$
+
+This is the [subexponential](./incerto-subexponentiality.md) rare-event
+statement: a fixed-size sum exceeds a sufficiently high threshold mainly when
+one summand exceeds it. It holds even when $\alpha>1$ and the largest share
+vanishes along growing samples. For moments, the separate exact criterion is
+$\mathbb E[X^p]<\infty$ if and only if $p<\alpha$, for $p>0$, as proved in
+[Pareto Moment Existence](./incerto-pareto-moment-existence.md).
+
+### Exact-Pareto boundary calculation
+
+We prove the two normalizations used above for $\alpha=1$.
+For $z>0$ and sufficiently large $n$, independence gives
+
+$$
+\mathbb P\!\left(\frac{M_n}{x_m n}\le z\right)
+=\left(1-\frac{1}{nz}\right)^n\longrightarrow e^{-1/z}.
+$$
+
+For the sum, write $V_i=X_i/x_m$ and, for $n\ge3$, set $b_n=n\log n$ and
+$T_{i,n}=V_i\mathbf1_{\{V_i\le b_n\}}$. Integration of the density
+$v^{-2}$ on $[1,b_n]$ gives
+$\mathbb E[T_{i,n}]=\log b_n$ and
+$\mathbb E[T_{i,n}^2]=b_n-1$. Hence
+
+$$
+\operatorname{Var}\!\left(\frac{\sum_{i=1}^nT_{i,n}}{n\log n}\right)
+\le\frac{b_n}{n(\log n)^2}=\frac{1}{\log n}\longrightarrow0.
+$$
+
+The normalized expectation $\log b_n/\log n$ tends to $1$.
+Chebyshev's inequality gives convergence in probability for the truncated sum.
+The union bound $\mathbb P(\max_{i\le n}V_i>b_n)\le n/b_n=1/\log n$
+transfers that convergence to $S_n/(x_m n\log n)$. Dividing the tight
+normalized maximum by this normalized sum and by $\log n$ proves
+$M_n/S_n\to0$ in probability.
+
+### Fixed-size rare-event calculation
+
+We extend the two-summand bound on the subexponentiality page to prove the
+displayed fixed-$n$ result. The case $n=1$ is immediate. For fixed $n\ge2$,
+choose $h=x_m(x/x_m)^\gamma$ with $1/2<\gamma<1$. If $S_n>x$ but
+$M_n\le x$, either one observation lies in $(x-(n-1)h,x]$, or at least two
+observations exceed $h$. Otherwise the sum is at most $x$. Thus
+
+$$
+\mathbb P(S_n>x,\ M_n\le x)
+\le n\bigl[\bar F(x-(n-1)h)-\bar F(x)\bigr]
+  +\binom n2\bar F(h)^2.
+$$
+
+After division by $\bar F(x)$, the first bracket tends to zero because
+$h/x\to0$; the second tail ratio is
+$(x/x_m)^{\alpha(1-2\gamma)}\to0$.
+Finally, $\mathbb P(M_n>x)=1-(1-\bar F(x))^n\sim n\bar F(x)$.
+Nonnegativity makes $\{M_n>x\}$ a subset of $\{S_n>x\}$, and the
+negligible residual probability proves the sum-tail equivalence.
+
 ## Caveats
 
 - Empirical data rarely follows an exact Pareto law from its minimum value.  A
@@ -204,6 +292,14 @@ extends the tail construction to signed observations.
 
 ## References
 
+- Darling, "The Influence of the Maximum Term in the Addition of Independent
+  Random Variables," *Transactions of the American Mathematical Society*
+  **73** (1952), 95–107, Theorem 5.1
+  [DOI](https://doi.org/10.1090/S0002-9947-1952-0048726-0).
+- Kevei and Mason, "The limit distribution of ratios of jumps and sums of
+  jumps of subordinators," *ALEA* **11** (2014), 631–642;
+  p. 632, Theorem 1.1 and the discussion of the iid result
+  [PDF](https://alea.impa.br/articles/v11/11-30.pdf#page=2).
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
   [1997](https://doi.org/10.1007/978-3-642-33483-2).
 - Resnick, *Heavy-Tail Phenomena* [2007](https://doi.org/10.1007/978-0-387-45024-7).

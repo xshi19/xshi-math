@@ -9,7 +9,8 @@ implementation_authorized: true
 authorized_chunks:
 - m0.5-review
 authorization_note: Owner authorized the mathematical review, clear source fixes, two reported reader issues,
-  and state handoff on 2026-10-17; later chapter implementation and deployment remain outside this task.
+  and state handoff on 2026-10-17, followed by explicit decisions for issues 008, 009, 010 and 012;
+  later chapter implementation and deployment remain outside this task.
 status_semantics:
   todo: Program work has not satisfied its evidence gates; existing prose is recorded separately.
   in-progress: A named chunk is active and has a recorded checkpoint.
@@ -247,7 +248,7 @@ chunks:
         pages_reviewed: 24
         claim_records: 448
         claim_log_path: docs/plan/incerto-program/m0.5-claims.md
-        limitations: All claims evaluated; unresolved source precision, scope choices and helper defects are recorded
+        limitations: All claims evaluated; unresolved source precision and helper defects are recorded
           issues, not certified fixes.
       reader:
         assigned_role: math-site-editor
@@ -348,8 +349,8 @@ chunks:
         blocker: 0
         major: 7
         minor: 8
-      fixed_in_this_pr: 6
-      needs_xiang_decision: 4
+      fixed_in_this_pr: 10
+      needs_xiang_decision: 0
       assigned_to_chapter_chunk: 5
     issues:
     - id: M05-ISSUE-001
@@ -411,22 +412,28 @@ chunks:
       - scft-v4-ch09
     - id: M05-ISSUE-008
       severity: major
-      status: needs Xiang decision
-      disposition: awaiting-owner
+      status: fixed in this PR
+      disposition: resolved
+      owner_decision: 'Xiang decision 2026-10-17: general bounded-endpoint bound and counterexample;
+        distinguish population curvature from empirical noise.'
       chapters:
       - scft-v4-ch09
     - id: M05-ISSUE-009
       severity: major
-      status: needs Xiang decision
-      disposition: awaiting-owner
+      status: fixed in this PR
+      disposition: resolved
+      owner_decision: 'Xiang decision 2026-10-17: explicit iid Pareto regimes, fixed-n subexponential
+        rare events and p-th moment thresholds, with proofs or scoped citations.'
       chapters:
       - scft-v4-ch02
       - scft-v4-ch05
       - scft-v4-ch07
     - id: M05-ISSUE-010
       severity: major
-      status: needs Xiang decision
-      disposition: awaiting-owner
+      status: fixed in this PR
+      disposition: resolved
+      owner_decision: 'Xiang decision 2026-10-17: model-based iid simulation is primary; m-out-of-n
+        subsampling without replacement complements it under stated limit and normalization conditions.'
       chapters:
       - scft-v4-ch07
       - scft-v4-ch09
@@ -438,8 +445,10 @@ chunks:
       - scft-v4-ch09
     - id: M05-ISSUE-012
       severity: major
-      status: needs Xiang decision
-      disposition: awaiting-owner
+      status: fixed in this PR
+      disposition: resolved
+      owner_decision: 'Xiang decision 2026-10-17: retain +inf variance for alpha <= 1 by convention;
+        document the undefined ordinary mean and add tests at alpha = 0.8, 1.0, 1.5 and 3.'
       chapters:
       - scft-v4-ch05
     - id: M05-ISSUE-013
@@ -465,15 +474,17 @@ chunks:
       mathematics: done
       issues_list: done
       live_reader_gate: pending
-      fix_revision: uncommitted working tree after fbdc480
+      fix_revision: Initial review in 528bfc0; Xiang decision fixes in the uncommitted working tree after 528bfc0
       checks:
-        pytest: 147 passed; uv run --offline pytest with writable cache
-        targeted_arithmetic: 126 assertions passed; separate issue reproducers recorded
+        pytest: 151 passed in 3.51s; UV_CACHE_DIR=/tmp/m05-uv-cache uv run --offline pytest
+        targeted_arithmetic: Mean-excess counterexample checked with exact rationals; initial review's 126 assertions
+          and separate issue reproducers are retained in m0.5-review.md
         build: 'blocked: MyST npm preflight; spawnSync /bin/sh EPERM'
-        html: 'failed: generated pages and configs absent after blocked build'
+        html: 'not run for decision fixes: fresh build blocked; initial-review results are retained in m0.5-review.md'
         live_reader: not performed; 0 of 24 independently reviewed
-        state_and_links: passed; 983 plan links and 305 changed-content links
-        whitespace: passed; git diff --check and full new-file check
+        state_and_links: passed; 986 plan links and 39 links across four changed notes; issue counts, unchanged next_chunk
+          and unchanged other issue records/bodies verified
+        whitespace: passed; git diff --check; no new files
       next_action: Resume scft-v4-ch01 only at its scoped claims, resolving assigned findings before reuse; operator
         reruns site checks and Math Site Editor completes the outstanding live reader gate.
   scft-v4-ch01:

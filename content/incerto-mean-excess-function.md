@@ -49,11 +49,12 @@ Thin-tail intuition often expects the remaining excess to be tame once a high
 threshold has been crossed.  A Pareto tail says the opposite: the expected
 additional excess grows in proportion to the threshold itself.
 
-This makes the mean excess plot a practical threshold diagnostic.  A roughly
-flat plot suggests exponential-like exceedances.  A roughly increasing linear
-plot suggests heavy-tail generalized Pareto behavior.  A downward line suggests
-a finite endpoint.  Strong curvature usually says the chosen threshold range is
-mixing body and tail behavior, or that the model class is too simple.
+The exponential, positive-shape GPD with $\xi<1$, and negative-shape GPD
+models have constant, increasing linear, and decreasing linear population
+mean excess functions, respectively. Curvature departs from an exact GPD model
+over that threshold range. An empirical plot can also bend because of sampling
+noise, especially when few observations exceed the threshold; its shape alone
+does not identify a model failure or a body-to-tail transition.
 
 ## Pareto derivation and GPD sketch
 
@@ -132,9 +133,24 @@ estimate is undefined because the exceedance count is zero. The
 [counting example](./incerto-counting-exceedances.md) uses the same strict
 inequality convention.
 
-**What to notice.** Pareto mean excess rises with the threshold, exponential
-mean excess is flat, and bounded-tail mean excess slopes downward toward the
-endpoint.  Empirical values are diagnostics; high thresholds aim to reduce tail-model
+Pareto mean excess rises with the threshold, exponential mean excess is flat,
+and the displayed uniform mean excess decreases toward its endpoint.
+For any distribution with finite right endpoint
+$x_F=\sup\{x:F(x)<1\}$ and $u<x_F$, conditioning on $X>u$ gives
+$0<X-u\le x_F-u$ almost surely. Taking conditional expectations proves
+
+$$
+0\le e(u)\le x_F-u,
+\qquad e(u)\longrightarrow0\quad\text{as }u\uparrow x_F.
+$$
+
+This bound does not imply monotonicity. For example, if
+$\mathbb P(X=1)=\mathbb P(X=3)=1/2$, both atoms exceed $0.9$, so
+$e(0.9)=[(1-0.9)+(3-0.9)]/2=1.1$. At $1.1$ only the atom at $3$
+exceeds the threshold, so $e(1.1)=3-1.1=1.9$. The mean excess has increased
+even though $x_F=3$.
+
+Empirical values are diagnostics; high thresholds aim to reduce tail-model
 bias but leave fewer exceedances and more noise.
 
 ## Caveats

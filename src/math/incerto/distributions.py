@@ -37,6 +37,15 @@ class double_pareto_gen(rv_continuous):
     alpha:
         Positive Pareto tail exponent. Smaller values produce heavier tails.
         The ordinary mean exists only for ``alpha > 1``.
+
+    Notes
+    -----
+    For ``0 < alpha <= 1``, the mean is reported as ``NaN`` and the variance
+    as ``+inf``. The latter is a convention reflecting the infinite raw second
+    moment: variance about the ordinary mean is undefined because both the
+    positive and negative first moments are infinite. For ``1 < alpha <= 2``,
+    the mean is zero and the variance is infinite. For ``alpha > 2``, the mean
+    is zero and the variance is ``2 / ((alpha - 1) * (alpha - 2))``.
     """
 
     def _argcheck(self, alpha: ArrayLike) -> NDArray[np.bool_]:
