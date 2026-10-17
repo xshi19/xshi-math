@@ -18,9 +18,33 @@ Use these contracts only for the mathematical completion scope. For each
 concept, deliver website teaching first, then Python demos, numerical
 illustrations, visualizations or worked cases, then optional Lean. Record the
 order and evidence in state. A missing Lean library is `skipped-for-now` with
-a reason in the planning/evidence record; it does not remove continuous-time
-teaching or numerical examples. Keep implementation status out of the reader's
-mathematical explanation.
+a reason in the planning/evidence record; it does not remove the selected
+basic teaching or numerical examples needed for the hedging concepts. Keep
+implementation status out of the reader's mathematical explanation.
+
+## Chapter checkpoint
+
+One checkpoint belongs to one chapter chunk, even when several concepts or
+supporting appendices are involved. The chunk's title is the source title only;
+put scope, tasks and evidence in their own fields. SCoFT citations use the
+2025 third edition, arXiv:2001.10488v4. Historical v2 locators occur only in
+the correspondence record. Do not import the source PDF, TOC or book text.
+
+| Field | Record when implementation starts |
+| --- | --- |
+| Identity | Chunk ID, book/version, chapter locator and title; attached source-unit and paper IDs |
+| Claim scope | Stable claim IDs, exact section/equation/page locators, assumptions and chapter-specific acceptance |
+| Teaching pages | Reused and new canonical page paths; completed and pending explanations |
+| Demos | Script/figure paths, inputs, seeds, runtime bounds and results; data provenance for empirical work |
+| Optional Lean | Exact declarations and evidence if attempted after teaching/demos, otherwise a skip reason; no chapter gate |
+| Review | Relevant M0.5 issue dispositions; source/command checks and live reader review after a site update |
+| Resume | Current status, revision, remaining claim/deliverable, blocking fact if any and concrete next action |
+
+The first chapter chunk after M0.5 is `scft-v4-ch01`. Only advance after its
+required work closes; do not insert a mandatory pilot or reorder chapters
+because a concept's fuller prerequisite treatment appears later. Shadow Mean
+starts with the transform and assumptions; historical estimates stay in their
+separate study. Dynamic Hedging calculus stays at the necessary basic level.
 
 ## Concept page
 
@@ -70,7 +94,7 @@ definition; it does not create a chapter-coverage obligation.
 
 Proposed separate home, only if needed:
 `content/incerto-<concept>-theorem.md`. Prefer a section of the existing
-concept page for M1.
+concept page for the optional SCoFT v4 chapter 2 pilot.
 
 ````markdown
 ---
@@ -154,8 +178,8 @@ finite-sample limits. A single trajectory does not establish an asymptotic law.]
 reproducibility record for the computation.]
 ````
 
-Static M1 inputs require no random seed or uncertainty interval. The example's
-exact fractions and strict comparison are sufficient. A Cauchy simulation
+Static exceedance inputs require no random seed or uncertainty interval.
+The example's exact fractions and strict comparison are sufficient. A Cauchy simulation
 needs repeated paths and a clear distinction between undefined population
 moments and finite machine outputs.
 
@@ -220,6 +244,9 @@ of print and preprint page numbers. Preferred forms:
 - Book: `Author. Title. Edition, publisher, year, ISBN. Chapter N, section or
   verified pages. [Publisher or authorized source link].` Match locators to
   the selected technical edition; retained planner ordinals are not citations.
+  For SCoFT use `Taleb. Statistical Consequences of Fat Tails. Third edition,
+  2025, arXiv:2001.10488v4, ch. N / appendix L, verified section/page.` Link a
+  chapter's incorporated paper separately with its own version and locators.
 - Paper: `Authors. Title. Journal/DOI when verified; arXiv identifier and
   version, year. Section/Theorem/Equation and pages actually consulted.
   [Versioned primary source].` Do not treat a retailer TOC as mathematical
@@ -239,7 +266,7 @@ needs them, with exact version and section recorded.
 
 ## Review and evidence handoff
 
-Before M1, use [the M0.5 review record](m0.5-review.md) for Astra max's
+Before SCoFT chapter 1, use [the M0.5 review record](m0.5-review.md) for Astra max's
 claim-by-claim review and Math Site Editor's live reader review of all 24
 existing concept pages. After every site update, the editor records a fresh
 live reader review with deployment revision, date, URLs, findings, severity,

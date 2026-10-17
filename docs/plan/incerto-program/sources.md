@@ -1,36 +1,73 @@
 # Source baselines and reading limits
 
-Bibliographic and contents metadata were checked on 2026-10-16. The inventory
-uses chapter locators and short editorial topic labels, not copied chapter
-text or a substitute summary of the books. The associations between chapters
-and our proposed concepts are editorial judgments. They are not assertions
-that every proposed theorem appears in that chapter.
+The SCoFT locator baseline is the **2025 third edition,
+arXiv:2001.10488v4**. The 2026-10-17 revision directly compared both supplied
+PDF tables of contents and their extracted files. Only titles, bibliographic
+metadata and locators are retained here. No PDF, TOC extract, bibliography
+file, book text or source figure was copied into the repository.
 
 ## Technical books in completion scope
 
-There are two books in scope. Statistical Consequences of Fat Tails / Technical
-Incerto is first and highest priority, including the 2025 additions; their
-exact reconciliation remains open. Dynamic Hedging includes continuous time
-as mathematical teaching and numerical work, regardless of Lean feasibility.
-
 | ID | Selected locator baseline | Evidence and remaining work |
 | --- | --- | --- |
-| `scft` | *Statistical Consequences of Fat Tails* / *Technical Incerto*, volume 1, 2020 print spine, ISBN 9781544508054; 25 chapters and appendices A–H | [Print contents metadata](https://www.kriso.lt/statistical-consequences-fat-tails-real-world-db-9781544508054.html) and [2020 preprint v2](https://arxiv.org/abs/2001.10488v2). This is a comparison source, not a verified assertion that print and v2 pagination match. [The 2025 v4 record](https://arxiv.org/abs/2001.10488v4) describes a third revised edition with three added chapters and an appendix. These additions are required scope; exact locators and changed claims remain a reconciliation task. |
-| `dh` | *Dynamic Hedging*, Wiley, 1997, ISBN 9780471152804; 23 chapters and modules A–G | [Publisher record and partial contents](https://www.wiley-vch.de/en/areas-interest/finance-economics-law/dynamic-hedging-978-0-471-15280-4) and [complete bibliographic contents locator](https://www.yes24.com/product/goods/80530). Reconcile exact section/page locators against the selected copy. |
+| `scft` | *Statistical Consequences of Fat Tails* / *Technical Incerto*, 2025 third edition, [arXiv:2001.10488v4](https://arxiv.org/abs/2001.10488v4); 30 chapters and appendices A–I | Direct local PDF TOC review, with [v2](https://arxiv.org/abs/2001.10488v2) for correspondence only. Locator reconciliation is complete; theorem hypotheses and exact claim locators remain per-chapter review work. |
+| `dh` | *Dynamic Hedging*, Wiley, 1997, ISBN 9780471152804; 23 chapters and modules A–G | [Publisher](https://www.wiley-vch.de/en/areas-interest/finance-economics-law/dynamic-hedging-978-0-471-15280-4) and [catalog contents](https://www.yes24.com/product/goods/80530). Catalog chapter/module titles were rechecked; exact section/page locators require the selected copy. Stochastic-calculus depth is limited to basics needed for hedging concepts. |
 
-The retailer/catalog records are used only to locate chapters and editions.
-They supply no evidence for mathematical, financial, behavioral, medical or
-historical claims. Read the primary book/paper before adopting such a claim.
-No book text or source PDF is stored in this plan.
+The 2020 print ISBN and catalog are historical comparison metadata, not the
+active SCoFT citation namespace. Do not combine v4 chapter numbers with print
+or v2 pagination. Catalog contents locate material; they do not establish a
+mathematical or empirical claim.
 
-The Technical Incerto PDFs could not be fully inspected in this environment:
-the browser rejected the large v2/v4 downloads, and shell retrieval lacked
-working DNS. The edition map therefore rests on the accessible contents and
-version metadata. This limit is recorded in state; the expansion is not
-silently treated as already covered. The earlier queue's “Chapter 4 Cauchy
-Running Statistics” label also needs reconciliation: the selected 2020
-contents put finite-moment tails in chapter 4. The simulation concept survives
-without inventing a matching chapter number.
+## Local v2 and v4 evidence
+
+Read-only inputs remain under `/workspace/scoft-toc/`:
+
+| Input | Locator evidence |
+| --- | --- |
+| `2001.10488v2.pdf`, `v2-toc.txt` | 455 PDF pages; TOC on PDF pages 7–14, printed vii–xiv; 25 chapters and appendices A–H |
+| `2001.10488v4.pdf`, `v4-toc.txt` | 523 PDF pages; TOC on PDF pages 7–14, printed vii–xiv; 30 chapters and appendices A–I |
+| `v4-bib.txt` | Bibliographic locators [177], [289], [296] identify the portfolio-correlation, single-point-forecast and probability-conflation papers |
+
+`pdfinfo` reported 455/523 pages. Direct `pdftotext -f 7 -l 14 -layout`
+extraction matched every numbered chapter and lettered appendix title/starting
+page in the supplied extracts. The extracted files also contain front/back
+matter; comparison was restricted to TOC records. A harmless PDF annotation
+warning did not prevent extraction. SHA-256 identities:
+
+- v2: `4dd2b89befd1295df5ef3272778aa9f3ab00ee593784d699e6d6b9facc6d31ac`
+- v4: `758e18b7337840104db93296144d67cf5514bf2de128fe557dc84bc32a0ad567`
+
+The old environment's inability to download the PDFs no longer limits TOC
+reconciliation: this revision used the owner's local copies. This was a
+contents/locator comparison, not a proof audit or a full edition-text diff.
+
+## Mapping findings
+
+The [complete correspondence table](inventory.md#v2-to-v4-correspondence)
+accounts for all 33 v2 units. There is no deviation from the expected
+insertion pattern. Chapters 1–11 retain their numbers; the shifts thereafter
+are +2 for 12–16, +3 for 17–19, +4 for 20–24 and +5 for 25. Appendix A stays
+A; B–H become C–I. The delta is **five numbered chapters and one appendix**,
+not just the three main additions described in earlier metadata.
+
+| V4 addition | Exact TOC title (capitalization normalized) | Printed page |
+| --- | --- | --- |
+| Chapter 12 | On single point forecasts for fat-tailed variables | 241 |
+| Chapter 13 | The probability conflation | 253 |
+| Chapter 19 | Tail risk of contagious diseases | 347 |
+| Chapter 23 | Lindy as distance from an absorbing barrier | 405 |
+| Chapter 29 | Portfolios should never rely on correlation | 459 |
+| Appendix B | Fat tails from maximum entropy | 127 |
+
+“Unchanged chapters 1–11” means unchanged numbering. Chapter 8's TOC title
+is shortened in v4. Other title changes affect v2 chapter 14 → v4 16,
+21 → 25, 22 → 26, and appendix B → C; both titles are in the mapping table.
+No equation, theorem or section correspondence is inferred from these offsets.
+
+The old queue's “Chapter 4 Cauchy Running Statistics” label was incorrect.
+Both TOCs place limit distributions in chapter 7; the planned bounded-runtime
+simulation attaches to v4 §§7.2.1/7.6 (pp. 139/148). It is an original demo
+association, not a claim that the source contains a section with that name.
 
 ## Retained origin references outside completion
 
@@ -49,26 +86,31 @@ one only as an origin reference after checking the actual locator.
 
 ## Papers
 
-The [paper inventory](inventory.md#selected-technical-papers) links 14 pinned
-preprint versions, including Corral's critical response to the epidemic-tail
-paper. Their titles, authors and version histories were checked on arXiv.
-This run did not review every full-text proof, dataset or revision difference.
-`locator_review: metadata-verified-full-text-scope-pending` records that limit.
+The [paper inventory](inventory.md#selected-technical-papers) now has 16
+records: the 14 pinned preprints retained from the earlier review, plus the
+probability-conflation reply and the journal portfolio-correlation paper.
+Each has a host chapter. Incorporated papers link their v4 chapter locator;
+supporting papers are marked as editorial reading attachments.
 
-Before writing a note, identify the precise section and theorem/equation in
-the selected version, then compare definitions and hypotheses with the
-proposed statement. For disputed empirical applications, inspect the primary
-data and competing analysis. A paper's abstract, or the fact that it was
-published, does not certify its assumptions or justify carrying its policy
-conclusions into a note. The precaution and convex-response papers require
-particular care to distinguish mathematical models, domain evidence and
-normative conclusions.
+| Paper | Chapter | Publication evidence |
+| --- | --- | --- |
+| [On Single Point Forecasts for Fat-Tailed Variables](https://arxiv.org/abs/2007.16096v1) | V4 ch. 12 | IJF, 2022; v4 bibliography [289]. The existing preprint version remains pinned. |
+| [The Probability Conflation: A Reply](https://arxiv.org/abs/2301.10985v1) | V4 ch. 13 | [IJF 39(2), 1026–1029 (2023)](https://www.sciencedirect.com/science/article/abs/pii/S0169207023000055), DOI 10.1016/j.ijforecast.2023.01.005; v4 bibliography [296]. Published title: *The probability conflation: A reply to Tetlock et al.* |
+| *Pension Funds Should Never Rely on Correlation* | V4 ch. 29 | R. Lagnado and N. N. Taleb, JAI 24(4), 8–17 (2022); v4 bibliography [177]. Chapter title starts *Portfolios*; journal title starts *Pension Funds*. The [publisher DOI route](https://doi.org/10.3905/jai.2022.1.157) was inaccessible here; journal metadata is supported by the supplied bibliography, not a claimed publisher full-text review. |
 
-On-demand inclusion is approved: add an immutable paper ID/version when a
-concrete mathematical claim needs it. The 14 records are a starting set, not
-an exhaustive bibliography or a requirement to cover every paper in full.
-Interpretive, ethical, clinical and policy sections are outside completion.
-Citation locators and proof dependencies should survive later edition additions.
+The v4 chapter and bibliography records support these correspondences, not
+identity of every version's claims. Existing chapter-version links include
+the disease paper → ch. 19, Gini → ch. 15, quantile contributions → ch. 16,
+random exponent → ch. 21, power-law options → ch. 27 and entropy → ch. 30.
+Corral's critical response remains attached to the disease study.
+
+Before writing, identify the exact section, theorem/equation and hypotheses
+in each selected version. Review competing analyses and primary data for
+disputed empirical applications. No paper abstract or publication status
+certifies assumptions or supports a clinical, investment or policy conclusion.
+On-demand inclusion remains approved for concrete mathematical claims; add a
+stable versioned record and chapter attachment. Full-paper coverage is not
+required merely because a paper is listed.
 
 ## Existing repository coverage
 

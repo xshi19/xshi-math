@@ -27,7 +27,7 @@ personal hub. Normix remains an independent JAX package and API project.
 | [Agent framework](../design/AGENT_FRAMEWORK.md) | Guidance sources of truth, Codex/Cursor discovery, shared skills, adapters, verification contracts, maintenance |
 | [License advice](../design/LICENSE_ADVICE.md) | Adopted MIT scope, deferred alternative, Incerto import decision, private-to-public review |
 | [IG entry outline](ig-entry-outline.md) | Implemented Basics / early IG pages, prerequisites, and the later GH/Normix research sequence |
-| [Incerto program](incerto-program/README.md) | Math-first two-book and on-demand paper plan: 72 active concepts, 29 retained out of scope; M0.5 review next, teaching → Python → optional Lean |
+| [Incerto program](incerto-program/README.md) | SCoFT v4 chapter-order plan: 30 chapters + 9 appendices, then Dynamic Hedging; 75 active concepts, 28 retained out of scope; M0.5 review next, teaching → Python → optional Lean |
 | [Incerto Batch 1](phase-2-incerto-batch-1.md) | Executed nine-page import scope, adaptations, and deferred material |
 | [Incerto Batch 2](phase-2-incerto-batch-2.md) | Executed nine-page EVT and diagnostics import, adaptations, and deferred material |
 | [Incerto Batch 3](phase-2-incerto-batch-3.md) | Executed eight-page sums, geometry, catalog, and concept-index import |

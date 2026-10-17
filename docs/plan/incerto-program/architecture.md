@@ -6,10 +6,11 @@ were inspected at the revision recorded in [README.md](README.md).
 ## Scope and deliverable order
 
 The two technical books and mathematical papers define completion.
-*Statistical Consequences of Fat Tails* / *Technical Incerto*, including its
-2025 additions, has first priority. *Dynamic Hedging* includes continuous-time
-mathematics. The five non-technical books can supply cited origin references
-only. Retained out-of-scope IDs carry no page or evidence obligations.
+*Statistical Consequences of Fat Tails* / *Technical Incerto* uses the verified
+2025 third edition, arXiv:2001.10488v4, and runs chapter by chapter before
+*Dynamic Hedging*. Stochastic calculus covers only basics needed to explain
+the hedging concepts. The five non-technical books can supply cited origin
+references only. Retained out-of-scope IDs carry no page or evidence obligations.
 
 For every active concept, complete website math teaching first, Python demos,
 numerical illustrations, visualizations or worked cases second, and optional
@@ -17,17 +18,36 @@ Lean last. `state.yaml` stores this order and required/status flags per concept.
 An existing page still needs mathematical review; an existing demo still needs
 its results checked. A Lean library gap must not defer either deliverable.
 Record `skipped-for-now` and the missing support at the exact claim scope.
-Continuous-time stochastic integrals, stopping-time claims and measure changes
-currently have no established pinned-library support in this project; their
-teaching and numerical treatment remains required.
+Continuous-time claims currently have no established pinned-library support
+in this project. Teach and illustrate only the selected basics needed for the
+hedging concepts; an advanced formal development is outside the required scope.
 
-M0.5 reviews the 24 existing concept bodies before the approved M1 pilot.
+M0.5 reviews the 24 existing concept bodies before SCoFT v4 chapter 1.
+The optional exceedance pilot belongs to chapter 2 after teaching and demos.
 Astra max owns claim review and Math Site Editor owns live reader review.
 The [review contract and issues list](m0.5-review.md) records coverage and
 findings for Xiang. After every later site update, Math Site Editor reads the
 corresponding live pages and records the deployed revision, URLs and findings
 in `docs/records/incerto-site-review-YYYY-MM-DD.md` (future records). A build
 result alone does not close the reader-review gate.
+
+## Chapter chunks and source identity
+
+Schema 3 makes `chunks` insertion order the execution order: M0.5, SCoFT v4
+chapters 1–30, Dynamic Hedging chapters 1–23, then closeout. Each chapter has
+one chunk with title, locator, concepts, teaching/demo/optional-Lean flags,
+dependencies, role, status and existing pages reused. Attached appendices,
+modules and papers are explicit source lists within that chunk.
+
+Active SCoFT source IDs use `scft-v4-*`. Old `scft-*` IDs are v2 correspondence
+keys only; never silently reinterpret an old chapter ID under the new edition.
+Concept IDs stay unchanged. Human source views link the active v4 namespace.
+
+Use one canonical page per concept, extending it at later chapter scopes.
+Concept prerequisites can use reviewed pages or a bounded cited lemma; they
+do not reorder execution. Store claim IDs, completed/pending deliverables,
+checks, source revisions and the next action in each implementation checkpoint.
+See [templates](templates.md#chapter-checkpoint) and [validation](validation.md).
 
 ## Current repository contract
 
@@ -82,7 +102,7 @@ lean/                                   # optional, last; absent today
   lakefile.toml                         # or lakefile.lean, choose one
   lake-manifest.json
   XshiMath.lean                          # imports every checked project module
-  XshiMath/Incerto/Exceedances.lean       # approved M1 pilot after M0.5
+  XshiMath/Incerto/Exceedances.lean       # optional SCoFT v4 chapter 2 pilot
   README.md
 docs/records/                           # future check and study evidence records
 docs/plan/incerto-program/               # this design and resumable state
@@ -90,8 +110,8 @@ docs/plan/incerto-program/               # this design and resumable state
 ```
 
 These are path conventions, not instructions to create empty directories.
-Use the existing page for M1; the theorem and demo templates can be sections
-within one concept page. Avoid one file per book chapter, duplicate canonical
+Use the existing page for the optional chapter 2 pilot; theorem and demo
+templates can be sections within one concept page. Avoid one file per book chapter, duplicate canonical
 concepts, or empty pages made solely to complete a checklist. Do not introduce
 `content/concepts/`, a `reading-guides/` tree, or nested track body directories.
 
@@ -130,9 +150,10 @@ to that immutable source declaration. Do not add public “Lean pending” badge
 or imply every claim on a page is certified.
 
 Lean remains optional for curriculum completion and independent of
-`npm run build` and `uv run pytest`. The explicitly approved M1 pilot requires
-its two checked declarations to close that pilot. All other Lean work follows
-teaching and numerical delivery, with skips recorded where support is missing.
+`npm run build` and `uv run pytest`. If the optional chapter 2 pilot is
+attempted, evidence must cover its two approved declarations before calling
+the pilot complete. A recorded skip leaves chapter closure and the next
+chapter available. All Lean work follows teaching and numerical delivery.
 Evidence attaches to exact declarations; owner approval of that scope is
 recorded in state and does not need to be requested again. Once the subtree
 actually exists, update its guidance and the
@@ -145,7 +166,8 @@ Keep `uv sync --locked`, `uv run pytest`, and installed `xmath` imports. Never
 set `PYTHONPATH=src`: `src/math` must not shadow the standard-library `math`
 module. If a future `xmath.incerto` subpackage is needed, explicitly add it and
 its directory to the setuptools package list/mapping; test editable and wheel
-installs in isolation and run `uv build`. M1 requires no packaging change.
+installs in isolation and run `uv build`. The optional exceedance pilot
+requires no packaging change.
 
 Use functions for reusable numerical methods and scripts for experiments.
 Every stochastic experiment declares its generator, seed, sample sizes,

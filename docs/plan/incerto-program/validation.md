@@ -1,83 +1,76 @@
 # State contract and resumption
 
-`state.yaml` is the canonical inventory; `inventory.md` and `concepts.md` are
-human views of its records. Schema version 2 retains mappings keyed by stable
-IDs and adds scope exclusions, ordered deliverables and the M0.5 review gate.
-YAML aliases and duplicate keys are rejected. The parser is a validation
-environment dependency, not a new runtime dependency of `xmath`.
+`state.yaml` is canonical; inventory and concept pages in this directory are
+human views. **Schema 3** uses the SCoFT v4 locator namespace and an ordered
+chapter queue. Duplicate YAML keys and aliases are rejected. PyYAML is a
+validation-environment dependency, not a new runtime dependency of `xmath`.
 
 ## Record meanings
 
 | Field or collection | Contract |
 | --- | --- |
-| `books` | Seven retained records: two technical books in scope, five non-technical books out of scope. Technical Incerto names the selected SCoFT volume and its required 2025 additions, not another book. SCoFT has first priority. |
-| `chapters` | Book source units: numbered chapters, unnumbered thematic sections, essays, modules and selected paratext. Each has a kind and locator; a planner ordinal is not a fabricated source chapter number. |
-| `papers` | Fourteen versioned starting records; on-demand additions for concrete mathematical claims are approved. Full-text locators remain to be checked. One record is a critical response. |
-| `concepts` | One ID and proposed canonical home per concept; multiple source units may refer to it. `classification` maps evidence modes to their specific justification. |
-| `completion_scope` / `out_of_scope_reason` | `in-scope` or `out-of-scope`; every excluded book, unit or concept requires a reason. No excluded record contributes to completion. |
-| `concept_ids` / `required_concept_ids` | The first preserves all historical source associations. The second contains only active mathematical concepts for in-scope source units; it is empty for excluded units. |
-| Source-unit `classification` | Union of required concepts' modes for active units, historical modes for excluded units. It does not imply a whole chapter is formalizable. |
-| `status` | `todo`, `in-progress`, `done` or `out-of-scope`. Excluded records have no milestone and no required deliverables. Existing prose does not imply `done`; M0's design status is separate. |
-| Concept `deliverables` | Active order is `website-math`, `python`, `lean`; website and Python are required, Lean is optional. Status distinguishes `review-required`, `todo`, `optional`, `approved-pilot` and `skipped-for-now`. Every Lean skip needs a reason, including skipped continuous-time subclaims within an otherwise feasible finite-model candidate. |
-| Concept `page_status` | `existing`, `proposed` or `out-of-scope-reservation`; an excluded path is retained for reference and schedules no page. |
-| `coverage` | Evidence already present at the baseline. Existing prose can contain citations or special-case proofs; no checked Lean result is present. `not-inventoried-as-runnable` avoids equating static calculations with an executed program. |
-| `dependencies` on concepts | Mathematical/reading prerequisites; satisfying a needed lemma or cited prerequisite does not require finishing every evidence mode of that concept. |
-| `dependencies` on chunks/milestones | Execution gates. A blocked prerequisite prevents closure of the dependent chunk. An empty list is meaningful. |
-| Source-unit/book `milestone` | Active coverage closeout is M5. Concept milestones identify subsequent treatment; all 24 existing bodies receive M0.5 review first. Excluded milestones are null. |
-| `assigned_role` | Lead role from the owner's role table; collaborators may assist only under the applicable authorization. |
-| `next_chunk` | JSON Pointer to an active non-done chunk; now `#/chunks/m0.5-review`. M1 depends on its completion. |
-| `edition_backlog` | Required 2025 Technical Incerto reconciliation; blocks edition-complete coverage even if currently mapped concepts close. No non-technical edition task remains. |
-| `owner_decisions` / `open_questions` | Record approvals separately from unresolved Shadow Mean scope, stochastic-calculus depth and 2025 locator reconciliation. Do not reopen the pilot, exact Lean scope, data routing or paper inclusion. |
-| `data_policy` | Portfolio Manager supplies financial data from Xiang's database and handles additions; Data Scientist supplies other data. Every dataset retains provenance and licensing. |
-| `site_review_policy` | After every site update, Math Site Editor reviews the corresponding live pages as a reader and records evidence. M0.5 uses `m0.5-review.md`; later records use the stated records path. |
-| `counts` | Derived totals and in-scope/out-of-scope counts; current mapped units exclude the unreconciled 2025 additions. Counts do not measure verified mathematics. |
+| `books` | Seven retained books: SCoFT v4 and Dynamic Hedging active; five non-technical books excluded. |
+| `chapters` | 193 book source units, of which 70 are active. Active SCoFT IDs are `scft-v4-ch01`–`scft-v4-ch30` and `scft-v4-appa`–`scft-v4-appi`; titles and starting pages come from the v4 TOC. |
+| `edition_mappings` | All 33 historical v2 unit IDs map to v4 units; six additions are explicit. Old IDs are correspondence keys only, never active aliases with changed meanings. |
+| `edition_backlog` | The v4 reconciliation record is retained as `done`, with evidence. This does not certify mathematical claims. |
+| `papers` | Sixteen records with immutable preprint versions or a journal citation, chapter attachments and correspondence type. Full-text claims require later review. |
+| `concepts` | All 101 prior IDs retained plus two appended IDs; 75 active and 28 excluded. `c-lindy` is reactivated with its former scope preserved. One canonical home per concept. |
+| `completion_scope` / `out_of_scope_reason` | Excluded records need a reason, null milestone and no required deliverables. They do not enter completion counts. |
+| `concept_ids` / `required_concept_ids` | Historical associations versus active obligations. Required concepts exclude contextual interpretations and inactive books. |
+| `classification` / `coverage` | Candidate evidence modes versus actually existing evidence. No concept has checked Lean; an existing body still requires M0.5 review. |
+| Concept `deliverables` | `website-math`, `python`, then optional `lean`. Required teaching/numerical flags remain true. Lean skips need reasons; optional approval is not proof evidence. |
+| Concept `chunk_ids` / `first_chunk` | All chapter-scoped uses, in execution order, and first treatment. A later chapter may extend the same canonical page. |
+| `chunks` | Insertion order is the execution order: M0.5, 30 SCoFT chapters, 23 DH chapters, closeout. Every chapter has one chunk. Each stores ID, locator, title only, concepts, deliverables, dependencies, role, status and existing pages reused. |
+| Chunk `deliverables` | Required `teaching_pages` and `demos`, then `optional_lean`; review/closeout chunks mark these not applicable and name their own output. The exceedance pilot is optional inside chapter 2. |
+| `source_unit_ids` / `paper_ids` | The main chapter and every attached appendix/module/paper. Attachments belong to one chapter and must be reviewed in its checkpoint. |
+| `supplement_policy` | All nine SCoFT appendices and eight DH supporting units attach to chapters; none creates a separate chunk. |
+| `dependencies` | Concepts encode reading prerequisites; chunks/milestones encode execution gates. Use reviewed pages or bounded cited prerequisites without reordering chapters. |
+| `milestone` | M0 design; M0.5 review; M1 SCoFT; M2 DH; M3 closeout. A concept takes its first chapter's milestone. |
+| `next_chunk` | `#/chunks/m0.5-review`; the next chunk after its completion is `scft-v4-ch01`. |
+| `owner_decisions` / `open_questions` | All three new scope decisions are approved; `open_questions` is empty. Source audits and data access remain tasks, not open scope questions. |
+| `assigned_role` | Owner-assigned lead; role labels neither guarantee availability nor authorize delegation. |
+| `data_policy` / `site_review_policy` | Data via the assigned bots with provenance; live reader review after every site update. Build evidence cannot replace reader review. |
+| `counts` | Derived active/historical totals, 30 v4 chapters, nine v4 appendices, 53 chapter chunks and 55 total chunks. Not a measure of mathematical verification. |
 
-Do not change an ID when renaming a page or adding an edition. Add a new source
-unit namespace for changed chapter numbering; record correspondence to old
-units. When retiring a planned concept, retain its ID with an explicit
-disposition instead of deleting references. This revision retains all 101
-concept IDs, including 29 excluded records; none is renumbered. Out-of-scope
-concepts cannot be prerequisites of active concepts. Required local definitions
-and mathematical conditions stay within the active technical note.
-
-A concept becomes `done` only after its agreed scoped output, source review,
-applicable evidence and checks are recorded. All required mathematical claims
-must have exact checked support before the concept is described as fully
-Lean-verified; partial formalization gets an explicit claim list. Ordinary
-completion requires teaching and numerical evidence, with optional Lean skips
-recorded; M1's approved two-declaration pilot has its own proof exit gate.
-A chapter or book closes only after the manager reviews its mathematical scope,
-not merely after every linked page exists. Add a checkpoint record with claim
-IDs, artifact paths, revision, command results, remaining limits and reviewer
-when work starts; this initial state invents no implementation evidence.
+Do not rename concept IDs. For a future edition with changed numbering, use a
+new explicit unit namespace and retain correspondence. A chapter closes only
+after its selected mathematical claims, required teaching/demos, attached
+source scope and applicable reviews close. An optional Lean attempt needs
+exact checked evidence before being called complete, but a recorded skip
+never blocks chapter closure or the next chapter. Scope approval for the two
+exceedance claims remains valid.
 
 ## Resume procedure
 
-1. Read `next_chunk`, its prerequisites and acceptance list. Confirm the task
-   authorizes implementation; this state currently says it does not.
-2. Recheck the actual repository and relevant guidance. A proposed path is not
-   evidence that the file now exists. Resolve edition/theorem locators for the
-   selected work before making sourced claims.
-3. Set only the selected chunk and actively worked concepts to `in-progress`.
-   Record changed scope and owner decisions with dates. Keep source-unit review
-   and program progress separate from baseline coverage.
-4. On completion, record evidence and limitations, then mark the scoped work
-   `done`. If interrupted, keep it `in-progress` with a concrete checkpoint;
-   do not relabel unfinished work to move the pointer.
-5. Advance `next_chunk` to the next executable non-done chunk. Update human
-   views and derived counts, then run the checks below. Larger milestones need
-   new bounded chunks before execution; the concept list alone is not a task.
+1. Read `next_chunk`, its dependencies and acceptance criteria. Confirm the
+   current task authorizes implementation; this revision remains design-only.
+2. Recheck guidance and sources. For SCoFT use v4 locators, consulting the v2
+   correspondence only for historical references. Resolve exact claim
+   locators without copying book text.
+3. Set the selected chunk and actively worked concepts to `in-progress`.
+   Record a [chapter checkpoint](templates.md#chapter-checkpoint): claim IDs,
+   completed/pending pages and demos, evidence, revision and next action.
+4. Close required teaching and demos at this chapter's scope. Record optional
+   Lean results or skips. Resolve relevant M0.5 findings before reuse; after
+   a site update obtain the Math Site Editor live reader review.
+5. Mark completed scoped work `done`, or retain an interruption checkpoint.
+   Advance to the next ordered non-done chapter. Update human views and counts.
+   Existing source-unit or concept associations do not create a separate queue.
 
-## Reproducible structural check
+## Reproducible structural and local-link check
 
-Run from the repository root with Python and PyYAML 6.0.3 (the version used for
-this revision's validation). This checks the
-current schema, graphs, mappings, route conventions, baseline files and
-counts. It does not validate a mathematical assertion or a source's contents.
+Run from the repository root with Python and PyYAML 6.0.3. The validator also
+reads the recorded Git revision to check ID/path preservation. It needs no
+network or external PDF. It checks structure and source correspondence data,
+not the truth of mathematical claims. The optional source comparison below
+rechecks those data against the supplied files.
 
 ```bash
 python3 - <<'PY'
 from pathlib import Path
+import re
+import subprocess
+from urllib.parse import unquote, urlsplit
 import yaml
 
 class UniqueLoader(yaml.SafeLoader):
@@ -98,7 +91,7 @@ raw = Path('docs/plan/incerto-program/state.yaml').read_text()
 assert not any(isinstance(event, yaml.events.AliasEvent)
                for event in yaml.parse(raw)), 'YAML aliases are not allowed'
 s = yaml.load(raw, Loader=UniqueLoader)
-assert s['schema_version'] == 2
+assert s['schema_version'] == 3
 assert s['scope'] == 'design-only' and not s['implementation_authorized']
 statuses = {'todo', 'in-progress', 'done', 'out-of-scope'}
 classes = {'lean-verifiable', 'numeric-demo', 'empirical', 'prose-only'}
@@ -154,10 +147,10 @@ for table in (concepts, s['chunks'], milestones):
 for milestone in milestones.values():
     assert milestone['status'] in statuses - {'out-of-scope'}
     assert milestone['assigned_role'] in roles
-assert set(milestones) == {'M0', 'M0.5', 'M1', 'M2', 'M3', 'M4', 'M5'}
+assert set(milestones) == {'M0', 'M0.5', 'M1', 'M2', 'M3'}
 assert milestones['M0.5']['dependencies'] == ['M0']
 assert milestones['M1']['dependencies'] == ['M0.5']
-assert s['chunks']['m1-scope']['dependencies'] == ['m0.5-review']
+assert s['chunks']['scft-v4-ch01']['dependencies'] == ['m0.5-review']
 
 paths = set()
 for cid, concept in concepts.items():
@@ -173,7 +166,7 @@ for cid, concept in concepts.items():
         assert concept['source_priority'] in {1, 2, 3}
         lean = deliverables['lean']
         assert not lean['required']
-        assert lean['status'] in {'optional', 'approved-pilot', 'skipped-for-now'}
+        assert lean['status'] in {'optional', 'optional-approved-pilot', 'skipped-for-now'}
         if lean['status'] == 'skipped-for-now':
             assert lean['reason']
         for skip in lean.get('skipped_scopes', []):
@@ -232,7 +225,6 @@ for chunk in s['chunks'].values():
 prefix, collection, key = s['next_chunk'].split('/')
 assert prefix == '#' and collection == 'chunks'
 assert key == 'm0.5-review' and s['chunks'][key]['status'] == 'todo'
-assert {cid for cid, c in concepts.items() if c['milestone'] == 'M1'} == {'c-exceedances'}
 indexes = {f'content/incerto-{name}-concepts.md'
            for name in ('distribution', 'theorem', 'method')}
 existing = {c['page_path'] for c in concepts.values()
@@ -248,15 +240,16 @@ assert s['site_review_policy']['trigger'] == 'after every site update'
 assert s['site_review_policy']['assigned_role'] == 'math-site-editor'
 assert s['data_policy']['financial']['assigned_role'] == 'portfolio-manager'
 assert s['data_policy']['other']['assigned_role'] == 'data-scientist'
-assert set(s['open_questions']) == {
-    'shadow-mean', 'stochastic-calculus-depth', 'technical-incerto-2025'}
-for decision in ('m1-pilot', 'lean-claim-scope', 'data-routing', 'paper-inclusion'):
+assert s['open_questions'] == {}
+for decision in ('m1-pilot', 'lean-claim-scope', 'data-routing', 'paper-inclusion',
+                 'shadow-mean', 'stochastic-calculus-depth', 'technical-incerto-2025',
+                 'chapter-order', 'scft-v4-baseline'):
     assert s['owner_decisions'][decision]['status'] == 'approved'
 assert {item['id'] for item in s['edition_backlog']} == {'edition-scft-v4'}
 for item in s['edition_backlog']:
     assert item['book_id'] in active_books
     assert item['assigned_role'] in roles and item['milestone'] in milestones
-    assert item['depends_on_chunk'] in s['chunks']
+    assert item['status'] == 'done' and item['evidence']
 for cid in ('c-brownian', 'c-stochastic-pricing'):
     assert concepts[cid]['deliverables']['lean']['status'] == 'skipped-for-now'
 numbered = sum(b['expected_numbered_chapters'] for b in books.values())
@@ -270,16 +263,204 @@ expected = dict(
     book_source_units_out_of_scope=len(chapters) - len(active_chapters),
     papers=len(s['papers']), concepts_total=len(concepts), concepts_in_scope=len(active),
     concepts_out_of_scope=len(concepts) - len(active),
-    existing_concept_pages=len(existing), checked_lean_concepts=0)
+    existing_concept_pages=len(existing), checked_lean_concepts=0,
+    scft_v4_chapters=sum(u['book_id'] == 'scft' and u['kind'] == 'chapter'
+                         for u in chapters.values()),
+    scft_v4_appendices=sum(k.startswith('scft-v4-app') for k in chapters),
+    chunks_total=len(s['chunks']),
+    chapter_chunks=sum(k in chapters and chapters[k]['kind'] == 'chapter'
+                       for k in s['chunks']))
 assert s['counts'] == expected
-print('State validation passed:', expected)
+assert expected == dict(
+    books_total=7, books_in_scope=2, books_out_of_scope=5,
+    numbered_chapters_total=130, numbered_chapters_in_scope=53,
+    numbered_chapters_out_of_scope=77, book_source_units_total=193,
+    book_source_units_in_scope=70, book_source_units_out_of_scope=123,
+    papers=16, concepts_total=103, concepts_in_scope=75, concepts_out_of_scope=28,
+    existing_concept_pages=24, checked_lean_concepts=0,
+    scft_v4_chapters=30, scft_v4_appendices=9, chunks_total=55, chapter_chunks=53)
+
+# Chapter order, explicit gates, source coverage and optional Lean.
+scft = [f'scft-v4-ch{n:02d}' for n in range(1, 31)]
+dh = [f'dh-ch{n:02d}' for n in range(1, 24)]
+sequence = ['m0.5-review'] + scft + dh + ['technical-closeout']
+assert list(s['chunks']) == sequence
+assert list(milestones) == ['M0', 'M0.5', 'M1', 'M2', 'M3']
+assert [m['dependencies'] for m in milestones.values()] == [
+    [], ['M0'], ['M0.5'], ['M1'], ['M2']]
+assert books['scft']['expected_appendices'] == 9
+assert books['scft']['edition_review'] == 'done'
+assert books['scft']['locator_namespace'] == 'scft-v4'
+assert books['scft']['chapters'] == scft + [f'scft-v4-app{c}' for c in 'abcdefghi']
+assert all(not k.startswith('scft-') or k.startswith('scft-v4-') for k in chapters)
+attachments = s['supplement_policy']['attachments']
+assert {u: h for u, h in attachments.items() if u.startswith('scft-')} == {
+    f'scft-v4-app{c}': f'scft-v4-ch{n:02d}' for c, n in
+    zip('abcdefghi', (6, 5, 7, 7, 9, 10, 10, 18, 22))}
+assert len(attachments) == 17  # nine appendices, seven modules, introduction
+seen_units, seen_papers = [], []
+for i, key in enumerate(sequence):
+    ch = s['chunks'][key]
+    assert ch['dependencies'] == ([] if i == 0 else [sequence[i-1]])
+    for field in ('id', 'locator', 'title', 'concept_ids', 'deliverables',
+                  'dependencies', 'assigned_role', 'status', 'existing_pages_reused'):
+        assert field in ch, (key, field)
+    assert all(Path(p).is_file() for p in ch['existing_pages_reused'])
+    d = ch['deliverables']
+    assert not d['optional_lean']['required']
+    if key not in scft + dh:
+        continue
+    assert ch['title'] == chapters[key]['title']
+    assert ch['locator'] == ('SCoFT v4 ' if key in scft else 'Dynamic Hedging ') + chapters[key]['locator']
+    assert d['order'] == order
+    assert d['teaching_pages']['required'] and d['demos']['required']
+    assert d['optional_lean']['status'] in {'optional', 'optional-approved-pilot'}
+    assert d['teaching_pages']['page_paths'] == [concepts[c]['page_path'] for c in ch['concept_ids']]
+    assert d['demos']['concept_ids'] == ch['concept_ids']
+    assert ch['source_unit_ids'] == [key] + [u for u, host in attachments.items() if host == key]
+    required = {c for u in ch['source_unit_ids'] for c in chapters[u]['required_concept_ids']}
+    for p in ch['paper_ids']:
+        assert s['papers'][p]['attached_chunk_ids'] == [key]
+        assert {r['unit_id'] for r in s['papers'][p]['chapter_correspondence']} == {key}
+        required |= {c for u in s['papers'][p]['units'] for c in u['required_concept_ids']}
+    assert set(ch['concept_ids']) == required
+    assert set(ch['prerequisite_concept_ids']) == {
+        dep for c in required for dep in concepts[c]['dependencies']} - required
+    assert set(ch['existing_pages_reused']) == {
+        concepts[c]['page_path'] for c in required | set(ch['prerequisite_concept_ids'])
+        if concepts[c]['coverage']['prose'] == 'existing'}
+    for u in ch['source_unit_ids']:
+        assert chapters[u]['chunk_id'] == key
+        assert chapters[u]['milestone'] == ch['milestone']
+        if key in scft:
+            assert chapters[u]['edition'] == '2001.10488v4'
+    seen_units.extend(ch['source_unit_ids'])
+    seen_papers.extend(ch['paper_ids'])
+assert len(seen_units) == len(set(seen_units)) == len(active_chapters)
+assert set(seen_units) == active_chapters
+assert len(seen_papers) == len(set(seen_papers)) == len(s['papers'])
+assert set(seen_papers) == set(s['papers'])
+for cid in active:
+    c = concepts[cid]
+    hosts = [k for k in scft + dh if cid in s['chunks'][k]['concept_ids']]
+    assert c['chunk_ids'] == hosts and c['first_chunk'] == hosts[0]
+    assert c['milestone'] == s['chunks'][hosts[0]]['milestone']
+pilot = s['chunks']['scft-v4-ch02']['deliverables']['optional_lean']
+assert pilot['status'] == 'optional-approved-pilot' and len(pilot['approved_claims']) == 2
+assert pilot['concept_ids'] == ['c-exceedances']
+assert concepts['c-exceedances']['deliverables']['lean']['chunk_id'] == 'scft-v4-ch02'
+assert s['chunks']['scft-v4-ch03']['queue_items'] == ['Inference Asymmetry']
+assert s['chunks']['scft-v4-ch04']['queue_items'] == ['Moment-Estimation Failure']
+assert s['chunks']['scft-v4-ch07']['queue_items'] == ['Bounded Cauchy running-statistics simulation']
+assert s['chunks']['scft-v4-ch17']['queue_items'] == ['Shadow Mean']
+assert concepts['c-shadow-mean']['first_chunk'] == 'scft-v4-ch17'
+assert concepts['c-conflict-study']['first_chunk'] == 'scft-v4-ch18'
+
+# Versioned correspondence preserves old source identities without rebinding.
+edition = s['edition_mappings']['scft-v2-to-v4']
+assert edition['status'] == 'done' and edition['numbering_deviations'] == []
+expected_map = {f'scft-ch{n:02d}': f'scft-v4-ch{n if n <= 11 else n+2 if n <= 16 else n+3 if n <= 19 else n+4 if n <= 24 else n+5:02d}'
+                for n in range(1, 26)}
+expected_map.update({f'scft-app{c}': f'scft-v4-app{c if c == "a" else chr(ord(c)+1)}' for c in 'abcdefgh'})
+assert {m['previous_unit_id']: m['v4_unit_id'] for m in edition['units']} == expected_map
+assert len(edition['units']) == len({m['previous_unit_id'] for m in edition['units']}) == 33
+for m in edition['units']:
+    u = chapters[m['v4_unit_id']]
+    assert (m['v4_locator'], m['v4_title'], m['v4_printed_page']) == (u['locator'], u['title'], u['printed_page'])
+    assert m['title_changed'] == (m['v2_title'] != m['v4_title'])
+assert {m['previous_unit_id'] for m in edition['units'] if m['title_changed']} == {
+    'scft-ch08', 'scft-ch14', 'scft-ch21', 'scft-ch22', 'scft-appb'}
+assert set(edition['added_unit_ids']) == {
+    'scft-v4-ch12', 'scft-v4-ch13', 'scft-v4-ch19', 'scft-v4-ch23', 'scft-v4-ch29', 'scft-v4-appb'}
+assert set(expected_map.values()) | set(edition['added_unit_ids']) == set(books['scft']['chapters'])
+baseline = yaml.safe_load(subprocess.check_output(
+    ['git', 'show', s['revision_baseline'] + ':docs/plan/incerto-program/state.yaml'], text=True))
+assert set(baseline['concepts']) <= concepts.keys()
+assert list(concepts)[:len(baseline['concepts'])] == list(baseline['concepts'])
+assert set(concepts) - set(baseline['concepts']) == {
+    'c-probability-conflation', 'c-portfolio-tail-dependence'}
+assert {cid for cid in baseline['concepts']
+        if baseline['concepts'][cid]['completion_scope'] != concepts[cid]['completion_scope']} == {'c-lindy'}
+assert concepts['c-lindy']['prior_scope']['completion_scope'] == 'out-of-scope'
+for cid, c in baseline['concepts'].items():
+    assert concepts[cid]['id'] == c['id'] and concepts[cid]['page_path'] == c['page_path']
+assert set(baseline['chapters']) == set(expected_map) | {
+    k for k in chapters if chapters[k]['book_id'] != 'scft'}
+
+# Human views must agree on identities, titles, scopes and mappings.
+plan = Path('docs/plan/incerto-program')
+inventory = (plan / 'inventory.md').read_text()
+register = (plan / 'concepts.md').read_text()
+for key in active_chapters:
+    u = chapters[key]
+    assert f'<a id="{key}"></a>' in inventory
+    row = next(line for line in inventory.splitlines() if f'<a id="{key}"></a>' in line)
+    assert u['title'] in row and f'`{u["chunk_id"]}`' in row
+    for cid in u['concept_ids']:
+        assert f'(concepts.md#{cid})' in row
+assert len(re.findall(r'<a id="c-[^"]+"></a>', register)) == len(concepts)
+for cid, c in concepts.items():
+    body = register.split(f'<a id="{cid}"></a>', 1)[1].split('<a id=', 1)[0]
+    assert c['title'] in body and c['scope'] in body and c['page_path'] in body
+    assert all(reason in body for reason in c['classification'].values())
+    if cid in active:
+        assert f'Milestone: **{c["milestone"]}**' in body
+        assert all(f'`{k}`' in body for k in c['chunk_ids'])
+    else:
+        assert c['out_of_scope_reason'] in body
+    for u in c['source_units']:
+        if u in active_chapters:
+            assert f'(inventory.md#{u})' in body
+review_text = (plan / 'm0.5-review.md').read_text()
+assert set(re.findall(r'^\| `(c-[^`]+)` \|', review_text, re.M)) == set(review['concept_ids'])
+
+# Local file links and Markdown/MyST/HTML anchors; external URLs are not fetched.
+def without_fences(text):
+    return re.sub(r'(?ms)^(`{3,}|~{3,})[^\n]*\n.*?^\1[ \t]*$', '', text)
+
+def anchors(path):
+    text = without_fences(path.read_text())
+    result = set(re.findall(r'<a\s+id=["\']([^"\']+)', text))
+    result |= set(re.findall(r'^\(([^)]+)\)=', text, re.M))
+    seen = {}
+    for heading in re.findall(r'^#{1,6}\s+(.+)', text, re.M):
+        heading = re.sub(r'\[([^]]+)\]\([^)]+\)', r'\1', heading)
+        slug = re.sub(r'[^\w\s-]', '', heading.lower()).replace(' ', '-')
+        ordinal = seen.get(slug, 0)
+        seen[slug] = ordinal + 1
+        result.add(slug + (f'-{ordinal}' if ordinal else ''))
+    return result
+
+checked_links = 0
+for path in list(plan.glob('*.md')) + [Path('docs/plan/index.md')]:
+    text = without_fences(path.read_text())
+    for target in re.findall(r'(?<!!)\[[^]\n]+\]\(([^\s)]+)\)', text):
+        if urlsplit(target).scheme or target.startswith('//'):
+            continue
+        file, _, fragment = unquote(target).partition('#')
+        dest = (path.parent / file).resolve() if file else path.resolve()
+        assert dest.is_file(), (path, target)
+        if fragment and dest.suffix == '.md':
+            assert fragment in anchors(dest), (path, target, 'missing anchor')
+        checked_links += 1
+print('State and human-view validation passed:', expected)
+print('Local file/fragment links passed:', checked_links)
+print('First three chunks:', sequence[:3])
 PY
 ```
 
-The baseline checks intentionally require no checked Lean and exactly the
-current existing pages. Update them with the schema/coverage when real
-implementation changes those facts; do not leave a stale passing validator.
-Review local links and explicit concept anchors in the human views. Check
-`git diff --check` plus new-file whitespace separately, inspect full new files,
-and confirm the change stays in the authorized plan scope. Run the requested
-site checks and report failures without claiming they passed.
+## Source and change-scope review
+
+When the supplied files are available, use `pdftotext -f 7 -l 14 -layout`
+on each read-only PDF and compare numbered/lettered TOC records with the
+correspondence and v4 `title`, `locator`, `printed_page` fields. Exclude Roman
+part headings and front/back matter. Verify all 33 old units, all 39 v4 units
+and the six additions; keep raw extracts outside the repository. Record
+PDF identities and any discrepancy in `sources.md` and `verification.md`.
+
+The validation contract deliberately reflects design-only status, 24 existing
+bodies and no Lean evidence. Update it when implementation changes those
+facts. Review the diff and any full new files, run `git diff --check` plus
+new-file whitespace checks, and ensure changed paths stay inside the authorized
+plan scope. Site checks are separate; an old artifact or an earlier operator
+pass cannot establish a fresh build for this revision.

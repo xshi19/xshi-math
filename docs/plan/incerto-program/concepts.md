@@ -1,31 +1,27 @@
 # Concept register
 
-The register retains **101 stable IDs: 72 in scope and 29 out of scope**.
-Active concepts serve Technical Incerto (including the required 2025 additions),
-Dynamic Hedging and mathematical papers. Statistical Consequences of Fat Tails
-has first priority. Excluded IDs and their former reservations remain so links
-resolve; their status and reason remove them from completion requirements.
+The register retains all 101 previous IDs and appends two: **103 stable IDs,
+75 in scope and 28 out of scope**. SCoFT uses the **2025 third edition,
+arXiv:2001.10488v4** throughout. `c-lindy` is reactivated for the technical
+absorbing-barrier treatment in chapter 23; its former non-technical scope is
+retained in state as history. New IDs are `c-probability-conflation` and
+`c-portfolio-tail-dependence`. Appendix B reuses `c-maximum-entropy`.
 
-The exclusions comprise 25 concepts mapped only to the non-technical books
-and four contextual concepts (induction, cognitive biases, tacit knowledge and
-ethics) whose interpretive or behavioral scope is excluded even where technical
-sources mention them. Technical paper models of response curves and dependence
-remain active at their mathematical scope.
+The remaining exclusions comprise 24 concepts mapped only to non-technical
+books and four contextual concepts (induction, cognitive biases, tacit
+knowledge and ethics). An origin citation does not create a coverage task.
 
 Every active concept requires website math teaching first and Python demos,
-numerical illustrations, visualizations or worked cases second. Lean is optional
-and last. `lean-verifiable` identifies a candidate at an exact declaration scope,
-not existing proof or a delivery promise. `skipped-for-now` records why a Lean
-claim is deferred without removing its teaching or numerical deliverables.
-`numeric-demo` uses synthetic or fixed inputs; `empirical` uses observed data.
-`prose-only` appears only in inactive historical records, never active scope.
+visualizations or worked cases second. Lean is optional and last.
+`lean-verifiable` identifies a declaration candidate, not checked evidence.
+`numeric-demo` uses synthetic/fixed inputs; `empirical` needs observed data.
+Lean skips preserve teaching/numerical obligations. All concepts remain
+`todo`; M0.5 reviews the 24 existing bodies before SCoFT chapter 1.
 
-All 24 existing bodies receive M0.5 mathematical and live reader reviews before
-M1; their later milestones identify subsequent treatment. Active concepts remain
-`todo`. Proposed paths are reservations, not existing pages or public routes.
-Concept prerequisites concern the mathematics; chunk and milestone dependencies
-control execution. See [state](state.yaml) for per-concept flags and source links.
-
+Source links below use v4 chapter/appendix locators. Chunk lists identify
+chapter-scoped reuse or extension; the first chunk does not promise completion
+of every later claim. Concept prerequisites do not reorder the chapter queue.
+Proposed paths remain reservations, not public pages.
 
 <a id="c-exceedances"></a>
 
@@ -35,7 +31,7 @@ Home: [content/incerto-counting-exceedances.md](../../../content/incerto-countin
 
 For n >= 1 and real observations, prove fraction bounds and antitonicity in u; no population inference.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `approved-pilot`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `optional-approved-pilot`).
 
 - **numeric-demo:** The existing fixed sample checks the strict threshold convention.
 - **lean-verifiable:** Finite-set counting gives exact bounds and threshold monotonicity.
@@ -44,11 +40,15 @@ Coverage: Original page and xmath.exceedance_fraction; fixed synthetic demo exis
 
 Prerequisites: none within this inventory.
 
+Technical source mappings: [SCoFT v4 ch. 2](inventory.md#scft-v4-ch02).
+
+Chapter chunks: `scft-v4-ch02`.
+
 <a id="c-pareto"></a>
 
 ## Pareto distribution (`c-pareto`)
 
-Home: [content/incerto-pareto.md](../../../content/incerto-pareto.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-pareto.md](../../../content/incerto-pareto.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Positive scale x_m and alpha; distinguish normalized distribution from a tail approximation.
 
@@ -61,11 +61,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: none within this inventory.
 
+Technical source mappings: [SCoFT v4 ch. 2](inventory.md#scft-v4-ch02), [SCoFT v4 ch. 5](inventory.md#scft-v4-ch05), [SCoFT v4 appendix A](inventory.md#scft-v4-appa).
+
+Chapter chunks: `scft-v4-ch02`, `scft-v4-ch05`, `scft-v4-ch06`.
+
 <a id="c-regular-variation"></a>
 
 ## Regular variation (`c-regular-variation`)
 
-Home: [content/incerto-regular-variation.md](../../../content/incerto-regular-variation.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-regular-variation.md](../../../content/incerto-regular-variation.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Pointwise ratio limits at positive dilation; do not infer regular variation from a finite plot.
 
@@ -78,11 +82,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-pareto](#c-pareto).
 
+Technical source mappings: [SCoFT v4 ch. 5](inventory.md#scft-v4-ch05).
+
+Chapter chunks: `scft-v4-ch05`.
+
 <a id="c-karamata"></a>
 
 ## Karamata tail integrals (`c-karamata`)
 
-Home: [content/incerto-karamata.md](../../../content/incerto-karamata.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-karamata.md](../../../content/incerto-karamata.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 General theorem requires a library feasibility audit; p = alpha depends on the slowly varying factor.
 
@@ -95,11 +103,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-regular-variation](#c-regular-variation).
 
+Technical source mappings: [SCoFT v4 ch. 5](inventory.md#scft-v4-ch05).
+
+Chapter chunks: `scft-v4-ch05`.
+
 <a id="c-pareto-moments"></a>
 
 ## Pareto moment boundary (`c-pareto-moments`)
 
-Home: [content/incerto-pareto-moment-existence.md](../../../content/incerto-pareto-moment-existence.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-pareto-moment-existence.md](../../../content/incerto-pareto-moment-existence.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 For p > 0, the pth Pareto moment is finite exactly when p < alpha; handle equality separately.
 
@@ -112,11 +124,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-pareto](#c-pareto).
 
+Technical source mappings: [SCoFT v4 ch. 5](inventory.md#scft-v4-ch05).
+
+Chapter chunks: `scft-v4-ch05`.
+
 <a id="c-mean-excess"></a>
 
 ## Mean excess (`c-mean-excess`)
 
-Home: [content/incerto-mean-excess-function.md](../../../content/incerto-mean-excess-function.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-mean-excess-function.md](../../../content/incerto-mean-excess-function.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Separate a population conditional mean from its sample diagnostic.
 
@@ -129,11 +145,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments).
 
+Technical source mappings: [SCoFT v4 ch. 9](inventory.md#scft-v4-ch09).
+
+Chapter chunks: `scft-v4-ch09`.
+
 <a id="c-hill"></a>
 
 ## Hill tail-index estimation (`c-hill`)
 
-Home: [content/incerto-hill-estimator.md](../../../content/incerto-hill-estimator.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-hill-estimator.md](../../../content/incerto-hill-estimator.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Do not claim general consistency without intermediate-sequence and tail conditions.
 
@@ -146,11 +166,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-regular-variation](#c-regular-variation).
 
+Technical source mappings: [SCoFT v4 ch. 9](inventory.md#scft-v4-ch09), [SCoFT v4 appendix E](inventory.md#scft-v4-appe).
+
+Chapter chunks: `scft-v4-ch09`.
+
 <a id="c-evi"></a>
 
 ## Extreme-value index (`c-evi`)
 
-Home: [content/incerto-extreme-value-index.md](../../../content/incerto-extreme-value-index.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-extreme-value-index.md](../../../content/incerto-extreme-value-index.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 xi = 1/alpha only in the positive regularly varying regime; other signs need separate domains.
 
@@ -163,11 +187,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: none within this inventory.
 
+Technical source mappings: [SCoFT v4 ch. 2](inventory.md#scft-v4-ch02), [SCoFT v4 ch. 9](inventory.md#scft-v4-ch09).
+
+Chapter chunks: `scft-v4-ch02`, `scft-v4-ch09`.
+
 <a id="c-gpd"></a>
 
 ## Generalized Pareto excess models (`c-gpd`)
 
-Home: [content/incerto-generalized-pareto.md](../../../content/incerto-generalized-pareto.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-generalized-pareto.md](../../../content/incerto-generalized-pareto.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Distinguish xi = 0, xi > 0, and finite-endpoint xi < 0.
 
@@ -180,11 +208,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-evi](#c-evi).
 
+Technical source mappings: [SCoFT v4 ch. 9](inventory.md#scft-v4-ch09).
+
+Chapter chunks: `scft-v4-ch09`.
+
 <a id="c-plugin"></a>
 
 ## Plug-in tail estimation (`c-plugin`)
 
-Home: [content/incerto-plug-in-tail-estimation.md](../../../content/incerto-plug-in-tail-estimation.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-plug-in-tail-estimation.md](../../../content/incerto-plug-in-tail-estimation.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 The unregularized mean estimator has a pole at estimated xi = 1; no uniform MSE superiority.
 
@@ -197,11 +229,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments), [c-hill](#c-hill).
 
+Technical source mappings: [SCoFT v4 appendix E](inventory.md#scft-v4-appe).
+
+Chapter chunks: `scft-v4-ch09`.
+
 <a id="c-pbdh"></a>
 
 ## Threshold-limit theorem (`c-pbdh`)
 
-Home: [content/incerto-pickands-balkema-de-haan.md](../../../content/incerto-pickands-balkema-de-haan.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-pickands-balkema-de-haan.md](../../../content/incerto-pickands-balkema-de-haan.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Record the existing general result as cited; formalizing one excess identity does not certify the theorem.
 
@@ -214,11 +250,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-gpd](#c-gpd), [c-regular-variation](#c-regular-variation).
 
+Technical source mappings: [SCoFT v4 ch. 9](inventory.md#scft-v4-ch09).
+
+Chapter chunks: `scft-v4-ch09`.
+
 <a id="c-gev"></a>
 
 ## Generalized extreme-value laws (`c-gev`)
 
-Home: [content/incerto-generalized-extreme-value.md](../../../content/incerto-generalized-extreme-value.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-generalized-extreme-value.md](../../../content/incerto-generalized-extreme-value.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Specify the domain of attraction, centering, scaling, and convergence mode.
 
@@ -231,11 +271,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-evi](#c-evi).
 
+Technical source mappings: [SCoFT v4 ch. 9](inventory.md#scft-v4-ch09).
+
+Chapter chunks: `scft-v4-ch09`.
+
 <a id="c-frechet"></a>
 
 ## Frechet maxima (`c-frechet`)
 
-Home: [content/incerto-frechet.md](../../../content/incerto-frechet.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-frechet.md](../../../content/incerto-frechet.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Positive tail exponent and explicit normalization; finite-n errors remain numerical.
 
@@ -248,11 +292,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-pareto](#c-pareto), [c-gev](#c-gev).
 
+Technical source mappings: [SCoFT v4 ch. 9](inventory.md#scft-v4-ch09).
+
+Chapter chunks: `scft-v4-ch09`.
+
 <a id="c-subexponential"></a>
 
 ## Subexponential sums (`c-subexponential`)
 
-Home: [content/incerto-subexponentiality.md](../../../content/incerto-subexponentiality.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-subexponentiality.md](../../../content/incerto-subexponentiality.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Fixed n iid nonnegative variables; no automatic extension to growing n.
 
@@ -265,11 +313,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-regular-variation](#c-regular-variation).
 
+Technical source mappings: [SCoFT v4 ch. 5](inventory.md#scft-v4-ch05).
+
+Chapter chunks: `scft-v4-ch05`.
+
 <a id="c-tail-ratio"></a>
 
 ## Survival-tail ratio diagnostic (`c-tail-ratio`)
 
-Home: [content/incerto-survival-tail-ratio.md](../../../content/incerto-survival-tail-ratio.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-survival-tail-ratio.md](../../../content/incerto-survival-tail-ratio.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Independence is required for a joint-exceedance interpretation.
 
@@ -282,11 +334,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-pareto](#c-pareto).
 
+Technical source mappings: [SCoFT v4 ch. 5](inventory.md#scft-v4-ch05).
+
+Chapter chunks: `scft-v4-ch05`.
+
 <a id="c-max-sum"></a>
 
 ## Maximum-to-sum ratio (`c-max-sum`)
 
-Home: [content/incerto-max-to-sum-ratio.md](../../../content/incerto-max-to-sum-ratio.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-max-to-sum-ratio.md](../../../content/incerto-max-to-sum-ratio.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 A nondegenerate heavy-tail limit need not equal one; define zero-sum behavior.
 
@@ -299,11 +355,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments).
 
+Technical source mappings: [SCoFT v4 ch. 7](inventory.md#scft-v4-ch07).
+
+Chapter chunks: `scft-v4-ch07`.
+
 <a id="c-double-pareto"></a>
 
 ## Symmetric shifted Pareto construction (`c-double-pareto`)
 
-Home: [content/incerto-double-pareto.md](../../../content/incerto-double-pareto.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-double-pareto.md](../../../content/incerto-double-pareto.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Preserve the existing shifted construction; symmetry alone does not imply an existing mean.
 
@@ -316,11 +376,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments).
 
+Technical source mappings: [SCoFT v4 ch. 5](inventory.md#scft-v4-ch05).
+
+Chapter chunks: `scft-v4-ch05`.
+
 <a id="c-threshold"></a>
 
 ## Tail-threshold selection (`c-threshold`)
 
-Home: [content/incerto-tail-threshold-selection.md](../../../content/incerto-tail-threshold-selection.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-tail-threshold-selection.md](../../../content/incerto-tail-threshold-selection.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 No universal optimal threshold from a visually straight tail plot.
 
@@ -334,11 +398,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-hill](#c-hill), [c-mean-excess](#c-mean-excess).
 
+Technical source mappings: [SCoFT v4 ch. 9](inventory.md#scft-v4-ch09), [SCoFT v4 appendix E](inventory.md#scft-v4-appe).
+
+Chapter chunks: `scft-v4-ch09`.
+
 <a id="c-body-shoulder"></a>
 
 ## Body, shoulder, and tail under perturbation (`c-body-shoulder`)
 
-Home: [content/incerto-body-shoulder-tail.md](../../../content/incerto-body-shoulder-tail.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-body-shoulder-tail.md](../../../content/incerto-body-shoulder-tail.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 The existing normal variance perturbation is not a universal tail-threshold rule.
 
@@ -351,11 +419,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: none within this inventory.
 
+Technical source mappings: [SCoFT v4 ch. 4](inventory.md#scft-v4-ch04).
+
+Chapter chunks: `scft-v4-ch04`.
+
 <a id="c-tail-geometry"></a>
 
 ## Multivariate tail geometry (`c-tail-geometry`)
 
-Home: [content/incerto-iso-density-tail-geometry.md](../../../content/incerto-iso-density-tail-geometry.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-iso-density-tail-geometry.md](../../../content/incerto-iso-density-tail-geometry.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Point density and probability mass must remain distinct.
 
@@ -368,11 +440,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-pareto](#c-pareto).
 
+Technical source mappings: [SCoFT v4 ch. 6](inventory.md#scft-v4-ch06).
+
+Chapter chunks: `scft-v4-ch06`.
+
 <a id="c-cramer"></a>
 
 ## Exponential-moment gate (`c-cramer`)
 
-Home: [content/incerto-cramer-condition.md](../../../content/incerto-cramer-condition.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-cramer-condition.md](../../../content/incerto-cramer-condition.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 An exponential-moment condition and a Chernoff bound do not prove a full large-deviation principle.
 
@@ -385,11 +461,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: none within this inventory.
 
+Technical source mappings: [SCoFT v4 appendix D](inventory.md#scft-v4-appd).
+
+Chapter chunks: `scft-v4-ch07`.
+
 <a id="c-stable-clt"></a>
 
 ## Stable limits for sums (`c-stable-clt`)
 
-Home: [content/incerto-generalized-central-limit-theorem.md](../../../content/incerto-generalized-central-limit-theorem.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-generalized-central-limit-theorem.md](../../../content/incerto-generalized-central-limit-theorem.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Handle alpha = 1 centering and slowly varying factors explicitly.
 
@@ -402,11 +482,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-regular-variation](#c-regular-variation).
 
+Technical source mappings: [SCoFT v4 ch. 7](inventory.md#scft-v4-ch07).
+
+Chapter chunks: `scft-v4-ch07`.
+
 <a id="c-lln-failure"></a>
 
 ## Failure of finite-mean averaging assumptions (`c-lln-failure`)
 
-Home: [content/incerto-lln-failure.md](../../../content/incerto-lln-failure.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-lln-failure.md](../../../content/incerto-lln-failure.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 The existing nonnegative divergence result does not apply to symmetric Cauchy sums.
 
@@ -419,11 +503,15 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: none within this inventory.
 
+Technical source mappings: [SCoFT v4 ch. 7](inventory.md#scft-v4-ch07).
+
+Chapter chunks: `scft-v4-ch07`.
+
 <a id="c-tail-catalog"></a>
 
 ## Tail classes and implication boundaries (`c-tail-catalog`)
 
-Home: [content/incerto-tail-class-catalog.md](../../../content/incerto-tail-class-catalog.md). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: [content/incerto-tail-class-catalog.md](../../../content/incerto-tail-class-catalog.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Keep cited class memberships separate from the elementary convolution derivation and exact ratio checks.
 
@@ -436,13 +524,19 @@ Coverage: Existing prose needs claim-by-claim review; no checked Lean.
 
 Prerequisites: [c-regular-variation](#c-regular-variation), [c-subexponential](#c-subexponential), [c-cramer](#c-cramer).
 
+Technical source mappings: [SCoFT v4 ch. 1](inventory.md#scft-v4-ch01), [SCoFT v4 ch. 2](inventory.md#scft-v4-ch02), [SCoFT v4 appendix A](inventory.md#scft-v4-appa), [SCoFT v4 appendix B](inventory.md#scft-v4-appb).
+
+Chapter chunks: `scft-v4-ch01`, `scft-v4-ch02`, `scft-v4-ch05`, `scft-v4-ch06`.
+
 <a id="c-luck-skill"></a>
 
 ## Luck, skill, and performance selection (`c-luck-skill`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-luck-skill.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-luck-skill.md`; no page is scheduled.
 
 Former scope (inactive): Separate ex ante ability, realized payoff, and selection on realized payoff.
 
@@ -460,9 +554,11 @@ Historical prerequisites (inactive): none within this inventory.
 
 ## Alternative histories and decision quality (`c-counterfactuals`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-counterfactuals.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-counterfactuals.md`; no page is scheduled.
 
 Former scope (inactive): State the generative assumptions and the chosen loss or utility.
 
@@ -479,9 +575,11 @@ Historical prerequisites (inactive): none within this inventory.
 
 ## Observation frequency and noise (`c-noise-monitoring`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-max`.
 
-Retained reservation: `content/incerto-noise-monitoring.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-noise-monitoring.md`; no page is scheduled.
 
 Former scope (inactive): No universal claim that frequent observation is harmful.
 
@@ -498,9 +596,11 @@ Historical prerequisites (inactive): [c-counterfactuals](#c-counterfactuals).
 
 ## Survivorship and silent evidence (`c-survivorship`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-max`.
 
-Retained reservation: `content/incerto-survivorship.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-survivorship.md`; no page is scheduled.
 
 Former scope (inactive): Distinguish truncation, censoring, selection, and unobserved failures.
 
@@ -518,7 +618,7 @@ Historical prerequisites (inactive): [c-luck-skill](#c-luck-skill).
 
 ## Asymmetric payoffs and exposure (`c-asymmetric-payoffs`)
 
-Home: `content/incerto-asymmetric-payoffs.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-asymmetric-payoffs.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Expected payoff statements require integrability; a high hit rate is insufficient.
 
@@ -531,13 +631,19 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: none within this inventory.
 
+Technical source mappings: [SCoFT v4 ch. 3](inventory.md#scft-v4-ch03).
+
+Chapter chunks: `scft-v4-ch03`.
+
 <a id="c-induction"></a>
 
 ## Induction and limits of finite evidence (`c-induction`)
 
-Status: **out-of-scope**. Reason: Interpretive, ethical or behavioral coverage is outside the mathematical completion scope, including contextual associations in technical sources.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-induction.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Interpretive, ethical or behavioral coverage is outside the mathematical completion scope, including contextual associations in technical sources.
+
+Retained reservation: `content/incerto-induction.md`; no page is scheduled.
 
 Former scope (inactive): Separate logical underdetermination from model-relative confidence statements.
 
@@ -549,11 +655,13 @@ Coverage: No existing page; the reserved path is retained only for stable refere
 
 Historical prerequisites (inactive): none within this inventory.
 
+Technical source mappings (context only): [SCoFT v4 ch. 1](inventory.md#scft-v4-ch01).
+
 <a id="c-multiple-testing"></a>
 
 ## Search, multiple testing, and regression effects (`c-multiple-testing`)
 
-Home: `content/incerto-multiple-testing.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-multiple-testing.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Selection must be included when interpreting a reported winner.
 
@@ -566,13 +674,19 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: none within this inventory.
 
+Technical source mappings: [SCoFT v4 ch. 22](inventory.md#scft-v4-ch22).
+
+Chapter chunks: `scft-v4-ch22`.
+
 <a id="c-path-dependence"></a>
 
 ## Reinforcement and path-dependent outcomes (`c-path-dependence`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-path-dependence.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-path-dependence.md`; no page is scheduled.
 
 Former scope (inactive): A toy process is not a universal explanation of social concentration.
 
@@ -589,9 +703,11 @@ Historical prerequisites (inactive): none within this inventory.
 
 ## Probability judgments and cognitive biases (`c-biases`)
 
-Status: **out-of-scope**. Reason: Interpretive, ethical or behavioral coverage is outside the mathematical completion scope, including contextual associations in technical sources.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-biases.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Interpretive, ethical or behavioral coverage is outside the mathematical completion scope, including contextual associations in technical sources.
+
+Retained reservation: `content/incerto-biases.md`; no page is scheduled.
 
 Former scope (inactive): Keep normative probability arithmetic distinct from claims about human behavior.
 
@@ -604,13 +720,17 @@ Coverage: No existing page; the reserved path is retained only for stable refere
 
 Historical prerequisites (inactive): none within this inventory.
 
+Technical source mappings (context only): [SCoFT v4 appendix I](inventory.md#scft-v4-appi).
+
 <a id="c-causal-narrative"></a>
 
 ## Narrative explanations and causal identification (`c-causal-narrative`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-causal-narrative.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-causal-narrative.md`; no page is scheduled.
 
 Former scope (inactive): Do not infer causation from a fitted story or a retrospective sequence.
 
@@ -627,9 +747,11 @@ Historical prerequisites (inactive): none within this inventory.
 
 ## Fallibility and practical skepticism (`c-skepticism`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-skepticism.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-skepticism.md`; no page is scheduled.
 
 Former scope (inactive): Distinguish uncertainty about a model from uncertainty within it.
 
@@ -645,9 +767,11 @@ Historical prerequisites (inactive): none within this inventory.
 
 ## Control, dignity, and responses to chance (`c-stoicism`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-stoicism.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-stoicism.md`; no page is scheduled.
 
 Former scope (inactive): Use original commentary and cited chapter locators; no aphorism collection.
 
@@ -663,9 +787,11 @@ Historical prerequisites (inactive): none within this inventory.
 
 ## Scalable outcomes and concentration (`c-scalability`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-max`.
 
-Retained reservation: `content/incerto-scalability.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-scalability.md`; no page is scheduled.
 
 Former scope (inactive): Do not treat occupational labels as distributional assumptions.
 
@@ -682,9 +808,11 @@ Historical prerequisites (inactive): [c-asymmetric-payoffs](#c-asymmetric-payoff
 
 ## Surprise, impact, and retrospective explanation (`c-black-swan`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-black-swan.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-black-swan.md`; no page is scheduled.
 
 Former scope (inactive): A surprising event is not automatically a power-law observation.
 
@@ -700,9 +828,11 @@ Historical prerequisites (inactive): [c-induction](#c-induction), [c-causal-narr
 
 ## Model boundaries and domain transfer (`c-ludic`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-ludic.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-ludic.md`; no page is scheduled.
 
 Former scope (inactive): Do not use a model-boundary critique as evidence for a particular alternative law.
 
@@ -718,9 +848,11 @@ Historical prerequisites (inactive): none within this inventory.
 
 ## Prediction limits and forecast evaluation (`c-forecasting`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-forecasting.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-forecasting.md`; no page is scheduled.
 
 Former scope (inactive): Score distributions and decisions separately; distinguish impossibility from poor calibration.
 
@@ -737,9 +869,11 @@ Historical prerequisites (inactive): none within this inventory.
 
 ## Model uncertainty and unseen mechanisms (`c-epistemic-uncertainty`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-epistemic-uncertainty.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-epistemic-uncertainty.md`; no page is scheduled.
 
 Former scope (inactive): Do not assign an unsupported probability to unknown model classes.
 
@@ -756,9 +890,11 @@ Historical prerequisites (inactive): [c-skepticism](#c-skepticism).
 
 ## Practice, tacit knowledge, and explicit models (`c-tacit-knowledge`)
 
-Status: **out-of-scope**. Reason: Interpretive, ethical or behavioral coverage is outside the mathematical completion scope, including contextual associations in technical sources.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-tacit-knowledge.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Interpretive, ethical or behavioral coverage is outside the mathematical completion scope, including contextual associations in technical sources.
+
+Retained reservation: `content/incerto-tacit-knowledge.md`; no page is scheduled.
 
 Former scope (inactive): Distinguish an account of discovery from a mathematical justification.
 
@@ -770,13 +906,17 @@ Coverage: No existing page; the reserved path is retained only for stable refere
 
 Historical prerequisites (inactive): none within this inventory.
 
+Technical source mappings (context only): [SCoFT v4 ch. 26](inventory.md#scft-v4-ch26).
+
 <a id="c-procrustean"></a>
 
 ## Category fit and forced measurement (`c-procrustean`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-procrustean.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-procrustean.md`; no page is scheduled.
 
 Former scope (inactive): Discuss the aphoristic themes in original prose; no close paraphrase or reconstructed aphorisms.
 
@@ -792,9 +932,11 @@ Historical prerequisites (inactive): none within this inventory.
 
 ## Aesthetic judgment and intellectual style (`c-aesthetics`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-aesthetics.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-aesthetics.md`; no page is scheduled.
 
 Former scope (inactive): Separate taste, rhetoric, and factual historical assertions.
 
@@ -810,7 +952,7 @@ Historical prerequisites (inactive): none within this inventory.
 
 ## Convexity and Jensen effects (`c-jensen`)
 
-Home: `content/incerto-jensen.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-jensen.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Distinguish payoff curvature from a full claim about welfare or survival.
 
@@ -823,11 +965,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: none within this inventory.
 
+Technical source mappings: [SCoFT v4 ch. 28](inventory.md#scft-v4-ch28), [`paper-fragility`](inventory.md#paper-fragility), [`paper-convex-response`](inventory.md#paper-convex-response).
+
+Chapter chunks: `scft-v4-ch28`.
+
 <a id="c-fragility"></a>
 
 ## Sensitivity-based fragility (`c-fragility`)
 
-Home: `content/incerto-fragility.md` (proposed). Status: **todo**. Milestone: **M3**. Lead: `astra-max`.
+Home: `content/incerto-fragility.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Specify response, adverse region, dispersion parameter, and derivative existence.
 
@@ -840,11 +986,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-jensen](#c-jensen), [c-asymmetric-payoffs](#c-asymmetric-payoffs).
 
+Technical source mappings: [`paper-fragility`](inventory.md#paper-fragility).
+
+Chapter chunks: `scft-v4-ch28`.
+
 <a id="c-hormesis"></a>
 
 ## Dose response and adaptation (`c-hormesis`)
 
-Home: `content/incerto-hormesis.md` (proposed). Status: **todo**. Milestone: **M3**. Lead: `astra-xhigh`.
+Home: `content/incerto-hormesis.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-xhigh`.
 
 Teach and illustrate the declared dose-response function, curvature and perturbation assumptions; clinical benefit and biological interpretation are outside completion scope.
 
@@ -858,13 +1008,19 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-jensen](#c-jensen).
 
+Technical source mappings: [`paper-convex-response`](inventory.md#paper-convex-response).
+
+Chapter chunks: `scft-v4-ch28`.
+
 <a id="c-selection-levels"></a>
 
 ## Individual failure and population adaptation (`c-selection-levels`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-selection-levels.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-selection-levels.md`; no page is scheduled.
 
 Former scope (inactive): Specify whose outcome is improved, at what cost, and on which time scale.
 
@@ -881,7 +1037,7 @@ Historical prerequisites (inactive): [c-survivorship](#c-survivorship).
 
 ## Redundancy, size, and decentralized exposure (`c-decentralization`)
 
-Home: `content/incerto-decentralization.md` (proposed). Status: **todo**. Milestone: **M3**. Lead: `astra-xhigh`.
+Home: `content/incerto-decentralization.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-xhigh`.
 
 Teach finite aggregation and dependence models from the technical paper; numerical stress cases do not establish institutional or normative conclusions.
 
@@ -895,13 +1051,19 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: none within this inventory.
 
+Technical source mappings: [`paper-precaution`](inventory.md#paper-precaution).
+
+Chapter chunks: `scft-v4-ch03`.
+
 <a id="c-iatrogenics"></a>
 
 ## Intervention error and subtractive decisions (`c-iatrogenics`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-iatrogenics.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-iatrogenics.md`; no page is scheduled.
 
 Former scope (inactive): Do not convert a medical illustration into treatment advice.
 
@@ -919,9 +1081,11 @@ Historical prerequisites (inactive): [c-epistemic-uncertainty](#c-epistemic-unce
 
 ## Bounded downside and barbell allocations (`c-barbell`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-max`.
 
-Retained reservation: `content/incerto-barbell.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-barbell.md`; no page is scheduled.
 
 Former scope (inactive): Specify default, leverage, funding, and admissible losses; no investment prescription.
 
@@ -938,9 +1102,11 @@ Historical prerequisites (inactive): [c-asymmetric-payoffs](#c-asymmetric-payoff
 
 ## Optionality and asymmetric experimentation (`c-optionality`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-max`.
 
-Retained reservation: `content/incerto-optionality.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-optionality.md`; no page is scheduled.
 
 Former scope (inactive): An option with costs or constraints need not be beneficial in every model.
 
@@ -957,28 +1123,34 @@ Historical prerequisites (inactive): [c-asymmetric-payoffs](#c-asymmetric-payoff
 
 ## Conditional lifetime and Lindy models (`c-lindy`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Home: `content/incerto-lindy.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
-Retained reservation: `content/incerto-lindy.md`. No page, milestone or deliverable is scheduled.
+Explain the specified absorbing-barrier model, survival conditioning and drift assumptions in v4 chapter 23. Distinguish this process from a Pareto lifetime formula; no universal age law or historical longevity claim.
 
-Former scope (inactive): A selected lifetime model does not establish a universal age law.
+Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
 
-Former evidence candidates (inactive):
+Lean `skipped-for-now` for continuous-time absorption and drift-change claims: Pinned stochastic-calculus library support has not been established; this does not block teaching or simulations.
 
-- **empirical:** Historical longevity claims need censoring and cohort analysis.
-- **lean-verifiable:** Pareto conditional-life formulas have explicit moment conditions.
+- **numeric-demo:** Bounded repeated paths compare survival, distance from absorption and drift, with censoring and grid effects explicit.
+- **lean-verifiable:** Exact finite-state absorption or scoped conditional-survival identities are candidates; continuous-time passage results require a separate feasibility audit.
 
-Coverage: No existing page; the reserved path is retained only for stable references. No deliverable is scheduled.
+Coverage: Reactivated at a technical scope from v4 chapter 23; no existing page, simulation or checked Lean.
 
-Historical prerequisites (inactive): [c-pareto-moments](#c-pareto-moments), [c-survivorship](#c-survivorship).
+Prerequisites: [c-ruin](#c-ruin), [c-pareto-moments](#c-pareto-moments).
+
+Technical source mappings: [SCoFT v4 ch. 23](inventory.md#scft-v4-ch23).
+
+Chapter chunks: `scft-v4-ch23`.
 
 <a id="c-agency"></a>
 
 ## Agency, incentives, and risk transfer (`c-agency`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-max`.
 
-Retained reservation: `content/incerto-agency.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-agency.md`; no page is scheduled.
 
 Former scope (inactive): State who bears losses, observes actions, and can leave.
 
@@ -996,9 +1168,11 @@ Historical prerequisites (inactive): [c-asymmetric-payoffs](#c-asymmetric-payoff
 
 ## Threshold preferences and collective outcomes (`c-minority-rule`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-minority-rule.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-minority-rule.md`; no page is scheduled.
 
 Former scope (inactive): Do not infer a universal sociological law from a threshold toy model.
 
@@ -1015,9 +1189,11 @@ Historical prerequisites (inactive): [c-path-dependence](#c-path-dependence).
 
 ## Commitment, signals, and revealed preferences (`c-costly-signals`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-max`.
 
-Retained reservation: `content/incerto-costly-signals.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-costly-signals.md`; no page is scheduled.
 
 Former scope (inactive): Separate an equilibrium calculation from claims about real motives.
 
@@ -1034,9 +1210,11 @@ Historical prerequisites (inactive): [c-agency](#c-agency).
 
 ## Inequality, mobility, and population definitions (`c-inequality-mobility`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-inequality-mobility.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-inequality-mobility.md`; no page is scheduled.
 
 Former scope (inactive): Fix units, population entry/exit, and observation windows.
 
@@ -1053,9 +1231,11 @@ Historical prerequisites (inactive): [c-path-dependence](#c-path-dependence).
 
 ## Reciprocity, responsibility, and professional ethics (`c-ethics`)
 
-Status: **out-of-scope**. Reason: Interpretive, ethical or behavioral coverage is outside the mathematical completion scope, including contextual associations in technical sources.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-ethics.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Interpretive, ethical or behavioral coverage is outside the mathematical completion scope, including contextual associations in technical sources.
+
+Retained reservation: `content/incerto-ethics.md`; no page is scheduled.
 
 Former scope (inactive): A formal payoff model cannot verify a moral conclusion.
 
@@ -1067,13 +1247,17 @@ Coverage: No existing page; the reserved path is retained only for stable refere
 
 Historical prerequisites (inactive): [c-agency](#c-agency).
 
+Technical source mappings (context only): [`paper-precaution`](inventory.md#paper-precaution).
+
 <a id="c-rationality"></a>
 
 ## Rationality as an explicit decision criterion (`c-rationality`)
 
-Status: **out-of-scope**. Reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+Status: **out-of-scope**. No milestone or deliverables. Former lead: `astra-xhigh`.
 
-Retained reservation: `content/incerto-rationality.md`. No page, milestone or deliverable is scheduled.
+Exclusion reason: Mapped only to the five excluded non-technical books; no technical-source mathematical deliverable is currently selected.
+
+Retained reservation: `content/incerto-rationality.md`; no page is scheduled.
 
 Former scope (inactive): State the criterion and information set before calling an action rational.
 
@@ -1090,7 +1274,7 @@ Historical prerequisites (inactive): none within this inventory.
 
 ## Ruin and repeated exposure (`c-ruin`)
 
-Home: `content/incerto-ruin.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-ruin.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 No almost-sure ruin claim from unspecified dependence or a merely positive time-varying hazard.
 
@@ -1103,11 +1287,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: none within this inventory.
 
+Technical source mappings: [SCoFT v4 ch. 3](inventory.md#scft-v4-ch03), [`paper-precaution`](inventory.md#paper-precaution).
+
+Chapter chunks: `scft-v4-ch03`.
+
 <a id="c-ergodicity"></a>
 
 ## Time averages and ensemble averages (`c-ergodicity`)
 
-Home: `content/incerto-ergodicity.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-ergodicity.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Separate ergodic theorems, absorbing ruin, and a chosen growth objective.
 
@@ -1120,11 +1308,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-ruin](#c-ruin).
 
+Technical source mappings: [SCoFT v4 appendix C](inventory.md#scft-v4-appc).
+
+Chapter chunks: `scft-v4-ch07`.
+
 <a id="c-moment-estimation"></a>
 
 ## Moment-estimation failure (`c-moment-estimation`)
 
-Home: `content/incerto-moment-estimation.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-moment-estimation.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Start with Pareto regimes and the existing plug-in singularity; no universal estimator ranking.
 
@@ -1137,11 +1329,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments), [c-plugin](#c-plugin).
 
+Technical source mappings: [SCoFT v4 ch. 4](inventory.md#scft-v4-ch04), [SCoFT v4 ch. 28](inventory.md#scft-v4-ch28), [`paper-kappa`](inventory.md#paper-kappa).
+
+Chapter chunks: `scft-v4-ch04`, `scft-v4-ch08`, `scft-v4-ch28`.
+
 <a id="c-inference-asymmetry"></a>
 
 ## Finite-sample evidence and tail non-identification (`c-inference-asymmetry`)
 
-Home: `content/incerto-inference-asymmetry.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-inference-asymmetry.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Quantify sample size, contamination probability, distance, and the moment that differs.
 
@@ -1154,13 +1350,17 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-exceedances](#c-exceedances), [c-moment-estimation](#c-moment-estimation).
 
+Technical source mappings: [SCoFT v4 ch. 3](inventory.md#scft-v4-ch03).
+
+Chapter chunks: `scft-v4-ch03`.
+
 <a id="c-cauchy-running"></a>
 
 ## Cauchy running statistics (`c-cauchy-running`)
 
-Home: `content/incerto-cauchy-running.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-cauchy-running.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
-Synthetic experiment only; the legacy Chapter 4 locator needs edition reconciliation.
+Bounded-runtime synthetic experiment with repeated Cauchy paths; attach to v4 chapter 7 (sections 7.2.1 and 7.6). The legacy Chapter 4 label was incorrect; no population-moment inference from finite machine outputs.
 
 Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
 
@@ -1171,11 +1371,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-stable-clt](#c-stable-clt), [c-lln-failure](#c-lln-failure).
 
+Technical source mappings: [SCoFT v4 ch. 7](inventory.md#scft-v4-ch07).
+
+Chapter chunks: `scft-v4-ch07`.
+
 <a id="c-mixture-uncertainty"></a>
 
 ## Parameter mixtures and recursive uncertainty (`c-mixture-uncertainty`)
 
-Home: `content/incerto-mixture-uncertainty.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-mixture-uncertainty.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Reuse Normix mixture definitions; a recursive construction needs an explicit limiting model.
 
@@ -1188,11 +1392,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments).
 
+Technical source mappings: [SCoFT v4 ch. 4](inventory.md#scft-v4-ch04), [SCoFT v4 ch. 20](inventory.md#scft-v4-ch20), [SCoFT v4 appendix C](inventory.md#scft-v4-appc).
+
+Chapter chunks: `scft-v4-ch04`, `scft-v4-ch07`, `scft-v4-ch20`.
+
 <a id="c-multivariate-tails"></a>
 
 ## Multivariate tails and dependence summaries (`c-multivariate-tails`)
 
-Home: `content/incerto-multivariate-tails.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-multivariate-tails.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 PCA and covariance interpretations require moments; mutual information needs its own existence checks.
 
@@ -1205,11 +1413,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-tail-geometry](#c-tail-geometry), [c-mixture-uncertainty](#c-mixture-uncertainty).
 
+Technical source mappings: [SCoFT v4 ch. 6](inventory.md#scft-v4-ch06), [SCoFT v4 ch. 29](inventory.md#scft-v4-ch29).
+
+Chapter chunks: `scft-v4-ch06`, `scft-v4-ch29`.
+
 <a id="c-kappa"></a>
 
 ## Finite-sum concentration metric (`c-kappa`)
 
-Home: `content/incerto-kappa.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-kappa.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Do not extend the metric to undefined moments or claim a universal sample-size guarantee.
 
@@ -1222,11 +1434,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments), [c-stable-clt](#c-stable-clt).
 
+Technical source mappings: [SCoFT v4 ch. 8](inventory.md#scft-v4-ch08), [`paper-kappa`](inventory.md#paper-kappa).
+
+Chapter chunks: `scft-v4-ch08`.
+
 <a id="c-sp500"></a>
 
 ## Equity-return tail study (`c-sp500`)
 
-Home: `content/incerto-sp500.md` (proposed). Status: **todo**. Milestone: **M3**. Lead: `astra-xhigh`.
+Home: `content/incerto-sp500.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-xhigh`.
 
 Record price adjustments, sampling interval, nonstationarity, dependence, and data rights.
 
@@ -1240,11 +1456,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-threshold](#c-threshold), [c-moment-estimation](#c-moment-estimation).
 
+Technical source mappings: [SCoFT v4 ch. 10](inventory.md#scft-v4-ch10).
+
+Chapter chunks: `scft-v4-ch10`.
+
 <a id="c-calibration-payoff"></a>
 
 ## Probability calibration versus payoff accuracy (`c-calibration-payoff`)
 
-Home: `content/incerto-calibration-payoff.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-calibration-payoff.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 A calibrated event forecast need not estimate an unbounded payoff well.
 
@@ -1257,11 +1477,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-asymmetric-payoffs](#c-asymmetric-payoffs), [c-moment-estimation](#c-moment-estimation).
 
+Technical source mappings: [SCoFT v4 ch. 11](inventory.md#scft-v4-ch11), [SCoFT v4 ch. 13](inventory.md#scft-v4-ch13).
+
+Chapter chunks: `scft-v4-ch11`, `scft-v4-ch13`.
+
 <a id="c-forecast-martingale"></a>
 
 ## Forecast updating and martingale constraints (`c-forecast-martingale`)
 
-Home: `content/incerto-forecast-martingale.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-forecast-martingale.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Changing information sets or forecasting systems can break a naive empirical comparison.
 
@@ -1275,11 +1499,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-calibration-payoff](#c-calibration-payoff).
 
+Technical source mappings: [SCoFT v4 ch. 14](inventory.md#scft-v4-ch14).
+
+Chapter chunks: `scft-v4-ch14`.
+
 <a id="c-gini"></a>
 
 ## Gini estimation with heavy tails (`c-gini`)
 
-Home: `content/incerto-gini.md` (proposed). Status: **todo**. Milestone: **M3**. Lead: `astra-max`.
+Home: `content/incerto-gini.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Infinite variance and infinite mean are different regimes. Define the measured population and nonnegative observations locally; no mobility or social-interpretation note is required.
 
@@ -1293,11 +1521,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments).
 
+Technical source mappings: [SCoFT v4 ch. 15](inventory.md#scft-v4-ch15), [`paper-gini`](inventory.md#paper-gini).
+
+Chapter chunks: `scft-v4-ch15`.
+
 <a id="c-quantile-share"></a>
 
 ## Quantile contributions and aggregation bias (`c-quantile-share`)
 
-Home: `content/incerto-quantile-share.md` (proposed). Status: **todo**. Milestone: **M3**. Lead: `astra-max`.
+Home: `content/incerto-quantile-share.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Check the assumptions behind any super-additivity claim.
 
@@ -1310,13 +1542,17 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments).
 
+Technical source mappings: [SCoFT v4 ch. 16](inventory.md#scft-v4-ch16), [`paper-quantile`](inventory.md#paper-quantile).
+
+Chapter chunks: `scft-v4-ch16`.
+
 <a id="c-shadow-mean"></a>
 
 ## Bounded-tail transformations and shadow moments (`c-shadow-mean`)
 
-Home: `content/incerto-shadow-mean.md` (proposed). Status: **todo**. Milestone: **M3**. Lead: `astra-max`.
+Home: `content/incerto-shadow-mean.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
-Keep the physical upper bound and model uncertainty explicit; scope remains an owner decision.
+Approved first scope: bounded invertible transform, physical upper bound and assumptions; show sensitivity to endpoint, threshold and fitted parameters. Historical conflict estimates belong to the separate chapter 18 study.
 
 Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
 
@@ -1327,11 +1563,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-gpd](#c-gpd), [c-mean-excess](#c-mean-excess).
 
+Technical source mappings: [SCoFT v4 ch. 17](inventory.md#scft-v4-ch17), [SCoFT v4 ch. 19](inventory.md#scft-v4-ch19), [`paper-conflicts`](inventory.md#paper-conflicts), [`paper-diseases`](inventory.md#paper-diseases).
+
+Chapter chunks: `scft-v4-ch17`, `scft-v4-ch18`, `scft-v4-ch19`.
+
 <a id="c-conflict-study"></a>
 
 ## Historical conflict severity study (`c-conflict-study`)
 
-Home: `content/incerto-conflict-study.md` (proposed). Status: **todo**. Milestone: **M3**. Lead: `astra-xhigh`.
+Home: `content/incerto-conflict-study.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-xhigh`.
 
 Do not treat uncertain historical counts as iid measurements or equate tail fit with a trend conclusion.
 
@@ -1345,11 +1585,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-shadow-mean](#c-shadow-mean), [c-threshold](#c-threshold).
 
+Technical source mappings: [SCoFT v4 ch. 18](inventory.md#scft-v4-ch18), [SCoFT v4 appendix H](inventory.md#scft-v4-apph), [`paper-conflicts`](inventory.md#paper-conflicts).
+
+Chapter chunks: `scft-v4-ch18`.
+
 <a id="c-disease-study"></a>
 
 ## Historical epidemic severity study (`c-disease-study`)
 
-Home: `content/incerto-disease-study.md` (proposed). Status: **todo**. Milestone: **M3**. Lead: `astra-xhigh`.
+Home: `content/incerto-disease-study.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-xhigh`.
 
 Study historical severity distributions; no clinical or public-health policy claim follows from the tail fit alone.
 
@@ -1363,11 +1607,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-shadow-mean](#c-shadow-mean), [c-threshold](#c-threshold).
 
+Technical source mappings: [SCoFT v4 ch. 19](inventory.md#scft-v4-ch19), [`paper-diseases`](inventory.md#paper-diseases), [`paper-diseases-comment`](inventory.md#paper-diseases-comment).
+
+Chapter chunks: `scft-v4-ch19`.
+
 <a id="c-random-alpha"></a>
 
 ## Random tail exponents (`c-random-alpha`)
 
-Home: `content/incerto-random-alpha.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-random-alpha.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 The mixing law and its support near zero control the result.
 
@@ -1380,11 +1628,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-regular-variation](#c-regular-variation), [c-mixture-uncertainty](#c-mixture-uncertainty).
 
+Technical source mappings: [SCoFT v4 ch. 21](inventory.md#scft-v4-ch21), [`paper-alpha`](inventory.md#paper-alpha).
+
+Chapter chunks: `scft-v4-ch21`.
+
 <a id="c-pvalues"></a>
 
 ## P-value variability and selection (`c-pvalues`)
 
-Home: `content/incerto-pvalues.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-pvalues.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 A p-value is not a posterior probability; distinguish variability from invalid calibration.
 
@@ -1397,11 +1649,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-multiple-testing](#c-multiple-testing).
 
+Technical source mappings: [SCoFT v4 ch. 22](inventory.md#scft-v4-ch22).
+
+Chapter chunks: `scft-v4-ch22`.
+
 <a id="c-maximum-entropy"></a>
 
 ## Tail constraints and maximum entropy (`c-maximum-entropy`)
 
-Home: `content/incerto-maximum-entropy.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-maximum-entropy.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Use IG exponential-family definitions; a formal optimum does not validate chosen constraints.
 
@@ -1414,11 +1670,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: none within this inventory.
 
+Technical source mappings: [SCoFT v4 ch. 30](inventory.md#scft-v4-ch30), [SCoFT v4 appendix B](inventory.md#scft-v4-appb), [`paper-entropy`](inventory.md#paper-entropy).
+
+Chapter chunks: `scft-v4-ch05`, `scft-v4-ch30`.
+
 <a id="c-point-forecast"></a>
 
 ## Point forecasts under heavy-tailed losses (`c-point-forecast`)
 
-Home: `content/incerto-point-forecast.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-point-forecast.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Specify median/mean/quantile targets and what happens when expected loss is infinite.
 
@@ -1431,11 +1691,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments), [c-calibration-payoff](#c-calibration-payoff).
 
+Technical source mappings: [SCoFT v4 ch. 11](inventory.md#scft-v4-ch11), [SCoFT v4 ch. 12](inventory.md#scft-v4-ch12), [`paper-point-forecast`](inventory.md#paper-point-forecast).
+
+Chapter chunks: `scft-v4-ch11`, `scft-v4-ch12`.
+
 <a id="c-ml-econometrics"></a>
 
 ## Tail assumptions in statistical pipelines (`c-ml-econometrics`)
 
-Home: `content/incerto-ml-econometrics.md` (proposed). Status: **todo**. Milestone: **M3**. Lead: `astra-xhigh`.
+Home: `content/incerto-ml-econometrics.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-xhigh`.
 
 No blanket rejection of econometrics, machine learning, or behavioral economics.
 
@@ -1450,11 +1714,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-moment-estimation](#c-moment-estimation), [c-multiple-testing](#c-multiple-testing).
 
+Technical source mappings: [SCoFT v4 appendix F](inventory.md#scft-v4-appf), [SCoFT v4 appendix G](inventory.md#scft-v4-appg), [SCoFT v4 appendix I](inventory.md#scft-v4-appi).
+
+Chapter chunks: `scft-v4-ch10`, `scft-v4-ch22`.
+
 <a id="c-payoff-algebra"></a>
 
 ## Option and forward payoff algebra (`c-payoff-algebra`)
 
-Home: `content/incerto-payoff-algebra.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-max`.
+Home: `content/incerto-payoff-algebra.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
 
 Start with European terminal payoffs and explicit financing conventions.
 
@@ -1467,11 +1735,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-asymmetric-payoffs](#c-asymmetric-payoffs).
 
+Technical source mappings: [DH ch. 1](inventory.md#dh-ch01), [DH ch. 2](inventory.md#dh-ch02), [DH module F](inventory.md#dh-modf).
+
+Chapter chunks: `dh-ch01`, `dh-ch02`, `dh-ch05`.
+
 <a id="c-arbitrage"></a>
 
 ## Finite-state arbitrage and price bounds (`c-arbitrage`)
 
-Home: `content/incerto-arbitrage.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-max`.
+Home: `content/incerto-arbitrage.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
 
 Separate terminal payoff identities from trading admissibility and market completeness.
 
@@ -1484,11 +1756,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-payoff-algebra](#c-payoff-algebra).
 
+Technical source mappings: [DH ch. 5](inventory.md#dh-ch05), [DH module F](inventory.md#dh-modf).
+
+Chapter chunks: `dh-ch05`.
+
 <a id="c-market-making"></a>
 
 ## Market making and inventory exposure (`c-market-making`)
 
-Home: `content/incerto-market-making.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-xhigh`.
+Home: `content/incerto-market-making.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-xhigh`.
 
 Account for adverse selection and fill assumptions.
 
@@ -1503,11 +1779,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-payoff-algebra](#c-payoff-algebra).
 
+Technical source mappings: [DH ch. 3](inventory.md#dh-ch03), [DH ch. 13](inventory.md#dh-ch13).
+
+Chapter chunks: `dh-ch03`, `dh-ch13`.
+
 <a id="c-liquidity"></a>
 
 ## Liquidity gaps and hedge execution (`c-liquidity`)
 
-Home: `content/incerto-liquidity.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-xhigh`.
+Home: `content/incerto-liquidity.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-xhigh`.
 
 A continuous-path replication theorem does not cover discontinuous execution.
 
@@ -1522,11 +1802,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-market-making](#c-market-making).
 
+Technical source mappings: [DH ch. 4](inventory.md#dh-ch04), [DH ch. 13](inventory.md#dh-ch13).
+
+Chapter chunks: `dh-ch04`, `dh-ch13`.
+
 <a id="c-volatility-surface"></a>
 
 ## Volatility, correlation, and surface conventions (`c-volatility-surface`)
 
-Home: `content/incerto-volatility-surface.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-xhigh`.
+Home: `content/incerto-volatility-surface.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-xhigh`.
 
 Distinguish realized, implied, local, and stochastic volatility.
 
@@ -1541,11 +1825,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-payoff-algebra](#c-payoff-algebra).
 
+Technical source mappings: [DH ch. 6](inventory.md#dh-ch06), [DH ch. 9](inventory.md#dh-ch09).
+
+Chapter chunks: `dh-ch06`, `dh-ch09`.
+
 <a id="c-greeks"></a>
 
 ## Delta, gamma, vega, theta, and mixed sensitivities (`c-greeks`)
 
-Home: `content/incerto-greeks.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-max`.
+Home: `content/incerto-greeks.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
 
 Keep Greek notation local and distinguish derivative exposure from realized hedge P&L.
 
@@ -1558,11 +1846,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-payoff-algebra](#c-payoff-algebra), [c-jensen](#c-jensen).
 
+Technical source mappings: [DH ch. 7](inventory.md#dh-ch07), [DH ch. 8](inventory.md#dh-ch08), [DH ch. 9](inventory.md#dh-ch09), [DH ch. 10](inventory.md#dh-ch10), [DH ch. 11](inventory.md#dh-ch11).
+
+Chapter chunks: `dh-ch07`, `dh-ch08`, `dh-ch09`, `dh-ch10`, `dh-ch11`.
+
 <a id="c-hedging-error"></a>
 
 ## Discrete hedging and joint Greek exposure (`c-hedging-error`)
 
-Home: `content/incerto-hedging-error.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-max`.
+Home: `content/incerto-hedging-error.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Specify self-financing, funding, rebalancing, and transaction conventions.
 
@@ -1577,11 +1869,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-greeks](#c-greeks), [c-liquidity](#c-liquidity).
 
+Technical source mappings: [SCoFT v4 ch. 26](inventory.md#scft-v4-ch26), [DH ch. 11](inventory.md#dh-ch11), [DH ch. 16](inventory.md#dh-ch16), [DH ch. 20](inventory.md#dh-ch20).
+
+Chapter chunks: `scft-v4-ch26`, `dh-ch11`, `dh-ch16`, `dh-ch20`.
+
 <a id="c-basis-buckets"></a>
 
 ## Basis, fungibility, and risk buckets (`c-basis-buckets`)
 
-Home: `content/incerto-basis-buckets.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-max`.
+Home: `content/incerto-basis-buckets.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
 
 Netting exposures across mismatched maturities or instruments leaves basis risk.
 
@@ -1594,11 +1890,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-greeks](#c-greeks).
 
+Technical source mappings: [DH ch. 12](inventory.md#dh-ch12), [DH ch. 14](inventory.md#dh-ch14).
+
+Chapter chunks: `dh-ch12`, `dh-ch14`.
+
 <a id="c-model-risk"></a>
 
 ## Pricing-model and distribution risk (`c-model-risk`)
 
-Home: `content/incerto-model-risk.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-xhigh`.
+Home: `content/incerto-model-risk.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-xhigh`.
 
 Agreement on several prices need not determine the full terminal distribution. Specify the compared model families locally; no interpretive model-uncertainty note is required.
 
@@ -1612,11 +1912,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-volatility-surface](#c-volatility-surface).
 
+Technical source mappings: [SCoFT v4 ch. 24](inventory.md#scft-v4-ch24), [SCoFT v4 ch. 26](inventory.md#scft-v4-ch26), [DH ch. 15](inventory.md#dh-ch15), [DH ch. 16](inventory.md#dh-ch16), [DH preface and introductory material](inventory.md#dh-opening).
+
+Chapter chunks: `scft-v4-ch24`, `scft-v4-ch26`, `dh-ch01`, `dh-ch15`, `dh-ch16`.
+
 <a id="c-digitals"></a>
 
 ## European and American digital options (`c-digitals`)
 
-Home: `content/incerto-digitals.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-max`.
+Home: `content/incerto-digitals.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
 
 Separate terminal indicators from first-passage events.
 
@@ -1631,11 +1935,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-payoff-algebra](#c-payoff-algebra).
 
+Technical source mappings: [DH ch. 17](inventory.md#dh-ch17), [DH ch. 18](inventory.md#dh-ch18).
+
+Chapter chunks: `dh-ch17`, `dh-ch18`.
+
 <a id="c-barriers"></a>
 
 ## Barrier contracts and monitoring (`c-barriers`)
 
-Home: `content/incerto-barriers.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-max`.
+Home: `content/incerto-barriers.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
 
 Specify inclusive boundaries, rebate timing, and continuous versus discrete monitoring.
 
@@ -1650,11 +1958,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-digitals](#c-digitals), [c-hedging-error](#c-hedging-error).
 
+Technical source mappings: [DH ch. 19](inventory.md#dh-ch19), [DH ch. 20](inventory.md#dh-ch20), [DH module G](inventory.md#dh-modg).
+
+Chapter chunks: `dh-ch16`, `dh-ch19`, `dh-ch20`.
+
 <a id="c-compound-options"></a>
 
 ## Compound and chooser options (`c-compound-options`)
 
-Home: `content/incerto-compound-options.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-max`.
+Home: `content/incerto-compound-options.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
 
 Exercise timing and information sets determine the payoff.
 
@@ -1667,11 +1979,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-payoff-algebra](#c-payoff-algebra).
 
+Technical source mappings: [DH ch. 21](inventory.md#dh-ch21).
+
+Chapter chunks: `dh-ch21`.
+
 <a id="c-multiasset-options"></a>
 
 ## Multi-asset payoff dependence (`c-multiasset-options`)
 
-Home: `content/incerto-multiasset-options.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-max`.
+Home: `content/incerto-multiasset-options.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
 
 A scalar correlation does not determine all nonlinear joint payoffs.
 
@@ -1684,11 +2000,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-payoff-algebra](#c-payoff-algebra), [c-multivariate-tails](#c-multivariate-tails).
 
+Technical source mappings: [DH ch. 22](inventory.md#dh-ch22).
+
+Chapter chunks: `dh-ch22`.
+
 <a id="c-path-options"></a>
 
 ## Asian and lookback path functionals (`c-path-options`)
 
-Home: `content/incerto-path-options.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-max`.
+Home: `content/incerto-path-options.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
 
 Separate a finite average or maximum from a continuous-time functional.
 
@@ -1703,13 +2023,17 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-payoff-algebra](#c-payoff-algebra).
 
+Technical source mappings: [DH ch. 23](inventory.md#dh-ch23).
+
+Chapter chunks: `dh-ch23`.
+
 <a id="c-brownian"></a>
 
 ## Brownian simulation and discretization (`c-brownian`)
 
-Home: `content/incerto-brownian.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-max`.
+Home: `content/incerto-brownian.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
 
-Teach Brownian definitions and distributional properties, then illustrate declared discretizations. A finite random-walk simulation does not prove a Brownian theorem.
+Brownian definitions and increment properties only as needed to explain Dynamic Hedging; bounded simulations and grid checks. A finite random walk does not prove a Brownian theorem.
 
 Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`).
 
@@ -1722,11 +2046,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: none within this inventory.
 
+Technical source mappings: [DH module A](inventory.md#dh-moda).
+
+Chapter chunks: `dh-ch07`.
+
 <a id="c-pricing-measures"></a>
 
 ## Pricing measures and incomplete markets (`c-pricing-measures`)
 
-Home: `content/incerto-pricing-measures.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-max`.
+Home: `content/incerto-pricing-measures.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 A forward-mean constraint alone does not identify a unique risk-neutral distribution.
 
@@ -1741,13 +2069,17 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-arbitrage](#c-arbitrage).
 
+Technical source mappings: [SCoFT v4 ch. 25](inventory.md#scft-v4-ch25), [DH module B](inventory.md#dh-modb), [`paper-pricing`](inventory.md#paper-pricing).
+
+Chapter chunks: `scft-v4-ch25`, `dh-ch05`.
+
 <a id="c-numeraire"></a>
 
 ## Numeraire changes and relative prices (`c-numeraire`)
 
-Home: `content/incerto-numeraire.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-max`.
+Home: `content/incerto-numeraire.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
-Teach finite-state and continuous-time numeraire changes with positive numeraires, normalization and measure assumptions; give numerical worked cases. Lean candidates cover exact finite-state identities only.
+Positive numeraires, normalization and finite-state measure-change identities, plus only the continuous-time basics needed for Dynamic Hedging examples. Numerical worked cases remain required; Lean candidates are exact finite-state identities only.
 
 Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
 
@@ -1760,11 +2092,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-pricing-measures](#c-pricing-measures).
 
+Technical source mappings: [SCoFT v4 ch. 28](inventory.md#scft-v4-ch28), [DH module C](inventory.md#dh-modc).
+
+Chapter chunks: `scft-v4-ch28`, `dh-ch16`.
+
 <a id="c-correlation-constraints"></a>
 
 ## Feasible correlation matrices (`c-correlation-constraints`)
 
-Home: `content/incerto-correlation-constraints.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-max`.
+Home: `content/incerto-correlation-constraints.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Finite second moments and consistent normalization are required.
 
@@ -1777,11 +2113,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: none within this inventory.
 
+Technical source mappings: [SCoFT v4 ch. 29](inventory.md#scft-v4-ch29), [DH ch. 6](inventory.md#dh-ch06), [DH module D](inventory.md#dh-modd).
+
+Chapter chunks: `scft-v4-ch29`, `dh-ch06`.
+
 <a id="c-risk-measures"></a>
 
 ## VaR, expected shortfall, and model limits (`c-risk-measures`)
 
-Home: `content/incerto-risk-measures.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-max`.
+Home: `content/incerto-risk-measures.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Expected shortfall may be infinite; VaR subadditivity needs conditions.
 
@@ -1794,13 +2134,17 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments).
 
+Technical source mappings: [SCoFT v4 ch. 13](inventory.md#scft-v4-ch13), [SCoFT v4 ch. 28](inventory.md#scft-v4-ch28), [SCoFT v4 ch. 29](inventory.md#scft-v4-ch29), [DH module E](inventory.md#dh-mode).
+
+Chapter chunks: `scft-v4-ch13`, `scft-v4-ch28`, `scft-v4-ch29`, `dh-ch15`.
+
 <a id="c-stochastic-pricing"></a>
 
 ## Ito calculus and continuous-time pricing (`c-stochastic-pricing`)
 
-Home: `content/incerto-stochastic-pricing.md` (proposed). Status: **todo**. Milestone: **M4**. Lead: `astra-max`.
+Home: `content/incerto-stochastic-pricing.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
-Teach Ito calculus and continuous-time pricing with explicit model, admissibility and analytic assumptions; provide numerical worked cases and convergence diagnostics. Lean is skipped-for-now pending library support.
+Ito formula, diffusion pricing and hedge-error basics only as needed to explain Dynamic Hedging concepts, with stated assumptions and bounded numerical cases. No standalone advanced stochastic-calculus development; Lean remains optional and skipped pending support.
 
 Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`).
 
@@ -1813,11 +2157,15 @@ Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-brownian](#c-brownian), [c-pricing-measures](#c-pricing-measures), [c-hedging-error](#c-hedging-error).
 
+Technical source mappings: [SCoFT v4 ch. 24](inventory.md#scft-v4-ch24), [DH module G](inventory.md#dh-modg).
+
+Chapter chunks: `scft-v4-ch24`, `dh-ch16`.
+
 <a id="c-power-option"></a>
 
 ## Option tails under power laws (`c-power-option`)
 
-Home: `content/incerto-power-option.md` (proposed). Status: **todo**. Milestone: **M2**. Lead: `astra-max`.
+Home: `content/incerto-power-option.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
 
 Specify pricing measure, tail regime, and finite call-price condition.
 
@@ -1829,3 +2177,49 @@ Deliverables: website math (required) → Python (required) → Lean (optional; 
 Coverage: Proposed original note; path is reserved in this plan only.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments), [c-pricing-measures](#c-pricing-measures).
+
+Technical source mappings: [SCoFT v4 ch. 27](inventory.md#scft-v4-ch27), [`paper-option-tail`](inventory.md#paper-option-tail).
+
+Chapter chunks: `scft-v4-ch27`.
+
+<a id="c-probability-conflation"></a>
+
+## Tail probabilities, expectations and parameter uncertainty (`c-probability-conflation`)
+
+Home: `content/incerto-probability-conflation.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+
+Scope the chapter 13 probability-versus-expectation and error-propagation claims with explicit distributions and integrability. Chapter 11 owns the basic calibration distinction; no assertion about individual forecasters follows from a model example.
+
+Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+
+- **numeric-demo:** Compare probability and tail-expectation sensitivity on identical parameter grids; report moment boundaries.
+- **lean-verifiable:** Specified probability and tail-expectation comparisons admit exact declarations after the source hypotheses are checked.
+
+Coverage: Proposed original note; path is reserved in this plan only.
+
+Prerequisites: [c-calibration-payoff](#c-calibration-payoff), [c-point-forecast](#c-point-forecast).
+
+Technical source mappings: [SCoFT v4 ch. 13](inventory.md#scft-v4-ch13), [`paper-probability-conflation`](inventory.md#paper-probability-conflation).
+
+Chapter chunks: `scft-v4-ch13`.
+
+<a id="c-portfolio-tail-dependence"></a>
+
+## Portfolio losses beyond correlation (`c-portfolio-tail-dependence`)
+
+Home: `content/incerto-portfolio-tail-dependence.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+
+Compare specified portfolio loss laws with similar correlation summaries but different joint-tail exposure. Separate finite-moment assumptions, simulation evidence and historical allocation claims; no investment prescription.
+
+Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+
+- **numeric-demo:** Stress fixed allocations under declared marginals and dependence models; retain reproducible seeds and uncertainty summaries.
+- **lean-verifiable:** Finite joint-distribution examples can separate correlation constraints from nonlinear loss and tail-event probabilities.
+
+Coverage: Proposed original note; path is reserved in this plan only.
+
+Prerequisites: [c-multivariate-tails](#c-multivariate-tails), [c-correlation-constraints](#c-correlation-constraints), [c-risk-measures](#c-risk-measures).
+
+Technical source mappings: [SCoFT v4 ch. 29](inventory.md#scft-v4-ch29), [`paper-portfolio-correlation`](inventory.md#paper-portfolio-correlation).
+
+Chapter chunks: `scft-v4-ch29`.
