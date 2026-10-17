@@ -62,6 +62,26 @@ downloads, and assets. When compatibility updates are in scope, overlay the
 generator's output using the [cutover runbook](../../../docs/plan/phase-4-cutover-runbook.md)
 and retain its rollback artifacts. Do not hand-author compatibility pages.
 
+For compatibility updates, also stage retained-page repairs from the fresh hub
+clone. From this repository, after generating compatibility pages:
+
+```bash
+set -e
+python3 scripts/repair_legacy_mirror.py --mirror /workspace/xshi19.github.io/incerto-wiki
+rsync -a _build/legacy/incerto-wiki/ /workspace/xshi19.github.io/incerto-wiki/
+rsync -a _build/legacy/retained-repair/incerto-wiki/ /workspace/xshi19.github.io/incerto-wiki/
+python3 scripts/repair_legacy_mirror.py --mirror /workspace/xshi19.github.io/incerto-wiki --check
+```
+
+Stop if repair fails. Only the two exact pre-existing graph-asset pairs in
+`repair_legacy_mirror.py` are allowed as `KNOWN GAP` warnings; any other missing
+non-runtime asset is an error. Review known gaps and stale allowance warnings.
+The repair output contains only affected retained HTML and must be overlaid
+without `--delete`. It preserves existing URLs and rendered content while
+removing broken Remix hydration.
+See the [repair record](../../../docs/records/phase-5-legacy-mirror-repair.md)
+for local results and publication status.
+
 Review and commit/publish the hub change separately. Do not run the transfer
 unless the user asked to refresh the live hub artifact.
 
@@ -71,5 +91,7 @@ unless the user asked to refresh the live hub artifact.
 - Hub transfer, if any, names source and destination paths.
 - The legacy mirror, compatibility pages, and rollback artifacts are preserved;
   unresolved mappings are reported, not silently removed.
+- For compatibility updates, the retained-page repair overlay is applied and
+  `repair_legacy_mirror.py --check` passes against the resulting hub mirror.
 - `/normix/` was not modified.
 - Live Pages verification is reported as not run unless actually performed.
