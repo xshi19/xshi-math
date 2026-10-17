@@ -159,12 +159,12 @@ bias but leave fewer exceedances and more noise.
 
 ## Backlinks
 
-- Depends on: Pickands-Balkema-de Haan Theorem (planned),
+- Depends on: [Pickands-Balkema-de Haan Theorem](./incerto-pickands-balkema-de-haan.md),
   [Generalized Pareto Distribution](./incerto-generalized-pareto.md),
   [Pareto Distribution](./incerto-pareto.md), and threshold notation in
-  Notation (planned).
-- Used by: S&P 500 Tail Diagnostics (planned) and
-  Tail Threshold Selection (planned).
+  [Shared notation](https://xshi19.github.io/math/notation/).
+- Used by: [S&P 500 Tail Diagnostics](./incerto-sp500-tail.md) and
+  [Tail Threshold Selection](./incerto-tail-threshold-selection.md).
 
 ## Source and adaptation
 

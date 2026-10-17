@@ -35,5 +35,4 @@ that this example deliberately leaves unspecified. The
 [Normix sample](https://xshi19.github.io/math/normix-theory/normix-conditioning-a-mixture/) instead starts
 with an explicitly defined random-variable model.
 
-This is an original worked derivation for the foundation, with no imported wiki
-text or external data.
+The calculation uses a fixed synthetic sample; it needs no external data.

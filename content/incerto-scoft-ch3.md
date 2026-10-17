@@ -8,9 +8,8 @@ Chapter 3 of Taleb's *Statistical Consequences of Fat Tails* is a compressed map
 of the book's main statistical claims.  Its reading route connects tail geometry and limit theorems to
 estimation and decisions involving rare losses.
 
-We use this guide as a router.  We point to concept pages for the
-mathematical atoms and mark missing atoms as planned rather than reproducing
-the chapter.
+Follow the concept links for definitions, assumptions, and derivations.
+Topics without a published note are marked as planned.
 
 ## Notation Differences
 
@@ -86,7 +85,7 @@ For consequence 7, the plug-in page makes the comparison precise for independent
 identically distributed exact Pareto observations with a known cutoff. It compares
 asymptotic error scales and explains which error probabilities a simulation
 would assess, without claiming smaller finite-sample mean squared error.
-The linked adaptation does not execute the original simulation. Taleb's
+The linked note gives analytic error scales; it reports no simulation results. Taleb's
 Appendix E.1 conditions a bias-corrected exponent estimate to lie above
 $1+\varepsilon$, for a positive margin $\varepsilon$; that restriction matters
 when interpreting its plug-in comparison [@taleb2020scoft].
@@ -117,14 +116,14 @@ The chapter's epistemology sections argue that absence of observed catastrophe
 is weak evidence under thick tails.  Multiplicative losses and contagion need explicit dependence and exposure
 models; an observed quiet period alone does not establish small tail risk.
 
-Planned concept atoms:
+Topics awaiting dedicated notes:
 
 - Planned Masquerade Problem
 - Planned Probabilistic Veil
 - Planned Multiplicative Risk Scaling
 - Planned Absence of Evidence Under Heavy Tails
 
-These should be written with explicit caveats: the chapter's examples are
+The chapter's examples are
 decision and inference arguments, not proofs of any particular empirical model.
 
 ## 3.7 - Primer on Power Laws
@@ -162,7 +161,7 @@ Existing concept page:
 
 - [Plug-In Tail Estimation](incerto-plug-in-tail-estimation.md)
 
-Planned concept atoms:
+Topics awaiting dedicated notes:
 
 - Planned Shadow Mean; its scope remains separate from plug-in tail estimation.
 - Planned Bayesian Updating Under Heavy Tails
@@ -180,19 +179,19 @@ surviving exposures.  The key wiki bridge is the difference between averaging ac
 trajectory. An absorbing loss barrier changes which future outcomes remain
 available along that trajectory.
 
-Planned concept atoms:
+Topics awaiting dedicated notes:
 
 - Planned Ruin Path Dependence
 - Planned Ensemble vs. Time Probability
 - Planned Fragility and Concavity
 - Planned Precautionary Principle
 
-## Notebook Ports
+## Related calculations
 
-The old notebook is not distributed here. Its mathematical topics map to
-these notes; the missing examples remain planned.
+These notes develop the calculations behind the chapter's examples.
+Topics without a published example are marked as planned.
 
-| Notebook section | Portable wiki artifact |
+| Topic | Related note |
 | --- | --- |
 | Survival-ratio plots for normal, Student-t, and Cauchy | [Survival Tail Ratio](incerto-survival-tail-ratio.md) |
 | Cauchy and normal iso-density plots | [Iso-Density Tail Geometry](incerto-iso-density-tail-geometry.md) |
@@ -200,14 +199,14 @@ these notes; the missing examples remain planned.
 | Heavy-tailed regression error example | Planned OLS Under Heavy Tails |
 | Pre-2008 Sharpe ratio vs 2008 loss scatter | Planned Sharpe Ratio Under Heavy Tails or an empirical finance example |
 
-## Verification Notes
+## Scope and limitations
 
 - We paraphrase Chapter 3 and do not reproduce Taleb's figures or
   source prose.
-- Mathematical claims should move from this guide into concept pages before
-  they are treated as durable wiki results.
-- Current concept pages cover the tail-class atoms needed by this
-  guide; remaining planned atoms are narrower consequence and exposure pages.
+- The linked concept pages state the assumptions and support for the
+  mathematical results used in this guide.
+- The linked notes cover tail classes; some consequence and exposure topics
+  listed above do not yet have dedicated notes.
 
 ## References
 

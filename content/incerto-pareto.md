@@ -132,8 +132,7 @@ an exact power. The heaviest tail has the shallowest line.
 
 The same scaling appears numerically. For a fixed multiplier $t>0$, the
 ratio $\bar F(tx)/\bar F(x)$ depends only on $t$, provided both
-$x\ge x_m$ and $tx\ge x_m$. The identity follows by canceling $(x_m/x)^\alpha$. A Lean formalization
-is planned; this page supplies an ordinary algebraic argument.
+$x\ge x_m$ and $tx\ge x_m$. The identity follows by canceling $(x_m/x)^\alpha$.
 
 (pareto-survival-ratio-check)=
 For example, with $\alpha=1.16$, doubling any threshold in the support
@@ -173,17 +172,22 @@ $$
 X=x_m U^{-1/\alpha},\qquad U\sim\operatorname{Uniform}(0,1).
 $$
 
-When $x_m$ is known and the observations are assumed to be exact Pareto draws,
-the maximum-likelihood estimator is
+When $x_m$ is known and the observations are independent and identically
+distributed exact Pareto draws, the maximum-likelihood estimator is
 
 $$
 \widehat\alpha=\frac{n}{\sum_{i=1}^n\log(X_i/x_m)}.
 $$
 
+This formula requires a positive denominator, which holds almost surely under
+the continuous model. If every observation equals $x_m$, the likelihood has
+no finite maximizer; it increases as $\alpha\to\infty$.
+
 This estimator is not a license to fit an exact Pareto from the sample minimum:
 empirical tail thresholds are rarely known and must be diagnosed separately.
 
-A separate discussion of the two-sided double Pareto model is planned.
+The [symmetric shifted double Pareto model](./incerto-double-pareto.md)
+extends the tail construction to signed observations.
 
 ## Caveats
 
@@ -208,10 +212,10 @@ A separate discussion of the two-sided double Pareto model is planned.
 
 - Generalizes to: [Regular Variation](./incerto-regular-variation.md); moment consequences are covered by
   [Karamata's theorem](./incerto-karamata.md).
-- Used by: Double Pareto Distribution (planned),
+- Used by: [Double Pareto Distribution](./incerto-double-pareto.md),
   [Pareto Moment Existence](./incerto-pareto-moment-existence.md),
-  Pre-Asymptotic LLN Behavior (planned),
-  Max-to-Sum Ratio (planned),
+  [Pre-Asymptotic LLN Behavior](./incerto-lln-preasymptotic.md),
+  [Max-to-Sum Ratio](./incerto-max-to-sum-ratio.md),
   and [Hill Estimator](./incerto-hill-estimator.md).
 
 ## Source and adaptation

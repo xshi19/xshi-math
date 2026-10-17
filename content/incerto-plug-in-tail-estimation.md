@@ -113,7 +113,7 @@ gives a nondegenerate, non-Gaussian $\alpha$-stable limit for
 $n^{1-1/\alpha}(\bar X_n-\mu)$ in this exact Pareto model
 [2007](https://doi.org/10.1007/978-0-387-45024-7). That scale decays more slowly than $n^{-1/2}$.
 Large observations can continue to move sample means in this regime;
-a separate treatment of pre-asymptotic LLN behavior is planned.
+[pre-asymptotic LLN behavior](./incerto-lln-preasymptotic.md) illustrates this effect.
 
 ### Derivation of the Pareto fit and its normal limit
 
@@ -285,17 +285,18 @@ mean to recover by this method.
 - Resnick, *Heavy-Tail Phenomena*: regularly varying tails and stable limits
   [2007](https://doi.org/10.1007/978-0-387-45024-7).
 - Taleb, *Statistical Consequences of Fat Tails*: motivation for estimating
-  functionals through fitted tail parameters [2020](https://arxiv.org/abs/2001.10488). Reading guides are deferred.
+  functionals through fitted tail parameters [2020](https://arxiv.org/abs/2001.10488). See the [SCoFT reading guide](./incerto-scoft-intro.md).
 
 ## Backlinks
 
 - Depends on: [Pareto Distribution](./incerto-pareto.md),
   [Regular Variation](./incerto-regular-variation.md),
   [Hill Estimator](./incerto-hill-estimator.md),
-  Tail Threshold Selection (planned),
+  [Tail Threshold Selection](./incerto-tail-threshold-selection.md),
   [Mean Excess Function](./incerto-mean-excess-function.md), and
   [Pareto Moment Existence](./incerto-pareto-moment-existence.md).
-- Further reading guides are planned.
+- Reading guides: [SCoFT](./incerto-scoft-intro.md) and
+  [external references](./incerto-external-reading.md).
 
 ## Source and adaptation
 

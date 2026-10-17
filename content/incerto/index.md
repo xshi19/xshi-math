@@ -11,7 +11,7 @@ Start with [counting exceedances](../incerto-counting-exceedances.md), an origin
 worked example with a short Python demo. It uses only a finite list and strict
 inequalities; no moment or distributional assumption is needed for the count.
 
-The first imported concept batch develops a path from a distributional model
+The following reading path moves from a distributional model
 to estimates of tail quantities:
 
 1. [Pareto distribution](../incerto-pareto.md) specifies an exact power tail;
@@ -85,7 +85,7 @@ and infinite-mean averages.
 
 The [tail class catalog](../incerto-tail-class-catalog.md) compares regular
 variation and subexponentiality for Pareto, lognormal, Weibull, exponential,
-and gamma examples. Browse all imported concepts through the
+and gamma examples. Browse the concepts through the
 [theorem](../incerto-theorem-concepts.md), [method](../incerto-method-concepts.md),
 and [distribution](../incerto-distribution-concepts.md) indexes. Mixture and
 variance-gamma theory links to the existing Normix notes.

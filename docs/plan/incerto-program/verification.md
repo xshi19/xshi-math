@@ -2,9 +2,11 @@
 
 Baseline: 2026-10-16, revision `998a4a11a17b7ae7ba4c306005a4c8e3109f4392`.
 Owner revisions: 2026-10-17, branch `plan/incerto-program`, PR #24.
-The earlier records below retain their original scope and results. The
-[current v4 chapter-order record](#v4-chapter-order-revision-2026-10-17) applies
-to this working tree; earlier passes do not validate this revision.
+The records below retain their original design scope and results, including
+the [v4 chapter-order record](#v4-chapter-order-revision-2026-10-17).
+The subsequent review branch records its actual checks and sandbox limits in
+[M0.5 verification](m0.5-review.md#verification-and-limits); these historical
+passes do not validate that working tree.
 
 ## Earlier revision: changed artifacts
 

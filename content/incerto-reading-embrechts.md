@@ -59,13 +59,13 @@ This order keeps notation stable: first the tail class, then the moment
 consequences, then the threshold approximation, then diagnostics and empirical
 estimation.
 
-## Planned Atoms
+## Topics awaiting dedicated notes
 
 - Tail empirical process and point-process view.
 - Declustering for dependent exceedances.
 - Return levels and expected shortfall under GPD fits.
 
-## Verification Notes
+## Scope and limitations
 
 - We paraphrase the external source and link to concept pages rather
   than copying book text.

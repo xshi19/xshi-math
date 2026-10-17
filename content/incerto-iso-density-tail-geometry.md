@@ -31,7 +31,7 @@ one coordinate is large and the other is ordinary.
 
 Here $X_1,X_2$ are independent copies of a continuous random variable with
 density $f$, and $x_1,x_2$ are its coordinate values. The sum level $s$ is
-fixed for each comparison. Shared notation is planned.
+fixed for each comparison. See [Shared notation](https://xshi19.github.io/math/notation/).
 
 ## Normal versus Cauchy geometry
 

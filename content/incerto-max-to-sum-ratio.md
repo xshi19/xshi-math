@@ -39,6 +39,9 @@ ordinary mean is infinite, so the finite-mean argument below does not apply.
 Lowercase symbols describe the observed list; uppercase symbols describe
 random samples. For a nonnegative list with positive total,
 $1/n\le r_n\le1$. If the total is zero, the ratio is undefined.
+For the almost-sure limit, $S_n/n\to\mu>0$ ensures that $S_n>0$
+eventually almost surely; any convention on earlier zero totals gives the
+same limit.
 
 ## Extreme-dominance intuition
 
@@ -53,7 +56,7 @@ boundary $\alpha=1$.  This is the same mechanism behind
 [LLN Failure Under Infinite Mean](./incerto-lln-failure.md), but $R_n$ makes
 the dominance visible without plotting the entire running average.  It
 complements the path view in
-Pre-Asymptotic LLN Behavior (planned).
+[Pre-Asymptotic LLN Behavior](./incerto-lln-preasymptotic.md).
 
 ## Finite-mean proof
 
@@ -150,8 +153,8 @@ separate asymptotic results; no Monte Carlo quantiles are reported here.
 
 - Depends on: [Pareto Distribution](./incerto-pareto.md),
   [LLN Failure Under Infinite Mean](./incerto-lln-failure.md),
-  Pre-Asymptotic LLN Behavior (planned), and the
-  canonical max and sum notation in Notation (planned).
+  [Pre-Asymptotic LLN Behavior](./incerto-lln-preasymptotic.md), and the
+  shared sum notation in [Shared notation](https://xshi19.github.io/math/notation/).
 - Related: [Subexponentiality](./incerto-subexponentiality.md).
 - Used by: finite-sample tail-risk examples (planned).
 

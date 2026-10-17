@@ -83,8 +83,8 @@ raising a large threshold settles to a power $t^{-\alpha}$.
 
 We prove the algebraic characterization used throughout these notes: a regularly
 varying function is a power times a slowly varying function.  The proof is only
-an unwinding of the ratio definition.  Deeper representation theorems for
-slowly varying functions are cited through [Karamata's theorem](./incerto-karamata.md).
+an unwinding of the ratio definition. The [Karamata note](./incerto-karamata.md)
+develops the related integral asymptotics and their moment consequences.
 
 If $f(x)=x^\rho L(x)$ with $L$ slowly varying, then for fixed $t>0$,
 
@@ -152,7 +152,7 @@ suggest regular variation, but the definition is about the asymptotic limit.
   [Hill estimator](./incerto-hill-estimator.md) and log-log plots are
   diagnostics, not certificates.
 - A regularly varying right tail with $\alpha>0$ is subexponential under
-  standard conditions; see Subexponentiality (planned) for the
+  standard conditions; see [Subexponentiality](./incerto-subexponentiality.md) for the
   one-big-jump principle.
 - Moment implications require assumptions on the full tail and should point to
   [Karamata's theorem](./incerto-karamata.md) or to a Pareto-specific proof.
@@ -167,8 +167,8 @@ suggest regular variation, but the definition is about the asymptotic limit.
 ## Backlinks
 
 - Used by: [Pareto Distribution](./incerto-pareto.md),
-  Double Pareto Distribution (planned),
-  Subexponentiality (planned),
+  [Double Pareto Distribution](./incerto-double-pareto.md),
+  [Subexponentiality](./incerto-subexponentiality.md),
   [Tail Class Catalog](./incerto-tail-class-catalog.md),
   [Pareto Moment Existence](./incerto-pareto-moment-existence.md),
   [Generalized Central Limit Theorem](./incerto-generalized-central-limit-theorem.md),

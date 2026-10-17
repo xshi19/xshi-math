@@ -17,7 +17,7 @@ validation-environment dependency, not a new runtime dependency of `xmath`.
 | `concepts` | All 101 prior IDs retained plus two appended IDs; 75 active and 28 excluded. `c-lindy` is reactivated with its former scope preserved. One canonical home per concept. |
 | `completion_scope` / `out_of_scope_reason` | Excluded records need a reason, null milestone and no required deliverables. They do not enter completion counts. |
 | `concept_ids` / `required_concept_ids` | Historical associations versus active obligations. Required concepts exclude contextual interpretations and inactive books. |
-| `classification` / `coverage` | Candidate evidence modes versus actually existing evidence. No concept has checked Lean; an existing body still requires M0.5 review. |
+| `classification` / `coverage` | Candidate evidence modes versus existing evidence in the design inventory. The 24 M0.5 bodies now have a mathematical review; additional migrated pages are listed separately. No checked Lean concept was added. |
 | Concept `deliverables` | `website-math`, `python`, then optional `lean`. Required teaching/numerical flags remain true. Lean skips need reasons; optional approval is not proof evidence. |
 | Concept `chunk_ids` / `first_chunk` | All chapter-scoped uses, in execution order, and first treatment. A later chapter may extend the same canonical page. |
 | `chunks` | Insertion order is the execution order: M0.5, 30 SCoFT chapters, 23 DH chapters, closeout. Every chapter has one chunk. Each stores ID, locator, title only, concepts, deliverables, dependencies, role, status and existing pages reused. |
@@ -26,8 +26,10 @@ validation-environment dependency, not a new runtime dependency of `xmath`.
 | `supplement_policy` | All nine SCoFT appendices and eight DH supporting units attach to chapters; none creates a separate chunk. |
 | `dependencies` | Concepts encode reading prerequisites; chunks/milestones encode execution gates. Use reviewed pages or bounded cited prerequisites without reordering chapters. |
 | `milestone` | M0 design; M0.5 review; M1 SCoFT; M2 DH; M3 closeout. A concept takes its first chapter's milestone. |
-| `next_chunk` | `#/chunks/m0.5-review`; the next chunk after its completion is `scft-v4-ch01`. |
-| `owner_decisions` / `open_questions` | All three new scope decisions are approved; `open_questions` is empty. Source audits and data access remain tasks, not open scope questions. |
+| `next_chunk` | `#/chunks/scft-v4-ch01`, selected after the mathematical review; the separate M0.5 live reader gate remains pending. |
+| `owner_decisions` / `open_questions` | Prior program scope decisions remain approved. M0.5 findings and pending Xiang decisions are in the review chunk's `issues`, distinct from those earlier scope questions. |
+| `scope` / `authorized_chunks` | Current authorization covers M0.5 review and clear source fixes only; it does not authorize all later chapters. |
+| M0.5 `review_workstreams` / `issues` | Mathematics is done with a claim log; live reader coverage remains 0/24. Issues have severities, dispositions and chapter assignments; overall M0.5 stays in-progress. |
 | `assigned_role` | Owner-assigned lead; role labels neither guarantee availability nor authorize delegation. |
 | `data_policy` / `site_review_policy` | Data via the assigned bots with provenance; live reader review after every site update. Build evidence cannot replace reader review. |
 | `counts` | Derived active/historical totals, 30 v4 chapters, nine v4 appendices, 53 chapter chunks and 55 total chunks. Not a measure of mathematical verification. |
@@ -43,7 +45,8 @@ exceedance claims remains valid.
 ## Resume procedure
 
 1. Read `next_chunk`, its dependencies and acceptance criteria. Confirm the
-   current task authorizes implementation; this revision remains design-only.
+   current task authorizes the selected work; M0.5 authorization does not
+   authorize a later chapter or close the pending live reader gate.
 2. Recheck guidance and sources. For SCoFT use v4 locators, consulting the v2
    correspondence only for historical references. Resolve exact claim
    locators without copying book text.
@@ -92,7 +95,8 @@ assert not any(isinstance(event, yaml.events.AliasEvent)
                for event in yaml.parse(raw)), 'YAML aliases are not allowed'
 s = yaml.load(raw, Loader=UniqueLoader)
 assert s['schema_version'] == 3
-assert s['scope'] == 'design-only' and not s['implementation_authorized']
+assert s['scope'] == 'm0.5-review' and s['implementation_authorized']
+assert s['authorized_chunks'] == ['m0.5-review']
 statuses = {'todo', 'in-progress', 'done', 'out-of-scope'}
 classes = {'lean-verifiable', 'numeric-demo', 'empirical', 'prose-only'}
 roles, milestones = s['roles'], s['milestones']
@@ -224,18 +228,39 @@ for chunk in s['chunks'].values():
     assert set(chunk['concept_ids']) <= active and chunk['acceptance']
 prefix, collection, key = s['next_chunk'].split('/')
 assert prefix == '#' and collection == 'chunks'
-assert key == 'm0.5-review' and s['chunks'][key]['status'] == 'todo'
+assert key == 'scft-v4-ch01' and s['chunks'][key]['status'] == 'todo'
 indexes = {f'content/incerto-{name}-concepts.md'
            for name in ('distribution', 'theorem', 'method')}
 existing = {c['page_path'] for c in concepts.values()
             if c['coverage']['prose'] == 'existing'}
-assert existing == {str(p) for p in Path('content').glob('incerto-*.md')} - indexes
 review = s['chunks']['m0.5-review']
+flat_pages = {str(p) for p in Path('content').glob('incerto-*.md')}
+assert existing <= flat_pages - indexes
+assert set(review['additional_pages_skimmed']) == flat_pages - existing
+assert len(review['additional_pages_skimmed']) == 18
 assert set(review['concept_ids']) == {
     cid for cid, c in concepts.items() if c['coverage']['prose'] == 'existing'}
 assert len(review['concept_ids']) == 24 and Path(review['output_path']).is_file()
 assert review['review_workstreams']['mathematics']['assigned_role'] == 'astra-max'
 assert review['review_workstreams']['reader']['assigned_role'] == 'math-site-editor'
+math_review = review['review_workstreams']['mathematics']
+reader_review = review['review_workstreams']['reader']
+assert math_review['status'] == 'done' and math_review['pages_reviewed'] == 24
+assert reader_review['status'] == 'in-progress' and reader_review['pages_reviewed_live'] == 0
+assert review['status'] == milestones['M0.5']['status'] == 'in-progress'
+assert review['deliverables']['issues_list']['status'] == 'done'
+claim_text = Path(math_review['claim_log_path']).read_text()
+claim_ids = re.findall(r'^\| `(c-[^`]+-claim-\d{3})` \|', claim_text, re.M)
+assert len(claim_ids) == len(set(claim_ids)) == math_review['claim_records'] == 448
+assert {cid.rsplit('-claim-', 1)[0] for cid in claim_ids} == set(review['concept_ids'])
+assert len(review['issues']) == len({i['id'] for i in review['issues']}) == 15
+assert review['issue_summary']['by_severity'] == {
+    level: sum(i['severity'] == level for i in review['issues'])
+    for level in ('blocker', 'major', 'minor')}
+for issue in review['issues']:
+    assert issue['status'] in {'fixed in this PR', 'needs Xiang decision', 'assigned to chapter chunk'}
+    assert issue['chapters'] and set(issue['chapters']) <= s['chunks'].keys()
+    assert all(issue['id'] in s['chunks'][chunk]['m0_5_issue_ids'] for chunk in issue['chapters'])
 assert s['site_review_policy']['trigger'] == 'after every site update'
 assert s['site_review_policy']['assigned_role'] == 'math-site-editor'
 assert s['data_policy']['financial']['assigned_role'] == 'portfolio-manager'
@@ -458,9 +483,10 @@ part headings and front/back matter. Verify all 33 old units, all 39 v4 units
 and the six additions; keep raw extracts outside the repository. Record
 PDF identities and any discrepancy in `sources.md` and `verification.md`.
 
-The validation contract deliberately reflects design-only status, 24 existing
-bodies and no Lean evidence. Update it when implementation changes those
-facts. Review the diff and any full new files, run `git diff --check` plus
-new-file whitespace checks, and ensure changed paths stay inside the authorized
-plan scope. Site checks are separate; an old artifact or an earlier operator
+The validation contract reflects completed mathematical review of the fixed
+24-body inventory, a pending live reader gate and no added Lean evidence.
+Update it when later work changes those facts. Review the diff and any full
+new files, run `git diff --check` plus new-file whitespace checks, and ensure
+changed paths stay inside the authorized task scope. Site checks are separate;
+an old artifact or an earlier operator
 pass cannot establish a fresh build for this revision.

@@ -74,7 +74,7 @@ Here $S_n=\sum_{i=1}^n X_i$ is the sum, $M_n=\max_{1\le i\le n}X_i$
 is the maximum, $\mathbb E$ is expectation, and $\Rightarrow$ denotes
 convergence in distribution. The tail exponent $\alpha$, norming constants
 $a_n$, centering constants $b_n$, tail-balance weights $p,q$, and stable limit
-$Z_\alpha$ are defined above. Shared notation is planned.
+$Z_\alpha$ are defined above. See [Shared notation](https://xshi19.github.io/math/notation/).
 
 We record the stable-limit contrast needed by the site's heavy-tail
 pages.  We do not classify every possible domain of attraction or every
@@ -184,7 +184,7 @@ convergence.
 - Depends on: [Regular Variation](./incerto-regular-variation.md) and
   [Pareto Moment Existence](./incerto-pareto-moment-existence.md).
 - Related to: [LLN Failure Under Infinite Mean](./incerto-lln-failure.md).
-- Used by: Pre-Asymptotic LLN Behavior (planned).
+- Used by: [Pre-Asymptotic LLN Behavior](./incerto-lln-preasymptotic.md).
 
 ## Source and adaptation
 

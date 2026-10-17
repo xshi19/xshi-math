@@ -30,7 +30,7 @@ Let $\bar F(x)=\mathbb P(X>x)$ be the survival function.  In the table,
 $\bar F(tx)/\bar F(x)\to t^{-\alpha}$ for fixed $t>0$. Here $F$ is the CDF,
 $x$ is the threshold, and $\alpha$ is a positive tail exponent. All examples
 below have nonnegative support, with positive scale parameters, positive gamma
-shape and rate, and nonzero lognormal log-variance. Shared notation is planned.
+shape and rate, and nonzero lognormal log-variance. See [Shared notation](https://xshi19.github.io/math/notation/).
 
 | Distribution | Subexponential? | Regularly varying? | Diagnostic tail behavior |
 | --- | --- | --- | --- |

@@ -2,7 +2,9 @@
 
 Design baseline: 2026-10-16. V4 chapter-order revision: 2026-10-17, branch
 `plan/incerto-program`, PR #24; revision base `e7aaa5f`.
-This directory plans future work. Implementation requires a later task.
+The owner authorized M0.5 review and clear source fixes on 2026-10-17.
+Its mathematical review is complete on `review/incerto-m0.5`, based on
+`fbdc480`; chapter implementation remains future work.
 
 The selected SCoFT baseline is the **2025 third edition,
 arXiv:2001.10488v4: 30 chapters and nine appendices (A–I)**. Direct comparison
@@ -20,7 +22,10 @@ All 101 previous concept IDs remain; two appended IDs bring the register to
 the technical scope of v4 chapter 23. The five non-technical books retain
 123 historical source units and 77 numbered chapters for origin references
 only. Totals retained: seven books, 193 units and 130 numbered chapters.
-There are still 24 existing concept bodies and no checked Lean concepts.
+The M0.5 review inventory contains 24 concept bodies. Eighteen additional
+Incerto pages, including indexes and reading guides, received an obvious-issue
+skim; they do not enlarge that claim-review denominator. No checked Lean
+concept was added.
 
 Each numbered chapter is one resumable chunk: website teaching pages first,
 Python demos and visualizations second, optional Lean last. Reuse canonical
@@ -38,12 +43,15 @@ Lean omissions require a reason and never block the next chapter.
 | [Templates](templates.md) | Chapter checkpoint and teaching/demo/evidence contracts |
 | [Sources](sources.md) | Edition evidence, title differences, bibliographic locators and copyright boundary |
 | [State](state.yaml) | Canonical records, ordered chunks, dependencies and counts |
-| [M0.5 review](m0.5-review.md) | Pending claim and live reader reviews of 24 pages; issues list for Xiang |
+| [M0.5 review](m0.5-review.md) | Completed mathematical review of 24 pages, 448 claim/source/notation records, 15 issues; live reader gate pending |
 | [Validation](validation.md) | Schema, executable checks and resume procedure |
 | [Verification](verification.md) | Historical evidence, this revision's checks and pending operator rerun |
 
-`next_chunk` remains `#/chunks/m0.5-review`. The first three chunks are
-`m0.5-review`, `scft-v4-ch01`, `scft-v4-ch02`. M0.5 has not started.
+`next_chunk` is `#/chunks/scft-v4-ch01`, as requested after the mathematical
+review. M0.5 remains `in-progress` overall: the mathematics workstream and
+issues list are `done`, while the two reported reader issues have source fixes
+but all 24 live desktop/mobile reviews remain pending. Chapter handoffs in
+state list the findings to resolve before affected claims are reused.
 Read current repository guidance before any later implementation task.
 
 ## Decisions fixed by this design
