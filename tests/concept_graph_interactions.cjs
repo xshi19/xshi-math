@@ -63,7 +63,10 @@ async function graph(scaleX = 0.5, scaleY = 0.75) {
       fire(this, "lostpointercapture", { pointerId: id });
     }
   }
+  const window = new Element("window");
+  window.open = (...args) => opened.push(args);
   const body = new Element("body");
+  window.appendChild(body);
   for (const id of ["concept-graph", "graph-details", "graph-search", "graph-layout",
     "graph-depth", "graph-reset", "graph-type-filters", "graph-edge-filters"]) {
     const element = new Element(id === "concept-graph" ? "svg" : "div");
@@ -100,14 +103,14 @@ async function graph(scaleX = 0.5, scaleY = 0.75) {
     return event;
   }
   vm.runInNewContext(source, {
-    document, window: { open: (...args) => opened.push(args), addEventListener() {} },
+    document, window,
     fetch: async () => ({ ok: true, json: async () => data }),
   });
   await new Promise(setImmediate);
   assert.ok(svg.querySelector(".node"), document.getElementById("graph-details").innerHTML);
   const transform = () => document.getElementById("graph-viewport").getAttribute("transform")
     .match(/-?\d+(?:\.\d+)?(?:e[+-]?\d+)?/gi).map(Number);
-  return { svg, document, body, fire, captured, opened, transform, node: () => svg.querySelector(".node") };
+  return { svg, document, window, body, fire, captured, opened, transform, node: () => svg.querySelector(".node") };
 }
 
 function close(actual, expected) { assert.ok(Math.abs(actual - expected) < 1e-9, `${actual} != ${expected}`); }
@@ -196,6 +199,80 @@ test("touch background pan starts after horizontal intent and moves only horizon
   assert.equal(g.captured.size, 0);
 });
 
+for (const type of ["pointerup", "pointercancel"]) {
+  test(`window ${type} ends an uncaptured touch gesture`, async () => {
+    const g = await graph();
+    const pointerType = "touch";
+    g.fire(g.svg, "pointerdown", { pointerType });
+    g.fire(g.svg, "pointermove", { pointerType, clientX: 103, clientY: 180 });
+    assert.equal(g.captured.size, 0);
+    assert.equal(g.fire(g.window, type, { pointerType }).target, g.window);
+    g.fire(g.svg, "pointermove", { pointerType, clientX: 140 });
+    assert.deepEqual(g.transform(), [0, 0, 1]);
+    assert.equal(g.captured.size, 0);
+    assert.equal(g.svg.classList.contains("is-dragging"), false);
+    g.fire(g.svg, "pointerdown", { pointerType, pointerId: 2, clientX: 300 });
+    g.fire(g.svg, "pointermove", { pointerType, pointerId: 2, clientX: 320 });
+    assert.deepEqual(g.transform(), [20 / 0.5, 0, 1]);
+    g.fire(g.window, "pointerup", { pointerType, pointerId: 2 });
+  });
+}
+
+test("leaving the SVG cancels pending touch intent but preserves a captured pan", async () => {
+  const g = await graph();
+  const pointerType = "touch";
+  g.fire(g.svg, "pointerdown", { pointerType });
+  g.fire(g.svg, "pointerleave", { pointerType, pointerId: 2 });
+  g.fire(g.svg, "pointermove", { pointerType, clientX: 130 });
+  assert.deepEqual(g.transform(), [30 / 0.5, 0, 1]);
+  g.fire(g.svg, "pointerleave", { pointerType });
+  assert.equal(g.captured.get(1), g.svg);
+  g.fire(g.body, "pointermove", { pointerType, clientX: 140 });
+  assert.deepEqual(g.transform(), [40 / 0.5, 0, 1]);
+  g.fire(g.body, "pointerup", { pointerType });
+  const start = g.transform();
+  g.fire(g.svg, "pointerdown", { pointerType });
+  g.fire(g.svg, "pointerleave", { pointerType });
+  g.fire(g.svg, "pointermove", { pointerType, clientX: 200 });
+  assert.deepEqual(g.transform(), start);
+  assert.equal(g.captured.size, 0);
+  assert.equal(g.svg.classList.contains("is-dragging"), false);
+});
+
+for (const staleGesture of ["pending", "pan", "node"]) {
+  test(`new primary pointer replaces a stale ${staleGesture} gesture without inheriting its origin`, async () => {
+    const g = await graph();
+    g.fire(g.svg, "wheel", { deltaY: -1 });
+    const [x, y, k] = g.transform();
+    const nodeStart = g.node().getAttribute("transform");
+    const pointerType = "touch";
+    g.fire(staleGesture === "node" ? g.node() : g.svg, "pointerdown", { pointerType });
+    if (staleGesture !== "pending") {
+      g.fire(g.svg, "pointermove", { pointerType, clientX: 140, clientY: 160 });
+      assert.equal(g.captured.get(1), g.svg);
+    }
+    // No up/cancel for pointer 1 was delivered before a new primary contact.
+    g.fire(g.svg, "pointerdown", { pointerType, pointerId: 2, clientX: 300, clientY: 250 });
+    assert.deepEqual(g.transform(), [x, y, k]);
+    assert.equal(g.node().getAttribute("transform"), nodeStart);
+    assert.equal(g.node().getAttribute("aria-pressed"), "false");
+    assert.equal(g.captured.size, 0);
+    assert.equal(g.svg.classList.contains("is-dragging"), false);
+    // Delayed events from the stale pointer must not change or end the new one.
+    g.fire(g.svg, "pointermove", { pointerType, clientX: 400 });
+    g.fire(g.window, "pointerup", { pointerType });
+    g.fire(g.window, "pointercancel", { pointerType });
+    g.fire(g.svg, "lostpointercapture", { pointerId: 1 });
+    assert.deepEqual(g.transform(), [x, y, k]);
+    g.fire(g.svg, "pointermove", { pointerType, pointerId: 2, clientX: 320, clientY: 252 });
+    close(g.transform()[0], x + 20 / 0.5);
+    assert.deepEqual(g.transform().slice(1), [y, k]);
+    assert.equal(g.captured.get(2), g.svg);
+    g.fire(g.window, "pointerup", { pointerType, pointerId: 2 });
+    assert.equal(g.captured.size, 0);
+  });
+}
+
 for (const pointerType of ["mouse", "touch", "pen"]) {
   test(`${pointerType} pointercancel restores the starting viewport transform`, async () => {
     const g = await graph();
@@ -242,7 +319,9 @@ test("only the active primary pointer controls a gesture; cancellation releases 
   g.fire(g.svg, "pointerdown", { isPrimary: false, pointerId: 2 });
   assert.equal(g.captured.size, 0);
   g.fire(g.svg, "pointerdown", { pointerType: "touch" });
-  g.fire(g.node(), "pointerdown", { pointerId: 2 });
+  g.fire(g.node(), "pointerdown", { pointerId: 2, isPrimary: false });
+  g.fire(g.svg, "pointerdown", { pointerId: 2, button: 2 });
+  g.fire(g.svg, "pointerdown", { pointerType: "touch", clientX: 300 });
   g.fire(g.svg, "pointermove", { pointerId: 2, clientX: 400 });
   g.fire(g.svg, "pointerup", { pointerId: 2 });
   assert.deepEqual(g.transform(), [0, 0, 1]);

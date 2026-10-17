@@ -300,3 +300,6 @@ Second Bugbot pass: touch background gestures pan only horizontally and capture
 the pointer only after horizontal-dominant movement, leaving vertical moves to
 `pan-y`; `pointercancel` restores the gesture's starting transform and dragged
 node position. Interaction tests cover both the source and the staged asset copy.
+Third Bugbot pass: window-level up/cancel handling and SVG exit cleanup end pending
+touch gestures, while a new primary pointer rolls back a stale gesture from a
+different pointer ID before starting from its own origin, with regression coverage.

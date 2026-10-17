@@ -380,7 +380,11 @@
       render();
     });
     svg.addEventListener("pointerdown", (event) => {
-      if (!event.isPrimary || event.button !== 0 || state.dragging) return;
+      if (!event.isPrimary || event.button !== 0) return;
+      if (state.dragging) {
+        if (event.pointerId === state.dragging.pointerId) return;
+        endDrag({ type: "pointercancel", pointerId: state.dragging.pointerId });
+      }
       const node = event.target.closest(".node");
       const id = node?.getAttribute("data-id");
       const point = graphPointFromEvent(event);
@@ -442,8 +446,12 @@
         render();
       }
     }
-    svg.addEventListener("pointerup", endDrag);
-    svg.addEventListener("pointercancel", endDrag);
+    // Uncaptured touch gestures may finish outside the SVG.
+    window.addEventListener("pointerup", endDrag, true);
+    window.addEventListener("pointercancel", endDrag, true);
+    svg.addEventListener("pointerleave", (event) => {
+      if (!svg.hasPointerCapture(event.pointerId)) endDrag(event);
+    });
     svg.addEventListener("lostpointercapture", endDrag);
     svg.addEventListener("dblclick", (event) => {
       const node = document.elementFromPoint(event.clientX, event.clientY)?.closest(".node");
