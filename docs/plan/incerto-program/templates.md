@@ -14,6 +14,14 @@ Distinguish a complete proof, sketch, derivation, cited theorem and numerical
 illustration. A new note need not carry every section in a template if a
 section would be empty.
 
+Use these contracts only for the mathematical completion scope. For each
+concept, deliver website teaching first, then Python demos, numerical
+illustrations, visualizations or worked cases, then optional Lean. Record the
+order and evidence in state. A missing Lean library is `skipped-for-now` with
+a reason in the planning/evidence record; it does not remove continuous-time
+teaching or numerical examples. Keep implementation status out of the reader's
+mathematical explanation.
+
 ## Concept page
 
 Proposed home: `content/incerto-<concept>.md`.
@@ -31,8 +39,7 @@ moment assumptions, and local mappings to the shared notation.]
 
 ## Main claim
 
-[State the precise claim with quantifiers and hypotheses, or identify an
-interpretive question that makes no mathematical theorem claim.]
+[State the precise mathematical claim with quantifiers and hypotheses.]
 
 ## Reasoning
 
@@ -55,9 +62,9 @@ cross-track material. Explain why the connection matters.]
 related reading, the source of a definition, or support for the stated result.]
 ````
 
-For a prose-only component, use “Argument and limits” in place of mathematical
-claim/proof headings. A sourced ethical argument is not a theorem. Empirical
-assertions inside philosophical notes still require evidence and qualifications.
+No interpretive or prose-only note is a completion deliverable. A brief cited
+origin reference to a non-technical Incerto book may accompany the technical
+definition; it does not create a chapter-coverage obligation.
 
 ## Theorem page or theorem section
 
@@ -82,16 +89,17 @@ and convergence mode.]
 [Our mathematical argument at exactly the stated scope. Identify cited lemmas.
 A proof sketch must be labeled as such.]
 
-## Checked declaration
-
-[Only after a successful audited build: describe the exact statement checked
-and link its declaration at an immutable Git revision. Identify any difference
-between the theorem above and the formal result.]
-
 ## Boundaries and example
 
 [Cases excluded by hypotheses; a counterexample if useful. A numerical example
 is separate evidence and does not enlarge the checked statement.]
+
+## Checked declaration
+
+[Optional, after teaching and numerical work and a successful audited build:
+describe the exact statement checked and link its declaration at an immutable
+Git revision. Identify any difference from the theorem above. Omit this section
+when Lean is skipped; record that decision and reason outside the teaching page.]
 
 ## References
 
@@ -169,8 +177,10 @@ Distinguish descriptive fit, prediction, and causal claims.]
 
 ## Data and provenance
 
-[Provider, exact dataset/version, retrieval date, license/terms, checksum and
-manifest. Units, exposure denominators, missingness, revisions, censoring,
+[Financial data: Portfolio Manager bot / Xiang's database; request additions
+there. Other data: Data Scientist bot. Record the handoff, original provider,
+exact dataset/version, retrieval date, license/terms, checksum and manifest.
+Units, exposure denominators, missingness, revisions, censoring,
 reporting uncertainty and cleaning decisions.]
 
 ## Design and methods
@@ -208,9 +218,8 @@ installed. Bibliographic details belong to the selected edition, not a mixture
 of print and preprint page numbers. Preferred forms:
 
 - Book: `Author. Title. Edition, publisher, year, ISBN. Chapter N, section or
-  verified pages. [Publisher or authorized source link].` For an unnumbered
-  Procrustes section, cite its verified section name and edition, not our
-  planner ordinal as a book chapter.
+  verified pages. [Publisher or authorized source link].` Match locators to
+  the selected technical edition; retained planner ordinals are not citations.
 - Paper: `Authors. Title. Journal/DOI when verified; arXiv identifier and
   version, year. Section/Theorem/Equation and pages actually consulted.
   [Versioned primary source].` Do not treat a retailer TOC as mathematical
@@ -221,12 +230,21 @@ of print and preprint page numbers. Preferred forms:
   checked Lean/Mathlib versions and verification record. This complements the
   mathematical citation; it does not transfer authorship of the source theorem.
 
-A concrete book locator format is: Nassim Nicholas Taleb, *The Black Swan*,
-second edition, Random House, 2010, ISBN 9780812973815, ch. 4,
-[publisher record](https://www.penguinrandomhouse.com/books/176226/the-black-swan-second-edition-by-nassim-nicholas-taleb/9780812973815/).
-This is related reading for induction; it is not attribution of an original
-finite-sample counterexample to that chapter. Add pages only after checking
-the selected copy.
+A concrete book locator format is: Nassim Nicholas Taleb, *Dynamic Hedging*,
+Wiley, 1997, ISBN 9780471152804, ch. 1,
+[publisher record](https://www.wiley-vch.de/en/areas-interest/finance-economics-law/dynamic-hedging-978-0-471-15280-4).
+This supplies bibliographic context; exact mathematical claim and page
+locators still require the selected copy. Add papers when a concrete claim
+needs them, with exact version and section recorded.
+
+## Review and evidence handoff
+
+Before M1, use [the M0.5 review record](m0.5-review.md) for Astra max's
+claim-by-claim review and Math Site Editor's live reader review of all 24
+existing concept pages. After every site update, the editor records a fresh
+live reader review with deployment revision, date, URLs, findings, severity,
+proposed actions and dispositions. Keep that review separate from build,
+numerical and Lean evidence; no such review is claimed by these templates.
 
 Write from the mathematical object and our argument, then cite the source.
 Do not rewrite a book paragraph sentence by sentence. Avoid quotations in

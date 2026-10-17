@@ -3,6 +3,32 @@
 Everything labeled proposed below is future work. The current tree and build
 were inspected at the revision recorded in [README.md](README.md).
 
+## Scope and deliverable order
+
+The two technical books and mathematical papers define completion.
+*Statistical Consequences of Fat Tails* / *Technical Incerto*, including its
+2025 additions, has first priority. *Dynamic Hedging* includes continuous-time
+mathematics. The five non-technical books can supply cited origin references
+only. Retained out-of-scope IDs carry no page or evidence obligations.
+
+For every active concept, complete website math teaching first, Python demos,
+numerical illustrations, visualizations or worked cases second, and optional
+Lean last. `state.yaml` stores this order and required/status flags per concept.
+An existing page still needs mathematical review; an existing demo still needs
+its results checked. A Lean library gap must not defer either deliverable.
+Record `skipped-for-now` and the missing support at the exact claim scope.
+Continuous-time stochastic integrals, stopping-time claims and measure changes
+currently have no established pinned-library support in this project; their
+teaching and numerical treatment remains required.
+
+M0.5 reviews the 24 existing concept bodies before the approved M1 pilot.
+Astra max owns claim review and Math Site Editor owns live reader review.
+The [review contract and issues list](m0.5-review.md) records coverage and
+findings for Xiang. After every later site update, Math Site Editor reads the
+corresponding live pages and records the deployed revision, URLs and findings
+in `docs/records/incerto-site-review-YYYY-MM-DD.md` (future records). A build
+result alone does not close the reader-review gate.
+
 ## Current repository contract
 
 The four explicit MyST TOCs build a landing project and independent Incerto,
@@ -37,13 +63,6 @@ content/
   incerto-<concept>-theorem.md            # only when a proof merits its own page
   incerto-<concept>-demo.md               # only when a demo merits its own page
   incerto-<study>-study.md                # observed-data study, when authorized
-lean/                                   # proposed; absent today
-  lean-toolchain
-  lakefile.toml                         # or lakefile.lean, choose one
-  lake-manifest.json
-  XshiMath.lean                          # imports every checked project module
-  XshiMath/Incerto/Exceedances.lean       # M1's only mathematical module
-  README.md
 src/math/                               # existing physical home of xmath
   __init__.py
   incerto/                              # proposed only when reusable code grows
@@ -58,8 +77,16 @@ tests/                                  # existing tests; new tests follow helpe
   test_<method>.py
 assets/figures/incerto/                  # proposed original, reproducible figures
 data/incerto/<study>/                    # proposed metadata/manifest; data only if licensed
+lean/                                   # optional, last; absent today
+  lean-toolchain
+  lakefile.toml                         # or lakefile.lean, choose one
+  lake-manifest.json
+  XshiMath.lean                          # imports every checked project module
+  XshiMath/Incerto/Exceedances.lean       # approved M1 pilot after M0.5
+  README.md
 docs/records/                           # future check and study evidence records
 docs/plan/incerto-program/               # this design and resumable state
+  m0.5-review.md                         # pending review contract and issues list
 ```
 
 These are path conventions, not instructions to create empty directories.
@@ -102,8 +129,13 @@ result, and exact covered statement in a future record. Link a checked page
 to that immutable source declaration. Do not add public “Lean pending” badges
 or imply every claim on a page is certified.
 
-Lean remains optional for reading and independent of `npm run build` and
-`uv run pytest`. Once the subtree actually exists, update its guidance and the
+Lean remains optional for curriculum completion and independent of
+`npm run build` and `uv run pytest`. The explicitly approved M1 pilot requires
+its two checked declarations to close that pilot. All other Lean work follows
+teaching and numerical delivery, with skips recorded where support is missing.
+Evidence attaches to exact declarations; owner approval of that scope is
+recorded in state and does not need to be requested again. Once the subtree
+actually exists, update its guidance and the
 root verification commands in the same authorized implementation change.
 This design does not edit those routers or declare a passing formalization.
 
@@ -132,6 +164,12 @@ adjustments, time zone, dependence and train/test separation where applicable.
 Commit a small permitted fixture and a manifest when appropriate. Large or
 restricted raw data stay outside Git; a lawful acquisition step produces a
 checksum-verified local input. Never fetch financial data during MyST rendering.
+
+Financial inputs come from the Portfolio Manager bot and Xiang's financial
+database; request missing series or fields there. Other data come from the
+Data Scientist bot. Record the bot request or handoff alongside original
+provider provenance. This routing decision is settled; it does not replace
+the license and redistribution check for each dataset.
 
 Notebooks are optional presentations, not a second implementation. Keep shared
 logic in installed helpers; execute with a declared kernel and clean outputs
@@ -199,10 +237,11 @@ deployment to this program's CI design.
 
 | Job / trigger | Future check contract |
 | --- | --- |
-| Plan changes | Parse state with a pinned YAML parser; validate IDs, references, dependency graphs, classifications, source mappings and counts as described in `validation.md`. |
+| Plan changes | Parse state with a pinned YAML parser; validate IDs, scope/disposition, deliverable order, review gates, references, dependency graphs, classifications, source mappings and active/retained counts as described in `validation.md`. |
 | Lean changes | Restore the pinned toolchain/cache, build the imported root with warnings treated as errors, reject placeholders, audit changed statements and dependencies. |
 | Python/helper changes | `uv sync --locked`, `uv run pytest`, bounded affected demos; for mapping/package changes also `uv build` and isolated editable/wheel import checks. |
 | Content, assets or site changes | Node version satisfying `>=20`, `npm ci`, `npm run build`, then `npm run check:html`; review equations, citations, figures and desktop/mobile navigation under `/math/`. |
+| Every site update | Math Site Editor reviews the corresponding live pages as a reader after deployment and records findings and dispositions. |
 | Notebook/study changes | Execute the bounded reproducible fixture with declared dependencies and verify provenance; full-data runs are separate if access, scale or rights require it. |
 
 Keep existing npm commands unchanged by default. If aggregate wrappers are
