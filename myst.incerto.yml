@@ -5,6 +5,8 @@ project:
   description: Mathematical notes in the Incerto track.
   license: MIT
   github: https://github.com/xshi19/xshi-math
+  bibliography:
+    - content/bibliography.bib
   toc:
     - file: content/incerto/index.md
     - title: Concepts
@@ -41,9 +43,28 @@ project:
             - file: content/incerto-max-to-sum-ratio.md
             - file: content/incerto-body-shoulder-tail.md
             - file: content/incerto-iso-density-tail-geometry.md
-        - title: Empirical Examples
+        - file: content/incerto-empirical-example-concepts.md
+          title: Empirical examples
           children:
             - file: content/incerto-counting-exceedances.md
+            - file: content/incerto-amazon-bookrank.md
+            - file: content/incerto-nyc-dog-name-tail.md
+            - file: content/incerto-sp500-tail.md
+            - file: content/incerto-dispersion-ratio.md
+            - file: content/incerto-lln-preasymptotic.md
+    - title: Reading and reference
+      children:
+        - file: content/incerto-scoft-intro.md
+          children:
+            - file: content/incerto-scoft-ch3.md
+            - file: content/incerto-scoft-ch4.md
+        - file: content/incerto-external-reading.md
+          children:
+            - file: content/incerto-reading-embrechts.md
+        - file: content/incerto-dependency-dag.md
+        - file: content/incerto-glossary.md
+        - file: content/incerto-api-reference.md
+        - file: content/incerto-chinese-entry.md
 site:
   template: book-theme
   title: Incerto

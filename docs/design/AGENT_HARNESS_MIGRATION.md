@@ -1,5 +1,10 @@
 # Agent Harness Migration
 
+Current Lean status (2026-10-17): the final Incerto migration imported
+[`formalization/incerto-lean/`](../../formalization/incerto-lean/README.md).
+Earlier absence statements below describe the harness rollout date. The
+prototype was checked upstream on 2026-09-05, not rechecked here.
+
 Status: active plan for installing shared Codex/Cursor skills into `xshi-math`.
 Owner priority: migrate the agent harness before theme/TOC/IG polish.
 Authoring date: 2026-09-13.

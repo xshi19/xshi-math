@@ -260,3 +260,20 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Incerto final migration
+
+The [complete manifest](docs/plan/migration-manifest.csv) and
+[final record](docs/records/incerto-wiki-final-migration.md) identify the remaining
+owner-controlled material adapted from `xshi19/incerto-wiki` at revision
+`9717c9cf83aee18b47f423a14bce2f0d14bb8bcb`: reading guides, empirical examples,
+graph UI/generator, Python helpers/tests/demos, historical records, and the
+contained Lean prototype. Copyright (c) 2023 xshi19. The full MIT permission
+notice under Incerto Batch 1 above applies to these imports. Each new public
+note also carries that notice. Scholarly citations identify sources without
+transferring any book text or figures. The archive contains no source book.
+
+The two snapshots have separate rights: Amazon CC0 and NYC Open Data reuse
+terms. See [data/incerto/README.md](data/incerto/README.md) for attribution,
+source ids, source access dates, and the offline review limit. S&P/legacy
+restricted or undocumented datasets and output-heavy notebooks are excluded.

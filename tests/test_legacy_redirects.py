@@ -179,3 +179,15 @@ process.stdout.write(JSON.stringify(outputs));
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_final_migration_routes_accept_cross_subsite_and_preserve_stubs():
+    pages, _, skipped = load_legacy_routes()
+    assert pages["/incerto-wiki/normal-mixture/"].target == ORIGIN + "/math/normix-theory/normix-normal-mixtures/"
+    assert pages["/incerto-wiki/variance-gamma/"].target == ORIGIN + "/math/normix-theory/normix-gh-family-tour/"
+    intro = pages["/incerto-wiki/intro/"].target
+    for chapter in (5, 6, 7):
+        assert pages[f"/incerto-wiki/ch{chapter}/"].target == intro
+    assert "/incerto-wiki/dependency-dag/" in pages
+    assert pages["/incerto-wiki/api/incerto.tail_diagnostics.html"].target == ORIGIN + "/math/incerto/incerto-api-reference/"
+    assert {r["old_url"].split("/")[-2] for r in skipped if r["old_url"].endswith("/")} == {"lean-blueprint", "releases", "v0-1-0"}

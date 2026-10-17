@@ -1,13 +1,14 @@
 # xshi-math
 
 Mathematical notes and tutorials, supported by small Python demonstrations and
-optional future Lean formalization.
+an optional imported Lean prototype.
 
 The site has three tracks:
 
 - **Incerto / fat tails:** an original finite-sample exceedance example and
-  twenty-three adapted notes on Pareto tails, moments, estimation, extreme-value
-  and stable limits, and diagnostics, plus three concept indexes.
+  twenty-three adapted concept notes, five data/simulation examples, reading
+  guides, and a dependency graph. The final incerto-wiki migration is recorded
+  [here](docs/records/incerto-wiki-final-migration.md).
 - **Information Geometry:** six original entry notes on manifolds, exponential
   families, EM, conditional expectation, Fisher geometry, and duality.
 - **Normix theory:** an original conditioning example and thirteen adapted notes
@@ -45,9 +46,11 @@ See the [foundation record](docs/records/phase-0-1-verification.md),
 [Normix Batch 1 record](docs/records/phase-2-normix-batch-1-verification.md), and
 [Normix Batch 2 record](docs/records/phase-2-normix-batch-2-verification.md)
 for historical results and check coverage. The [subsite split](docs/records/subsite-split-verification.md)
-replaces the combined book with a landing and three independent sites. Twenty-six Incerto concept pages and thirteen Normix
-notes have been imported; no private history was imported and no CI is
-configured. Further imports remain deferred.
+replaces the combined book with a landing and three independent sites. Earlier
+batches imported twenty-six Incerto concept pages and thirteen Normix notes; no private history was imported and no CI is
+configured. The remaining source inventory is now accounted for in the
+[final migration record](docs/records/incerto-wiki-final-migration.md); its
+expanded site build and lock update await operator verification.
 
 ## Install and run Python
 
@@ -61,14 +64,23 @@ uv run python demos/incerto/exceedances.py
 ```
 
 The distribution is named `xshi-math`, but the import is `xmath`. Setuptools maps
-it explicitly to `src/math/`; do not add `src/` to `PYTHONPATH`. Both editable and
-wheel installations were checked alongside stdlib `math` and NumPy.
+it explicitly to `src/math/`; do not add `src/` to `PYTHONPATH`. The original
+base-package editable and wheel installations were checked
+alongside stdlib `math` and NumPy. The new `xmath.incerto` mapping needs the
+operator wheel check recorded in the final migration checklist.
 
 ```python
 from xmath import exceedance_fraction
 
 assert exceedance_fraction([1, 2, 2, 4], 2) == 0.25
 ```
+
+For the imported numerical helpers, use `uv sync --locked --extra incerto` and
+import `xmath.incerto`. SciPy and Matplotlib are optional for base-package users;
+the development group includes them plus NetworkX/PyYAML for graph generation.
+Dataset downloads use `urllib`. See [data provenance and refresh commands](data/incerto/README.md).
+The independent [Lean prototype](formalization/incerto-lean/README.md) was checked
+upstream on 2026-09-05 with Lean/Mathlib v4.19.0; it is not rechecked here.
 
 To check the ordinary wheel installation in a separate environment:
 
@@ -95,7 +107,7 @@ The build runs these four independent MyST projects sequentially:
 | Config | Home source | Public base | Pages |
 | --- | --- | --- | --- |
 | `myst.landing.yml` | `content/index.md` plus shared notation | `/math/` | 2 |
-| `myst.incerto.yml` | `content/incerto/index.md` | `/math/incerto/` | 28 |
+| `myst.incerto.yml` | `content/incerto/index.md` | `/math/incerto/` | 43 |
 | `myst.ig.yml` | `content/ig/index.md` | `/math/ig/` | 7 |
 | `myst.normix-theory.yml` | `content/normix-theory/index.md` | `/math/normix-theory/` | 15 |
 
@@ -115,10 +127,13 @@ Normix package docs. `myst.yml` extends the landing config for default authoring
 retains the downloaded theme and DOI cache, and saves each export in
 `_build/subsites/{landing,incerto,ig,normix-theory}/`. It then copies the landing
 to `_build/html/` and the tracks beneath `incerto/`, `ig/`, and `normix-theory/`.
-Finally, `scripts/write_redirects.py` adds 48 compatibility pages for old flat
+Finally, `scripts/write_redirects.py` adds 63 compatibility pages for old flat
 math URLs. Assembly also replaces localhost sitemap/discovery URLs with the
-public nested URLs; the root sitemap covers all 52 pages. The assembled
-`_build/html/` is the `/math/` publication artifact. The build also runs
+public nested URLs; the root sitemap covers all 67 pages. The assembled
+`_build/html/` is the `/math/` publication artifact. The build regenerates the
+Incerto graph from frontmatter and copies its HTML, CSS, JavaScript, and JSON
+into the Incerto subsite. `npm run build` uses `uv run --locked` so those
+Python dependencies come from the development environment. The build also runs
 `scripts/write_legacy_incerto.py` to produce a separate compatibility tree at
 `_build/legacy/incerto-wiki/` from the URL map, reporting unresolved rows.
 The [Phase 4 runbook](docs/plan/phase-4-cutover-runbook.md) records the completed
@@ -126,8 +141,8 @@ hub cutover, required legacy-file retention, live verification, and rollback.
 Running an individual MyST build overwrites that directory; rerun `npm run build`
 before checking or publishing the combined site. Do not run builds concurrently.
 
-The checker validates all 52 pages, each project's branding, TOC and search membership,
-nested prefixes, local links/assets/fragments, shared CSS, 45 pages with display
+The checker validates all 67 pages, each project's branding, TOC and search membership,
+nested prefixes, local links/assets/fragments, shared CSS, the pages expected to contain display
 math, public sitemaps, and every redirect. Fully qualified links to this site's `/math/` paths
 are checked against the local artifact too. It also checks every mapped legacy
 compatibility page, its noindex/redirect/link agreement, and its destination page

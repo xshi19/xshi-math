@@ -13,7 +13,7 @@ proved, what is cited, and what is only illustrated.
 - Target page and statement section.
 - Existing statement labels, equation numbers, theorem names, or prose claims.
 - Available references.
-- Any future Lean status (internal tracking only; no Lean project yet).
+- Any future Lean status (internal tracking; imported prototype status is in the Lean skill).
 
 ## Workflow
 
@@ -31,8 +31,9 @@ proved, what is cited, and what is only illustrated.
    statements, say so.
 6. Check that every proof paragraph refers only to assumptions already stated
    locally or in linked notation/notes.
-7. Keep pending formalization notes out of ordinary public prose until a Lean
-   tree exists. Do not write `Lean: pending` on rendered pages.
+7. Keep pending formalization notes in records. The imported prototype checks
+   only its two named algebraic declarations. Do not write `Lean: pending`
+   on rendered pages.
 
 ## Proof Support Types
 

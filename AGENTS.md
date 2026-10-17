@@ -60,7 +60,7 @@ Canonical skills live only in `.agents/skills/` (no `.cursor/skills/` mirror).
 | Hard external math consult (GPT-5.5 pro) | `$xshi-math-deep-math-agent` |
 
 Cursor thin adapters live under `.cursor/rules/*.mdc` (metadata + pointers only).
-Normix package `docs-publish` stays upstream. No Lean project in-repo yet.
+Normix package `docs-publish` stays upstream. The optional Lean prototype lives in `formalization/incerto-lean/`; see its README for checked scope.
 
 ## Working boundaries
 
@@ -89,7 +89,9 @@ Normix package `docs-publish` stays upstream. No Lean project in-repo yet.
 
 See [README](README.md) for preview commands and the
 [planning index](docs/plan/index.md) for current verification and remaining gates.
-There is no Lean project or CI workflow.
+There is no CI workflow. The optional Lean prototype was checked upstream on
+2026-09-05 with Lean/Mathlib v4.19.0, not rechecked here. To check it separately:
+`cd formalization/incerto-lean && lake build` (requires the pinned toolchain/cache).
 
 ## Completion in the current phase
 

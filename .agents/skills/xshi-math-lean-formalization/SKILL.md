@@ -1,44 +1,28 @@
 ---
 name: xshi-math-lean-formalization
-description: Prepare or perform checked Lean formalization for xshi-math claims. Use when scoping a Lean declaration, opening a Lean subtree, or reconciling informal notes with checked proofs. Honest status: this repository has no Lean project, lake manifest, or lean-blueprint yet; ordinary mathematical prose does not require formalization.
+description: Prepare or perform checked Lean formalization for xshi-math claims. Use when scoping a Lean declaration, opening a Lean subtree, or reconciling informal notes with checked proofs. Honest status: formalization/incerto-lean is an optional imported prototype, checked upstream on 2026-09-05 with Lean/Mathlib v4.19.0 and not rechecked here; ordinary mathematical prose does not require formalization.
 ---
 
 # xshi-math Lean Formalization
 
-**Current status:** there is no Lean project in this repository (no `lean/`,
-`formalization/lean/`, `lakefile`, pinned toolchain, Mathlib pin, or
-`lean-blueprint`). Do not pretend those paths exist. Public concept prose must
-not claim a statement is Lean-checked until a real build verifies it.
+**Current status:** `formalization/incerto-lean/` contains the imported
+Lake/Mathlib prototype, pinned to Lean/Mathlib `v4.19.0`. Its two algebraic
+Pareto declarations were checked in incerto-wiki on **2026-09-05**; they have
+**not been rechecked in xshi-math**. See the
+[project README](../../../formalization/incerto-lean/README.md) for the exact
+hypotheses and the [historical blueprint](../../../docs/records/incerto-wiki/lean-blueprint.md).
+Neither result constructs a probability measure or proves moment integrability.
 
-## When to open a Lean subtree
+## Existing subtree
 
-Open a Lean project only when the owner authorizes formalization work and the
-claim is stable enough to pin. Suggested first layout (create only when
-starting for real):
+Work in `formalization/incerto-lean/` and retain its pinned toolchain, Mathlib
+revision, and transitive lake manifest. Python tests and site builds remain
+independent. Before extending it, scope the informal claim with
+`$xshi-math-proof-writing`; do not imply that migration rechecked the proofs.
 
-```text
-lean/                     # or formalization/lean/ — pick one and document it
-  lakefile.toml / lakefile.lean
-  lean-toolchain
-  XshiMath.lean           # root import
-  XshiMath/               # modules
-  README.md               # elan, cache, lake build, update procedure
-docs/records/             # blueprint / proof-support notes (optional)
-```
-
-Prerequisites before coding proofs:
-
-1. Owner confirms the informal claim on a content page (use
-   `$xshi-math-proof-writing` to scope Statement vs Proof vs cite/sketch).
-2. Pin Lean + Mathlib via the toolchain file and lake manifest; record versions
-   in the Lean README.
-3. Add a track or root note that Lean is optional and independent of
-   `npm run build` / `uv run pytest`.
-4. Update `AGENTS.md` verification commands with the actual `lake build` entry
-   point once it exists.
-
-Until that subtree exists, stop after scoping: record the exact informal
-statement, intended hypotheses, and that formalization is deferred.
+Build from the project directory with `lake build`; initial setup may need
+`lake exe cache get` and network access. Record the actual toolchain, command,
+result, and checked declaration scope before updating a public proof claim.
 
 ## Scope the statement (always, even without Lean)
 
@@ -50,14 +34,14 @@ statement, intended hypotheses, and that formalization is deferred.
 3. Check boundary cases against the informal claim. Keep any scope reduction
    explicit in notes (do not silently weaken a public theorem).
 
-## Implement and check (only after a Lean project exists)
+## Implement and check
 
 1. Work under the chosen Lean root namespace. Search pinned Mathlib for
    supporting declarations; use explicit, narrow imports and inspect hypotheses.
 2. Import new modules from the root `.lean` file so the default build checks
    them. Complete proofs without `sorry`, new placeholder axioms, or disabling
    warnings-as-errors.
-3. Run the README's build command (typically `cd lean && lake build`). For
+3. Run the README's build command (`cd formalization/incerto-lean && lake build`). For
    first-time setup, follow elan/cache instructions in that README.
 4. Inspect the final declaration as well as the build: a checked proof of a
    weaker or vacuous statement does not establish the intended claim.

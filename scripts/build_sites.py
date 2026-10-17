@@ -11,6 +11,7 @@ import sys
 from xml.etree import ElementTree as ET
 
 from site_layout import HTML, ORIGIN, REPO, SITES
+from build_concept_graph import stage_graph_assets
 
 
 def write_sitemaps():
@@ -55,6 +56,7 @@ def main():
     shutil.copytree(exports / "landing", HTML)
     for site in SITES[1:]:
         shutil.copytree(exports / site.key, HTML / site.key)
+    stage_graph_assets(HTML / "incerto")
     subprocess.run([sys.executable, str(REPO / "scripts/write_redirects.py")], check=True)
     write_sitemaps()
     subprocess.run([sys.executable, str(REPO / "scripts/write_legacy_incerto.py")], check=True)

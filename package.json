@@ -7,7 +7,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "python3 scripts/build_sites.py",
+    "build": "uv run --locked python scripts/build_sites.py",
     "start": "BASE_URL=/math myst --config myst.landing.yml start",
     "check:html": "python3 scripts/check_html.py",
     "start:incerto": "BASE_URL=/math/incerto myst --config myst.incerto.yml start",

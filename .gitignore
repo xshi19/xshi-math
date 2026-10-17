@@ -221,3 +221,7 @@ __marimo__/
 node_modules/
 .venv-wheel/
 _build/
+
+# Local empirical inputs; never redistribute S&P index levels.
+data/incerto/cache/
+data/incerto/raw/

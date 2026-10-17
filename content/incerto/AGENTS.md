@@ -19,7 +19,7 @@ Use the root [AGENTS.md](../../AGENTS.md) skill table. Typical load:
 - Proofs: `$xshi-math-proof-writing`
 - Settled prose: `$xshi-math-prose-review` / `$xshi-math-unslop`
 - Source→concept map: `$xshi-math-reading-guide`
-- Lean scoping (no Lean tree yet): `$xshi-math-lean-formalization`
+- Lean scoping / optional `formalization/incerto-lean` prototype: `$xshi-math-lean-formalization`
 - Hard consult: `$xshi-math-deep-math-agent`
 - Writing constraints: [mathematical-writing](../../docs/rules/mathematical-writing.md)
 
