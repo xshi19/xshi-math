@@ -13,19 +13,23 @@ license-files = ["LICENSE"]
 authors = [{ name = "Xiang Shi" }]
 dependencies = ["numpy>=2.4,<3"]
 
+[project.optional-dependencies]
+incerto = ["scipy>=1.15,<2", "matplotlib>=3.8,<4"]
+
 [project.urls]
 Repository = "https://github.com/xshi19/xshi-math"
 
 [dependency-groups]
-dev = ["pytest>=9,<10"]
+dev = ["pytest>=9,<10", "scipy>=1.15,<2", "matplotlib>=3.8,<4", "networkx>=3.2,<4", "PyYAML>=6,<7"]
 
 # Explicit mapping avoids adding src/ to sys.path or installing a math package.
 # List future xmath subpackages and their directories here as they are added.
 [tool.setuptools]
-packages = ["xmath"]
+packages = ["xmath", "xmath.incerto"]
 
 [tool.setuptools.package-dir]
 xmath = "src/math"
+"xmath.incerto" = "src/math/incerto"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

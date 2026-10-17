@@ -20,6 +20,14 @@ NO_MATH = {
     "/math/incerto/incerto-theorem-concepts/",
     "/math/incerto/incerto-method-concepts/",
     "/math/incerto/incerto-distribution-concepts/",
+    "/math/incerto/incerto-empirical-example-concepts/",
+    "/math/incerto/incerto-dependency-dag/",
+    "/math/incerto/incerto-glossary/",
+    "/math/incerto/incerto-external-reading/",
+    "/math/incerto/incerto-reading-embrechts/",
+    "/math/incerto/incerto-scoft-intro/",
+    "/math/incerto/incerto-api-reference/",
+    "/math/incerto/incerto-chinese-entry/",
 }
 HOST = urlsplit(ORIGIN).netloc
 
@@ -295,6 +303,28 @@ def main():
         if "window.location.search + window.location.hash" not in source:
             failures.append(f"{old}: redirect does not preserve queries/fragments")
         check_links(old, parser)
+
+    # Auxiliary graph HTML has its own small UI, outside the book TOC/search.
+    incerto = next(site for site in SITES if site.key == "incerto")
+    for name in ("concept-graph.html", "concept-list.html"):
+        url = f"{incerto.base}/assets/graphs/{name}"
+        target = target_for(url)
+        if not target.is_file():
+            failures.append(f"missing graph asset: {url}")
+        else:
+            _, parser = document(target)
+            check_links(url, parser, incerto)
+    graph_path = HTML / "incerto/assets/data/concept-graph.json"
+    if not graph_path.is_file():
+        failures.append("missing concept-graph.json")
+    else:
+        graph = json.loads(graph_path.read_text())
+        parser = Links()
+        for node in graph["nodes"]:
+            if not node["url"].startswith(incerto.base + "/incerto-"):
+                failures.append(f"graph node outside Incerto notes: {node['url']}")
+            parser.urls.append(node["url"])
+        check_links(incerto.base + "/assets/data/concept-graph.json", parser, incerto)
 
     check_legacy(failures, document)
 

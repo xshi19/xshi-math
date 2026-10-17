@@ -146,6 +146,7 @@ class LegacyMirrorRepairTests(unittest.TestCase):
         iframe = '<iframe src="../assets/graphs/concept-graph.html"></iframe>'
         stylesheet = '<link rel="stylesheet" href="/incerto-wiki/css/concept-graph.css">'
         self.write("dependency-dag/index.html", self.page(self.broken(), iframe))
+        self.write("retained/index.html", self.page(self.broken()))
         self.write("build/concept-list-7ef20491bebc3cb4a7d50502026374c8.html",
                    self.page(body=stylesheet))
         code, summary = self.run_repair(check=True)
@@ -155,12 +156,13 @@ class LegacyMirrorRepairTests(unittest.TestCase):
         self.assertFalse(self.output.exists())
         code, summary = self.run_repair()
         self.assertEqual(code, 0, summary)
-        self.assertIn("Warnings: 2", summary)
-        self.assertEqual(summary.count("KNOWN GAP:"), 2)
-        self.assertIn("incerto-dependency-dag", summary)
+        self.assertIn("Warnings: 1", summary)
+        self.assertEqual(summary.count("KNOWN GAP:"), 1)
+        self.assertNotIn("dependency-dag/index.html", summary)
         self.assertIn("incerto-graph-assets", summary)
         self.assertNotIn("ERROR:", summary)
-        self.assertIn(iframe, (self.output / "dependency-dag/index.html").read_text())
+        self.assertFalse((self.output / "dependency-dag/index.html").exists())
+        self.assertTrue((self.output / "retained/index.html").exists())
         self.assertEqual(len(list(self.output.rglob("*.html"))), 1)
         shutil.copytree(self.output, self.mirror, dirs_exist_ok=True)
         result = subprocess.run([
@@ -170,13 +172,13 @@ class LegacyMirrorRepairTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("static-retained pages verified: 1", result.stdout)
         self.assertIn("Pages needing repair: 0", result.stdout)
-        self.assertEqual(result.stdout.count("KNOWN GAP:"), 2)
+        self.assertEqual(result.stdout.count("KNOWN GAP:"), 1)
 
     def test_known_gap_allowances_require_both_exact_paths(self):
         for relative, asset in (
             ("other/index.html", "assets/graphs/concept-graph.html"),
             ("other/index.html", "css/concept-graph.css"),
-            ("dependency-dag/index.html", "assets/graphs/other.html"),
+            ("other-dag/index.html", "assets/graphs/other.html"),
             ("build/concept-list-7ef20491bebc3cb4a7d50502026374c8.html", "css/other.css"),
         ):
             with self.subTest(relative=relative, asset=asset):
@@ -192,7 +194,6 @@ class LegacyMirrorRepairTests(unittest.TestCase):
 
     def test_stale_known_gap_allowances_warn_without_failing(self):
         for relative, asset in (
-            ("dependency-dag/index.html", "assets/graphs/concept-graph.html"),
             ("build/concept-list-7ef20491bebc3cb4a7d50502026374c8.html", "css/concept-graph.css"),
         ):
             self.write(relative, self.page(body=f'<iframe src="/incerto-wiki/{asset}"></iframe>'))
@@ -201,8 +202,8 @@ class LegacyMirrorRepairTests(unittest.TestCase):
             with self.subTest(check=check):
                 code, summary = self.run_repair(check=check)
                 self.assertEqual(code, 0, summary)
-                self.assertIn("Warnings: 2", summary)
-                self.assertEqual(summary.count("STALE ALLOWANCE: asset now exists:"), 2)
+                self.assertIn("Warnings: 1", summary)
+                self.assertEqual(summary.count("STALE ALLOWANCE: asset now exists:"), 1)
                 self.assertNotIn("KNOWN GAP:", summary)
                 self.assertNotIn("ERROR:", summary)
                 self.assertIn("Pages needing repair: 0", summary)

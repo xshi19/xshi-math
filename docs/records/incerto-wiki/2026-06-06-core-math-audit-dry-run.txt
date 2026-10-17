@@ -1,0 +1,43 @@
+Dry run only; no OpenAI API call was made.
+Model: gpt-5.5-pro
+Reasoning effort: xhigh
+Web search: disabled
+Vector stores: none
+Prompt preview: # Phase 6 Core Math Audit Request You are a mathematical consultant for Incerto Wiki, a concept-first Jupyter Book on fat tails, extreme value theory, and Taleb's Incerto...
+
+# Context Manifest
+
+## Inlined Text Files
+- AGENTS.md
+- docs/rules/content.md
+- content/notation/index.md
+- content/bibliography.bib
+- content/concepts/distributions/pareto.md
+- content/concepts/distributions/double-pareto.md
+- content/concepts/theorems/regular-variation.md
+- content/concepts/theorems/karamata.md
+- content/concepts/theorems/pareto-moment-existence.md
+- content/concepts/theorems/lln-failure.md
+- content/concepts/methods/max-to-sum-ratio.md
+- content/concepts/methods/hill-estimator.md
+- content/concepts/theorems/pickands-balkema-de-haan.md
+- content/concepts/theorems/mean-excess-function.md
+- content/concepts/examples/lln-preasymptotic.md
+- content/concepts/examples/amazon-bookrank.md
+- content/concepts/examples/sp500-tail.md
+- content/reading-guides/taleb-scoft/ch3.md
+- content/reading-guides/taleb-scoft/ch4.md
+- content/reading-guides/external/embrechts-modelling-extremal-events.md
+- incerto/distributions.py
+- incerto/estimators.py
+- tests/test_distributions.py
+- tests/test_estimators.py
+
+## Attached PDFs
+- None
+
+## Attached Images
+- None
+
+## Skipped or Truncated
+- None

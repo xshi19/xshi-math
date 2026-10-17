@@ -1,5 +1,10 @@
 # Agent Framework Design
 
+Current Lean status (2026-10-17): the final Incerto migration imported
+[`formalization/incerto-lean/`](../../formalization/incerto-lean/README.md).
+Earlier absence statements below describe the harness rollout date. The
+prototype was checked upstream on 2026-09-05, not rechecked here.
+
 Status: design for a shared Codex and Cursor workflow.
 Source review date: 2026-09-12.
 

@@ -24,23 +24,29 @@ covers five further theory notes and the standard 51-page HTML gate.
 
 | Surface | Current responsibility |
 | --- | --- |
-| `myst.{landing,incerto,ig,normix-theory}.yml`, `content/` | Four independent projects: landing with shared notation (2 pages), Incerto (28), Information Geometry (7), and Normix theory (15); `myst.yml` extends the landing for default authoring |
+| `myst.{landing,incerto,ig,normix-theory}.yml`, `content/` | Four independent projects: landing with shared notation (2 pages), Incerto (43), Information Geometry (7), and Normix theory (15); `myst.yml` extends the landing for default authoring |
 | `content/notation.md` | One shared notation canon for all three tracks (`/math/notation/`) |
 | `assets/styles/math.css` | Original typography, equation overflow, and focus styles layered over the theme |
 | `package.json`, `package-lock.json` | MyST CLI 1.10.1; `npm run build` builds and assembles all four sites with their own `BASE_URL` |
-| `pyproject.toml`, `uv.lock`, `.python-version` | Locked NumPy/pytest environment; Python 3.13 development default |
+| `pyproject.toml`, `uv.lock`, `.python-version` | NumPy base; optional SciPy/Matplotlib Incerto helpers; development graph dependencies; Python 3.13 development default |
 | `src/math/` | Source directory explicitly installed as `xmath` by setuptools; no top-level `math` package |
-| `demos/`, `tests/` | A deterministic exceedance example; checks of counting, invalid input, import isolation, and legacy redirect generation/validation |
-| `scripts/build_sites.py`, `scripts/site_layout.py`, `scripts/write_redirects.py` | Export separately, assemble `_build/html/`, and generate 48 old flat math redirects from the shared route layout |
-| `scripts/write_legacy_incerto.py` | Generates 28 compatibility pages at `_build/legacy/incerto-wiki/` from `url-map.csv`; reports two unresolved rows |
+| `demos/`, `tests/` | Deterministic tail demos and static figures; package, manifest, graph, import, and compatibility checks |
+| `scripts/build_sites.py`, `scripts/site_layout.py`, `scripts/write_redirects.py` | Export separately, assemble `_build/html/`, and generate 63 old flat math redirects from the shared route layout |
+| `scripts/write_legacy_incerto.py` | Generates 64 compatibility pages at `_build/legacy/incerto-wiki/` from `url-map.csv`; four download/docs-only rows retained |
 | `scripts/check_html.py` | Checks all pages and redirects, including the legacy compatibility tree, independent branding/TOCs, local routes/assets/fragments, nested base paths, shared CSS, and rendered equations |
+| `scripts/build_concept_graph.py`, `assets/graphs/`, `assets/data/concept-graph.json` | Incerto prerequisite/knowledge graph, regenerated into the static subsite by the build |
+| `formalization/incerto-lean/` | Independent Lean/Mathlib v4.19.0 prototype; imported, not rechecked here |
+| `data/incerto/` | Documented Amazon/NYC snapshots; ignored financial cache |
 | `docs/plan/` | Representative inventory, imported Incerto Batch 1/2/3 and Normix Batch 1/2 dispositions, remaining proposals, URL mappings, and pending gates |
 
 Body notes and concept indexes keep globally unique Markdown stems flat under
 `content/`. Each former track hub now lives at `content/{incerto,ig,normix-theory}/index.md`
 and is the first entry in its own explicit TOC. Repeated `index.md` names are
-safe across independent projects; there is only one index per build. No new
-mathematical material, Python helpers, or notebook execution was introduced.
+safe across independent projects; there is only one index per build. The final
+Incerto migration adds reading guides, static empirical illustrations,
+and the `xmath.incerto` educational helpers. Notebook execution is not part
+of any site build. See the [migration record](docs/records/incerto-wiki-final-migration.md)
+for source coverage, rights review, and operator verification still required.
 MIT notices remain on the adapted notes.
 
 MyST CLI 1.10.1 derives note routes from filenames and ignores `slug:`. The
@@ -70,7 +76,7 @@ _build/html/
 
 Each site carries its own assets alongside these pages. Assembly replaces the
 theme's localhost sitemap/discovery URLs with public URLs; the root sitemap
-covers all 52 canonical pages and track sitemaps cover their own pages. All 47 body/concept
+covers all 67 canonical pages and track sitemaps cover their own pages. All 62 body/reference
 note URLs and the old IG hub get static redirects with canonical links and
 visible destinations; JavaScript preserves queries and fragments. Incerto and
 Normix hub paths already match, so they remain real pages without self-redirects.
@@ -93,9 +99,10 @@ identity is recorded with verification.
 
 The dependency direction remains `xshi-math -> normix` for future package demos.
 This foundation links upstream without installing or vendoring Normix. The hub
-owns public assembly; no workflow here writes to it. Twenty-six Incerto concept pages and thirteen
-Normix notes are adapted with source notices; no private history, Lean project, CI
-workflow, or Pages publisher lives in this repository. The
+owns public assembly; no workflow here writes to it. Imported notes retain
+source notices; no private history, CI workflow, or Pages publisher was imported. An optional
+contained Lean prototype now lives at `formalization/incerto-lean/`, with its
+upstream 2026-09-05 check recorded separately from verification here. The
 [Information Geometry outline](docs/plan/ig-entry-outline.md) separates the
 implemented Basics / early IG notes from later marginalization and GH/Normix
 research pages.

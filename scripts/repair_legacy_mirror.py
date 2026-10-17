@@ -17,17 +17,13 @@ from write_legacy_incerto import load_legacy_routes
 OUTPUT = LEGACY_HTML.parent / "retained-repair" / LEGACY_HTML.name
 MARKER = '<meta name="xshi-math-legacy" content="static-retained">'
 # Exact (referring file, asset) paths relative to the mirror, never wildcards.
-# The operator confirmed these gaps in the 2026-10-10 live snapshot. Restoration
-# awaits the deferred DAG decision; the runbook forbids copying private source.
-# Warn when an asset returns so the allowance can be reviewed and removed.
+# The dependency-DAG page is now a compatibility route. Only the retained
+# hashed list export still requests the old missing stylesheet; it is not the
+# new /math/incerto/assets/graphs/concept-list.html artifact.
 KNOWN_MISSING_ASSETS = {
-    ("dependency-dag/index.html", "assets/graphs/concept-graph.html"): (
-        "Deferred iframe; migration-manifest.csv rows incerto-dependency-dag / "
-        "incerto-graph-assets"
-    ),
     ("build/concept-list-7ef20491bebc3cb4a7d50502026374c8.html", "css/concept-graph.css"): (
-        "Deferred graph stylesheet; migration-manifest.csv rows incerto-dependency-dag / "
-        "incerto-graph-assets"
+        "Retained historical concept-list export; new graph assets are published "
+        "under /math/incerto/ (migration-manifest.csv incerto-graph-assets)"
     ),
 }
 # Static side-effect, namespace, default and named imports, plus literal dynamic
