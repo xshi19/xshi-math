@@ -296,3 +296,7 @@ Node interaction cases), `node --check assets/js/concept-graph.js`, and
 `git diff --check`; the new test file also passed a separate whitespace check.
 No full site rebuild or browser/device interaction review was run for this
 follow-up. No network access or commit; the protected planning paths are unchanged.
+Second Bugbot pass: touch background gestures pan only horizontally and capture
+the pointer only after horizontal-dominant movement, leaving vertical moves to
+`pan-y`; `pointercancel` restores the gesture's starting transform and dragged
+node position. Interaction tests cover both the source and the staged asset copy.

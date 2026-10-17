@@ -1,15 +1,25 @@
 import sys
 import subprocess
 from pathlib import Path
+import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
 
 from build_concept_graph import build_graph_data
 
 
-def test_concept_graph_pointer_interactions():
+@pytest.mark.parametrize("staged", [False, True], ids=["source", "staged"])
+def test_concept_graph_pointer_interactions(tmp_path, staged):
+    """Check touch pan direction and cancellation rollback in both asset copies."""
+    from build_concept_graph import stage_graph_assets
+
+    root = Path(__file__).resolve().parents[1]
+    if staged:
+        stage_graph_assets(tmp_path)
+        root = tmp_path
     result = subprocess.run(
-        ["node", str(Path(__file__).with_name("concept_graph_interactions.cjs"))],
+        ["node", str(Path(__file__).with_name("concept_graph_interactions.cjs")),
+         str(root / "assets/js/concept-graph.js")],
         capture_output=True, text=True, timeout=30,
     )
     assert result.returncode == 0, result.stdout + result.stderr

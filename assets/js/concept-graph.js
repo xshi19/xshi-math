@@ -382,33 +382,45 @@
     svg.addEventListener("pointerdown", (event) => {
       if (!event.isPrimary || event.button !== 0 || state.dragging) return;
       const node = event.target.closest(".node");
+      const id = node?.getAttribute("data-id");
       const point = graphPointFromEvent(event);
       state.dragging = {
         type: node ? "node" : "pan",
-        id: node?.getAttribute("data-id"),
+        id,
         pointerId: event.pointerId,
+        horizontalOnly: !node && event.pointerType === "touch",
         x: point.rawX,
         y: point.rawY,
         clientX: event.clientX,
         clientY: event.clientY,
         moved: false,
-        startX: state.transform.x,
-        startY: state.transform.y,
+        startTransform: { ...state.transform },
+        startPosition: node ? { ...state.positions.get(id) } : null,
       };
-      // The SVG survives render(); its node children are replaced on each move.
-      svg.setPointerCapture(event.pointerId);
-      svg.classList.add("is-dragging");
+      // Wait for horizontal intent on touch backgrounds so pan-y can scroll.
+      if (!state.dragging.horizontalOnly) {
+        // The SVG survives render(); its children are replaced on each move.
+        svg.setPointerCapture(event.pointerId);
+        svg.classList.add("is-dragging");
+      }
     });
     svg.addEventListener("pointermove", (event) => {
       if (!state.dragging || event.pointerId !== state.dragging.pointerId) return;
+      const drag = state.dragging;
+      const dx = event.clientX - drag.clientX;
+      const dy = event.clientY - drag.clientY;
+      if (drag.horizontalOnly && !drag.moved) {
+        if (Math.abs(dx) <= 4 || Math.abs(dx) <= Math.abs(dy)) return;
+        svg.setPointerCapture(event.pointerId);
+        svg.classList.add("is-dragging");
+      }
       const point = graphPointFromEvent(event);
-      if (Math.hypot(event.clientX - state.dragging.clientX,
-        event.clientY - state.dragging.clientY) > 4) state.dragging.moved = true;
-      if (state.dragging.type === "pan") {
-        state.transform.x = state.dragging.startX + (point.rawX - state.dragging.x);
-        state.transform.y = state.dragging.startY + (point.rawY - state.dragging.y);
-      } else if (state.dragging.type === "node") {
-        state.positions.set(state.dragging.id, { x: point.x, y: point.y });
+      if (Math.hypot(dx, dy) > 4) drag.moved = true;
+      if (drag.type === "pan") {
+        state.transform.x = drag.startTransform.x + (point.rawX - drag.x);
+        state.transform.y = drag.startTransform.y + (drag.horizontalOnly ? 0 : point.rawY - drag.y);
+      } else if (drag.type === "node") {
+        state.positions.set(drag.id, { x: point.x, y: point.y });
       }
       render();
     });
@@ -418,8 +430,14 @@
       state.dragging = null;
       svg.classList.remove("is-dragging");
       if (svg.hasPointerCapture(event.pointerId)) svg.releasePointerCapture(event.pointerId);
+      if (event.type !== "pointerup") {
+        state.transform = drag.startTransform;
+        if (drag.type === "node") state.positions.set(drag.id, drag.startPosition);
+        render();
+        return;
+      }
       // Capture can retarget the click to the SVG, so handle node taps here.
-      if (event.type === "pointerup" && drag.type === "node" && !drag.moved) {
+      if (drag.type === "node" && !drag.moved) {
         state.selectedId = drag.id;
         render();
       }

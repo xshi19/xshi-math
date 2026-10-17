@@ -5,7 +5,9 @@ const path = require("node:path");
 const test = require("node:test");
 const vm = require("node:vm");
 
-const source = fs.readFileSync(path.join(__dirname, "../assets/js/concept-graph.js"), "utf8");
+const source = fs.readFileSync(
+  process.argv[2] || path.join(__dirname, "../assets/js/concept-graph.js"), "utf8"
+);
 
 async function graph(scaleX = 0.5, scaleY = 0.75) {
   const captured = new Map();
@@ -110,28 +112,30 @@ async function graph(scaleX = 0.5, scaleY = 0.75) {
 
 function close(actual, expected) { assert.ok(Math.abs(actual - expected) < 1e-9, `${actual} != ${expected}`); }
 
-for (const scale of [0.5, 2]) {
-  test(`pan follows screen motion at SVG scale ${scale}, including after zoom`, async () => {
-    const g = await graph(scale, scale * 1.5);
-    g.fire(g.svg, "wheel", { deltaY: -1 });
-    const [x, y, k] = g.transform();
-    close(k, 1.1);
-    g.fire(g.svg, "pointerdown");
-    assert.equal(g.captured.get(1), g.svg);
-    g.fire(g.body, "pointermove", { clientX: 130, clientY: 120 });
-    close(g.transform()[0], x + 30 / scale);
-    close(g.transform()[1], y - 30 / (scale * 1.5));
-    // Capture stays on the SVG even though each move replaces its children.
-    g.fire(g.body, "pointermove", { clientX: 160, clientY: 180 });
-    close(g.transform()[0], x + 60 / scale);
-    close(g.transform()[1], y + 30 / (scale * 1.5));
-    g.fire(g.body, "pointerup");
-    assert.equal(g.captured.size, 0);
-    assert.equal(g.svg.classList.contains("is-dragging"), false);
-    const ended = g.transform();
-    g.fire(g.svg, "pointermove", { clientX: 300 });
-    assert.deepEqual(g.transform(), ended);
-  });
+for (const pointerType of ["mouse", "pen"]) {
+  for (const scale of [0.5, 2]) {
+    test(`${pointerType} pan follows screen motion at SVG scale ${scale}, including after zoom`, async () => {
+      const g = await graph(scale, scale * 1.5);
+      g.fire(g.svg, "wheel", { deltaY: -1 });
+      const [x, y, k] = g.transform();
+      close(k, 1.1);
+      g.fire(g.svg, "pointerdown", { pointerType });
+      assert.equal(g.captured.get(1), g.svg);
+      g.fire(g.body, "pointermove", { pointerType, clientX: 130, clientY: 120 });
+      close(g.transform()[0], x + 30 / scale);
+      close(g.transform()[1], y - 30 / (scale * 1.5));
+      // Capture stays on the SVG even though each move replaces its children.
+      g.fire(g.body, "pointermove", { pointerType, clientX: 160, clientY: 180 });
+      close(g.transform()[0], x + 60 / scale);
+      close(g.transform()[1], y + 30 / (scale * 1.5));
+      g.fire(g.body, "pointerup", { pointerType });
+      assert.equal(g.captured.size, 0);
+      assert.equal(g.svg.classList.contains("is-dragging"), false);
+      const ended = g.transform();
+      g.fire(g.svg, "pointermove", { pointerType, clientX: 300 });
+      assert.deepEqual(g.transform(), ended);
+    });
+  }
 }
 
 for (const pointerType of ["mouse", "touch", "pen"]) {
@@ -151,6 +155,87 @@ for (const pointerType of ["mouse", "touch", "pen"]) {
   });
 }
 
+test("vertical touch moves leave the transform unchanged and allow scrolling", async () => {
+  const g = await graph();
+  g.fire(g.svg, "wheel", { deltaY: -1 });
+  const start = g.transform();
+  const pointerType = "touch";
+  assert.ok(!g.fire(g.svg, "pointerdown", { pointerType }).defaultPrevented);
+  for (const [clientX, clientY] of [[100, 180], [103, 210], [140, 190], [135, 215]]) {
+    const event = g.fire(g.svg, "pointermove", { pointerType, clientX, clientY });
+    assert.deepEqual(g.transform(), start);
+    assert.equal(g.captured.size, 0);
+    assert.equal(g.svg.classList.contains("is-dragging"), false);
+    assert.ok(!event.defaultPrevented);
+  }
+  g.fire(g.svg, "pointerup", { pointerType });
+  assert.deepEqual(g.transform(), start);
+});
+
+test("touch background pan starts after horizontal intent and moves only horizontally", async () => {
+  const g = await graph();
+  g.fire(g.svg, "wheel", { deltaY: -1 });
+  const [x, y, k] = g.transform();
+  const pointerType = "touch";
+  g.fire(g.svg, "pointerdown", { pointerType });
+  assert.equal(g.captured.size, 0);
+  g.fire(g.svg, "pointermove", { pointerType, clientX: 103, clientY: 151 });
+  assert.deepEqual(g.transform(), [x, y, k]);
+  assert.equal(g.captured.size, 0);
+  g.fire(g.svg, "pointermove", { pointerType, clientX: 130, clientY: 160 });
+  assert.equal(g.captured.get(1), g.svg);
+  assert.equal(g.svg.classList.contains("is-dragging"), true);
+  close(g.transform()[0], x + 30 / 0.5);
+  assert.deepEqual(g.transform().slice(1), [y, k]);
+  g.fire(g.body, "pointermove", { pointerType, clientX: 160, clientY: 350 });
+  close(g.transform()[0], x + 60 / 0.5);
+  assert.deepEqual(g.transform().slice(1), [y, k]);
+  const ended = g.transform();
+  g.fire(g.body, "pointerup", { pointerType });
+  assert.deepEqual(g.transform(), ended);
+  assert.equal(g.captured.size, 0);
+});
+
+for (const pointerType of ["mouse", "touch", "pen"]) {
+  test(`${pointerType} pointercancel restores the starting viewport transform`, async () => {
+    const g = await graph();
+    g.fire(g.svg, "wheel", { deltaY: -1 });
+    const start = g.transform();
+    g.fire(g.svg, "pointerdown", { pointerType });
+    g.fire(g.svg, "pointermove", { pointerType, clientX: 140, clientY: 160 });
+    g.fire(g.body, "pointermove", { pointerType, clientX: 180, clientY: 210 });
+    assert.notDeepEqual(g.transform(), start);
+    g.fire(g.body, "pointercancel", { pointerType });
+    assert.deepEqual(g.transform(), start);
+    assert.equal(g.captured.size, 0);
+    assert.equal(g.svg.classList.contains("is-dragging"), false);
+    g.fire(g.svg, "pointermove", { pointerType, clientX: 400 });
+    assert.deepEqual(g.transform(), start);
+  });
+
+  test(`${pointerType} pointercancel restores the starting node position`, async () => {
+    const g = await graph();
+    g.fire(g.svg, "wheel", { deltaY: -1 });
+    const viewport = g.transform();
+    // Preserve a previously completed drag, rather than resetting to the layout.
+    g.fire(g.node(), "pointerdown", { pointerType });
+    g.fire(g.body, "pointermove", { pointerType, clientX: 140, clientY: 190 });
+    g.fire(g.body, "pointerup", { pointerType });
+    const start = g.node().getAttribute("transform");
+    g.fire(g.node(), "pointerdown", { pointerType, clientX: 140, clientY: 190 });
+    g.fire(g.body, "pointermove", { pointerType, clientX: 180, clientY: 210 });
+    assert.notEqual(g.node().getAttribute("transform"), start);
+    g.fire(g.body, "pointercancel", { pointerType });
+    assert.equal(g.node().getAttribute("transform"), start);
+    assert.deepEqual(g.transform(), viewport);
+    assert.equal(g.node().getAttribute("aria-pressed"), "false");
+    assert.equal(g.captured.size, 0);
+    assert.equal(g.svg.classList.contains("is-dragging"), false);
+    g.fire(g.svg, "pointermove", { pointerType, clientX: 400 });
+    assert.equal(g.node().getAttribute("transform"), start);
+  });
+}
+
 test("only the active primary pointer controls a gesture; cancellation releases it", async () => {
   const g = await graph();
   g.fire(g.svg, "pointerdown", { button: 2 });
@@ -161,14 +246,21 @@ test("only the active primary pointer controls a gesture; cancellation releases 
   g.fire(g.svg, "pointermove", { pointerId: 2, clientX: 400 });
   g.fire(g.svg, "pointerup", { pointerId: 2 });
   assert.deepEqual(g.transform(), [0, 0, 1]);
+  assert.equal(g.captured.size, 0);
+  g.fire(g.svg, "pointermove", { pointerType: "touch", clientX: 140 });
+  assert.equal(g.captured.get(1), g.svg);
+  g.fire(g.svg, "pointercancel", { pointerId: 2 });
   assert.equal(g.captured.get(1), g.svg);
   g.fire(g.svg, "pointercancel", { pointerType: "touch" });
+  assert.deepEqual(g.transform(), [0, 0, 1]);
   assert.equal(g.captured.size, 0);
   assert.equal(g.svg.classList.contains("is-dragging"), false);
   g.fire(g.node(), "pointerdown", { pointerType: "touch" });
   g.fire(g.svg, "pointercancel", { pointerType: "touch" });
   assert.equal(g.node().getAttribute("aria-pressed"), "false");
   g.fire(g.svg, "pointerdown");
+  g.fire(g.svg, "pointermove", { clientX: 140, clientY: 190 });
+  assert.notDeepEqual(g.transform(), [0, 0, 1]);
   g.svg.releasePointerCapture(1);
   g.fire(g.svg, "pointermove", { clientX: 400 });
   assert.deepEqual(g.transform(), [0, 0, 1]);
