@@ -56,6 +56,7 @@ project:
       children:
         - file: content/incerto-scoft-intro.md
           children:
+            - file: content/incerto-scoft-ch1.md
             - file: content/incerto-scoft-ch3.md
             - file: content/incerto-scoft-ch4.md
         - file: content/incerto-external-reading.md

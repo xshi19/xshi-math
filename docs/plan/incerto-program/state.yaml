@@ -3,14 +3,14 @@ schema_version: 3
 updated: '2026-10-17'
 repository: xshi19/xshi-math
 baseline_revision: 998a4a11a17b7ae7ba4c306005a4c8e3109f4392
-branch: review/incerto-m0.5
-scope: m0.5-review
+branch: scft/v4-ch01
+scope: scft-v4-ch01
 implementation_authorized: true
 authorized_chunks:
 - m0.5-review
-authorization_note: Owner authorized the mathematical review, clear source fixes, two reported reader issues,
-  and state handoff on 2026-10-17, followed by explicit decisions for issues 008, 009, 010 and 012;
-  later chapter implementation and deployment remain outside this task.
+- scft-v4-ch01
+authorization_note: Owner authorized scft-v4-ch01 on 2026-10-17 with gpt-6-astra xhigh;
+  record M0.5 live review passed after published PR 27 (fbf2c6a). No commit or deployment.
 status_semantics:
   todo: Program work has not satisfied its evidence gates; existing prose is recorded separately.
   in-progress: A named chunk is active and has a recorded checkpoint.
@@ -168,7 +168,7 @@ roles:
     client: Data Scientist bot
     owns: all other data requests and acquisition support
 role_constraints:
-- Owner explicitly selected gpt-6-astra at max reasoning for this revision.
+- Owner selected gpt-6-astra xhigh for chapter 1 writing/code; separate max review completed 2026-10-17.
 - No Cursor third-party models.
 - Role assignments describe future work, not availability or permission to delegate.
 milestones:
@@ -179,13 +179,13 @@ milestones:
     assigned_role: astra-max
   M0.5:
     title: Existing mathematics and live reader review
-    status: in-progress
+    status: done
     dependencies:
     - M0
     assigned_role: math-site-editor
   M1:
     title: SCoFT v4 chapters 1-30 with attached appendices and papers
-    status: todo
+    status: in-progress
     dependencies:
     - M0.5
     assigned_role: astra-xhigh
@@ -201,14 +201,14 @@ milestones:
     dependencies:
     - M2
     assigned_role: math-site-editor
-next_chunk: '#/chunks/scft-v4-ch01'
-next_chunk_note: Selected per the owner after mathematical review; M0.5 remains in-progress until the separate
-  live reader gate is covered. No chapter implementation has started.
+next_chunk: '#/chunks/scft-v4-ch02'
+next_chunk_note: Chapter 1 implementation and max review done; external site build and
+  post-publication live review remain explicit follow-ups in its checkpoint.
 chunks:
   m0.5-review:
     id: m0.5-review
     title: Existing mathematics and live reader review
-    status: in-progress
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     milestone: M0.5
@@ -254,17 +254,19 @@ chunks:
         assigned_role: math-site-editor
         method: read every corresponding live page; review explanation, equations, figures, links and desktop/mobile
           navigation
-        status: in-progress
-        pages_reviewed_live: 0
-        deployment_revision: null
+        status: done
+        pages_reviewed_live: 24
+        deployment_revision: fbf2c6a
+        reviewed_at: '2026-10-17'
+        evidence: Owner reports Math Site Editor live reader review passed after PR 27 publication.
         viewports_reviewed: []
+        viewport_note: Exact devices and viewport dimensions not supplied in the owner handoff.
+        follow_up: Possible mixed-weight rendering when Charter is missing (fallback serif stack), pending Xiang's check.
         owner_reported_issues:
         - M05-ISSUE-004
         - M05-ISSUE-005
         source_investigation: done
-        limitations: Only reported apostrophe spacing and migration wording, plus source-level findings, covered
-          here. No independent live desktop/mobile reading; build blocked by sandbox EPERM and live access by DNS and browser
-          launch failure.
+        limitations: Closure uses the owner's Math Site Editor handoff, not a new browser review in this run.
     output_path: docs/plan/incerto-program/m0.5-review.md
     acceptance:
     - Record source revision, live deployment/date and a coverage row for every one of the 24 bodies; exclude the
@@ -374,12 +376,14 @@ chunks:
       - scft-v4-ch09
       - scft-v4-ch10
     - id: M05-ISSUE-004
+      chapter_1_resolution: Published fix confirmed; possible mixed-weight serif fallback without Charter pending Xiang's check.
       severity: minor
       status: fixed in this PR
       disposition: resolved
       chapters:
       - scft-v4-ch01
     - id: M05-ISSUE-005
+      chapter_1_resolution: Published reader wording confirmed by Math Site Editor on 2026-10-17.
       severity: minor
       status: fixed in this PR
       disposition: resolved
@@ -389,6 +393,7 @@ chunks:
       - scft-v4-ch04
       - scft-v4-ch09
     - id: M05-ISSUE-006
+      chapter_1_resolution: Resolved for chapter-1 reused claims; FKZ Theorems 3.29-3.30 and DLMF locators verified. Other chapters remain assigned.
       severity: major
       status: assigned to chapter chunk
       disposition: deferred-with-reason
@@ -399,6 +404,7 @@ chunks:
       - scft-v4-ch07
       - scft-v4-ch09
     - id: M05-ISSUE-007
+      chapter_1_resolution: Resolved for chapter-1 source context with taleb2025scoftv4 and printed locators. Other chapters remain assigned.
       severity: minor
       status: assigned to chapter chunk
       disposition: deferred-with-reason
@@ -473,20 +479,19 @@ chunks:
     checkpoint:
       mathematics: done
       issues_list: done
-      live_reader_gate: pending
-      fix_revision: Initial review in 528bfc0; Xiang decision fixes in the uncommitted working tree after 528bfc0
+      live_reader_gate: done
+      fix_revision: Published PR 27, fbf2c6a, including initial review and Xiang decision fixes.
       checks:
         pytest: 151 passed in 3.51s; UV_CACHE_DIR=/tmp/m05-uv-cache uv run --offline pytest
         targeted_arithmetic: Mean-excess counterexample checked with exact rationals; initial review's 126 assertions
           and separate issue reproducers are retained in m0.5-review.md
         build: 'blocked: MyST npm preflight; spawnSync /bin/sh EPERM'
         html: 'not run for decision fixes: fresh build blocked; initial-review results are retained in m0.5-review.md'
-        live_reader: not performed; 0 of 24 independently reviewed
+        live_reader: Passed per owner handoff, Math Site Editor, 2026-10-17, published PR 27 (fbf2c6a).
         state_and_links: passed; 986 plan links and 39 links across four changed notes; issue counts, unchanged next_chunk
           and unchanged other issue records/bodies verified
         whitespace: passed; git diff --check; no new files
-      next_action: Resume scft-v4-ch01 only at its scoped claims, resolving assigned findings before reuse; operator
-        reruns site checks and Math Site Editor completes the outstanding live reader gate.
+      next_action: Chapter-1 follow-up is recorded below; Xiang checks possible mixed-weight serif fallback without Charter.
   scft-v4-ch01:
     id: scft-v4-ch01
     m0_5_issue_ids:
@@ -505,22 +510,35 @@ chunks:
       - lean
       teaching_pages:
         required: true
-        status: todo
+        status: done
         page_paths:
         - content/incerto-tail-class-catalog.md
+        - content/incerto-scoft-ch1.md
       demos:
         required: true
-        status: todo
+        status: done
         concept_ids:
         - c-tail-catalog
+        script_paths:
+        - demos/incerto/prologue_tail_classes.py
+        helper_paths:
+        - src/math/incerto/tail_classes.py
+        test_paths:
+        - tests/test_incerto_tail_classes.py
+        figure_paths:
+        - assets/figures/incerto/prologue-kurtosis.svg
+        - assets/figures/incerto/prologue-tail-ratios.svg
       optional_lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: Chapter 1 supplies no formal theorem; its teaching examples use finite sums and analytic
+          integrals. Keep Lean optional and defer new library setup; the approved chapter-2 counting pilot
+          remains separate. No new checked declaration is claimed.
         policy: After teaching and demos; record exact checked claims or a skip reason. No chapter gate.
     dependencies:
     - m0.5-review
     assigned_role: astra-xhigh
-    status: todo
+    status: done
     milestone: M1
     source_unit_ids:
     - scft-v4-ch01
@@ -545,6 +563,64 @@ chunks:
       or the following chapter.
     - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
       live pages as a reader.
+    checkpoint:
+      completed_at: '2026-10-17'
+      base_revision: fbf2c6a
+      working_branch: scft/v4-ch01
+      scope: Local chapter implementation complete as requested; not a deployment or max-review certification.
+      source_review: Read supplied read-only arXiv:2001.10488v4 PDF, ch. 1, printed pp. 3-6 (PDF pages 17-20).
+        No numbered theorem or equation; original examples supply the teaching scope. No book text/figures
+        imported.
+      claim_ids:
+      - CH01-C01
+      - CH01-C02
+      - CH01-C03
+      - CH01-C04
+      - CH01-C05
+      - CH01-C06
+      - CH01-C07
+      evidence_path: docs/records/incerto-scft-v4-ch01.md
+      deliverable_sequence:
+      - website-math completed before Python implementation
+      - Python helpers, deterministic demo and figures verified
+      - Lean skip recorded after teaching and demos
+      m0_5_dispositions:
+        M05-ISSUE-004: Published fix confirmed; possible mixed-weight fallback without Charter pending Xiang
+          check.
+        M05-ISSUE-005: Reader wording confirmed by completed M0.5 live review.
+        M05-ISSUE-006: Chapter-1 classifications now cite verified FKZ 2013 Thms 3.29-3.30, pp. 57-58; DLMF
+          7.12.1 and 5.12.1 identify analytic inputs. Other chapters remain assigned.
+        M05-ISSUE-007: Added taleb2025scoftv4; pinned ch1 guide/catalog/intro and reused Cramer/subexponential
+          context to v4 ch1 pp. 3-6. Historical key and other chapter references remain assigned.
+      checks:
+        pytest: 181 passed in 3.04s; UV_CACHE_DIR=/tmp/m05-uv-cache uv run --offline pytest. Plain command
+          blocked by read-only default cache.
+        demo: Passed; 1205 finite grid log ratios, exact tables, two SVGs byte-identical on repeat; PNG previews
+          visually inspected.
+        npm_install: Offline npm ci failed ENOTCACHED; reused node_modules from local published checkout with
+          byte-identical package-lock.json.
+        build: 'Blocked: MyST npm preflight; direct reproduction reports spawnSync /bin/sh EPERM.'
+        html: 'Failed after blocked build: missing fresh pages/assets/config. No successful HTML build claimed.'
+        source_checks: Passed state validator (988 plan links), 280 changed-file links, TOC/routes, citation keys,
+          figure existence and whitespace. Math source reviewed; rendered equations remain unverified.
+      max_math_review:
+        status: done
+        assigned_role: astra-max
+        reviewed_at: '2026-10-17'
+        model: gpt-6-astra MAX
+        scope: CH01-C01 through CH01-C07; owner requested a separate max-reasoning run.
+        evidence_path: docs/records/incerto-scft-v4-ch01.md
+        result: C01-C06 correct; C07 cited-ok. No mathematical, citation or Python corrections needed.
+        checks: 181 tests passed in 3.19s; 1483 independent numerical comparisons/assertions passed;
+          demo reproduced both SVGs byte-for-byte. Source locators and chapter-text overlap checked.
+        xiang_decisions: none
+      live_reader_review:
+        status: pending-publication
+        assigned_role: math-site-editor
+        note: No deployment in this task; chapter-1 pages require live review after publication. M0.5 closure
+          applies to published fbf2c6a only.
+      next_action: Rerun site checks outside sandbox before publication;
+        next implementation chunk is scft-v4-ch02. No commit made.
   scft-v4-ch02:
     id: scft-v4-ch02
     m0_5_issue_ids:
@@ -6694,11 +6770,11 @@ chapters:
     concept_ids:
     - c-tail-catalog
     - c-induction
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     milestone: M1
-    locator_review: local-v4-TOC-verified; exact-claim-locators-pending
+    locator_review: ch1-pp3-6-read; terminology-pp4-5; original-teaching-claims-in-chunk-checkpoint
     classification:
     - lean-verifiable
     - numeric-demo
@@ -10065,7 +10141,7 @@ concepts:
       lean-verifiable: The convolution decomposition and exact light-tail ratios are precise proof targets.
       numeric-demo: Population tail-ratio curves illustrate distinct asymptotic classes.
     scope: Keep cited class memberships separate from the elementary convolution derivation and exact ratio checks.
-    status: todo
+    status: in-progress
     dependencies:
     - c-regular-variation
     - c-subexponential
@@ -10076,9 +10152,9 @@ concepts:
     canonical_url: /math/incerto/incerto-tail-class-catalog/
     coverage:
       prose: existing
-      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      scope_note: M0.5 reviewed; chapter-1 examples and citations implemented. Later chapter scopes remain open; no checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-1-deterministic-demo-verified
     source_units:
     - tbs-ch15
     - tbs-es06
@@ -10097,10 +10173,10 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: in-progress
       python:
         required: true
-        status: todo
+        status: in-progress
       lean:
         required: false
         status: optional
@@ -10110,6 +10186,13 @@ concepts:
     - scft-v4-ch05
     - scft-v4-ch06
     first_chunk: scft-v4-ch01
+    completed_chunk_scopes:
+      scft-v4-ch01:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        evidence_path: docs/records/incerto-scft-v4-ch01.md
+        note: Full concept remains in-progress for chapters 2, 5 and 6.
   c-luck-skill:
     id: c-luck-skill
     title: Luck, skill, and performance selection
