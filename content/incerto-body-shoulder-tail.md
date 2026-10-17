@@ -220,8 +220,8 @@ worked comparison is planned.
 ## Backlinks
 
 - Depends on: [Normix normal mixtures](https://xshi19.github.io/math/normix-theory/normix-normal-mixtures/)
-  and the canonical density notation in Notation (planned).
-- Used by: Dispersion Ratio Under Fat Tails (planned).
+  and the canonical density notation in [Shared notation](https://xshi19.github.io/math/notation/).
+- Used by: [Dispersion Ratio Under Fat Tails](./incerto-dispersion-ratio.md).
 
 ## Source and adaptation
 

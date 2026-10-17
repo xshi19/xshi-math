@@ -5,7 +5,7 @@ title: 'Reading Guide: Statistical Consequences of Fat Tails'
 Taleb, N. N. (2020). *Statistical Consequences of Fat Tails*.
 [arXiv:2001.10488](https://arxiv.org/abs/2001.10488)
 
-Each chapter page is a reading guide that links into the concept atoms.
+Each chapter page is a reading guide that links to the relevant concept notes.
 It is **not** a substitute for reading the book; it is a companion that
 fills notation gaps, adds proofs, and connects ideas.
 

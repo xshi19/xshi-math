@@ -26,11 +26,10 @@ using it. A generalization arrow points from a special case to the broader
 concept. Application arrows point toward an application. References are ordinary
 links, and related links are explicitly selected onward reading.
 
-Only prerequisite edges must be acyclic. The notes use the explicit
-`prerequisites`, `proof_depends_on`, `special_case_of`, and `applications`
-metadata fields. Existing `depends_on` lists remain compatible prerequisite
-inputs while the remaining pages are reviewed. They are not a formal proof
-certificate. Shared [notation](https://xshi19.github.io/math/notation/) remains outside the graph.
+Only prerequisite edges must be acyclic. The graph distinguishes reading
+prerequisites from proof dependencies, generalizations, and applications.
+An arrow is a navigation link, not a certificate of a formal proof.
+Shared [notation](https://xshi19.github.io/math/notation/) remains outside the graph.
 
 The graph includes Incerto concept notes with frontmatter metadata. Mixture
 and variance-gamma background links to the Normix subsite in the notes; those

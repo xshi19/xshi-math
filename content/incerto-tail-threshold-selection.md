@@ -170,7 +170,7 @@ sampling uncertainty of a fit at a fixed threshold.
   [Generalized Pareto Distribution](./incerto-generalized-pareto.md).
 - Related: [Body, Shoulders, and Tails](./incerto-body-shoulder-tail.md) is a density
   geometry diagnostic, not a threshold-selection rule.
-- Used by: S&P 500 Tail Diagnostics (planned).
+- Used by: [S&P 500 Tail Diagnostics](./incerto-sp500-tail.md).
 
 ## Source and adaptation
 

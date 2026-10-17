@@ -24,8 +24,8 @@ Read the Pareto and [regular variation](./incerto-regular-variation.md)
 pages first. The formula uses logarithms and sorted observations; the
 [extreme-value index](./incerto-extreme-value-index.md) $\xi$ is the reciprocal of the
 Pareto exponent $\alpha$. For data analysis, inspect several thresholds and check dependence and
-measurement limits before interpreting a stable-looking curve. A dedicated
-threshold-selection page is planned.
+measurement limits before interpreting a stable-looking curve.
+[Tail threshold selection](./incerto-tail-threshold-selection.md) develops these checks.
 
 (hill-estimator-definition)=
 ## Estimator
@@ -176,11 +176,10 @@ a plateau is evidence to inspect, not a certificate.
 ## Backlinks
 
 - Depends on: [Pareto Distribution](./incerto-pareto.md),
-  [Regular Variation](./incerto-regular-variation.md), and the canonical
-  order statistic notation in Notation (planned).
+  [Regular Variation](./incerto-regular-variation.md), and the shared tail notation in [Shared notation](https://xshi19.github.io/math/notation/).
 - Used by: [Extreme Value Index Estimation](./incerto-extreme-value-index.md),
-  Tail Threshold Selection (planned), and
-  S&P 500 Tail Diagnostics (planned).
+  [Tail Threshold Selection](./incerto-tail-threshold-selection.md), and
+  [S&P 500 Tail Diagnostics](./incerto-sp500-tail.md).
 
 ## Source and adaptation
 

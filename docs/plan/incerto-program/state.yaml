@@ -3,9 +3,14 @@ schema_version: 3
 updated: '2026-10-17'
 repository: xshi19/xshi-math
 baseline_revision: 998a4a11a17b7ae7ba4c306005a4c8e3109f4392
-branch: plan/incerto-program
-scope: design-only
-implementation_authorized: false
+branch: review/incerto-m0.5
+scope: m0.5-review
+implementation_authorized: true
+authorized_chunks:
+- m0.5-review
+authorization_note: Owner authorized the mathematical review, clear source fixes, two reported reader issues,
+  and state handoff on 2026-10-17, followed by explicit decisions for issues 008, 009, 010 and 012;
+  later chapter implementation and deployment remain outside this task.
 status_semantics:
   todo: Program work has not satisfied its evidence gates; existing prose is recorded separately.
   in-progress: A named chunk is active and has a recorded checkpoint.
@@ -174,7 +179,7 @@ milestones:
     assigned_role: astra-max
   M0.5:
     title: Existing mathematics and live reader review
-    status: todo
+    status: in-progress
     dependencies:
     - M0
     assigned_role: math-site-editor
@@ -196,12 +201,14 @@ milestones:
     dependencies:
     - M2
     assigned_role: math-site-editor
-next_chunk: '#/chunks/m0.5-review'
+next_chunk: '#/chunks/scft-v4-ch01'
+next_chunk_note: Selected per the owner after mathematical review; M0.5 remains in-progress until the separate
+  live reader gate is covered. No chapter implementation has started.
 chunks:
   m0.5-review:
     id: m0.5-review
     title: Existing mathematics and live reader review
-    status: todo
+    status: in-progress
     dependencies: []
     assigned_role: math-site-editor
     milestone: M0.5
@@ -234,10 +241,30 @@ chunks:
       mathematics:
         assigned_role: astra-max
         method: claim-by-claim source review, with hypotheses, proof/citation status and numerical-evidence limits
+        status: done
+        reviewer: astra-max
+        reviewed_at: '2026-10-17'
+        source_revision: fbdc480515eaa7581a58288d80f244c04e49e8cc
+        pages_reviewed: 24
+        claim_records: 448
+        claim_log_path: docs/plan/incerto-program/m0.5-claims.md
+        limitations: All claims evaluated; unresolved source precision and helper defects are recorded
+          issues, not certified fixes.
       reader:
         assigned_role: math-site-editor
         method: read every corresponding live page; review explanation, equations, figures, links and desktop/mobile
           navigation
+        status: in-progress
+        pages_reviewed_live: 0
+        deployment_revision: null
+        viewports_reviewed: []
+        owner_reported_issues:
+        - M05-ISSUE-004
+        - M05-ISSUE-005
+        source_investigation: done
+        limitations: Only reported apostrophe spacing and migration wording, plus source-level findings, covered
+          here. No independent live desktop/mobile reading; build blocked by sandbox EPERM and live access by DNS and browser
+          launch failure.
     output_path: docs/plan/incerto-program/m0.5-review.md
     acceptance:
     - Record source revision, live deployment/date and a coverage row for every one of the 24 bodies; exclude the
@@ -293,10 +320,180 @@ chunks:
         status: not-applicable
       issues_list:
         required: true
-        status: todo
+        status: done
         path: docs/plan/incerto-program/m0.5-review.md
+    additional_pages_skimmed:
+    - content/incerto-amazon-bookrank.md
+    - content/incerto-api-reference.md
+    - content/incerto-chinese-entry.md
+    - content/incerto-dependency-dag.md
+    - content/incerto-dispersion-ratio.md
+    - content/incerto-distribution-concepts.md
+    - content/incerto-empirical-example-concepts.md
+    - content/incerto-external-reading.md
+    - content/incerto-glossary.md
+    - content/incerto-lln-preasymptotic.md
+    - content/incerto-method-concepts.md
+    - content/incerto-nyc-dog-name-tail.md
+    - content/incerto-reading-embrechts.md
+    - content/incerto-scoft-ch3.md
+    - content/incerto-scoft-ch4.md
+    - content/incerto-scoft-intro.md
+    - content/incerto-sp500-tail.md
+    - content/incerto-theorem-concepts.md
+    review_inventory_policy: The 24 named bodies are the frozen M0.5 claim-review denominator; additional migrated
+      pages receive an obvious-issue skim only.
+    issue_summary:
+      total: 15
+      by_severity:
+        blocker: 0
+        major: 7
+        minor: 8
+      fixed_in_this_pr: 10
+      needs_xiang_decision: 0
+      assigned_to_chapter_chunk: 5
+    issues:
+    - id: M05-ISSUE-001
+      severity: major
+      status: fixed in this PR
+      disposition: resolved
+      chapters:
+      - scft-v4-ch02
+      - scft-v4-ch09
+    - id: M05-ISSUE-002
+      severity: minor
+      status: fixed in this PR
+      disposition: resolved
+      chapters:
+      - scft-v4-ch07
+    - id: M05-ISSUE-003
+      severity: minor
+      status: fixed in this PR
+      disposition: resolved
+      chapters:
+      - scft-v4-ch09
+      - scft-v4-ch10
+    - id: M05-ISSUE-004
+      severity: minor
+      status: fixed in this PR
+      disposition: resolved
+      chapters:
+      - scft-v4-ch01
+    - id: M05-ISSUE-005
+      severity: minor
+      status: fixed in this PR
+      disposition: resolved
+      chapters:
+      - scft-v4-ch01
+      - scft-v4-ch03
+      - scft-v4-ch04
+      - scft-v4-ch09
+    - id: M05-ISSUE-006
+      severity: major
+      status: assigned to chapter chunk
+      disposition: deferred-with-reason
+      chapters:
+      - scft-v4-ch01
+      - scft-v4-ch02
+      - scft-v4-ch05
+      - scft-v4-ch07
+      - scft-v4-ch09
+    - id: M05-ISSUE-007
+      severity: minor
+      status: assigned to chapter chunk
+      disposition: deferred-with-reason
+      chapters:
+      - scft-v4-ch01
+      - scft-v4-ch03
+      - scft-v4-ch04
+      - scft-v4-ch05
+      - scft-v4-ch06
+      - scft-v4-ch07
+      - scft-v4-ch09
+    - id: M05-ISSUE-008
+      severity: major
+      status: fixed in this PR
+      disposition: resolved
+      owner_decision: 'Xiang decision 2026-10-17: general bounded-endpoint bound and counterexample;
+        distinguish population curvature from empirical noise.'
+      chapters:
+      - scft-v4-ch09
+    - id: M05-ISSUE-009
+      severity: major
+      status: fixed in this PR
+      disposition: resolved
+      owner_decision: 'Xiang decision 2026-10-17: explicit iid Pareto regimes, fixed-n subexponential
+        rare events and p-th moment thresholds, with proofs or scoped citations.'
+      chapters:
+      - scft-v4-ch02
+      - scft-v4-ch05
+      - scft-v4-ch07
+    - id: M05-ISSUE-010
+      severity: major
+      status: fixed in this PR
+      disposition: resolved
+      owner_decision: 'Xiang decision 2026-10-17: model-based iid simulation is primary; m-out-of-n
+        subsampling without replacement complements it under stated limit and normalization conditions.'
+      chapters:
+      - scft-v4-ch07
+      - scft-v4-ch09
+    - id: M05-ISSUE-011
+      severity: major
+      status: assigned to chapter chunk
+      disposition: deferred-with-reason
+      chapters:
+      - scft-v4-ch09
+    - id: M05-ISSUE-012
+      severity: major
+      status: fixed in this PR
+      disposition: resolved
+      owner_decision: 'Xiang decision 2026-10-17: retain +inf variance for alpha <= 1 by convention;
+        document the undefined ordinary mean and add tests at alpha = 0.8, 1.0, 1.5 and 3.'
+      chapters:
+      - scft-v4-ch05
+    - id: M05-ISSUE-013
+      severity: minor
+      status: assigned to chapter chunk
+      disposition: deferred-with-reason
+      chapters:
+      - scft-v4-ch04
+    - id: M05-ISSUE-014
+      severity: minor
+      status: assigned to chapter chunk
+      disposition: deferred-with-reason
+      chapters:
+      - scft-v4-ch09
+      - scft-v4-ch10
+    - id: M05-ISSUE-015
+      severity: minor
+      status: fixed in this PR
+      disposition: resolved
+      chapters:
+      - scft-v4-ch05
+    checkpoint:
+      mathematics: done
+      issues_list: done
+      live_reader_gate: pending
+      fix_revision: Initial review in 528bfc0; Xiang decision fixes in the uncommitted working tree after 528bfc0
+      checks:
+        pytest: 151 passed in 3.51s; UV_CACHE_DIR=/tmp/m05-uv-cache uv run --offline pytest
+        targeted_arithmetic: Mean-excess counterexample checked with exact rationals; initial review's 126 assertions
+          and separate issue reproducers are retained in m0.5-review.md
+        build: 'blocked: MyST npm preflight; spawnSync /bin/sh EPERM'
+        html: 'not run for decision fixes: fresh build blocked; initial-review results are retained in m0.5-review.md'
+        live_reader: not performed; 0 of 24 independently reviewed
+        state_and_links: passed; 986 plan links and 39 links across four changed notes; issue counts, unchanged next_chunk
+          and unchanged other issue records/bodies verified
+        whitespace: passed; git diff --check; no new files
+      next_action: Resume scft-v4-ch01 only at its scoped claims, resolving assigned findings before reuse; operator
+        reruns site checks and Math Site Editor completes the outstanding live reader gate.
   scft-v4-ch01:
     id: scft-v4-ch01
+    m0_5_issue_ids:
+    - M05-ISSUE-004
+    - M05-ISSUE-005
+    - M05-ISSUE-006
+    - M05-ISSUE-007
     locator: SCoFT v4 ch. 1
     title: Prologue
     concept_ids:
@@ -350,6 +547,10 @@ chunks:
       live pages as a reader.
   scft-v4-ch02:
     id: scft-v4-ch02
+    m0_5_issue_ids:
+    - M05-ISSUE-001
+    - M05-ISSUE-006
+    - M05-ISSUE-009
     locator: SCoFT v4 ch. 2
     title: Glossary, definitions, and notations
     concept_ids:
@@ -427,6 +628,9 @@ chunks:
     - demos/incerto/exceedances.py
   scft-v4-ch03:
     id: scft-v4-ch03
+    m0_5_issue_ids:
+    - M05-ISSUE-005
+    - M05-ISSUE-007
     locator: SCoFT v4 ch. 3
     title: A non-technical overview - the Darwin College lecture
     concept_ids:
@@ -490,6 +694,10 @@ chunks:
     - SCoFT v4 section 3.5, printed p. 43
   scft-v4-ch04:
     id: scft-v4-ch04
+    m0_5_issue_ids:
+    - M05-ISSUE-005
+    - M05-ISSUE-007
+    - M05-ISSUE-013
     locator: SCoFT v4 ch. 4
     title: Univariate fat tails, level 1, finite moments
     concept_ids:
@@ -551,6 +759,12 @@ chunks:
     - SCoFT v4 sections 4.4 and 4.4.4, printed pp. 79 and 84; revisit in chapters 7, 8 and 28
   scft-v4-ch05:
     id: scft-v4-ch05
+    m0_5_issue_ids:
+    - M05-ISSUE-006
+    - M05-ISSUE-007
+    - M05-ISSUE-009
+    - M05-ISSUE-012
+    - M05-ISSUE-015
     locator: SCoFT v4 ch. 5
     title: 'Level 2: subexponentials and power laws'
     concept_ids:
@@ -632,6 +846,8 @@ chunks:
       live pages as a reader.
   scft-v4-ch06:
     id: scft-v4-ch06
+    m0_5_issue_ids:
+    - M05-ISSUE-007
     locator: SCoFT v4 ch. 6
     title: Thick tails in higher dimensions
     concept_ids:
@@ -698,6 +914,12 @@ chunks:
       live pages as a reader.
   scft-v4-ch07:
     id: scft-v4-ch07
+    m0_5_issue_ids:
+    - M05-ISSUE-002
+    - M05-ISSUE-006
+    - M05-ISSUE-007
+    - M05-ISSUE-009
+    - M05-ISSUE-010
     locator: SCoFT v4 ch. 7
     title: Limit distributions, a consolidation
     concept_ids:
@@ -835,6 +1057,16 @@ chunks:
       live pages as a reader.
   scft-v4-ch09:
     id: scft-v4-ch09
+    m0_5_issue_ids:
+    - M05-ISSUE-001
+    - M05-ISSUE-003
+    - M05-ISSUE-005
+    - M05-ISSUE-006
+    - M05-ISSUE-007
+    - M05-ISSUE-008
+    - M05-ISSUE-010
+    - M05-ISSUE-011
+    - M05-ISSUE-014
     locator: SCoFT v4 ch. 9
     title: Extreme values and hidden tails
     concept_ids:
@@ -921,6 +1153,9 @@ chunks:
       live pages as a reader.
   scft-v4-ch10:
     id: scft-v4-ch10
+    m0_5_issue_ids:
+    - M05-ISSUE-003
+    - M05-ISSUE-014
     locator: SCoFT v4 ch. 10
     title: '"it is what it is": diagnosing the SP500'
     concept_ids:

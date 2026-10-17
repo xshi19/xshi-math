@@ -34,7 +34,7 @@ ordinary law of large numbers normalization has failed.
 
 Here $\mathbb E$ is expectation and a.s. means almost surely. The Pareto
 parameters $x_m$ and $\alpha$ are the lower cutoff and positive tail exponent.
-Shared notation is planned.
+See [Shared notation](https://xshi19.github.io/math/notation/).
 
 ## Intuition
 
@@ -162,8 +162,8 @@ See [Karamata's theorem](./incerto-karamata.md) for the tail-integral criterion.
 ## Backlinks
 
 - Depends on: [Pareto Distribution](./incerto-pareto.md) and the
-  shared Notation page (planned).
-- Used by: Pre-Asymptotic LLN Behavior (planned) and
+  [Shared notation](https://xshi19.github.io/math/notation/).
+- Used by: [Pre-Asymptotic LLN Behavior](./incerto-lln-preasymptotic.md) and
   [Max-to-Sum Ratio](./incerto-max-to-sum-ratio.md).
 
 ## Source and adaptation

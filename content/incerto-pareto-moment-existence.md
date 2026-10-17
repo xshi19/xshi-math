@@ -80,8 +80,7 @@ $$
 $$
 
 Adding $\alpha+1$ to both sides proves the algebraic equivalence
-$p-\alpha-1<-1 \Longleftrightarrow p<\alpha$. Lean formalization is
-planned; the integral criterion and evaluation here are an ordinary proof.
+$p-\alpha-1<-1 \Longleftrightarrow p<\alpha$.
 
 This exact Pareto calculation is the simplest instance of the
 [Karamata](./incerto-karamata.md) moment test for regularly varying tails.
@@ -164,8 +163,8 @@ population question.
 - Depends on: [Pareto Distribution](./incerto-pareto.md) and
   [Karamata's Theorem](./incerto-karamata.md).
 - Used by: [LLN Failure Under Infinite Mean](./incerto-lln-failure.md),
-  Pre-Asymptotic LLN Behavior (planned), and
-  Max-to-Sum Ratio (planned).
+  [Pre-Asymptotic LLN Behavior](./incerto-lln-preasymptotic.md), and
+  [Max-to-Sum Ratio](./incerto-max-to-sum-ratio.md).
 
 ## Source and adaptation
 

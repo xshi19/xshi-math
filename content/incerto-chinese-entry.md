@@ -17,8 +17,7 @@ does not chase every draft edit.
 ## Translation Policy
 
 - Translation source: stable English release pages.
-- Future translations use flat `content/incerto-zh-*.md` stems and an explicit
-  TOC entry after review; no translation subtree is currently published.
+- Future translations will link to their English originals.
 - Required metadata for future translated pages: source page, source version,
   translation status, and reviewer.
 - Mathematical notation should remain aligned with
@@ -27,9 +26,8 @@ does not chase every draft edit.
 
 ## Current Status
 
-No translated concept pages are stable yet.  This entry point establishes the
-route and rules for bilingual support without treating translation as a blocker
-for the English concept model.
+No translated concept pages are published yet. Use the links above to read
+the English notes.
 
 ## Source and license
 

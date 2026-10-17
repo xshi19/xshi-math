@@ -39,6 +39,9 @@ ordinary mean is infinite, so the finite-mean argument below does not apply.
 Lowercase symbols describe the observed list; uppercase symbols describe
 random samples. For a nonnegative list with positive total,
 $1/n\le r_n\le1$. If the total is zero, the ratio is undefined.
+For the almost-sure limit, $S_n/n\to\mu>0$ ensures that $S_n>0$
+eventually almost surely; any convention on earlier zero totals gives the
+same limit.
 
 ## Extreme-dominance intuition
 
@@ -53,7 +56,7 @@ boundary $\alpha=1$.  This is the same mechanism behind
 [LLN Failure Under Infinite Mean](./incerto-lln-failure.md), but $R_n$ makes
 the dominance visible without plotting the entire running average.  It
 complements the path view in
-Pre-Asymptotic LLN Behavior (planned).
+[Pre-Asymptotic LLN Behavior](./incerto-lln-preasymptotic.md).
 
 ## Finite-mean proof
 
@@ -122,6 +125,62 @@ and $-2/3$ at $\alpha=3$. This scale comparison supplies no universal finite-$n$
 quantile or confidence bound. The infinite-mean limits cited above require
 separate asymptotic results; no Monte Carlo quantiles are reported here.
 
+## Reference distributions for the diagnostic
+
+Use model-based simulation as the primary reference: specify or fit an iid
+parent distribution on nonnegative values, simulate independent samples of
+the observed size $n$, and compute $R_n$ for each sample. Compare the observed
+$r_n$ with that simulated distribution. Report the parent model, fitted
+parameters (including $\alpha$ for a Pareto model), sample size, simulation
+count, and seed. The reference assumes the stated parent law is appropriate;
+a fitted-model comparison is conditional on the fit and needs a separate
+assessment of parameter uncertainty before it is used as a calibrated test.
+A tail-only fit also needs a model for the body when $S_n$ includes all
+observations. A tail exponent alone does not determine a finite-$n$ reference.
+If the model permits zero totals, state whether the reference is conditional
+on $S_n>0$.
+
+As a complement, use $m$-out-of-$n$ subsampling **without replacement**, with
+$m\to\infty$ and $m/n\to0$: compute the ratio on all size-$m$ subsets,
+or approximate that distribution using many uniformly sampled subsets.
+Validity requires a limiting law for the statistic with the normalization
+appropriate to the parent tail. For example,
+for a stated exact Pareto exponent, the preceding maximum and sum limits give
+the following local normalizing factors $c_k$ for $c_kR_k$:
+
+| Parent regime | $c_k$ |
+| --- | --- |
+| $\alpha>1$ | $k^{1-1/\alpha}$ |
+| $\alpha=1$ | $\log k$ |
+| $0<\alpha<1$ | $1$ |
+
+The [Pareto note](./incerto-pareto.md#sums-and-moment-orders) proves the boundary
+normalizations and cites the nondegenerate infinite-mean limit. Compare
+$c_nr_n$ with the subsample values $c_mr_m$, using the same model parameters.
+Raw $m$-sample quantiles are not $n$-sample quantiles when $c_m\ne c_n$.
+For a general regularly varying parent, slowly varying factors can change
+the normalization. If its parameters are estimated, justify that their
+substitution leaves the normalized limit unchanged; mere consistency of an
+exponent estimate need not control a power of $n$.
+
+For iid data, a nondegenerate weak limit of the normalized statistic and
+$m/n\to0$ justify convergence of the subsampling distribution at continuity
+points of the limiting CDF. Estimated centering or normalization must have
+negligible effect at the subsample scale. We cite this result from
+[Politis and Romano (1994)](https://doi.org/10.1214/aos/1176325770);
+[Bickel, Götze, and van Zwet (1997), Theorem 1, p. 9](https://www3.stat.sinica.edu.tw/statistica/oldpdf/a7n11.pdf#page=9)
+gives a proof and an explicit plug-in condition. These are asymptotic
+conditions; report the chosen $m$ and sensitivity to it.
+
+Ordinary $n$-out-of-$n$ empirical bootstrap validity is not assumed here.
+Its maximum cannot exceed the observed maximum, and with a unique sample
+maximum it equals that maximum with conditional probability
+$1-(1-1/n)^n\to1-e^{-1}$. This can obstruct a continuous extreme-value
+limit. Heavy-tailed sums can also have non-Gaussian stable limits for which
+ordinary bootstrap approximations fail; see
+[Bickel, Götze, and van Zwet (1997), §2.3, Example 4, p. 5](https://www3.stat.sinica.edu.tw/statistica/oldpdf/a7n11.pdf#page=5).
+The finite-mean theorem for $R_n$ proves no resampling validity statement.
+
 ## Caveats
 
 - $R_n$ is a dominance diagnostic, not an estimator of the tail exponent.
@@ -131,7 +190,7 @@ separate asymptotic results; no Monte Carlo quantiles are reported here.
   or nonstationarity.  Inspect the observation before interpreting the ratio as
   a tail fact.
 - $R_n$ has no universal "large" threshold.  Compare an observed value with a
-  fitted-model or bootstrap reference distribution.
+  reference distribution under the model and calibration assumptions above.
 - For signed returns, $M_n/S_n$ may be unstable or meaningless because of
   cancellation.  Apply it to nonnegative losses, severities, exposures, or
   possibly $|X_i|$, explicitly changing the interpretation.
@@ -142,6 +201,13 @@ separate asymptotic results; no Monte Carlo quantiles are reported here.
 
 ## References
 
+- Politis and Romano, "Large Sample Confidence Regions Based on Subsamples
+  under Minimal Assumptions," *The Annals of Statistics* **22** (1994),
+  2031–2050 [DOI](https://doi.org/10.1214/aos/1176325770).
+- Bickel, Götze, and van Zwet, "Resampling Fewer than $n$ Observations:
+  Gains, Losses, and Remedies for Losses," *Statistica Sinica* **7** (1997),
+  1–31; §2.3, Example 4, and §3, Theorem 1
+  [PDF](https://www3.stat.sinica.edu.tw/statistica/oldpdf/a7n11.pdf).
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
   [1997](https://doi.org/10.1007/978-3-642-33483-2).
 - Resnick, *Heavy-Tail Phenomena* [2007](https://doi.org/10.1007/978-0-387-45024-7).
@@ -150,8 +216,8 @@ separate asymptotic results; no Monte Carlo quantiles are reported here.
 
 - Depends on: [Pareto Distribution](./incerto-pareto.md),
   [LLN Failure Under Infinite Mean](./incerto-lln-failure.md),
-  Pre-Asymptotic LLN Behavior (planned), and the
-  canonical max and sum notation in Notation (planned).
+  [Pre-Asymptotic LLN Behavior](./incerto-lln-preasymptotic.md), and the
+  shared sum notation in [Shared notation](https://xshi19.github.io/math/notation/).
 - Related: [Subexponentiality](./incerto-subexponentiality.md).
 - Used by: finite-sample tail-risk examples (planned).
 

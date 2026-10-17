@@ -11,8 +11,8 @@ behavior does not require an exact
 scale, stochastic variance, and mixtures can make Gaussian habits fail in finite
 samples.
 
-We route the chapter into concept pages.  We do not reproduce the
-chapter's figures or notebook plots.
+Follow the concept links for the distribution formulas, mixture calculations,
+and diagnostic examples.
 
 ## Notation Differences
 
@@ -38,7 +38,7 @@ Existing concept pages:
 - [Normal Variance Mixture](https://xshi19.github.io/math/normix-theory/normix-normal-mixtures/)
 - [Variance Gamma Distribution](https://xshi19.github.io/math/normix-theory/normix-gh-family-tour/)
 
-Planned concept atoms:
+Topics awaiting dedicated notes:
 
 - Planned Lognormal Variance Mixture for the lognormal mixing comparison in
   the notebook.
@@ -73,7 +73,7 @@ Existing concept pages:
 - [Variance Gamma Distribution](https://xshi19.github.io/math/normix-theory/normix-gh-family-tour/)
 - [LLN Failure Under Infinite Mean](incerto-lln-failure.md)
 
-Planned concept atoms:
+Topics awaiting dedicated notes:
 
 - Planned Cauchy Running Statistics for the Cauchy sample mean and sample
   variance paths in the notebook.
@@ -84,8 +84,8 @@ Planned concept atoms:
 ## Two concrete mixture calculations
 
 The [Normix construction](https://xshi19.github.io/math/normix-theory/normix-normal-mixtures/)
-owns the general mixture identities. Two scalar calculations from the old
-Incerto notes are useful here because they distinguish Gaussian-relative tail
+gives the general mixture identities. The two scalar calculations below
+distinguish Gaussian-relative tail
 thickening from a power law. We use the shared positive mixing symbol $Y$.
 
 For $X=\sqrt{Y}Z$, with $Z\sim N(0,1)$ independent of $Y$, conditioning gives
@@ -167,12 +167,12 @@ The symmetric case $\gamma=0$, $\lambda=1$ reduces to the Laplace density
 $(A/2)e^{-A|x|}$. The general family relationships remain in the
 [Normix family tour](https://xshi19.github.io/math/normix-theory/normix-gh-family-tour/).
 
-## Notebook Ports
+## Related calculations
 
-The old notebook is not distributed here. The following notes preserve its
-useful topics, with independent calculations and explicit assumptions.
+The following notes develop the mixture and dispersion calculations.
+Topics without a published example are marked as planned.
 
-| Notebook section | Portable wiki artifact |
+| Topic | Related note |
 | --- | --- |
 | Simple normal mixture | [Normal Variance Mixture](https://xshi19.github.io/math/normix-theory/normix-normal-mixtures/) |
 | Variance-gamma simulation | [Variance Gamma Distribution](https://xshi19.github.io/math/normix-theory/normix-gh-family-tour/) |
@@ -181,14 +181,13 @@ useful topics, with independent calculations and explicit assumptions.
 | Cauchy running mean and variance | Planned Cauchy Running Statistics |
 | Rising norms and unit cube | Planned Rising Norms |
 
-## Verification Notes
+## Scope and limitations
 
 - We paraphrase Chapter 4 and do not reproduce source prose or
   figures.
 - The linked notes distinguish derivations, cited results, and static
   numerical illustrations.
-- Remaining planned atoms are smaller follow-on examples, not blockers for
-  using this guide as the Chapter 4 router.
+- The planned follow-on examples listed above do not yet have dedicated notes.
 
 ## References
 

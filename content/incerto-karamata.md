@@ -216,11 +216,11 @@ These are exact calculations illustrating the cited theorem.
 ## Backlinks
 
 - Depends on: [Regular Variation](./incerto-regular-variation.md) and the canonical tail
-  notation in Notation (planned).
+  notation in [Shared notation](https://xshi19.github.io/math/notation/).
 - Used by: [Pareto Distribution](./incerto-pareto.md),
   [Pareto Moment Existence](./incerto-pareto-moment-existence.md),
   [LLN Failure Under Infinite Mean](./incerto-lln-failure.md),
-  Max-to-Sum Ratio (planned), and
+  [Max-to-Sum Ratio](./incerto-max-to-sum-ratio.md), and
   [Hill Estimator](./incerto-hill-estimator.md).
 
 ## Source and adaptation

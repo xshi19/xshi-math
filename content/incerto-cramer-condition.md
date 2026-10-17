@@ -46,8 +46,8 @@ function.  Equivalently, $\bar F(x)=O(e^{-\theta x})$ for that value of
 $\theta$.
 
 Here $\bar F(x)=\mathbb P(X>x)$ is the survival function, $\mathbb E$
-is expectation, and $\theta$ is the exponential-tilting parameter. Shared
-notation is planned; all symbols needed here are defined locally.
+is expectation, and $\theta$ is the exponential-tilting parameter. All symbols needed here are defined locally; see also
+[Shared notation](https://xshi19.github.io/math/notation/).
 
 ## Thin-tail intuition
 

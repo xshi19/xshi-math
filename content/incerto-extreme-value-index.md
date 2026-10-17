@@ -48,7 +48,7 @@ ordinary convergence of the CDF values at continuity points of $H_\xi$;
 equivalently,
 $(M_n-b_n)/a_n$ converges in distribution to a random variable with CDF
 $H_\xi$.  The
-Pickands-Balkema-de Haan theorem (a dedicated page is planned)
+[Pickands-Balkema-de Haan theorem](./incerto-pickands-balkema-de-haan.md)
 then says that the same $\xi$ appears as the generalized Pareto shape
 parameter in threshold-excess limits.
 
@@ -203,11 +203,11 @@ finite-sample estimates would be a diagnostic, not proof of the tail model.
 ## Backlinks
 
 - Depends on: [Regular Variation](./incerto-regular-variation.md) and the
-  shared tail-estimation notation in Notation (planned).
+  shared tail-estimation notation in [Shared notation](https://xshi19.github.io/math/notation/).
 - Used by: [Hill Estimator](./incerto-hill-estimator.md),
-  Pickands-Balkema-de Haan Theorem (planned),
-  Tail Threshold Selection (planned), and
-  S&P 500 Tail Diagnostics (planned).
+  [Pickands-Balkema-de Haan Theorem](./incerto-pickands-balkema-de-haan.md),
+  [Tail Threshold Selection](./incerto-tail-threshold-selection.md), and
+  [S&P 500 Tail Diagnostics](./incerto-sp500-tail.md).
 
 ## Source and adaptation
 

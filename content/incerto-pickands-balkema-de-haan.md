@@ -63,7 +63,7 @@ $\xi$ the extreme-value index, and $\beta(u)>0$ the excess scale.
 The maximum-domain-of-attraction assumption means that for iid draws,
 some $a_n>0$ and $b_n$ give $(M_n-b_n)/a_n\Rightarrow H_{\xi,0,1}$.
 Here $M_n$ is the sample maximum and $\Rightarrow$ is convergence in
-distribution. The GEV page defines $H$. A shared notation page is planned.
+distribution. The GEV page defines $H$. See [Shared notation](https://xshi19.github.io/math/notation/).
 
 ## Threshold intuition
 
@@ -166,9 +166,9 @@ examines that modeling choice; the theorem supplies no finite-sample cutoff.
   [Extreme-Value Index](./incerto-extreme-value-index.md),
   [Generalized Pareto Distribution](./incerto-generalized-pareto.md),
   [Generalized Extreme-Value Distribution](./incerto-generalized-extreme-value.md),
-  and a shared Notation page (planned).
+  and [Shared notation](https://xshi19.github.io/math/notation/).
 - Used by: [Mean Excess Function](./incerto-mean-excess-function.md) and
-  S&P 500 Tail Diagnostics (planned).
+  [S&P 500 Tail Diagnostics](./incerto-sp500-tail.md).
 
 ## Source and adaptation
 

@@ -106,7 +106,7 @@ $$
 \beta(u)=\frac{u}{\alpha}.
 $$
 
-The Pickands-Balkema-de Haan theorem (a dedicated page is planned)
+The [Pickands-Balkema-de Haan theorem](./incerto-pickands-balkema-de-haan.md)
 explains why the same family appears asymptotically for a much larger class of
 threshold exceedances.
 
@@ -154,10 +154,10 @@ These are formula evaluations, with no numerical fitting or simulation.
 ## Backlinks
 
 - Depends on: [Extreme-Value Index Estimation](./incerto-extreme-value-index.md)
-  and the shared GPD notation in Notation (planned).
-- Used by: Pickands-Balkema-de Haan Theorem (planned),
+  and the shared tail notation in [Shared notation](https://xshi19.github.io/math/notation/).
+- Used by: [Pickands-Balkema-de Haan Theorem](./incerto-pickands-balkema-de-haan.md),
   [Mean Excess Function](./incerto-mean-excess-function.md), and
-  Tail Threshold Selection (planned).
+  [Tail Threshold Selection](./incerto-tail-threshold-selection.md).
 
 ## Source and adaptation
 

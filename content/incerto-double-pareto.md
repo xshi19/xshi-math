@@ -135,6 +135,13 @@ for $\alpha>2$. For $1<\alpha\le2$, the mean exists but the variance
 is infinite. For $\alpha\le1$, the ordinary mean, and hence variance
 about that mean, is undefined; the second raw moment is still infinite.
 
+The library helper `xmath.incerto.distributions.double_pareto` reports the
+mean as `NaN` and the variance as $+\infty$ for $0<\alpha\le1$.
+The variance result is a reporting convention reflecting the infinite raw
+second moment; it does not define variance about an undefined mean.
+For $1<\alpha\le2$ it reports mean $0$ and variance $+\infty$;
+for $\alpha>2$ it reports mean $0$ and the finite variance above.
+
 More generally, integration of the absolute-value density gives the beta
 integral
 

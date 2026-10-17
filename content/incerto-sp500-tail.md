@@ -30,7 +30,7 @@ level, not the probability law $P$ in the
 No S&P index levels or derived empirical figures are distributed with this
 page. The source repository records redistribution restrictions for the
 S&P Dow Jones Indices series supplied through FRED [@fred2026sp500].
-Financial data to be provided later via the Portfolio Manager bot.
+Use a local data file whose terms permit your intended analysis.
 
 The method below works with a locally supplied cache. Site builds do not
 read that cache or make network requests. To prepare the cache explicitly:
@@ -67,8 +67,12 @@ if len(losses) >= 20:
     print(mean_excess(losses, thresholds, min_exceedances=5))
 ```
 
-The empirical survival estimate at sorted losses $\ell_{(i)}$ is
-$1-i/(n+1)$. Inspect it on log-log axes alongside the Hill curve and
+The rank-based plotting position at sorted losses $\ell_{(i)}$ is
+$1-i/(n+1)$; it keeps plotted probabilities positive at the largest loss.
+The strict empirical survival at a threshold $u$ is instead
+$n^{-1}\sum_{j=1}^n\mathbf1_{\{\ell_j>u\}}$, which handles ties and is zero
+at the sample maximum. State which convention is plotted. Inspect the
+survival plot on log-log axes alongside the Hill curve and
 [mean excess](incerto-mean-excess-function.md). Report the number of
 observations, threshold, $k$, sample window, and transformation with each
 estimate. [Threshold selection](incerto-tail-threshold-selection.md) discusses

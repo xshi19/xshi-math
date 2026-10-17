@@ -23,7 +23,8 @@ and [distribution](./incerto-distribution-concepts.md) indexes.
 Rewritten from `incerto-wiki`, `content/concepts/distribution-concepts.md`, revision `9717c9c`
 (2026-09-13 import). Copyright (c) 2023 xshi19. Licensed under MIT.
 Concept links were rewritten for this site and the descriptions updated.
-Mixture topics remain with Normix. No executable examples or API were imported.
+Mixture topics remain with Normix. See the [API reference](./incerto-api-reference.md)
+for the executable distribution helpers.
 
 :::{dropdown} MIT permission notice
 
