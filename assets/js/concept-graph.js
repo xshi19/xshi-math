@@ -229,18 +229,15 @@
         const title = createSvgElement("title");
         title.textContent = node.title;
         item.appendChild(title);
-        item.addEventListener("mouseenter", () => {
+        item.addEventListener("pointerenter", (event) => {
+          if (event.pointerType === "touch" || state.dragging) return;
           state.hoverId = node.id;
           render();
         });
-        item.addEventListener("mouseleave", () => {
+        item.addEventListener("pointerleave", (event) => {
+          if (event.pointerType === "touch" || state.dragging) return;
           state.hoverId = null;
           render();
-        });
-        item.addEventListener("mousedown", (event) => {
-          event.stopPropagation();
-          state.dragging = { type: "node", id: node.id };
-          svg.classList.add("is-dragging");
         });
         item.addEventListener("click", (event) => {
           event.stopPropagation();
@@ -254,9 +251,6 @@
             state.selectedId = node.id;
             render();
           }
-        });
-        item.addEventListener("dblclick", () => {
-          window.open(node.url, "_parent");
         });
         group.appendChild(item);
       });
@@ -385,30 +379,57 @@
       loadLayout();
       render();
     });
-    svg.addEventListener("mousedown", (event) => {
+    svg.addEventListener("pointerdown", (event) => {
+      if (!event.isPrimary || event.button !== 0 || state.dragging) return;
+      const node = event.target.closest(".node");
+      const point = graphPointFromEvent(event);
       state.dragging = {
-        type: "pan",
-        x: event.clientX,
-        y: event.clientY,
+        type: node ? "node" : "pan",
+        id: node?.getAttribute("data-id"),
+        pointerId: event.pointerId,
+        x: point.rawX,
+        y: point.rawY,
+        clientX: event.clientX,
+        clientY: event.clientY,
+        moved: false,
         startX: state.transform.x,
         startY: state.transform.y,
       };
+      // The SVG survives render(); its node children are replaced on each move.
+      svg.setPointerCapture(event.pointerId);
       svg.classList.add("is-dragging");
     });
-    window.addEventListener("mousemove", (event) => {
-      if (!state.dragging) return;
+    svg.addEventListener("pointermove", (event) => {
+      if (!state.dragging || event.pointerId !== state.dragging.pointerId) return;
+      const point = graphPointFromEvent(event);
+      if (Math.hypot(event.clientX - state.dragging.clientX,
+        event.clientY - state.dragging.clientY) > 4) state.dragging.moved = true;
       if (state.dragging.type === "pan") {
-        state.transform.x = state.dragging.startX + (event.clientX - state.dragging.x);
-        state.transform.y = state.dragging.startY + (event.clientY - state.dragging.y);
+        state.transform.x = state.dragging.startX + (point.rawX - state.dragging.x);
+        state.transform.y = state.dragging.startY + (point.rawY - state.dragging.y);
       } else if (state.dragging.type === "node") {
-        const point = graphPointFromEvent(event);
         state.positions.set(state.dragging.id, { x: point.x, y: point.y });
       }
       render();
     });
-    window.addEventListener("mouseup", () => {
+    function endDrag(event) {
+      if (!state.dragging || event.pointerId !== state.dragging.pointerId) return;
+      const drag = state.dragging;
       state.dragging = null;
       svg.classList.remove("is-dragging");
+      if (svg.hasPointerCapture(event.pointerId)) svg.releasePointerCapture(event.pointerId);
+      // Capture can retarget the click to the SVG, so handle node taps here.
+      if (event.type === "pointerup" && drag.type === "node" && !drag.moved) {
+        state.selectedId = drag.id;
+        render();
+      }
+    }
+    svg.addEventListener("pointerup", endDrag);
+    svg.addEventListener("pointercancel", endDrag);
+    svg.addEventListener("lostpointercapture", endDrag);
+    svg.addEventListener("dblclick", (event) => {
+      const node = document.elementFromPoint(event.clientX, event.clientY)?.closest(".node");
+      if (node && svg.contains(node)) window.open(nodeById(node.getAttribute("data-id")).url, "_parent");
     });
     svg.addEventListener("wheel", (event) => {
       event.preventDefault();

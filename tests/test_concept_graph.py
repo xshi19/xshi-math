@@ -1,9 +1,41 @@
 import sys
+import subprocess
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
 
 from build_concept_graph import build_graph_data
+
+
+def test_concept_graph_pointer_interactions():
+    result = subprocess.run(
+        ["node", str(Path(__file__).with_name("concept_graph_interactions.cjs"))],
+        capture_output=True, text=True, timeout=30,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_graph_touch_scroll_policy_and_static_fallback(tmp_path):
+    import re
+    from build_concept_graph import stage_graph_assets
+    from check_html import Links
+
+    data = stage_graph_assets(tmp_path)
+    assets = tmp_path / "assets"
+    css = (assets / "css/concept-graph.css").read_text()
+    background = re.search(r"#concept-graph\s*\{([^}]+)\}", css)[1]
+    node = re.search(r"\.node\s*\{([^}]+)\}", css)[1]
+    assert re.search(r"touch-action:\s*pan-y(?:\s+pinch-zoom)?\s*;", background)
+    assert "touch-action: none;" in node
+    assert 'href="concept-list.html"' in (assets / "graphs/concept-graph.html").read_text()
+    fallback = (assets / "graphs/concept-list.html").read_text()
+    assert "<script" not in fallback
+    links = Links()
+    links.feed(fallback)
+    assert {node["url"] for node in data["nodes"]} <= set(links.urls)
+    root = Path(__file__).resolve().parents[1]
+    for relative in ("js/concept-graph.js", "css/concept-graph.css"):
+        assert (assets / relative).read_bytes() == (root / "assets" / relative).read_bytes()
 
 
 def test_concept_graph_excludes_notation() -> None:

@@ -275,3 +275,24 @@ verification. The Lean recheck is optional and independent; use its README.
   Incerto pages and `/math/notation/` loaded with no 4xx subrequests and no
   JavaScript errors; the dependency-DAG iframe and figures resolve.
 - Not done: hub publication and live checks; Lean recheck.
+
+## Bugbot follow-up
+
+2026-10-17, PR #26: verified and fixed all three findings. FRED cleaning skips
+blank, `.`, and non-finite closes; malformed CSV, invalid dates/prices, and
+insufficient usable observations raise `DatasetNotAvailable` before cache writes.
+Mocked synthetic CSV tests cover the writer, fetch-enabled loader, and CLI.
+
+Graph panning now converts screen movement to SVG units. Pointer Events capture
+on the stable SVG supports mouse, touch, and pen through redraws and cancellation.
+Background `pan-y pinch-zoom` preserves vertical scrolling and browser zoom;
+nodes use `touch-action: none` for two-axis dragging. Keyboard selection, focus,
+double-click navigation, and the static list fallback have regression coverage.
+
+Graph JSON/list regeneration produced no tracked changes; graph assets were
+refreshed in both existing `_build/html/incerto` and `_build/subsites/incerto`.
+Checks passed: `.venv/bin/python -m pytest` (146 tests, including seven offline
+Node interaction cases), `node --check assets/js/concept-graph.js`, and
+`git diff --check`; the new test file also passed a separate whitespace check.
+No full site rebuild or browser/device interaction review was run for this
+follow-up. No network access or commit; the protected planning paths are unchanged.

@@ -138,7 +138,9 @@ button:hover,
   height: 100%;
   min-height: 540px;
   cursor: grab;
-  touch-action: none;
+  /* Background swipes can scroll the page vertically; horizontal swipes pan.
+     Keep browser pinch zoom available too. */
+  touch-action: pan-y pinch-zoom;
 }
 
 #concept-graph.is-dragging {
@@ -225,6 +227,9 @@ button:hover,
 
 .node {
   cursor: pointer;
+  /* A gesture starting on a node drags it in both axes. Set this before the
+     gesture starts; changing touch-action during a drag would be too late. */
+  touch-action: none;
 }
 
 .node circle {

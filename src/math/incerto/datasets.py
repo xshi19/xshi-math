@@ -52,7 +52,7 @@ NYC_DOG_NAME_FREQUENCY_API_URL = (
 
 
 class DatasetNotAvailable(FileNotFoundError):
-    """Raised when a dataset snapshot/cache is missing and fetching is disabled."""
+    """Raised when a dataset is missing or a fetch cannot provide usable data."""
 
 
 @dataclass(frozen=True)
@@ -169,6 +169,7 @@ def load_sp500_prices(
     The S&P 500 series on FRED is copyright-restricted by S&P Dow Jones
     Indices, so the project keeps this file out of git and fetches it into
     ``data/incerto/cache`` or the configured ``INCERTO_DATA_DIR`` instead.
+    An unavailable or malformed FRED payload raises ``DatasetNotAvailable``.
     """
 
     path = cache_path("sp500_daily.csv", data_dir)
@@ -224,7 +225,12 @@ def write_sp500_fred_cache(
     *,
     url: str = FRED_SP500_CSV_URL,
 ) -> Path:
-    """Fetch and clean the public FRED S&P 500 CSV into an untracked cache."""
+    """Fetch and clean the public FRED S&P 500 CSV into an untracked cache.
+
+    Missing (blank or ``.``) and non-finite closes are skipped. Malformed
+    payloads or fewer than two usable prices raise ``DatasetNotAvailable``
+    before the destination is written.
+    """
 
     text = _download_text(url)
     rows = _clean_fred_sp500_rows(text)
@@ -363,18 +369,28 @@ def _read_nyc_dog_name_frequency_csv(path: Path) -> DogNameFrequencyData:
 
 
 def _clean_fred_sp500_rows(text: str) -> list[tuple[str, str]]:
-    reader = csv.DictReader(io.StringIO(text))
+    reader = csv.DictReader(io.StringIO(text), strict=True)
     rows: list[tuple[str, str]] = []
-    for row in reader:
-        date = row.get("observation_date", "").strip()
-        close = row.get("SP500", "").strip()
-        if not date or not close:
-            continue
-        float(close)
-        datetime.strptime(date, "%Y-%m-%d")
-        rows.append((date, close))
+    try:
+        if not {"observation_date", "SP500"}.issubset(reader.fieldnames or []):
+            raise ValueError("expected observation_date and SP500 columns")
+        for row in reader:
+            if None in row or any(value is None for value in row.values()):
+                raise ValueError("row does not match the CSV columns")
+            date = row["observation_date"].strip()
+            close = row["SP500"].strip()
+            if close in {"", "."}:
+                continue
+            if not np.isfinite(float(close)):
+                continue
+            datetime.strptime(date, "%Y-%m-%d")
+            rows.append((date, close))
+    except (ValueError, csv.Error) as exc:
+        raise DatasetNotAvailable(
+            f"Invalid FRED S&P 500 payload at line {reader.reader.line_num}: {exc}"
+        ) from exc
     if len(rows) < 2:
-        raise ValueError("FRED S&P 500 payload did not contain enough prices")
+        raise DatasetNotAvailable("FRED S&P 500 payload did not contain enough prices (need two)")
     return rows
 
 

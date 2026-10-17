@@ -1,6 +1,9 @@
 """Tests for local dataset loaders and cleaning helpers."""
 
 import json
+import runpy
+import sys
+from io import BytesIO
 from pathlib import Path
 
 import numpy as np
@@ -14,6 +17,70 @@ from xmath.incerto.datasets import (
     write_nyc_dog_name_frequency_snapshot,
     write_sp500_fred_cache,
 )
+
+
+@pytest.fixture(params=["writer", "loader", "cli"])
+def fetch_sp500(request, tmp_path, monkeypatch):
+    """Exercise each fetch entry point with synthetic CSV and no network."""
+    from xmath.incerto import datasets
+
+    destination = tmp_path / "cache/sp500_daily.csv"
+
+    def fetch(text):
+        monkeypatch.setattr(
+            datasets, "urlopen", lambda *args, **kwargs: BytesIO(text.encode("utf-8"))
+        )
+        if request.param == "writer":
+            write_sp500_fred_cache(destination)
+        elif request.param == "loader":
+            load_sp500_prices(data_dir=tmp_path, fetch=True)
+        else:
+            script = Path(__file__).resolve().parents[1] / "scripts/fetch_incerto_data.py"
+            monkeypatch.setattr(sys, "argv", [str(script), "sp500", "--data-dir", str(tmp_path)])
+            runpy.run_path(str(script), run_name="__main__")
+        return load_sp500_prices(data_dir=tmp_path)
+
+    return fetch, destination
+
+
+def test_fred_fetch_skips_missing_and_nonfinite_closes(fetch_sp500):
+    fetch, destination = fetch_sp500
+    placeholders = [".", "", "  ", " . ", "NaN", "nan", "inf", "-inf", "Infinity", "1e999"]
+    gaps = "".join(f"2026-01-{day:02d},{close}\n" for day, close in enumerate(placeholders, 3))
+    series = fetch(
+        "observation_date,SP500\n2026-01-02,100\n" + gaps + "2026-01-15,110\n"
+    )
+    assert destination.read_text() == "date,close\n2026-01-02,100\n2026-01-15,110\n"
+    np.testing.assert_array_equal(series.close, [100, 110])
+    np.testing.assert_array_equal(series.date, np.array(["2026-01-02", "2026-01-15"], dtype="datetime64[D]"))
+    np.testing.assert_allclose(series.log_returns()[1], [np.log(1.1)])
+
+
+@pytest.mark.parametrize("bad_row, line", [
+    ("2026-01-03,broken\n", 3),
+    ("2026-02-30,101\n", 3),
+    (",101\n", 3),
+    ("2026-01-03\n", 3),
+    ("2026-01-03,101,extra\n", 3),
+    ('2026-01-03,"unterminated\n', 4),
+])
+def test_fred_fetch_rejects_malformed_rows_without_writing_cache(fetch_sp500, bad_row, line):
+    fetch, destination = fetch_sp500
+    with pytest.raises(DatasetNotAvailable, match=rf"FRED S&P 500.*line {line}"):
+        fetch("observation_date,SP500\n2026-01-02,100\n" + bad_row + "2026-01-05,110\n")
+    assert not destination.exists()
+
+
+@pytest.mark.parametrize("payload, message", [
+    ("date,close\n2026-01-02,100\n2026-01-05,110\n", "columns"),
+    ("observation_date,SP500\n2026-01-02,.\n2026-01-05,NaN\n", "enough prices"),
+    ("observation_date,SP500\n2026-01-02,100\n2026-01-05,\n", "enough prices"),
+])
+def test_fred_fetch_rejects_unusable_payload(fetch_sp500, payload, message):
+    fetch, destination = fetch_sp500
+    with pytest.raises(DatasetNotAvailable, match=message):
+        fetch(payload)
+    assert not destination.exists()
 
 
 def test_sp500_loader_reads_cache_and_computes_losses(tmp_path: Path) -> None:
