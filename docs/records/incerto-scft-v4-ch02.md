@@ -118,18 +118,21 @@ when the normalized DOI is absent. Thus a plain DOI link is not necessarily
 a live dependency when a matching local entry is loaded. Source scan found
 13 distinct remaining DOI-link targets: nine match local Incerto entries
 (Embrechts, Resnick, Coles, Hill, Pickands, Balkema–de Haan, Davison–Smith,
-Foss–Korshunov–Zachary, Chistyakov). Four still lack a loaded local entry:
+Foss–Korshunov–Zachary, Chistyakov). Four lacked a loaded local entry:
+Darling (1952), Politis–Romano (1994), Amari–Nagaoka (2000) and Cappé–Moulines
+online EM (2009).
 
-| DOI still requiring remote resolution without cache | Locations |
-| --- | --- |
-| `10.1090/S0002-9947-1952-0048726-0` — Darling (1952) | [Pareto](../../content/incerto-pareto.md), growing-sample regimes and references |
-| `10.1214/aos/1176325770` — Politis–Romano (1994) | [Max-to-sum](../../content/incerto-max-to-sum-ratio.md), calibration and references |
-| `10.1090/mmono/191` — Amari–Nagaoka (2000) | [IG manifold note](../../content/information-geometry-euclidean-to-manifold.md), references |
-| `10.1111/j.1467-9868.2009.00698.x` — online EM (2009) | [Normix online EM](../../content/normix-online-em.md), opening source link |
-
-Those four were listed without adding new bibliographic records or changing
-other-track citation configuration. The site as a whole is not certified
-offline; theme fetching and these remote references remain possible needs.
+**Follow-up (Xiang's decision, 2026-10-18):** all four now have local entries in
+`content/bibliography.bib` (`darling1952influence`, `politis1994subsampling`,
+`amari2000methods`, `cappe2009online`), with fields checked against Crossref,
+and the in-text links became citations. The clean build log then showed three
+more live lookups that the source scan had missed: MyST also treats
+`link.springer.com/book/10.1007/...` URLs as DOIs. Those three now have local
+entries as well (`ay2017information`, `amari2016information`,
+`jorgensen1982gig`) and are cited by key. `myst.ig.yml` and
+`myst.normix-theory.yml` now load `content/bibliography.bib`. A clean rebuild on
+2026-10-18 logged no "Linked … DOIs from doi.org" lines, so no build-time
+doi.org fetches remain. Theme fetching on a cold cache still needs network.
 
 ## M0.5 dispositions and optional Lean
 
@@ -285,7 +288,7 @@ On this branch's working tree (base `cbda449`), clean `_build/`:
 | --- | --- |
 | `uv run pytest -q` | pass: 221 passed, 43 subtests passed |
 | `npm ci` | pass |
-| `npm run build` | pass, first attempt (Karamata reference now resolved from the local bib entry) |
+| `npm run build` | pass, first attempt (Karamata reference now resolved from the local bib entry); rerun 2026-10-18 after the DOI and title follow-up: pass, no doi.org lookups |
 | `npm run check:html` | pass: 69 pages across four sites, 65 redirects, 54 pages with display math; 4 pre-existing unresolved legacy url-map rows skipped |
 
 The Math Site Editor's live reader review of the new and changed pages is due after publication.

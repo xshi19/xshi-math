@@ -17,7 +17,7 @@ fills notation gaps, adds proofs, and connects ideas.
 
 | Chapter | Topic | Concepts |
 |---------|-------|----------|
-| [Chapter 1 — Prologue and tail terminology](incerto-scoft-ch1.md) | Assumptions behind tail summaries | [Tail class catalog](incerto-tail-class-catalog.md), [Cramér condition](incerto-cramer-condition.md), [Regular variation](incerto-regular-variation.md) |
+| [Chapter 1 — Prologue](incerto-scoft-ch1.md) | Assumptions behind tail summaries | [Tail class catalog](incerto-tail-class-catalog.md), [Cramér condition](incerto-cramer-condition.md), [Regular variation](incerto-regular-variation.md) |
 | [Chapter 2 — Glossary, definitions, and notations](incerto-scoft-ch2.md) | Probability, conditional size, and tail limits | [Counting exceedances](incerto-counting-exceedances.md), [Pareto](incerto-pareto.md), [EVI](incerto-extreme-value-index.md) |
 | [Chapter 3 — Non-technical overview](incerto-scoft-ch3.md) | Thick-tail consequences | [Pareto Distribution](incerto-pareto.md), [Regular Variation](incerto-regular-variation.md), [Pre-Asymptotic LLN Behavior](incerto-lln-preasymptotic.md) |
 | [Chapter 4 — How fat tails emerge from random scale](incerto-scoft-ch4.md) | Random scale and variance mixtures | [Normal Variance Mixture](https://xshi19.github.io/math/normix-theory/normix-normal-mixtures/), [Variance Gamma Distribution](https://xshi19.github.io/math/normix-theory/normix-gh-family-tour/), [Body, Shoulders, and Tails](incerto-body-shoulder-tail.md) |

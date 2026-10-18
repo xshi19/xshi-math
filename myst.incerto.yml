@@ -57,7 +57,7 @@ project:
         - file: content/incerto-scoft-intro.md
           children:
             - file: content/incerto-scoft-ch1.md
-              title: Chapter 1 — Prologue and tail terminology
+              title: Chapter 1 — Prologue
             - file: content/incerto-scoft-ch2.md
               title: Chapter 2 — Glossary, definitions, and notations
             - file: content/incerto-scoft-ch3.md

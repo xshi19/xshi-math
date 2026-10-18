@@ -271,7 +271,7 @@ $M_n=\max_{1\le i\le n}X_i$. For a growing sample, the
   $R_\alpha$ has a nondegenerate distribution on $(0,1)$. In particular,
   the ratio does not tend to zero in probability, nor does it tend to one.
   This is Darling's theorem, cited rather than proved here:
-  [Darling (1952), Theorem 5.1](https://doi.org/10.1090/S0002-9947-1952-0048726-0).
+  Darling (1952), Theorem 5.1 [@darling1952influence].
   [Kevei and Mason (2014), p. 632](https://alea.impa.br/articles/v11/11-30.pdf#page=2)
   restate the iid result and give the corresponding sum/maximum limit law;
   our ratio is its reciprocal.
