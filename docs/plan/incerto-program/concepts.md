@@ -15,8 +15,10 @@ Every active concept requires website math teaching first and Python demos,
 visualizations or worked cases second. Lean is optional and last.
 `lean-verifiable` identifies a declaration candidate, not checked evidence.
 `numeric-demo` uses synthetic/fixed inputs; `empirical` needs observed data.
-Lean skips preserve teaching/numerical obligations. All concepts remain
-`todo`; M0.5 reviews the 24 existing bodies before SCoFT chapter 1.
+Lean skips preserve teaching/numerical obligations. M0.5 reviewed its fixed
+24-body inventory. Chapters 1–5 now have scoped implementation checkpoints
+and completed separate max reviews. State is the completion authority;
+the chapter-5 entries below reflect its new evidence and later scopes.
 
 Source links below use v4 chapter/appendix locators. Chunk lists identify
 chapter-scoped reuse or extension; the first chunk does not promise completion
@@ -48,16 +50,16 @@ Chapter chunks: `scft-v4-ch02`.
 
 ## Pareto distribution (`c-pareto`)
 
-Home: [content/incerto-pareto.md](../../../content/incerto-pareto.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-pareto.md](../../../content/incerto-pareto.md). Status: **in-progress**. Milestone: **M1**. Lead: `astra-max`.
 
 Positive scale x_m and alpha; distinguish normalized distribution from a tail approximation.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `optional`). Chapter-5 teaching/Python done; Lean skipped for toolchain/network limits.
 
 - **numeric-demo:** Compare simulated exceedances with the stated survival law.
 - **lean-verifiable:** Density, survival, and support identities admit exact analysis.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-5 teaching and deterministic worked cases implemented; separate max review complete with fixes; no checked Lean. Later chapter extensions remain. See [chapter-5 evidence](../../records/incerto-scft-v4-ch05.md).
 
 Prerequisites: none within this inventory.
 
@@ -69,16 +71,16 @@ Chapter chunks: `scft-v4-ch02`, `scft-v4-ch05`, `scft-v4-ch06`.
 
 ## Regular variation (`c-regular-variation`)
 
-Home: [content/incerto-regular-variation.md](../../../content/incerto-regular-variation.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-regular-variation.md](../../../content/incerto-regular-variation.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Pointwise ratio limits at positive dilation; do not infer regular variation from a finite plot.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`). Chapter-5 teaching/Python done; Lean skipped for toolchain/network limits.
 
 - **numeric-demo:** Ratios illustrate convergence and slowly varying corrections.
 - **lean-verifiable:** Definitions and individual limit statements can be formalized.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-5 teaching and deterministic worked cases implemented; separate max review complete with fixes; no checked Lean. See [chapter-5 evidence](../../records/incerto-scft-v4-ch05.md).
 
 Prerequisites: [c-pareto](#c-pareto).
 
@@ -90,16 +92,16 @@ Chapter chunks: `scft-v4-ch05`.
 
 ## Karamata tail integrals (`c-karamata`)
 
-Home: [content/incerto-karamata.md](../../../content/incerto-karamata.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-karamata.md](../../../content/incerto-karamata.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 General theorem requires a library feasibility audit; p = alpha depends on the slowly varying factor.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`). Chapter-5 teaching/Python done; Lean skipped for toolchain/network limits.
 
 - **numeric-demo:** Compare exact and truncated tail integrals in admissible regimes and at the boundary.
 - **lean-verifiable:** The integral theorem needs explicit measurable and asymptotic hypotheses.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-5 teaching and deterministic worked cases implemented; separate max review complete with fixes; no checked Lean. See [chapter-5 evidence](../../records/incerto-scft-v4-ch05.md).
 
 Prerequisites: [c-regular-variation](#c-regular-variation).
 
@@ -111,16 +113,16 @@ Chapter chunks: `scft-v4-ch05`.
 
 ## Pareto moment boundary (`c-pareto-moments`)
 
-Home: [content/incerto-pareto-moment-existence.md](../../../content/incerto-pareto-moment-existence.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-pareto-moment-existence.md](../../../content/incerto-pareto-moment-existence.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 For p > 0, the pth Pareto moment is finite exactly when p < alpha; handle equality separately.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`). Chapter-5 teaching/Python done; Lean skipped for toolchain/network limits.
 
 - **numeric-demo:** Truncation plots distinguish finite estimates from finite population moments.
 - **lean-verifiable:** Integrability and the exact positive-power integral have a small analytic scope.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-5 teaching and deterministic worked cases implemented; separate max review complete with fixes; no checked Lean. See [chapter-5 evidence](../../records/incerto-scft-v4-ch05.md).
 
 Prerequisites: [c-pareto](#c-pareto).
 
@@ -300,16 +302,16 @@ Chapter chunks: `scft-v4-ch09`.
 
 ## Subexponential sums (`c-subexponential`)
 
-Home: [content/incerto-subexponentiality.md](../../../content/incerto-subexponentiality.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-subexponentiality.md](../../../content/incerto-subexponentiality.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Fixed n iid nonnegative variables; no automatic extension to growing n.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`). Chapter-5 teaching/Python done; Lean skipped for toolchain/network limits.
 
 - **numeric-demo:** Compare the sum tail with a single-large-observation approximation.
 - **lean-verifiable:** Convolution-tail statements need nonnegative support and fixed-sum hypotheses.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-5 teaching and deterministic worked cases implemented; separate max review complete with fixes; no checked Lean. See [chapter-5 evidence](../../records/incerto-scft-v4-ch05.md).
 
 Prerequisites: [c-regular-variation](#c-regular-variation).
 
@@ -321,16 +323,16 @@ Chapter chunks: `scft-v4-ch05`.
 
 ## Survival-tail ratio diagnostic (`c-tail-ratio`)
 
-Home: [content/incerto-survival-tail-ratio.md](../../../content/incerto-survival-tail-ratio.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-survival-tail-ratio.md](../../../content/incerto-survival-tail-ratio.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Independence is required for a joint-exceedance interpretation.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`). Chapter-5 teaching/Python done; Lean skipped for toolchain/network limits.
 
 - **numeric-demo:** Plot the diagnostic across models without treating it as a convolution proof.
 - **lean-verifiable:** Specified survival-function ratios allow exact limit calculations.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-5 teaching and deterministic worked cases implemented; separate max review complete with fixes; no checked Lean. See [chapter-5 evidence](../../records/incerto-scft-v4-ch05.md).
 
 Prerequisites: [c-pareto](#c-pareto).
 
@@ -363,16 +365,16 @@ Chapter chunks: `scft-v4-ch07`.
 
 ## Symmetric shifted Pareto construction (`c-double-pareto`)
 
-Home: [content/incerto-double-pareto.md](../../../content/incerto-double-pareto.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-double-pareto.md](../../../content/incerto-double-pareto.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Preserve the existing shifted construction; symmetry alone does not imply an existing mean.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`). Chapter-5 teaching/Python done; Lean skipped for toolchain/network limits.
 
 - **numeric-demo:** Symmetry and unstable averages can be illustrated independently.
 - **lean-verifiable:** The stated sign-mixture construction has exact distribution and moment properties.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-5 teaching and deterministic worked cases implemented; separate max review complete with fixes; no checked Lean. See [chapter-5 evidence](../../records/incerto-scft-v4-ch05.md).
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments).
 
@@ -513,16 +515,16 @@ Chapter chunks: `scft-v4-ch07`.
 
 ## Tail classes and implication boundaries (`c-tail-catalog`)
 
-Home: [content/incerto-tail-class-catalog.md](../../../content/incerto-tail-class-catalog.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-tail-class-catalog.md](../../../content/incerto-tail-class-catalog.md). Status: **in-progress**. Milestone: **M1**. Lead: `astra-max`.
 
 Keep cited class memberships separate from the elementary convolution derivation and exact ratio checks.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `optional`). Chapter-5 teaching/Python done; Lean skipped for toolchain/network limits.
 
 - **numeric-demo:** Population tail-ratio curves illustrate distinct asymptotic classes.
 - **lean-verifiable:** The convolution decomposition and exact light-tail ratios are precise proof targets.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-5 teaching and deterministic worked cases implemented; separate max review complete with fixes; no checked Lean. Later chapter extensions remain. See [chapter-5 evidence](../../records/incerto-scft-v4-ch05.md).
 
 Prerequisites: [c-regular-variation](#c-regular-variation), [c-subexponential](#c-subexponential), [c-cramer](#c-cramer).
 
@@ -1669,16 +1671,16 @@ Chapter chunks: `scft-v4-ch22`.
 
 ## Tail constraints and maximum entropy (`c-maximum-entropy`)
 
-Home: `content/incerto-maximum-entropy.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-maximum-entropy.md](../../../content/incerto-maximum-entropy.md). Status: **in-progress**. Milestone: **M1**. Lead: `astra-max`.
 
 Use IG exponential-family definitions; a formal optimum does not validate chosen constraints.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `optional`). Chapter-5 teaching/Python done; Lean skipped for toolchain/network limits.
 
 - **numeric-demo:** Numerical solutions can be checked against constraints.
 - **lean-verifiable:** A constrained optimization problem needs feasibility, normalization, and uniqueness checks.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Chapter-5 teaching and deterministic worked cases implemented; separate max review complete with fixes; no checked Lean. Later chapter extensions remain. See [chapter-5 evidence](../../records/incerto-scft-v4-ch05.md).
 
 Prerequisites: none within this inventory.
 

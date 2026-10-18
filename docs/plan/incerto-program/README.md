@@ -14,7 +14,10 @@ Chapter 3 and the chapter-2 reader fixes are implemented on `scft/v4-ch03`;
 later operator build pass and the reader follow-ups addressed here.
 Chapter 4 and the chapter-3 figure fixes are implemented on `scft/v4-ch04`;
 [its record](../../records/incerto-scft-v4-ch04.md) separates completed teaching
-and max review from blocked sandbox HTML checks and pending live review.
+and max review from its later successful operator HTML checks and pending live review.
+Chapter 5 and appendix B are implemented on `scft/v4-ch05`;
+[its record](../../records/incerto-scft-v4-ch05.md) records the new teaching,
+54 numerical cases, four figures, and completed separate max review with fixes.
 
 The selected SCoFT baseline is the **2025 third edition,
 arXiv:2001.10488v4: 30 chapters and nine appendices (A–I)**. Direct comparison
@@ -57,22 +60,22 @@ Lean omissions require a reason and never block the next chapter.
 | [Validation](validation.md) | Schema, executable checks and resume procedure |
 | [Verification](verification.md) | Historical evidence, this revision's checks and pending operator rerun |
 
-`next_chunk` is `#/chunks/scft-v4-ch05`. Chapters 1–4 teaching,
+`next_chunk` is `#/chunks/scft-v4-ch06`. Chapters 1–5 teaching,
 deterministic Python examples and optional Lean skips are recorded in state.
-There are now 30 implemented concept bodies; the M0.5 review denominator
-remains its original 24 pages. Chapters 1–4 passed separate max review;
-chapter 4 has 338 passing Python tests after numerical fixes. The fresh site build
-is blocked at MyST's npm preflight with `spawnSync /bin/sh EPERM`;
-external HTML checks and a post-publication reader review remain required.
+There are now 31 implemented concept bodies; the M0.5 review denominator
+remains its original 24 pages. Chapters 1–5 passed separate max review.
+The current suite has 392 passing tests, including six chapter-5 boundary
+regressions added during max review. The fresh site build is blocked at
+MyST's npm preflight with `spawnSync /bin/sh EPERM`; external HTML checks
+and a post-publication reader review remain required.
 
-The owner reports M0.5 live review passed on 2026-10-17. Chapter 4 resolves
-finding 013 with constant/tied-sample regression tests. Finding 007 is resolved
-for chapter-4 source use; later assignments remain open. Finding 005's new
-wording and the regenerated figures await live review. All 17 demo SVGs use
-the shared bundled serif style; actual SVGs were rendered and inspected at
-390px and 900px. The original reported labels had regular, not bold, glyph
-outlines. The prior CSS/device concern is not certified closed by this audit.
-The optional Lean skips add no checked declarations.
+The owner reports M0.5 live review passed on 2026-10-17. Chapter 5 closes
+its theorem-locator and v4-source slices of findings 006/007; those shared
+issues remain assigned for later chapters. It confirms the resolved Pareto
+regimes (009), double-Pareto convention (012), and Karamata cross-reference
+(015). Four new SVGs use the shared style and have actual 390px/900px
+previews and repeat-generation checks. These artifact checks do not close
+the live reader/device gate. The optional Lean skips add no declarations.
 
 ## Decisions fixed by this design
 
@@ -111,8 +114,8 @@ The optional Lean skips add no checked declarations.
 | `portfolio-manager` | Portfolio Manager bot | Financial data and requested additions |
 | `data-scientist` | Data Scientist bot | Other data requests |
 
-The owner chose Astra xhigh for chapter-1/2/3/4 writing/code and separate Astra max
-runs for hard-math review (chapters 1–4 passed). Future role assignments do not
+The owner chose Astra xhigh for chapter-1/2/3/4/5 writing/code and separate Astra max
+runs for hard-math review (chapters 1–5 passed). Future role assignments do not
 assert availability or authorize automatic delegation. No Cursor third-party
 models are selected.
 

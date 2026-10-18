@@ -44,6 +44,7 @@ project:
             - file: content/incerto-moment-estimation.md
             - file: content/incerto-tail-threshold-selection.md
             - file: content/incerto-survival-tail-ratio.md
+            - file: content/incerto-maximum-entropy.md
             - file: content/incerto-max-to-sum-ratio.md
             - file: content/incerto-body-shoulder-tail.md
             - file: content/incerto-iso-density-tail-geometry.md
@@ -70,6 +71,8 @@ project:
               title: Chapter 3 — Non-technical overview
             - file: content/incerto-scoft-ch4.md
               title: Chapter 4 — Finite-moment fat tails
+            - file: content/incerto-scoft-ch5.md
+              title: Chapter 5 — Subexponentials and power laws
         - file: content/incerto-external-reading.md
           children:
             - file: content/incerto-reading-embrechts.md

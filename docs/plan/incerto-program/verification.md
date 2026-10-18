@@ -8,11 +8,15 @@ The subsequent review branch records its actual checks and sandbox limits in
 [M0.5 verification](m0.5-review.md#verification-and-limits); these historical
 passes do not validate that working tree.
 
-Current chapter-4 implementation, chapter-3 figure fixes and checks are in the
-[chapter-4 checkpoint](../../records/incerto-scft-v4-ch04.md): 338 Python tests
-passed, 17 SVGs regenerated and inspected, Lean skipped, and fresh HTML checks
-blocked by the sandbox. Separate max review is complete with numerical boundary
-fixes; live reader review remains pending.
+Current chapter-5 and appendix-B implementation and checks are in the
+[chapter-5 checkpoint](../../records/incerto-scft-v4-ch05.md#max-review):
+separate Astra max review passed with fixes; 392 Python tests passed,
+including 54 chapter-5 cases. Four deterministic SVGs use the shared style
+and were inspected at 390px and 900px. Lean is skipped.
+A fresh HTML build remains blocked by the sandbox's MyST npm preflight;
+HTML checks consequently fail on absent output. External build/check and
+post-publication live reader review remain pending. The chapter-4 record
+retains its completed operator build pass; that pass does not verify this worktree.
 The historical results below do not verify this worktree.
 
 ## Earlier revision: changed artifacts
