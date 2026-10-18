@@ -270,8 +270,8 @@ $M_n=\max_{1\le i\le n}X_i$. For a growing sample, the
 - If $0<\alpha<1$, then $M_n/S_n\xrightarrow{d}R_\alpha$, where
   $R_\alpha$ has a nondegenerate distribution on $(0,1)$. In particular,
   the ratio does not tend to zero in probability, nor does it tend to one.
-  This is Darling's theorem, cited rather than proved here:
-  Darling (1952), Theorem 5.1 [@darling1952influence].
+  This limit theorem is cited rather than proved here
+  [@darling1952influence, Theorem 5.1].
   [Kevei and Mason (2014), p. 632](https://alea.impa.br/articles/v11/11-30.pdf#page=2)
   restate the iid result and give the corresponding sum/maximum limit law;
   our ratio is its reciprocal.

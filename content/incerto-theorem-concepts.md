@@ -14,6 +14,8 @@ asymptotics. Each note states its assumptions and defines its notation.
 - [Generalized Central Limit Theorem](./incerto-generalized-central-limit-theorem.md)
 - [Pickands-Balkema-de Haan Theorem](./incerto-pickands-balkema-de-haan.md)
 - [Mean Excess Function](./incerto-mean-excess-function.md)
+- [Finite-sample inference asymmetry](./incerto-inference-asymmetry.md)
+- [Ruin and repeated exposure](./incerto-ruin.md)
 
 Return to the [Incerto reading paths](./incerto/index.md), or browse the
 [theorem](./incerto-theorem-concepts.md), [method](./incerto-method-concepts.md),

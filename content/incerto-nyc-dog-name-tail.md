@@ -16,14 +16,12 @@ title: Are NYC Dog Names Fat-Tailed?
 
 ## Setup
 
-John D. Cook's blog post ["Dogs and fat tails"](https://www.johndcook.com/blog/2026/08/11/dogs-and-fat-tails/)
-studies the distribution of dog-name frequencies.
+@cook2026dogsfattails, in "Dogs and fat tails", studies the distribution of dog-name frequencies.
 Bella and Luna have plenty of company, while thousands of names appear only
-once [@cook2026dogsfattails].  A lognormal describes the overall pattern
+once.  A lognormal describes the overall pattern
 reasonably well.  Here we draw the rank-frequency picture too, then examine how tail estimates change across thresholds.
 
-The source is the NYC Department of Health and Mental Hygiene's
-[NYC Dog Licensing Dataset](https://data.cityofnewyork.us/Health/NYC-Dog-Licensing-Dataset/nu7n-tubp)
+The source is the [NYC Dog Licensing Dataset](https://data.cityofnewyork.us/Health/NYC-Dog-Licensing-Dataset/nu7n-tubp)
 [@nycdohmh2026doglicenses].  Each source row is an active license period, not
 necessarily a unique dog.  A renewal within the same year can add another row
 for the same animal.  We therefore call the aggregated values *license-period
@@ -126,14 +124,12 @@ For the name lookup, the same script prints the included license-period frequenc
 
 ## References
 
-- Cook, "Dogs and fat tails" [@cook2026dogsfattails].
-- NYC Department of Health and Mental Hygiene, "NYC Dog Licensing Dataset"
-  [@nycdohmh2026doglicenses].
-- Taleb, *Statistical Consequences of Fat Tails* [@taleb2020scoft].
-- Hill, "A Simple General Approach to Inference About the Tail of a
-  Distribution" [@hill1975simple].
-- Coles, *An Introduction to Statistical Modeling of Extreme Values*
-  [@coles2001introduction].
+- @cook2026dogsfattails, "Dogs and fat tails".
+- @nycdohmh2026doglicenses, "NYC Dog Licensing Dataset".
+- @taleb2020scoft, *Statistical Consequences of Fat Tails*.
+- @hill1975simple, "A Simple General Approach to Inference About the Tail of a
+  Distribution".
+- @coles2001introduction, *An Introduction to Statistical Modeling of Extreme Values*.
 
 ## Backlinks
 

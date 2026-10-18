@@ -2,219 +2,146 @@
 title: Chapter 3 — Non-technical overview
 ---
 
-## What This Chapter Is Doing
+The Darwin College lecture connects statistical evidence to the consequences
+of acting on it. We study four questions: what a finite sample can exclude,
+how a payoff transforms a tail, how repeated exposure reaches an absorbing
+barrier, and how splitting exposure changes aggregate damage.
 
-Chapter 3 of Taleb's *Statistical Consequences of Fat Tails* is a compressed map
-of the book's main statistical claims.  Its reading route connects tail geometry and limit theorems to
-estimation and decisions involving rare losses.
+This guide uses @taleb2025scoftv4, *Statistical Consequences of Fat Tails*,
+third edition, **arXiv:2001.10488v4, ch. 3, printed pp. 25–68**.
+The section locators below refer to that version. Our concept notes develop
+original models and proofs; the lecture supplies their context. Empirical
+and policy assertions in the lecture are outside these calculations.
 
-Follow the concept links for definitions, assumptions, and derivations.
-Topics without a published note are marked as planned.
+## Notation at the point of use
 
-## Notation Differences
+We follow the [shared notation](https://xshi19.github.io/math/notation/).
 
-| Source notation | Shared notation | Meaning |
+| Object | Notation used here | Source convention to distinguish |
 | --- | --- | --- |
-| $a$ | $\alpha$ | Tail exponent or Pareto shape parameter. |
-| $S(x)$ | $\bar F(x)$ | Survival function $\mathbb P(X>x)$. |
-| $L$ or minimum value | $x_m$ | Pareto lower cutoff. |
-| $F(X)$ in exposure sections | payoff or exposure function | A transformation of an underlying state $X$, not the CDF unless context says so. |
+| CDF and survival | $F(x)=P(X\le x)$, $\bar F(x)=P(X>x)$ | The lecture also writes $S$ for survival. |
+| Positive power-tail exponent and minimum | $\alpha$, $x_m$ | A Pareto minimum written $L$ in the source maps to $x_m$; $L(x)$ here denotes a slowly varying function. |
+| Exposure or payoff | $g(X)$ | The source's $F(X)$ in §3.10 is an exposure, not our CDF. |
+| Conditional ruin probability | $h_k$ at step $k$ | Its conditioning on survival is essential. |
 
-Use the shared [notation canon](https://xshi19.github.io/math/notation/).
+The relation $\xi=1/\alpha$ concerns the positive regularly varying case;
+it does not define every extreme-value index. A scale parameter is a
+standard deviation only when that moment exists and the parametrization
+makes it so.
 
-## 3.1-3.2 - Tail Geometry
+## Reading map for v4
 
-The chapter opens with the distinction between tails where a large sum is made
-by several moderate terms and tails where the large sum is usually made by one
-dominant term.  The linked notes compare survival ratios and iso-density geometry.
-
-Existing concept pages:
-
-- [Pareto Distribution](incerto-pareto.md)
-- [Double Pareto Distribution](incerto-double-pareto.md)
-- [Regular Variation](incerto-regular-variation.md)
-- [Subexponentiality](incerto-subexponentiality.md)
-- [Max-to-Sum Ratio](incerto-max-to-sum-ratio.md)
-- [Survival Tail Ratio](incerto-survival-tail-ratio.md)
-- [Iso-Density Tail Geometry](incerto-iso-density-tail-geometry.md)
-
-## 3.3 - Tail Classes and Convergence
-
-The chapter's taxonomy separates compact support, thin-tailed behavior,
-subexponential tails, power laws, infinite-variance regimes, and infinite-mean
-regimes.  The durable mathematical issue is not vocabulary; it is which limit
-theorems and estimators are available under each tail class.
-
-Existing concept pages:
-
-- [Regular Variation](incerto-regular-variation.md)
-- [Pareto Moment Existence](incerto-pareto-moment-existence.md)
-- [LLN Failure Under Infinite Mean](incerto-lln-failure.md)
-- [Karamata's Theorem](incerto-karamata.md)
-- [Cramér Exponential-Moment Condition](incerto-cramer-condition.md)
-- [Generalized Central Limit Theorem](incerto-generalized-central-limit-theorem.md)
-- [Subexponentiality](incerto-subexponentiality.md)
-
-## 3.4 - Consequence Map
-
-The chapter lists 17 consequences of leaving the thin-tailed comfort zone.  The
-table below maps each one to a current or planned note. These are questions
-about model assumptions, not claims that every non-Gaussian model fails.
-
-| # | Chapter claim, paraphrased | Wiki target |
+| Source location | Mathematical question | Read next |
 | --- | --- | --- |
-| 1 | The LLN may converge too slowly to be useful in finite samples. | [Pre-Asymptotic LLN Behavior](incerto-lln-preasymptotic.md), [LLN Failure Under Infinite Mean](incerto-lln-failure.md) |
-| 2 | The sample mean can badly miss the population or generating-process mean. | Planned Shadow Mean |
-| 3 | Variance and standard deviation can be unstable or undefined. | [Pareto Moment Existence](incerto-pareto-moment-existence.md) |
-| 4 | Variance-based financial summaries can be unreliable when the required moments fail. | Planned Sharpe Ratio Under Heavy Tails |
-| 5 | Robust or nonparametric summaries may hide the tail events that dominate payoff. | Planned Robust Statistics Under Heavy Tails |
-| 6 | Least-squares guarantees that require finite error variance do not apply when that variance is infinite. | Planned OLS Under Heavy Tails |
-| 7 | Estimating a tail parameter and plugging it into a functional can outperform direct mean estimation under a suitable model. | [Plug-In Tail Estimation](incerto-plug-in-tail-estimation.md), [Hill Estimator](incerto-hill-estimator.md) |
-| 8 | Confirming a thin-tail story is harder than rejecting one after a large deviation. | Planned Inference Asymmetry |
-| 9 | Covariance-based PCA and factor estimates can be unstable when empirical second moments are unreliable. | Planned PCA Under Heavy Tails |
-| 10 | Moment matching fails when the target moments do not exist or are sample dominated. | Planned Moment Estimation Failure |
-| 11 | Conditional on a large deviation, there may be no stable "typical" large deviation. | [Mean Excess Function](incerto-mean-excess-function.md), planned Conditional Tail Excess |
-| 12 | Concentration measures such as Gini can fail to aggregate additively. | Planned Gini Under Heavy Tails |
-| 13 | Large-deviation bounds that require a finite positive MGF are unavailable for subexponential right tails. | [Cramér Exponential-Moment Condition](incerto-cramer-condition.md), [Subexponentiality](incerto-subexponentiality.md), planned Large Deviations vs. Heavy Tails |
-| 14 | A hedging argument must state its jump, tail, and path assumptions before being used in another regime. | Planned Dynamic Hedging Tail Risk |
-| 15 | Forecasting event frequency is not the same as estimating expected payoff. | Planned Probability vs. Payoff |
-| 16 | Rare-event psychology often confuses bounded calibration errors with unbounded payoff errors. | Planned Calibration vs. Payoff |
-| 17 | Ruin and path dependence require time-probability thinking, not only ensemble averages. | Planned Ruin Path Dependence and planned Ensemble vs. Time Probability |
+| §§3.1–3.2, pp. 25–30 | Is a large fixed-size sum produced by one extreme summand? | [Subexponentiality](incerto-subexponentiality.md), [survival tail ratio](incerto-survival-tail-ratio.md), [density geometry](incerto-iso-density-tail-geometry.md) |
+| §3.3, pp. 30–32 | Which moments and exponential moments exist? | [Tail catalog](incerto-tail-class-catalog.md), [Pareto moments](incerto-pareto-moment-existence.md), [Cramér condition](incerto-cramer-condition.md) |
+| §3.4, pp. 32–43 | Which estimator or approximation has the assumptions its target needs? | The consequence questions below |
+| §3.5, pp. 43–49 | Can nearby sample laws have very different tail functionals? | [Inference asymmetry](incerto-inference-asymmetry.md) |
+| §3.6, pp. 50–53, especially §3.6.1, p. 53 | What dependence links individual events to aggregate losses? | [Decentralized exposure](incerto-decentralization.md#decentralization-dependence) |
+| §3.7, pp. 54–56 | What does power-tail scaling mean? | [Regular variation](incerto-regular-variation.md), [Pareto](incerto-pareto.md) |
+| §§3.8–3.9, pp. 56–60 | Which extrapolation assumptions determine an unobserved mean? | [Inference asymmetry](incerto-inference-asymmetry.md), [plug-in estimation](incerto-plug-in-tail-estimation.md) |
+| §3.10, pp. 60–63 | How does $g$ change the law and mean of $X$? | [Asymmetric payoffs](incerto-asymmetric-payoffs.md) |
+| §3.11, pp. 63–66 | When does repeated exposure cause ruin, and what does a path average measure? | [Ruin](incerto-ruin.md) |
+| §3.12, pp. 66–67 | When does splitting a fixed input reduce nonlinear damage? | [Scale and convexity](incerto-decentralization.md#decentralization-convex-scale) |
+| §3.13, pp. 67–68 | Closing discussion | No additional mathematical claim is needed for these notes. |
 
-For consequence 7, the plug-in page makes the comparison precise for independent,
-identically distributed exact Pareto observations with a known cutoff. It compares
-asymptotic error scales and explains which error probabilities a simulation
-would assess, without claiming smaller finite-sample mean squared error.
-The linked note gives analytic error scales; it reports no simulation results. Taleb's
-Appendix E.1 conditions a bias-corrected exponent estimate to lie above
-$1+\varepsilon$, for a positive margin $\varepsilon$; that restriction matters
-when interpreting its plug-in comparison [@taleb2020scoft].
+The classification in §3.3 is informal. Our catalog distinguishes positive
+exponential moments, subexponentiality and regular variation. High kurtosis
+alone does not establish a heavy tail. The exact Pareto moment boundary is
+strict: the moment of order $p>0$ exists when $p<\alpha$.
 
-## 3.4.1-3.4.2 - Forecasting and the LLN
+## Questions behind the consequence list
 
-The forecasting section distinguishes probability estimates from exposures.
-The LLN section then gives the practical reason this matters: for thick-tailed
-variables, adding observations may not stabilize the sample mean at the speed
-thin-tail habits expect.
+The numbers identify the source's consequences in §3.4. The table states
+questions for checking a model, rather than treating each consequence as a
+universal theorem.
 
-Existing concept pages:
-
-- [Pre-Asymptotic LLN Behavior](incerto-lln-preasymptotic.md)
-- [LLN Failure Under Infinite Mean](incerto-lln-failure.md)
-- [Pareto Distribution](incerto-pareto.md)
-
-Planned examples:
-
-- Running-mean fan plot for Gaussian, Student-t, and Pareto samples.
-- Effective sample-size comparison for the same target error under Gaussian and
-  Pareto assumptions.
-- High-hit-rate strategy with rare ruin loss versus low-hit-rate convex payoff.
-
-## 3.5-3.6 - Inference Asymmetry and Naive Empiricism
-
-The chapter's epistemology sections argue that absence of observed catastrophe
-is weak evidence under thick tails.  Multiplicative losses and contagion need explicit dependence and exposure
-models; an observed quiet period alone does not establish small tail risk.
-
-Topics awaiting dedicated notes:
-
-- Planned Masquerade Problem
-- Planned Probabilistic Veil
-- Planned Multiplicative Risk Scaling
-- Planned Absence of Evidence Under Heavy Tails
-
-The chapter's examples are
-decision and inference arguments, not proofs of any particular empirical model.
-
-## 3.7 - Primer on Power Laws
-
-This section connects to the existing power-tail notes.  Its mathematical atom is
-regular variation. For fixed $t>0$ and a slowly varying $L$, the limit
-below is taken as $x\to\infty$ (with tail exponent $\alpha>0$):
-
-$$
-\bar F(x)=L(x)x^{-\alpha},
-\qquad
-\frac{\bar F(tx)}{\bar F(x)}\to t^{-\alpha}.
-$$
-
-Existing concept pages:
-
-- [Regular Variation](incerto-regular-variation.md)
-- [Pareto Distribution](incerto-pareto.md)
-- [S&P 500 Tail Diagnostics](incerto-sp500-tail.md)
-
-Planned visualization:
-
-- Contribution of the largest observation to a sample fourth moment, contrasted
-  with a Gaussian simulation of the same size.
-
-## 3.8-3.10 - Hidden Properties and Exposure
-
-The chapter separates observed sample summaries from generating-process
-quantities.  The practical move is to infer a tail model or mechanism, then use
-that model to estimate hidden properties such as a shadow mean.  It also
-distinguishes the underlying random variable $X$ from the exposure or payoff
-function applied to it.
-
-Existing concept page:
-
-- [Plug-In Tail Estimation](incerto-plug-in-tail-estimation.md)
-
-Topics awaiting dedicated notes:
-
-- Planned Shadow Mean; its scope remains separate from plug-in tail estimation.
-- Planned Bayesian Updating Under Heavy Tails
-- Planned Payoff Transform
-
-Planned visualization:
-
-- A nonlinear payoff transform $g(X)$ showing how convexity or concavity changes
-  tail exposure even when the underlying $X$ is fixed.
-
-## 3.11-3.13 - Ruin, Path Dependence, and What To Do
-
-The final movement of the chapter shifts from estimating distributions to
-surviving exposures.  The key wiki bridge is the difference between averaging across realizations and following one
-trajectory. An absorbing loss barrier changes which future outcomes remain
-available along that trajectory.
-
-Topics awaiting dedicated notes:
-
-- Planned Ruin Path Dependence
-- Planned Ensemble vs. Time Probability
-- Planned Fragility and Concavity
-- Planned Precautionary Principle
-
-## Related calculations
-
-These notes develop the calculations behind the chapter's examples.
-Topics without a published example are marked as planned.
-
-| Topic | Related note |
+| Source item and printed pages | Question and available mathematics |
 | --- | --- |
-| Survival-ratio plots for normal, Student-t, and Cauchy | [Survival Tail Ratio](incerto-survival-tail-ratio.md) |
-| Cauchy and normal iso-density plots | [Iso-Density Tail Geometry](incerto-iso-density-tail-geometry.md) |
-| Running mean for Pareto, normal, and Student-t samples | [Pre-Asymptotic LLN Behavior](incerto-lln-preasymptotic.md) |
-| Heavy-tailed regression error example | Planned OLS Under Heavy Tails |
-| Pre-2008 Sharpe ratio vs 2008 loss scatter | Planned Sharpe Ratio Under Heavy Tails or an empirical finance example |
+| 1–2, pp. 34–35 | Is the mean finite, and what controls finite-sample error? See [preasymptotic averages](incerto-lln-preasymptotic.md) and [infinite-mean failure](incerto-lln-failure.md). An integrable iid sample mean is unbiased even when most small samples lie below the population mean. |
+| 3–4, pp. 35–36 | Do the variance and covariance required by the proposed summary exist? The [moment note](incerto-pareto-moment-existence.md) gives exact Pareto boundaries; existence alone supplies no numerical error tolerance. |
+| 5–6, pp. 36–37 | Does robustification change the estimand, and what assumptions support a regression guarantee? A capped payoff is analyzed in the [payoff note](incerto-asymmetric-payoffs.md#payoffs-tail-transform). General regression and robust-estimation treatments remain planned. |
+| 7, pp. 37–38 | Which parametric assumptions allow extrapolation? The [plug-in note](incerto-plug-in-tail-estimation.md) uses exact Pareto sampling, a known cutoff and an explicit mean singularity; it claims no universal finite-sample MSE ranking. |
+| 8, pp. 38–39 | How much test power is possible against a rarely sampled component? The [contamination bound](incerto-inference-asymmetry.md#inference-contamination) answers this at fixed $n$. |
+| 9–10, p. 39 | Which population moments are being estimated? The [moment boundaries](incerto-pareto-moment-existence.md) apply; dedicated PCA and moment-estimation notes remain planned. |
+| 11, pp. 39–40 | Does a conditional mean excess exist? The [mean-excess note](incerto-mean-excess-function.md) separates existence from how excesses grow with a threshold. |
+| 12, p. 40 | How does aggregation change a concentration functional? Dedicated Gini and quantile-contribution treatments remain planned. |
+| 13–14, p. 40 | Are the exponential-moment and path assumptions of the chosen method satisfied? See the [Cramér condition](incerto-cramer-condition.md). General heavy-tail large deviations and dynamic hedging remain separate treatments. |
+| 15–16, pp. 40–43 | Does an event frequency determine expected payoff? The [finite payoff table](incerto-asymmetric-payoffs.md#payoffs-hit-rate) proves that it need not. |
+| 17, p. 41; expanded in §3.11, pp. 63–66 | What survives repeated exposure? The [hazard formulas](incerto-ruin.md) state the needed conditions and distinguish ensemble expectations from realized paths. |
 
-## Scope and limitations
+Appendix E.1, printed p. 191, conditions a tail-exponent estimate to exceed
+$1+\varepsilon$ with $\varepsilon>0$ [@taleb2025scoftv4, appendix E.1, p. 191].
+That restriction matters for the source's plug-in comparison. This guide
+uses only that checked restriction; the appendix's density formulas and a
+general estimator comparison are not proved here.
 
-- We paraphrase Chapter 3 and do not reproduce Taleb's figures or
-  source prose.
-- The linked concept pages state the assumptions and support for the
-  mathematical results used in this guide.
-- The linked notes cover tail classes; some consequence and exposure topics
-  listed above do not yet have dedicated notes.
+## Four worked models
 
-## References
+In the [contamination example](incerto-inference-asymmetry.md#inference-separated-tails),
+a uniform law on $[0,1]$ is mixed with probability $\varepsilon$ of a
+Pareto draw starting at $b>1$. For $n$ iid observations,
 
-- Taleb, *Statistical Consequences of Fat Tails*, Chapter 3
-  [@taleb2020scoft].
-- Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [@embrechts1997modelling].
-- Resnick, *Heavy-Tail Phenomena* [@resnick2007heavy].
+$$
+d_{\mathrm{TV}}(P^{\otimes n},Q^{\otimes n})=1-(1-\varepsilon)^n.
+$$
+
+Raising $b$ changes the mean without changing this discrepancy. That is an
+explicit limit on inference over the proposed family, not a claim that all
+parametric inference is impossible.
+
+The [payoff example](incerto-asymmetric-payoffs.md#payoffs-jensen) keeps the
+mean input fixed at $4$ and varies a symmetric spread $s$. The quadratic
+payoff's expectation rises by $s^2$, whereas the negative quadratic falls
+by $s^2$. Both follow by finite sums. Curvature compares responses to a
+specified spread; downside protection needs a separate payoff bound.
+
+The [ruin example](incerto-ruin.md#ruin-ensemble-time) grows resources by
+$a>1$ on each surviving step, with fixed independent failure probability
+$q\in(0,1)$. Its ensemble expectation is
+
+$$
+\mathbb E W_k=W_0[a(1-q)]^k,
+$$
+
+which may grow even though almost every path terminates. The note proves
+this and gives a summable positive-hazard example in which eventual ruin
+has probability only $1/2$.
+
+The [scale example](incerto-decentralization.md#decentralization-pareto-tail)
+splits an input among $m$ modules with quadratic local damage. The damage
+at every shock is divided by $m$, but a Pareto shock's transformed tail
+exponent remains $\alpha/2$. A second, bounded example holds marginal
+failure probabilities fixed and varies dependence between modules.
+
+(scoft-ch3-demo)=
+## Reproduce the calculations
+
+Run from the repository root after installing the development dependencies:
+
+```sh
+uv run python demos/incerto/lecture_risk.py
+```
+
+The script uses installed helpers in `xmath.incerto.lecture_risk`, exact
+finite formulas, fixed grids and no RNG or external data. It prints the
+worked cases and writes three figures: [inference and payoffs](incerto-inference-asymmetry.md#worked-calculation),
+[ruin](incerto-ruin.md#worked-calculation-and-source-scope), and
+[scale and dependence](incerto-decentralization.md#worked-calculation-and-sources).
+The grids bound the calculation; they do not truncate the model tails.
+No finite plot proves an infinite-horizon or tail limit.
+
+## Sources and further reading
+
+- @taleb2025scoftv4, ch. 3, pp. 25–68, at the section locators above;
+  appendix E.1, p. 191, for the conditioning restriction only.
+- [The precaution paper, arXiv:1410.5787v1](https://arxiv.org/pdf/1410.5787v1),
+  §II.B and §III, pp. 2–3, and §VII.A–C, p. 6: context for absorbing
+  ruin, nonlinear damage and dependence. The linked notes supply original
+  proofs for their specified models, without adopting policy conclusions.
+- @embrechts1997modelling, *Modelling Extremal Events*, and
+  @resnick2007heavy, *Heavy-Tail Phenomena*: broader tail theory;
+  the existing concept notes identify the results they use.
 
 ## Source and license
 

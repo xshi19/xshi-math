@@ -191,14 +191,11 @@ Topics without a published example are marked as planned.
 
 ## References
 
-- Taleb, *Statistical Consequences of Fat Tails*, Chapter 4
-  [@taleb2020scoft].
-- Barndorff-Nielsen, Kent, and Sorensen, "Normal Variance-Mean Mixtures and
-  z Distributions" [@barndorff1982normal].
-- Madan and Seneta, "The Variance Gamma (V.G.) Model for Share Market Returns"
-  [@madan1990variance].
-- Rousseeuw and Croux, "Alternatives to the Median Absolute Deviation"
-  [@rousseeuw1993alternatives].
+- @taleb2020scoft, *Statistical Consequences of Fat Tails*, Chapter 4.
+- @barndorff1982normal, "Normal Variance-Mean Mixtures and
+  z Distributions".
+- @madan1990variance, "The Variance Gamma (V.G.) Model for Share Market Returns".
+- @rousseeuw1993alternatives, "Alternatives to the Median Absolute Deviation".
 
 ## Source and license
 

@@ -8,7 +8,10 @@ M0.5 mathematical and live reader review are complete after published PR #27
 [its record](../../records/incerto-scft-v4-ch01.md) includes the later operator
 build pass. Chapter 2 implementation and chapter-1 reader fixes are complete
 on `scft/v4-ch02`; [its record](../../records/incerto-scft-v4-ch02.md) separates
-completed max review from blocked site checks.
+completed max review from its later successful operator site checks.
+Chapter 3 and the chapter-2 reader fixes are implemented on `scft/v4-ch03`;
+[its record](../../records/incerto-scft-v4-ch03.md) lists the completed max review,
+pending live review and blocked sandbox build.
 
 The selected SCoFT baseline is the **2025 third edition,
 arXiv:2001.10488v4: 30 chapters and nine appendices (A–I)**. Direct comparison
@@ -51,16 +54,19 @@ Lean omissions require a reason and never block the next chapter.
 | [Validation](validation.md) | Schema, executable checks and resume procedure |
 | [Verification](verification.md) | Historical evidence, this revision's checks and pending operator rerun |
 
-`next_chunk` is `#/chunks/scft-v4-ch03`. Chapters 1 and 2 teaching,
+`next_chunk` is `#/chunks/scft-v4-ch04`. Chapters 1–3 teaching,
 deterministic Python examples and optional Lean skips are recorded in state.
-Chapter 2's max review is complete, including a maximum-CDF boundary fix.
-External site build/check and subsequent Math Site Editor live review remain
-follow-ups. The approved exceedance pilot
-was skipped because this machine has no Lean toolchain and the sandbox has
-no network; no new Lean project was added.
+There are now 28 implemented concept bodies; the M0.5 review denominator
+remains its original 24 pages. Chapters 1–3 passed separate max review.
+Chapter 3 awaits an external site build/check and the Math Site Editor's
+review after publication. Its sandbox build failed at MyST's npm
+preflight with `spawnSync /bin/sh EPERM`; no fresh HTML pass is claimed.
+
 The owner reports M0.5 live review passed on 2026-10-17. Possible mixed-weight
-rendering without Charter remains pending Xiang's check. Findings 006/007 are
-resolved for chapter-1/2 reuse and remain assigned for other chapters.
+rendering without Charter remains pending Xiang's check. Finding 007 is
+resolved for chapter-3 source use; other chapter assignments remain open.
+Finding 005's new chapter-3 wording needs a fresh live review after publication.
+The optional Lean skips add no checked declarations.
 
 ## Decisions fixed by this design
 
@@ -99,8 +105,8 @@ resolved for chapter-1/2 reuse and remain assigned for other chapters.
 | `portfolio-manager` | Portfolio Manager bot | Financial data and requested additions |
 | `data-scientist` | Data Scientist bot | Other data requests |
 
-The owner chose Astra xhigh for chapter-1/2 writing/code and separate Astra max
-runs for hard-math review (chapters 1 and 2 passed). Future role assignments do not
+The owner chose Astra xhigh for chapter-1/2/3 writing/code and separate Astra max
+runs for hard-math review (chapters 1–3 passed). Future role assignments do not
 assert availability or authorize automatic delegation. No Cursor third-party
 models are selected.
 

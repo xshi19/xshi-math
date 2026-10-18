@@ -32,6 +32,8 @@ project:
             - file: content/incerto-cramer-condition.md
             - file: content/incerto-generalized-central-limit-theorem.md
             - file: content/incerto-lln-failure.md
+            - file: content/incerto-inference-asymmetry.md
+            - file: content/incerto-ruin.md
         - file: content/incerto-method-concepts.md
           title: Methods
           children:
@@ -43,6 +45,8 @@ project:
             - file: content/incerto-max-to-sum-ratio.md
             - file: content/incerto-body-shoulder-tail.md
             - file: content/incerto-iso-density-tail-geometry.md
+            - file: content/incerto-asymmetric-payoffs.md
+            - file: content/incerto-decentralization.md
         - file: content/incerto-empirical-example-concepts.md
           title: Empirical examples
           children:

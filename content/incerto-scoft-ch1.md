@@ -10,9 +10,9 @@ class. We use that question to separate three properties: a large fourth
 moment relative to variance, the existence of exponential moments, and the
 scaling of a survival function.
 
-The source is Taleb's *Statistical Consequences of Fat Tails*, third edition
-(2025), **arXiv:2001.10488v4, chapter 1, printed pp. 3–6**
-[@taleb2025scoftv4]. This discussion chapter states no numbered mathematical
+The source is @taleb2025scoftv4, *Statistical Consequences of Fat Tails*,
+third edition, **arXiv:2001.10488v4, chapter 1, printed pp. 3–6**.
+This discussion chapter states no numbered mathematical
 theorem. The calculations below and in the
 [tail class catalog](incerto-tail-class-catalog.md) are our own teaching
 examples; the Prologue is their motivation, not their proof source.
