@@ -13,6 +13,11 @@ strictly above a finite threshold $t$ by
 \widehat S_n(t)=\frac{1}{n}\sum_{i=1}^n\mathbf{1}\{x_i>t\}.
 ```
 
+Here $t$ is the local name for the threshold $u$ in the
+[shared notation](https://xshi19.github.io/math/notation/).
+$\widehat S_n$ describes the observations; $\bar F(u)=P(X>u)$ describes a
+population law. The symbol $S_n$ without a hat denotes a sample sum elsewhere.
+
 The strict inequality matters when an observation equals the threshold. For
 $(1,2,2,4)$ at $t=2$, only the last observation contributes, so the fraction is
 $1/4$. Counting observations greater than or equal to $2$ would give $3/4$ and
@@ -36,3 +41,58 @@ that this example deliberately leaves unspecified. The
 with an explicitly defined random-variable model.
 
 The calculation uses a fixed synthetic sample; it needs no external data.
+
+(exceedances-cdf-and-atoms)=
+## CDF, survival, and ties
+
+Use the right-continuous convention $F(u)=P(X\le u)$. Its complement is
+$\bar F(u)=P(X>u)$, even when $X$ has atoms. For the empirical law that
+assigns mass $1/n$ to each observation,
+
+$$
+\widehat F_n(u)=\frac1n\sum_{i=1}^n\mathbf1_{\{x_i\le u\}},
+\qquad \widehat S_n(u)=1-\widehat F_n(u).
+$$
+
+We prove this identity by partitioning the observations into $x_i\le u$
+and $x_i>u$. The alternative count with $x_i\ge u$ adds the empirical
+mass at $u$; it is not the complement of this CDF.
+
+| Threshold $u$ for $(1,2,2,4)$ | $\widehat F_4(u)$ | $\widehat S_4(u)$ | Fraction $x_i\ge u$ |
+| --- | --- | --- | --- |
+| $1$ | $1/4$ | $3/4$ | $1$ |
+| $2$ | $3/4$ | $1/4$ | $3/4$ |
+| $4$ | $1$ | $0$ | $1/4$ |
+
+`xmath.incerto.stats.empirical_survival_function` groups tied observations
+and returns these strict survival values at the distinct observations.
+The chapter-2 demo, `uv run python demos/incerto/glossary_worked_cases.py`,
+draws the steps and prints this table. Rank plotting positions with a nonzero
+last ordinate are a different plotting convention.
+
+## What iid sampling adds
+
+Now assume $X_1,\ldots,X_n$ are iid from $F$, and fix a nonrandom threshold
+$u$. Put $q=\bar F(u)$. Each indicator $I_i=\mathbf1_{\{X_i>u\}}$ has
+$\mathbb E I_i=q$ and $\operatorname{Var}(I_i)=q(1-q)$ because $I_i^2=I_i$.
+Independence makes the cross-covariances zero. Consequently,
+
+$$
+\mathbb E\widehat S_n(u)=q,\qquad
+\operatorname{Var}(\widehat S_n(u))=\frac{q(1-q)}n.
+$$
+
+These are exact finite-sample identities, proved by summing the indicators.
+For any fixed $\varepsilon>0$, Chebyshev's inequality gives
+$P(|\widehat S_n(u)-q|>\varepsilon)\le q(1-q)/(n\varepsilon^2)$,
+which tends to zero. No moment assumption on $X$ is needed: the indicators
+are bounded. This argument is pointwise in a fixed $u$; it proves neither a
+uniform-in-threshold theorem nor consistency of an unbounded payoff average.
+
+## Source context
+
+The [chapter 2 guide](incerto-scoft-ch2.md) maps SCoFT v4 §2.1, pp. 7–8,
+and §2.2.27, p. 19, to these conventions [@taleb2025scoftv4]. The displayed
+empirical indicator in the latter section points in the survival direction;
+our CDF uses $\le$ and our survival uses $>$. The counting and sampling
+arguments above are proved here independently of that source presentation.

@@ -3,14 +3,14 @@ schema_version: 3
 updated: '2026-10-17'
 repository: xshi19/xshi-math
 baseline_revision: 998a4a11a17b7ae7ba4c306005a4c8e3109f4392
-branch: scft/v4-ch01
-scope: scft-v4-ch01
+branch: scft/v4-ch02
+scope: scft-v4-ch02
 implementation_authorized: true
 authorized_chunks:
 - m0.5-review
 - scft-v4-ch01
-authorization_note: Owner authorized scft-v4-ch01 on 2026-10-17 with gpt-6-astra xhigh;
-  record M0.5 live review passed after published PR 27 (fbf2c6a). No commit or deployment.
+- scft-v4-ch02
+authorization_note: Owner authorized scft-v4-ch02 and chapter-1 reader fixes on 2026-10-17 with gpt-6-astra xhigh; owner-selected gpt-6-astra MAX review completed. No commit or deployment.
 status_semantics:
   todo: Program work has not satisfied its evidence gates; existing prose is recorded separately.
   in-progress: A named chunk is active and has a recorded checkpoint.
@@ -169,6 +169,7 @@ roles:
     owns: all other data requests and acquisition support
 role_constraints:
 - Owner selected gpt-6-astra xhigh for chapter 1 writing/code; separate max review completed 2026-10-17.
+- Owner selected gpt-6-astra xhigh for chapter 2 writing/code; separate owner-selected max review completed 2026-10-17.
 - No Cursor third-party models.
 - Role assignments describe future work, not availability or permission to delegate.
 milestones:
@@ -201,9 +202,8 @@ milestones:
     dependencies:
     - M2
     assigned_role: math-site-editor
-next_chunk: '#/chunks/scft-v4-ch02'
-next_chunk_note: Chapter 1 implementation and max review done; external site build and
-  post-publication live review remain explicit follow-ups in its checkpoint.
+next_chunk: '#/chunks/scft-v4-ch03'
+next_chunk_note: Chapter 2 implementation and max review done; external site build/check and live reader review remain recorded follow-ups.
 chunks:
   m0.5-review:
     id: m0.5-review
@@ -356,6 +356,7 @@ chunks:
       assigned_to_chapter_chunk: 5
     issues:
     - id: M05-ISSUE-001
+      chapter_2_resolution: Retained iid/known-cutoff/positive-denominator conditions; added the likelihood derivative proof and all-cutoff boundary.
       severity: major
       status: fixed in this PR
       disposition: resolved
@@ -393,6 +394,7 @@ chunks:
       - scft-v4-ch04
       - scft-v4-ch09
     - id: M05-ISSUE-006
+      chapter_2_resolution: Chapter-2 claims use explicit local proofs for exact Pareto calibration, conditional quantities, counts and counterexamples; verified v4 section/page locators for cited LLN/CLT and glossary context. Retained chapter-1 FKZ sources. General EVT/PBDH and other later-chapter locators remain open.
       chapter_1_resolution: Resolved for chapter-1 reused claims; FKZ Theorems 3.29-3.30 and DLMF locators verified. Other chapters remain assigned.
       severity: major
       status: assigned to chapter chunk
@@ -404,12 +406,14 @@ chunks:
       - scft-v4-ch07
       - scft-v4-ch09
     - id: M05-ISSUE-007
+      chapter_2_resolution: Chapter-2 guide and new context use taleb2025scoftv4 with verified section/page locators. Chapter-3/4 title edits do not certify their source claims.
       chapter_1_resolution: Resolved for chapter-1 source context with taleb2025scoftv4 and printed locators. Other chapters remain assigned.
       severity: minor
       status: assigned to chapter chunk
       disposition: deferred-with-reason
       chapters:
       - scft-v4-ch01
+      - scft-v4-ch02
       - scft-v4-ch03
       - scft-v4-ch04
       - scft-v4-ch05
@@ -425,6 +429,7 @@ chunks:
       chapters:
       - scft-v4-ch09
     - id: M05-ISSUE-009
+      chapter_2_resolution: Retained reviewed growing-sample Pareto regimes and proofs; guide explicitly separates fixed-n rare events from growing-n ratios and moment orders.
       severity: major
       status: fixed in this PR
       disposition: resolved
@@ -626,6 +631,7 @@ chunks:
     m0_5_issue_ids:
     - M05-ISSUE-001
     - M05-ISSUE-006
+    - M05-ISSUE-007
     - M05-ISSUE-009
     locator: SCoFT v4 ch. 2
     title: Glossary, definitions, and notations
@@ -641,23 +647,37 @@ chunks:
       - lean
       teaching_pages:
         required: true
-        status: todo
+        status: done
         page_paths:
         - content/incerto-counting-exceedances.md
         - content/incerto-pareto.md
         - content/incerto-extreme-value-index.md
         - content/incerto-tail-class-catalog.md
+        - content/incerto-scoft-ch2.md
       demos:
         required: true
-        status: todo
+        status: done
         concept_ids:
         - c-exceedances
         - c-pareto
         - c-evi
         - c-tail-catalog
+        script_paths:
+        - demos/incerto/glossary_worked_cases.py
+        - demos/incerto/exceedances.py
+        helper_paths:
+        - src/math/incerto/glossary.py
+        - src/math/incerto/stats.py
+        - src/math/__init__.py
+        test_paths:
+        - tests/test_incerto_glossary.py
+        - tests/test_xmath.py
+        figure_paths:
+        - assets/figures/incerto/glossary-exceedances-maxima.svg
+        - assets/figures/incerto/glossary-slow-variation.svg
       optional_lean:
         required: false
-        status: optional-approved-pilot
+        status: skipped-for-now
         policy: After teaching and demos; record exact checked claims or a skip reason. No chapter gate.
         concept_ids:
         - c-exceedances
@@ -669,10 +689,13 @@ chunks:
         - If attempted, pin Lean/Mathlib, import the module, prove and audit both statements without placeholders.
         - Link only exact checked declarations at an immutable revision; otherwise record a skip reason.
         proposed_module: lean/XshiMath/Incerto/Exceedances.lean
+        reason: No Lean toolchain is installed on this machine and the sandbox has no network. Xiang ranks Lean
+          last; skip the approved exceedance-fraction pilot after teaching and demos. No Lean project or checked
+          declaration added.
     dependencies:
     - scft-v4-ch01
     assigned_role: astra-xhigh
-    status: todo
+    status: done
     milestone: M1
     source_unit_ids:
     - scft-v4-ch02
@@ -690,18 +713,82 @@ chunks:
     - content/incerto-subexponentiality.md
     - content/incerto-tail-class-catalog.md
     acceptance:
-    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
-      original explanations for teaching.
+    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations
+      and original explanations for teaching.
     - Resolve relevant M0.5 issues before reusing claims. Reuse canonical pages and reviewed prerequisite statements;
       do not reorder chapter chunks for a later full treatment.
     - Deliver chapter-scoped teaching pages, then bounded reproducible Python demos or visualizations; distinguish
       model calculations from observed-data studies.
-    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
-      or the following chapter.
+    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
+      closure or the following chapter.
     - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
       live pages as a reader.
     existing_demo_paths:
     - demos/incerto/exceedances.py
+    checkpoint:
+      completed_at: '2026-10-17'
+      base_revision: cbda449
+      working_branch: scft/v4-ch02
+      scope: Local chapter implementation and separate max review done. Successful site build and
+        post-publication live reader review remain follow-ups.
+      source_review: Read supplied read-only arXiv:2001.10488v4 PDF, ch. 2, printed pp. 7-21 (PDF pages 21-35),
+        and v4 TOC. Section/page mapping only; no book prose, figures or extracts imported.
+      claim_ids:
+      - CH02-C01
+      - CH02-C02
+      - CH02-C03
+      - CH02-C04
+      - CH02-C05
+      - CH02-C06
+      - CH02-C07
+      evidence_path: docs/records/incerto-scft-v4-ch02.md
+      deliverable_sequence:
+      - Website teaching drafted before Python implementation
+      - Python helpers, bounded demos and deterministic figures verified
+      - Approved optional Lean pilot skipped with machine/network reason
+      m0_5_dispositions:
+        M05-ISSUE-001: Retained iid/known-cutoff/positive-denominator conditions; added the likelihood derivative
+          proof and all-cutoff boundary.
+        M05-ISSUE-006: Chapter-2 claims use explicit local proofs for exact Pareto calibration, conditional
+          quantities, counts and counterexamples; verified v4 section/page locators for cited LLN/CLT and glossary
+          context. Retained chapter-1 FKZ sources. General EVT/PBDH and other later-chapter locators remain
+          open.
+        M05-ISSUE-007: Chapter-2 guide and new context use taleb2025scoftv4 with verified section/page locators.
+          Chapter-3/4 title edits do not certify their source claims.
+        M05-ISSUE-009: Retained reviewed growing-sample Pareto regimes and proofs; guide explicitly separates
+          fixed-n rare events from growing-n ratios and moment orders.
+      checks:
+        pytest: 217 passed in 3.31s, including 36 new cases; UV_CACHE_DIR=/tmp/m05-uv-cache UV_OFFLINE=1 uv
+          run pytest. Default cache is read-only.
+        demos: Passed original exceedance, glossary and Prologue demos; all four generated SVGs byte-identical
+          on repeat. Three changed/new figure PNG previews inspected.
+        npm_install: Offline npm ci failed ENOTCACHED; copied existing local node_modules from published ch01
+          checkout with byte-identical package-lock.json.
+        build: Blocked at MyST npm preflight; direct child-process reproduction reports spawnSync /bin/sh EPERM.
+        html: 'Failed after blocked build: missing fresh pages, redirects and subsite configs. No successful
+          HTML build claimed.'
+        source_checks: Passed state validator (992 plan links), 366 changed/new-file relative links, all 45 Incerto
+          TOC entries, 69-page/65-redirect source layout, guide titles, citation keys, figures and whitespace.
+          Reviewed full new files and tracked diff; nine-word chapter-text overlap scan found no matches.
+      max_math_review:
+        status: done
+        assigned_role: astra-max
+        reviewed_at: '2026-10-17'
+        model: gpt-6-astra MAX
+        scope: CH02-C01 through CH02-C07; separate owner-requested max-reasoning run.
+        evidence_path: docs/records/incerto-scft-v4-ch02.md
+        result: Page claims correct; LLN/CLT cited-ok. Corrected maximum-CDF cancellation near its support,
+          documented expectation underflow and clarified log survival in the API table. Figures and source locators verified.
+        checks: 221 tests passed in 3.42s; 10516 independent numerical comparisons/assertions passed;
+          four regenerated SVGs byte-identical. Five- and nine-word chapter-text overlap scans found no matches.
+        xiang_decisions: none
+      live_reader_review:
+        status: pending-publication
+        assigned_role: math-site-editor
+        note: No deployment in this task; new and changed pages require live review after successful external
+          build and publication.
+      next_action: External site build/check; publish and obtain live reader review
+        when authorized. Next implementation chunk is scft-v4-ch03. No commit made.
   scft-v4-ch03:
     id: scft-v4-ch03
     m0_5_issue_ids:
@@ -6798,11 +6885,12 @@ chapters:
     - c-pareto
     - c-evi
     - c-tail-catalog
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     milestone: M1
-    locator_review: local-v4-TOC-verified; exact-claim-locators-pending
+    locator_review: ch2-pp7-21-read; scoped section/page mappings and original proof claims recorded in chunk
+      checkpoint
     classification:
     - lean-verifiable
     - numeric-demo
@@ -9181,7 +9269,7 @@ concepts:
       lean-verifiable: Finite-set counting gives exact bounds and threshold monotonicity.
       numeric-demo: The existing fixed sample checks the strict threshold convention.
     scope: For n >= 1 and real observations, prove fraction bounds and antitonicity in u; no population inference.
-    status: todo
+    status: done
     dependencies: []
     assigned_role: astra-max
     milestone: M1
@@ -9189,10 +9277,10 @@ concepts:
     canonical_url: /math/incerto/incerto-counting-exceedances/
     coverage:
       prose: existing
-      scope_note: Original page and xmath.exceedance_fraction; fixed synthetic demo exists. Neither implementation
-        nor population inference is formally verified.
+      scope_note: M0.5 reviewed; chapter-2 teaching and deterministic examples implemented at the recorded scope.
+        Separate max review complete; no checked Lean.
       lean: absent
-      python: existing-fixed-example
+      python: chapter-2-deterministic-demo-verified
     source_units:
     - scft-v4-ch02
     completion_scope: in-scope
@@ -9205,17 +9293,30 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: done
       python:
         required: true
-        status: review-required
+        status: done
       lean:
         required: false
-        status: optional-approved-pilot
+        status: skipped-for-now
         chunk_id: scft-v4-ch02
+        reason: No Lean toolchain is installed on this machine and the sandbox has no network. Xiang ranks Lean
+          last; skip the approved exceedance-fraction pilot after teaching and demos. No Lean project or checked
+          declaration added.
     chunk_ids:
     - scft-v4-ch02
     first_chunk: scft-v4-ch02
+    completed_chunk_scopes:
+      scft-v4-ch02:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is installed on this machine and the sandbox has no network. Xiang ranks
+          Lean last; skip the approved exceedance-fraction pilot after teaching and demos. No Lean project or
+          checked declaration added.
+        evidence_path: docs/records/incerto-scft-v4-ch02.md
+        note: Implementation and max review complete; build and live review remain separate.
   c-pareto:
     id: c-pareto
     title: Pareto distribution
@@ -9223,7 +9324,7 @@ concepts:
       lean-verifiable: Density, survival, and support identities admit exact analysis.
       numeric-demo: Compare simulated exceedances with the stated survival law.
     scope: Positive scale x_m and alpha; distinguish normalized distribution from a tail approximation.
-    status: todo
+    status: in-progress
     dependencies: []
     assigned_role: astra-max
     milestone: M1
@@ -9231,9 +9332,10 @@ concepts:
     canonical_url: /math/incerto/incerto-pareto/
     coverage:
       prose: existing
-      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      scope_note: M0.5 reviewed; chapter-2 teaching and deterministic examples implemented at the recorded scope.
+        Separate max review complete; no checked Lean. Later chapter scopes remain open.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-2-deterministic-demo-verified
     source_units:
     - tbs-ch16
     - scft-v4-ch02
@@ -9249,10 +9351,10 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: in-progress
       python:
         required: true
-        status: todo
+        status: in-progress
       lean:
         required: false
         status: optional
@@ -9261,6 +9363,16 @@ concepts:
     - scft-v4-ch05
     - scft-v4-ch06
     first_chunk: scft-v4-ch02
+    completed_chunk_scopes:
+      scft-v4-ch02:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is installed on this machine and the sandbox has no network. Xiang ranks
+          Lean last; skip the approved exceedance-fraction pilot after teaching and demos. No Lean project or
+          checked declaration added.
+        evidence_path: docs/records/incerto-scft-v4-ch02.md
+        note: Implementation and max review complete; build and live review remain separate.
   c-regular-variation:
     id: c-regular-variation
     title: Regular variation
@@ -9477,7 +9589,7 @@ concepts:
       lean-verifiable: Domain-specific parameter relations are precise statements.
       numeric-demo: Work through positive, zero and negative index examples with explicit support.
     scope: xi = 1/alpha only in the positive regularly varying regime; other signs need separate domains.
-    status: todo
+    status: in-progress
     dependencies: []
     assigned_role: astra-max
     milestone: M1
@@ -9485,9 +9597,10 @@ concepts:
     canonical_url: /math/incerto/incerto-extreme-value-index/
     coverage:
       prose: existing
-      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      scope_note: M0.5 reviewed; chapter-2 teaching and deterministic examples implemented at the recorded scope.
+        Separate max review complete; no checked Lean. Later chapter scopes remain open.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-2-deterministic-demo-verified
     source_units:
     - scft-v4-ch02
     - scft-v4-ch09
@@ -9501,10 +9614,10 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: in-progress
       python:
         required: true
-        status: todo
+        status: in-progress
       lean:
         required: false
         status: optional
@@ -9512,6 +9625,16 @@ concepts:
     - scft-v4-ch02
     - scft-v4-ch09
     first_chunk: scft-v4-ch02
+    completed_chunk_scopes:
+      scft-v4-ch02:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is installed on this machine and the sandbox has no network. Xiang ranks
+          Lean last; skip the approved exceedance-fraction pilot after teaching and demos. No Lean project or
+          checked declaration added.
+        evidence_path: docs/records/incerto-scft-v4-ch02.md
+        note: Implementation and max review complete; build and live review remain separate.
   c-gpd:
     id: c-gpd
     title: Generalized Pareto excess models
@@ -10140,7 +10263,8 @@ concepts:
     classification:
       lean-verifiable: The convolution decomposition and exact light-tail ratios are precise proof targets.
       numeric-demo: Population tail-ratio curves illustrate distinct asymptotic classes.
-    scope: Keep cited class memberships separate from the elementary convolution derivation and exact ratio checks.
+    scope: Keep cited class memberships separate from the elementary convolution derivation and exact ratio
+      checks.
     status: in-progress
     dependencies:
     - c-regular-variation
@@ -10152,9 +10276,10 @@ concepts:
     canonical_url: /math/incerto/incerto-tail-class-catalog/
     coverage:
       prose: existing
-      scope_note: M0.5 reviewed; chapter-1 examples and citations implemented. Later chapter scopes remain open; no checked Lean.
+      scope_note: M0.5 reviewed; chapter-2 teaching and deterministic examples implemented at the recorded scope.
+        Separate max review complete; no checked Lean. Later chapter scopes remain open.
       lean: absent
-      python: chapter-1-deterministic-demo-verified
+      python: chapter-2-deterministic-demo-verified
     source_units:
     - tbs-ch15
     - tbs-es06
@@ -10192,7 +10317,16 @@ concepts:
         python: done
         lean: skipped-for-now
         evidence_path: docs/records/incerto-scft-v4-ch01.md
-        note: Full concept remains in-progress for chapters 2, 5 and 6.
+        note: Chapters 1 and 2 implemented; full concept remains in-progress for chapters 5 and 6.
+      scft-v4-ch02:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is installed on this machine and the sandbox has no network. Xiang ranks
+          Lean last; skip the approved exceedance-fraction pilot after teaching and demos. No Lean project or
+          checked declaration added.
+        evidence_path: docs/records/incerto-scft-v4-ch02.md
+        note: Implementation and max review complete; build and live review remain separate.
   c-luck-skill:
     id: c-luck-skill
     title: Luck, skill, and performance selection

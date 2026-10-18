@@ -57,8 +57,13 @@ project:
         - file: content/incerto-scoft-intro.md
           children:
             - file: content/incerto-scoft-ch1.md
+              title: Chapter 1 — Prologue and tail terminology
+            - file: content/incerto-scoft-ch2.md
+              title: Chapter 2 — Glossary, definitions, and notations
             - file: content/incerto-scoft-ch3.md
+              title: Chapter 3 — Non-technical overview
             - file: content/incerto-scoft-ch4.md
+              title: Chapter 4 — How fat tails emerge from random scale
         - file: content/incerto-external-reading.md
           children:
             - file: content/incerto-reading-embrechts.md
