@@ -4,9 +4,11 @@ Design baseline: 2026-10-16. V4 chapter-order revision: 2026-10-17, branch
 `plan/incerto-program`, PR #24; revision base `e7aaa5f`.
 The owner authorized M0.5 review and clear source fixes on 2026-10-17.
 M0.5 mathematical and live reader review are complete after published PR #27
-(`fbf2c6a`). Chapter 1 implementation is complete on `scft/v4-ch01`;
-[its record](../../records/incerto-scft-v4-ch01.md) separates local evidence,
-completed max review, blocked site checks and the pending live review.
+(`fbf2c6a`). Chapter 1 implementation and max review are complete;
+[its record](../../records/incerto-scft-v4-ch01.md) includes the later operator
+build pass. Chapter 2 implementation and chapter-1 reader fixes are complete
+on `scft/v4-ch02`; [its record](../../records/incerto-scft-v4-ch02.md) separates
+completed max review from blocked site checks.
 
 The selected SCoFT baseline is the **2025 third edition,
 arXiv:2001.10488v4: 30 chapters and nine appendices (A–I)**. Direct comparison
@@ -49,13 +51,16 @@ Lean omissions require a reason and never block the next chapter.
 | [Validation](validation.md) | Schema, executable checks and resume procedure |
 | [Verification](verification.md) | Historical evidence, this revision's checks and pending operator rerun |
 
-`next_chunk` is `#/chunks/scft-v4-ch02`. Chapter 1 teaching, deterministic
-Python examples and the optional Lean skip are recorded in state. Its separate
-max-reasoning review passed; an external site build remains a follow-up before
-publication; Math Site Editor reviews the chapter-1 pages after publication.
+`next_chunk` is `#/chunks/scft-v4-ch03`. Chapters 1 and 2 teaching,
+deterministic Python examples and optional Lean skips are recorded in state.
+Chapter 2's max review is complete, including a maximum-CDF boundary fix.
+External site build/check and subsequent Math Site Editor live review remain
+follow-ups. The approved exceedance pilot
+was skipped because this machine has no Lean toolchain and the sandbox has
+no network; no new Lean project was added.
 The owner reports M0.5 live review passed on 2026-10-17. Possible mixed-weight
 rendering without Charter remains pending Xiang's check. Findings 006/007 are
-resolved for chapter-1 reuse and remain assigned for other chapters.
+resolved for chapter-1/2 reuse and remain assigned for other chapters.
 
 ## Decisions fixed by this design
 
@@ -94,8 +99,8 @@ resolved for chapter-1 reuse and remain assigned for other chapters.
 | `portfolio-manager` | Portfolio Manager bot | Financial data and requested additions |
 | `data-scientist` | Data Scientist bot | Other data requests |
 
-The owner chose Astra xhigh for chapter-1 writing/code and a separate Astra max
-run for subsequent hard-math review. Future role assignments do not
+The owner chose Astra xhigh for chapter-1/2 writing/code and separate Astra max
+runs for hard-math review (chapters 1 and 2 passed). Future role assignments do not
 assert availability or authorize automatic delegation. No Cursor third-party
 models are selected.
 

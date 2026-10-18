@@ -63,17 +63,29 @@ def main() -> None:
     u = np.geomspace(1, 10_000, 241)
     fig, ax = plt.subplots(figsize=(6.8, 4.4), layout="constrained")
     print("\nLog multiplier ratios at u = 2, 10, 100, 10000; t = 2")
-    for name, log_sf, style in models:
+    for index, (name, log_sf, style) in enumerate(models):
         log_ratio = log_survival_multiplier_ratio(log_sf, u)
         if np.any(log_ratio >= 0):
             raise ValueError(f"expected strictly negative log ratios for {name}")
-        ax.loglog(u, -log_ratio, linestyle=style, label=name)
+        plot_options = {}
+        if index == 3:
+            # The two light-tail curves have the same leading ordinate u.
+            # Offset marker locations, not data, to expose their near-overlap.
+            plot_options = dict(color=COLORS["brick"], marker="o", markevery=(0, 24),
+                                markerfacecolor=COLORS["surface"], linewidth=2.8, zorder=3)
+        elif index == 4:
+            plot_options = dict(color=COLORS["teal"], marker="s", markevery=(12, 24),
+                                markerfacecolor=COLORS["surface"], linewidth=1.4, zorder=4)
+        ax.loglog(u, -log_ratio, linestyle=style, label=name, **plot_options)
         table = log_survival_multiplier_ratio(log_sf, [2, 10, 100, 10_000])
         print(name, np.array2string(table, precision=6))
     ax.set(xlabel=r"Threshold $u$", ylabel=r"$-\log[\bar F(2u)/\bar F(u)]$")
     ax.legend(loc="upper left", fontsize=8)
     savefig(fig, output / "prologue-tail-ratios.svg", metadata=metadata)
     plt.close(fig)
+    # Normalize whitespace in this changed SVG for reproducible, diff-clean output.
+    path = output / "prologue-tail-ratios.svg"
+    path.write_text("\n".join(line.rstrip() for line in path.read_text().splitlines()) + "\n")
 
     # Independent special-function evaluation of the page's exact sum ratios.
     thresholds = np.array([2.0, 10.0, 100.0])

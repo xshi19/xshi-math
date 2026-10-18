@@ -5,6 +5,8 @@ project:
   description: Mathematical notes in the Normix theory track.
   license: MIT
   github: https://github.com/xshi19/xshi-math
+  bibliography:
+    - content/bibliography.bib
   toc:
     - file: content/normix-theory/index.md
     - title: Definition

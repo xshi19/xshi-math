@@ -5,6 +5,8 @@ project:
   description: Mathematical notes in the Information Geometry track.
   license: MIT
   github: https://github.com/xshi19/xshi-math
+  bibliography:
+    - content/bibliography.bib
   toc:
     - file: content/ig/index.md
     - title: Foundations
