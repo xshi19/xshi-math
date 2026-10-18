@@ -28,7 +28,6 @@ def main() -> None:
     output = Path(__file__).resolve().parents[2] / "assets/figures/incerto"
     output.mkdir(parents=True, exist_ok=True)
     set_theme()
-    matplotlib.rcParams["svg.hashsalt"] = "scft-v4-ch02"
     metadata = {"Date": None, "Creator": "xshi-math glossary_worked_cases.py"}
 
     sample = np.array([1., 2., 2., 4.])

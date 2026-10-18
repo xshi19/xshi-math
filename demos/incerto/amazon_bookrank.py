@@ -7,7 +7,6 @@ No network access or notebook execution is required.
 from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
-matplotlib.rcParams["svg.hashsalt"] = "xshi-math-incerto"
 OUTPUT = Path(__file__).resolve().parents[2] / "assets/incerto/figures"
 OUTPUT.mkdir(parents=True, exist_ok=True)
 
@@ -17,7 +16,7 @@ from scipy.stats import linregress
 
 from xmath.incerto.datasets import load_amazon_bookrank
 from xmath.incerto.estimators import hill_alpha_estimator, hill_stability
-from xmath.incerto.figures import COLORS, FIGURE_SIZES, set_theme, style_axes
+from xmath.incerto.figures import COLORS, FIGURE_SIZES, savefig, set_theme, style_axes
 
 set_theme()
 
@@ -67,7 +66,7 @@ axes[2].set_ylabel(r"Hill $\widehat\alpha$")
 axes[2].set_title("Tail sensitivity")
 
 style_axes(axes, grid_axis="both")
-plt.savefig(OUTPUT / "amazon-bookrank-1.svg", metadata={"Date": None})
+savefig(fig, OUTPUT / "amazon-bookrank-1.svg", metadata={"Date": None})
 plt.close()
 
 print(f"Rows: {sales.size}; titles dated from {data.date.min()} to {data.date.max()}")

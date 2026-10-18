@@ -1,201 +1,131 @@
 ---
-title: Chapter 4 — How fat tails emerge from random scale
+title: Chapter 4 — Finite-moment fat tails
 ---
 
-## What This Chapter Is Doing
+Chapter 4 asks how a distribution can depart sharply from a Gaussian model
+while retaining finite moments. Its first mechanism is to randomize a
+Gaussian's variance. Its second question is statistical: which moments
+must exist for a chosen estimate to have a finite error variance?
 
-Chapter 4 of Taleb's *Statistical Consequences of Fat Tails* moves from the
-taxonomy of Chapter 3 to mechanisms.  The main point is that fat-tailed-looking
-behavior does not require an exact
-[Pareto law](incerto-pareto.md) from the start.  Random
-scale, stochastic variance, and mixtures can make Gaussian habits fail in finite
-samples.
+We use SCoFT's 2025 third edition, arXiv:2001.10488v4, ch. 4,
+printed pp. 69–89. The chapter's broad use of “fat tails” includes comparisons
+with a Gaussian at fixed variance. That usage does not assert
+[regular variation](incerto-regular-variation.md) or
+[subexponentiality](incerto-subexponentiality.md).
 
-Follow the concept links for the distribution formulas, mixture calculations,
-and diagnostic examples.
+## A reading path through the chapter
 
-## Notation Differences
-
-| Source or notebook notation | Shared notation | Meaning |
+| V4 locator, printed pages | Mathematical question | Our treatment |
 | --- | --- | --- |
-| $s$ | $\sigma$ | Scale or standard deviation parameter. |
-| $a$ in the simple mixture | $a$ locally | Variance-spread parameter in the calculation below. |
-| Gamma shape in variance-gamma discussions | $\lambda$ locally | The helper uses `lam`; its `alpha` denotes the decay parameter $A$ below. |
-| $p(x)$ or $f(x)$ | $p_\theta(x)$ for a parameterized model | Density with respect to the stated measure. |
-| MAD | `MeanAD` or `MedianAD` | The wiki distinguishes mean absolute deviation from median absolute deviation. |
+| §§4.1–4.1.2, pp. 69–74 | Can variance stay fixed while higher moments increase? | [Variance mixtures](incerto-mixture-uncertainty.md): conditioning, finite-state examples, kurtosis, and Gaussian-relative tails. |
+| §4.2, pp. 74–75 | Does mixing variance or its reciprocal give the same tail? | [Variance and precision](incerto-mixture-uncertainty.md#mixture-variance-precision): gamma, lognormal, and Student models with proved moment conditions. |
+| §§4.3–4.3.1, pp. 75–78 | Where does a perturbation add or remove density? | [Body, shoulders, and tails](incerto-body-shoulder-tail.md): local density curvature, survival curvature, and exact finite-mixture crossings. |
+| §§4.4–4.4.3, pp. 79–84 | What differs between quadratic and absolute deviations? | [Moment estimation](incerto-moment-estimation.md) and [dispersion ratios](incerto-dispersion-ratio.md): estimands, estimator moments, Gaussian calibration, and repeated samples. |
+| §4.4.4, pp. 84–86 | Why do higher powers emphasize large observations? | [Power means](incerto-moment-estimation.md#moment-estimation-power-means): Jensen proof, equality, and the maximum limit. |
+| §4.4.5, pp. 87–88 | Does a dispersion comparison justify a general recommendation? | [Different estimands](incerto-moment-estimation.md#mean-absolute-deviation-is-a-different-estimand): state the target and loss before comparing methods. |
+| §4.5, pp. 88–89 | Why do geometric unit balls expand with norm order? | [Norm geometry](incerto-moment-estimation.md#moment-estimation-power-means): distinguish sums of powers from averages of powers. |
 
-Use the shared [notation canon](https://xshi19.github.io/math/notation/).
+## Start with a conditional model
 
-## 4.1 - Random Variance as a Fat-Tail Mechanism
-
-The chapter starts with the simplest stochastic-volatility idea: observations
-can be conditionally Gaussian while their variance changes across states.  A
-two-component normal mixture already shows the effect: the variance can be held
-fixed while fourth moments and shoulder/tail mass change.
-
-Existing concept pages:
-
-- [Normal Variance Mixture](https://xshi19.github.io/math/normix-theory/normix-normal-mixtures/)
-- [Variance Gamma Distribution](https://xshi19.github.io/math/normix-theory/normix-gh-family-tour/)
-
-Topics awaiting dedicated notes:
-
-- Planned Lognormal Variance Mixture for the lognormal mixing comparison in
-  the notebook.
-- Planned Stochastic Volatility for time-dependent variance rather than
-  one-step mixture distributions.
-
-## 4.3 - Body, Shoulders, and Tails
-
-We use this section to give a geometric diagnostic of what scale randomization
-does to
-a density.  For small variance perturbations of a Gaussian baseline, the second-order
-calculation adds mass near the peak and far tails while removing mass from the
-[shoulders](incerto-body-shoulder-tail.md).  The boundary is
-not a Pareto threshold; it is a sign change in scale curvature.
-
-Existing concept pages:
-
-- [Body, Shoulders, and Tails](incerto-body-shoulder-tail.md)
-- [Normal Variance Mixture](https://xshi19.github.io/math/normix-theory/normix-normal-mixtures/)
-- [Tail Threshold Selection](incerto-tail-threshold-selection.md)
-
-## 4.4 - Mean Deviation, Standard Deviation, and Rising Norms
-
-The chapter then compares scale summaries.  After their respective Gaussian calibrations, standard deviation, mean
-absolute deviation, and median absolute deviation target the same scale,
-but they respond differently to extremes.  The disagreement is itself useful:
-it shows that the chosen norm can determine what the data appears to say.
-
-Existing concept pages:
-
-- [Dispersion Ratio Under Fat Tails](incerto-dispersion-ratio.md)
-- [Variance Gamma Distribution](https://xshi19.github.io/math/normix-theory/normix-gh-family-tour/)
-- [LLN Failure Under Infinite Mean](incerto-lln-failure.md)
-
-Topics awaiting dedicated notes:
-
-- Planned Cauchy Running Statistics for the Cauchy sample mean and sample
-  variance paths in the notebook.
-- Planned Rising Norms for the high-dimensional norm comparison.
-- Planned S&P 500 Dispersion Ratio for the rolling S&P 500
-  standard-deviation to mean-absolute-deviation ratio.
-
-## Two concrete mixture calculations
-
-The [Normix construction](https://xshi19.github.io/math/normix-theory/normix-normal-mixtures/)
-gives the general mixture identities. The two scalar calculations below
-distinguish Gaussian-relative tail
-thickening from a power law. We use the shared positive mixing symbol $Y$.
-
-For $X=\sqrt{Y}Z$, with $Z\sim N(0,1)$ independent of $Y$, conditioning gives
-$\mathbb E[X^{2m}]=(2m-1)!!\mathbb E[Y^m]$ for integers $m\ge1$ whenever the moment is finite.
-Let $Y$ take $1-a$ and $1+a$ with equal probabilities, where $0\le a<1$.
-Then
+Let $X=\sqrt YZ$, with $Z\sim N(0,1)$ independent of positive variance $Y$.
+The shared mixing symbol is $Y$; see the
+[notation canon](https://xshi19.github.io/math/notation/) and
+[Normix foundation](https://xshi19.github.io/math/normix-theory/normix-normal-mixtures/).
+With $\mathbb EY=1$ and finite $\mathbb EY^2$,
 
 $$
-\mathbb E[X]=0,\qquad \operatorname{Var}(X)=1,\qquad
-\mathbb E[X^4]=3(1+a^2).
+\mathbb EX=0,\qquad \operatorname{Var}(X)=1,\qquad
+\mathbb EX^4=3\mathbb EY^2.
 $$
 
-These formulas follow by averaging $Y$ and $Y^2$ and using
-$\mathbb E[Z^2]=1$, $\mathbb E[Z^4]=3$. At $a=0.8$, the fourth moment is
-$4.92$. For $a>0$, dividing the two-component density by the standard normal
-density $\phi$ gives the far-tail equivalent
+The [mixture note](incerto-mixture-uncertainty.md#mixture-moment-transfer)
+proves these identities. Equal probabilities on variances 0.4 and 1.6 give
+fourth moment 4.08; probabilities 0.99 and 0.01 on variances 0.5 and 50.5
+give 77.25. Both mixtures have a finite MGF everywhere. A sharper peak and
+larger far-tail probabilities relative to a unit normal do not make either
+mixture a power law.
+
+## Specify what is perturbed
+
+The source's Gaussian boundaries in §4.3.1 concern differentiation with
+respect to **scale**. Our body/shoulder note also computes **variance**
+curvature. For a unit normal the positive density boundaries are
 
 $$
-\frac{f_a(x)}{\phi(x)}\sim
-\frac{1}{2\sqrt{1+a}}\exp\!\left(\frac{a x^2}{2(1+a)}\right),
-\qquad |x|\to\infty.
+\begin{aligned}
+\text{variance perturbation:}&\quad \sqrt{3\pm\sqrt6},\\
+\text{scale perturbation:}&\quad \sqrt{(5\pm\sqrt{17})/2}.
+\end{aligned}
 $$
 
-The component with variance $1-a$ decays faster and disappears from this
-ratio. The mixture still has a finite MGF at every real argument. At $a=1$
-the lower-variance component becomes an atom, so the density formula no
-longer describes the whole law.
+Neither pair is a threshold for fitting a Pareto tail. A small-perturbation
+expansion is pointwise, and its zero-curvature points need not equal the
+crossings of a finite mixture. Tail probabilities have their own curvature:
+convexity in variance holds only above a threshold relative to that variance,
+not for every tail event and every mixing interval.
 
-For a gamma mixture, let $Y\sim\operatorname{Gamma}(\lambda,\vartheta)$
-(shape and scale) and $X=\gamma Y+\sqrt{Y}Z$. The local parameters satisfy
-$A>|\gamma|$, $\lambda>0$, and $\vartheta=2/(A^2-\gamma^2)$.
-The legacy helper `univariate_variance_gamma(alpha, beta, lam)` uses
-`alpha` for $A$, `beta` for $\gamma$, and `lam` for $\lambda$; its `alpha`
-is not the Pareto exponent. Conditioning and the gamma MGF give
+## Separate a moment from its estimator
 
-$$
-M_X(t)=\left(1-\vartheta\gamma t-\tfrac12\vartheta t^2\right)^{-\lambda},
-\qquad -A-\gamma<t<A-\gamma,
-$$
+For iid Pareto observations, the [moment note](incerto-moment-estimation.md#moment-estimation-gates)
+proves
 
 $$
-\mathbb E[X]=\gamma\lambda\vartheta,\qquad
-\operatorname{Var}(X)=\lambda\vartheta(1+\gamma^2\vartheta).
+\mathbb E X^q<\infty\iff q<\alpha,\qquad
+\operatorname{Var}(\widehat m_{q,n})<\infty\iff 2q<\alpha
+\quad\text{when }q<\alpha.
 $$
 
-The interval follows by solving the positive-quadratic-base inequality.
-The variance follows from conditional variance plus the variance of the
-conditional mean. For $x\ne0$, integrating the conditional Gaussian density
-against the gamma density gives
+At exponent 3 the second moment exists, its sample average is unbiased and
+consistent, and that average has infinite variance. Its **square root** has
+a finite second moment. This last distinction matters when reading the
+standard-deviation comparison around §4.4.3, p. 83: conclusions about an
+average of squares do not transfer unchanged to its square root.
 
-$$
-f(x)=\frac{(A^2-\gamma^2)^\lambda |x|^{\lambda-1/2}
-K_{\lambda-1/2}(A|x|)}{\sqrt\pi\,\Gamma(\lambda)(2A)^{\lambda-1/2}}
-e^{\gamma x}.
-$$
+Even with every moment finite, a rare high-variance component can be absent
+from most short samples. The repeated-sample demo shows both mechanisms.
+Neither mechanism implies that every sample mean is downward biased.
+The [plug-in singularity](incerto-moment-estimation.md#moment-estimation-plugin)
+adds a third issue: fitting a model may create divergent estimator moments
+near a parameter boundary.
 
-To obtain this expression, substitute $\nu=\lambda-1/2$,
-$a=x^2/2$, $b=A^2/2$ in the Bessel integral
-$\int_0^\infty y^{\nu-1}e^{-a/y-by}\,dy
-=2(a/b)^{\nu/2}K_\nu(2\sqrt{ab})$ for $a,b>0$.
-The standard Bessel asymptotic $K_\nu(z)\sim\sqrt{\pi/(2z)}e^{-z}$
-then gives right and left density decay rates $A-\gamma$ and $A+\gamma$,
-each with a power factor $|x|^{\lambda-1}$. These are exponential tails,
-not regularly varying ones. The integral representation and special-function
-asymptotics are used as standard identities, not proved here
-[@barndorff1982normal; @madan1990variance].
+## Notation and source qualifications
 
-At the origin, the same density integral is a gamma integral when
-$\lambda>1/2$, giving
-
-$$
-f(0)=\frac{(A^2-\gamma^2)^\lambda\Gamma(\lambda-1/2)}
-{2\sqrt\pi\,\Gamma(\lambda)A^{2\lambda-1}}.
-$$
-
-For smaller shapes it diverges: the Bessel limits give a logarithmic
-singularity at $\lambda=1/2$ and an integrable power singularity below it.
-The symmetric case $\gamma=0$, $\lambda=1$ reduces to the Laplace density
-$(A/2)e^{-A|x|}$. The general family relationships remain in the
-[Normix family tour](https://xshi19.github.io/math/normix-theory/normix-gh-family-tour/).
-
-## Related calculations
-
-The following notes develop the mixture and dispersion calculations.
-Topics without a published example are marked as planned.
-
-| Topic | Related note |
+| Source usage | Convention used here |
 | --- | --- |
-| Simple normal mixture | [Normal Variance Mixture](https://xshi19.github.io/math/normix-theory/normix-normal-mixtures/) |
-| Variance-gamma simulation | [Variance Gamma Distribution](https://xshi19.github.io/math/normix-theory/normix-gh-family-tour/) |
-| Normal and Student-t body/shoulder/tail plots | [Body, Shoulders, and Tails](incerto-body-shoulder-tail.md) |
-| Standard-deviation/MAD simulation | [Dispersion Ratio Under Fat Tails](incerto-dispersion-ratio.md) |
-| Cauchy running mean and variance | Planned Cauchy Running Statistics |
-| Rising norms and unit cube | Planned Rising Norms |
+| Normal scale parameter | $N(\mu,v)$ uses variance as its second argument; write $v=\sigma^2$ explicitly. |
+| Stochastic variance or reciprocal variance | $Y$ is positive variance; local $Q=1/Y$ is precision. |
+| Student tail parameter | $\nu$ is degrees of freedom; the power-tail exponent is $\alpha=\nu$. Unit Student scale is not unit standard deviation. |
+| Mean deviation / MAD | State the center and whether the deviation is a mean or a median; our dispersion demo applies Gaussian calibration. |
+| Rising norms | $A_p$ averages powers; geometric $\ell_p$ norms sum them. Their monotonicities differ. |
 
-## Scope and limitations
+Zero mean does not identify an MGF with a characteristic function; the
+[finite-mixture formulas](incerto-mixture-uncertainty.md#mixture-finite-states)
+show their opposite signs in the exponent. Missing a power moment also does
+not by itself establish a power law. The explicit mixture and Pareto
+calculations provide narrower, checkable statements than either shortcut.
 
-- We paraphrase Chapter 4 and do not reproduce source prose or
-  figures.
-- The linked notes distinguish derivations, cited results, and static
-  numerical illustrations.
-- The planned follow-on examples listed above do not yet have dedicated notes.
+The chapter's efficiency discussion is conditional on a model and an
+estimand. A Gaussian calibration does not make mean absolute deviation an
+unbiased estimator of standard deviation under every other law. We do not
+adopt a universal preference for one dispersion statistic. The bounded
+Cauchy experiment is reserved for chapter 7; recursive mixing for chapter 20.
+
+## Worked cases
+
+Run `uv run python demos/incerto/finite_moments.py` for the deterministic
+mixture, curvature and norm figures and the seeded moment experiment.
+Run `uv run python demos/incerto/dispersion_ratio.py` for the existing
+Gaussian, Student, and Pareto comparison. Model curves and simulations are
+identified separately in their concept-page captions; no external data are
+needed. The scalar variance–mean gamma derivation previously on this page
+now lives in the [mixture note](incerto-mixture-uncertainty.md#mixture-variance-gamma).
 
 ## References
 
-- @taleb2020scoft, *Statistical Consequences of Fat Tails*, Chapter 4.
-- @barndorff1982normal, "Normal Variance-Mean Mixtures and
-  z Distributions".
-- @madan1990variance, "The Variance Gamma (V.G.) Model for Share Market Returns".
-- @rousseeuw1993alternatives, "Alternatives to the Median Absolute Deviation".
+- @taleb2025scoftv4, *Statistical Consequences of Fat Tails*, third edition,
+  2025, arXiv:2001.10488v4, ch. 4, §§4.1–4.5, printed pp. 69–89.
+  The table gives the section locators used. Our examples, proofs and figures
+  are developed independently; the concept pages identify cited inputs.
 
 ## Source and license
 

@@ -58,7 +58,9 @@ names `MeanAD` and `MedianAD` are local conventions for this page.
   deviation much higher than the absolute-deviation scales.
 - In a single-outlier sample, the median absolute deviation can be zero while
   the standard deviation is large, so the second ratio is recorded as infinite when the numerator is positive.
-For a constant sample both numerator and denominator vanish, and the ratio is undefined.
+  For a constant sample both numerator and denominator vanish; the helper
+  returns `NaN` for both undefined ratios. It returns infinity only for a
+  positive numerator over a zero denominator.
 
 ## Calibration
 
@@ -97,17 +99,19 @@ those observations much more weight than either absolute-deviation statistic.
 The simulation compares Gaussian, Student-t, and Pareto samples across sample
 sizes.  It reports repeated-simulation medians of the two dispersion ratios.
 
-Run `python demos/incerto/dispersion_ratio.py` after installing `xshi-math[incerto]`
+Run `uv run python demos/incerto/dispersion_ratio.py` after installing `xshi-math[incerto]`
 to reproduce these static figures. The script records the sample sizes and
 random seeds where simulation is used.
 
-![dispersion ratio diagnostic 1](../assets/incerto/figures/dispersion-ratio-1.svg)
+![Repeated-sample medians of Gaussian-calibrated standard-deviation to mean and median absolute-deviation ratios](../assets/incerto/figures/dispersion-ratio-1.svg)
 
 
 The Gaussian calibration explains why the simulated Gaussian ratios are near one.  The
 Student-t and Pareto ratios are larger because the standard deviation is more
 sensitive to extremes than the absolute-deviation scales.  The ratio is a
-stress signal, not a fitted tail exponent.
+stress signal, not a fitted tail exponent. The
+[moment-estimation note](incerto-moment-estimation.md) explains why a
+finite population moment can still have an estimator with infinite variance.
 
 ## Caveats
 
@@ -122,6 +126,10 @@ stress signal, not a fitted tail exponent.
   one-step marginal distribution is unchanged.
 
 ## References
+
+- @taleb2025scoftv4, *Statistical Consequences of Fat Tails*, third edition,
+  2025, ch. 4, §§4.4.1–4.4.3, printed pp. 79–84: dispersion comparisons.
+  The Gaussian calibrations above are derived here.
 
 - @rousseeuw1993alternatives, "Alternatives to the Median Absolute Deviation".
 

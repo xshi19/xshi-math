@@ -20,6 +20,7 @@ project:
             - file: content/incerto-generalized-extreme-value.md
             - file: content/incerto-frechet.md
             - file: content/incerto-tail-class-catalog.md
+            - file: content/incerto-mixture-uncertainty.md
         - file: content/incerto-theorem-concepts.md
           title: Theorems
           children:
@@ -40,6 +41,7 @@ project:
             - file: content/incerto-hill-estimator.md
             - file: content/incerto-extreme-value-index.md
             - file: content/incerto-plug-in-tail-estimation.md
+            - file: content/incerto-moment-estimation.md
             - file: content/incerto-tail-threshold-selection.md
             - file: content/incerto-survival-tail-ratio.md
             - file: content/incerto-max-to-sum-ratio.md
@@ -67,7 +69,7 @@ project:
             - file: content/incerto-scoft-ch3.md
               title: Chapter 3 — Non-technical overview
             - file: content/incerto-scoft-ch4.md
-              title: Chapter 4 — How fat tails emerge from random scale
+              title: Chapter 4 — Finite-moment fat tails
         - file: content/incerto-external-reading.md
           children:
             - file: content/incerto-reading-embrechts.md

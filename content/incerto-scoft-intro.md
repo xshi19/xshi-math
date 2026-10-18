@@ -5,9 +5,9 @@ title: 'Reading Guide: Statistical Consequences of Fat Tails'
 Taleb, N. N. (2025). *Statistical Consequences of Fat Tails*, third edition.
 [arXiv:2001.10488v4](https://arxiv.org/abs/2001.10488v4)
 
-The chapter 1–3 guides use this edition, printed pp. 3–6, 7–21 and 25–68.
-The chapter 4 guide retains earlier source references; consult the edition
-and locators named on each page when following a claim back to the book.
+The chapter 1–4 guides use this edition, printed pp. 3–6, 7–21, 25–68,
+and 69–89. Each guide maps checked section/page locators to the relevant
+concept notes.
 
 Each chapter page is a reading guide that links to the relevant concept notes.
 It is **not** a substitute for reading the book; it is a companion that
@@ -20,7 +20,7 @@ fills notation gaps, adds proofs, and connects ideas.
 | [Chapter 1 — Prologue](incerto-scoft-ch1.md) | Assumptions behind tail summaries | [Tail class catalog](incerto-tail-class-catalog.md), [Cramér condition](incerto-cramer-condition.md), [Regular variation](incerto-regular-variation.md) |
 | [Chapter 2 — Glossary, definitions, and notations](incerto-scoft-ch2.md) | Probability, conditional size, and tail limits | [Counting exceedances](incerto-counting-exceedances.md), [Pareto](incerto-pareto.md), [EVI](incerto-extreme-value-index.md) |
 | [Chapter 3 — Non-technical overview](incerto-scoft-ch3.md) | Inference and exposure | [Inference asymmetry](incerto-inference-asymmetry.md), [payoffs](incerto-asymmetric-payoffs.md), [ruin](incerto-ruin.md), [decentralization](incerto-decentralization.md) |
-| [Chapter 4 — How fat tails emerge from random scale](incerto-scoft-ch4.md) | Random scale and variance mixtures | [Normal Variance Mixture](https://xshi19.github.io/math/normix-theory/normix-normal-mixtures/), [Variance Gamma Distribution](https://xshi19.github.io/math/normix-theory/normix-gh-family-tour/), [Body, Shoulders, and Tails](incerto-body-shoulder-tail.md) |
+| [Chapter 4 — Finite-moment fat tails](incerto-scoft-ch4.md) | Mixtures, curvature, and estimation | [Variance mixtures](incerto-mixture-uncertainty.md), [Body, shoulders, and tails](incerto-body-shoulder-tail.md), [Moment estimation](incerto-moment-estimation.md) |
 | 5 | Planned guide | Planned; no page published |
 | 6 | Planned guide | Planned; no page published |
 | 7 | Planned guide | Planned; no page published |

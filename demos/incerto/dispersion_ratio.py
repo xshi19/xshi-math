@@ -7,7 +7,6 @@ No network access or notebook execution is required.
 from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
-matplotlib.rcParams["svg.hashsalt"] = "xshi-math-incerto"
 OUTPUT = Path(__file__).resolve().parents[2] / "assets/incerto/figures"
 OUTPUT.mkdir(parents=True, exist_ok=True)
 
@@ -15,18 +14,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from xmath.incerto.distributions import pareto_type1
-from xmath.incerto.figures import FIGURE_SIZES, set_theme, style_axes
-from xmath.incerto.stats import mean_absolute_deviation, median_absolute_deviation
+from xmath.incerto.figures import FIGURE_SIZES, savefig, set_theme, style_axes
+from xmath.incerto.stats import dispersion_ratios
 
 set_theme()
-
-
-def dispersion_ratios(sample):
-    std = np.std(sample)
-    mean_ad = mean_absolute_deviation(sample)
-    median_ad = median_absolute_deviation(sample)
-    median_ratio = np.inf if median_ad == 0 else std / median_ad
-    return std / mean_ad, median_ratio
 
 
 def ratio_quantiles(draw, n, reps=240, seed=20260617):
@@ -72,7 +63,7 @@ axes[1].set_title("Median absolute deviation ratio")
 axes[1].legend()
 
 style_axes(axes, grid_axis="both")
-plt.savefig(OUTPUT / "dispersion-ratio-1.svg", metadata={"Date": None})
+savefig(fig, OUTPUT / "dispersion-ratio-1.svg", metadata={"Date": None})
 plt.close()
 for name, qs in results.items():
     for n, q in zip(n_values, qs):

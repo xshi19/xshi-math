@@ -111,11 +111,16 @@ This is a finite dependence comparison, not a model of contagion dynamics.
 ## Worked calculation and sources
 
 ```{figure} ../assets/figures/incerto/lecture-scale-dependence.svg
-:alt: Pareto damage survivals after splitting, and probabilities of any versus total loss as independent blocks increase.
+:alt: Three vertically stacked plots show Pareto damage survival, any-loss probability on a linear axis, and total-loss probability on a logarithmic axis.
 
-Left: exact survivals for $\alpha=3/2$, $r=2$, $a=x_m=1$ and
-$m=1,4,16$. Right: bounded block-failure model at $q=0.02$.
-The panels use different mechanisms; the Bernoulli model is not heavy-tailed.
+Top: exact survivals for $\alpha=3/2$, $r=2$, $a=x_m=1$ and
+$m=1,4,16$. Middle and bottom: bounded block failures at $q=0.02$.
+A shared logarithmic axis would compress the any-loss and common-shock
+curves near its upper edge because total-loss probabilities reach about
+$10^{-68}$. Such apparent near-overlap is a scale effect: at $k=40$,
+any loss has probability about $0.554$, versus $0.02$ under a common shock.
+They agree exactly at $k=1$. Separate linear and logarithmic panels retain
+both comparisons. The Bernoulli model is bounded and is not heavy-tailed.
 ```
 
 Run `uv run python demos/incerto/lecture_risk.py`. The script evaluates

@@ -103,10 +103,10 @@ first reaching a nonpositive value and ignores all later increments.
 ## Worked calculation and source scope
 
 ```{figure} ../assets/figures/incerto/lecture-ruin.svg
-:alt: Survival under constant and summable hazards, beside growing ensemble resources and shrinking survival probability.
+:alt: Two vertically stacked plots show survival under different hazards above and growing ensemble resources with shrinking survival below.
 
 Exact finite-horizon curves. The summable-hazard model retains positive
-infinite-horizon survival. The second panel uses $q=0.02$, $a=1.04$;
+infinite-horizon survival. The lower panel uses $q=0.02$, $a=1.04$;
 it compares ensemble expectation with survival, not with simulated paths.
 ```
 

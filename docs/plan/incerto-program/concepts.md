@@ -406,16 +406,18 @@ Chapter chunks: `scft-v4-ch09`.
 
 ## Body, shoulder, and tail under perturbation (`c-body-shoulder`)
 
-Home: [content/incerto-body-shoulder-tail.md](../../../content/incerto-body-shoulder-tail.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-body-shoulder-tail.md](../../../content/incerto-body-shoulder-tail.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 The existing normal variance perturbation is not a universal tail-threshold rule.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`).
+
+Chapter-4 Lean: `skipped-for-now`. No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
 
 - **numeric-demo:** Original curves can display the signed effects.
 - **lean-verifiable:** Density derivatives locate sign changes for a specified perturbation.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-4 original teaching, numerical cases and separate max review done. See [chapter 4 evidence](../../records/incerto-scft-v4-ch04.md).
 
 Prerequisites: none within this inventory.
 
@@ -1320,16 +1322,18 @@ Chapter chunks: `scft-v4-ch07`.
 
 ## Moment-estimation failure (`c-moment-estimation`)
 
-Home: `content/incerto-moment-estimation.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-moment-estimation.md](../../../content/incerto-moment-estimation.md) (existing). Status: **in-progress**. Milestone: **M1**. Lead: `astra-max`.
 
 Start with Pareto regimes and the existing plug-in singularity; no universal estimator ranking.
 
 Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
 
+Chapter-4 Lean: `skipped-for-now`. No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
+
 - **numeric-demo:** Run bounded, reproducible repeated-sample comparisons.
 - **lean-verifiable:** Separate moment existence from estimator integrability and consistency.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Chapter-4 original teaching, numerical cases and separate max review done. Later chapter extensions remain. See [chapter 4 evidence](../../records/incerto-scft-v4-ch04.md).
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments), [c-plugin](#c-plugin).
 
@@ -1385,16 +1389,18 @@ Chapter chunks: `scft-v4-ch07`.
 
 ## Parameter mixtures and recursive uncertainty (`c-mixture-uncertainty`)
 
-Home: `content/incerto-mixture-uncertainty.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-mixture-uncertainty.md](../../../content/incerto-mixture-uncertainty.md) (existing). Status: **in-progress**. Milestone: **M1**. Lead: `astra-max`.
 
 Reuse Normix mixture definitions; a recursive construction needs an explicit limiting model.
 
 Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
 
+Chapter-4 Lean: `skipped-for-now`. No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
+
 - **numeric-demo:** Simulate a declared finite hierarchy of parameter uncertainty.
 - **lean-verifiable:** Specified mixtures permit moment and tail calculations.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Chapter-4 original teaching, numerical cases and separate max review done. Later chapter extensions remain. See [chapter 4 evidence](../../records/incerto-scft-v4-ch04.md).
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments).
 

@@ -71,3 +71,33 @@ def test_savefig_writes_file(tmp_path) -> None:
     assert output.exists()
     assert output.stat().st_size > 0
     plt.close(fig)
+
+
+def test_theme_overrides_host_font_weight_and_uses_bundled_serif():
+    from pathlib import Path
+    from matplotlib import font_manager, get_data_path
+    with mpl.rc_context({'font.family': 'sans-serif', 'font.weight': 'bold',
+                         'axes.labelweight': 'bold', 'axes.titleweight': 'bold'}):
+        set_theme()
+        fig, ax = plt.subplots()
+        ax.set(xlabel='Horizon N', ylabel='Step k', title='Same mean input, different payoff')
+        for label in (ax.title, ax.xaxis.label, ax.yaxis.label):
+            path = Path(font_manager.findfont(label.get_fontproperties()))
+            assert path == Path(get_data_path()) / 'fonts/ttf/DejaVuSerif.ttf'
+            assert label.get_fontweight() == 'normal'
+        plt.close(fig)
+
+
+def test_svg_export_is_deterministic_and_has_no_bold_glyphs(tmp_path):
+    set_theme()
+    fig, ax = plt.subplots()
+    ax.plot([0, 1], [0, 1], label=r'Normal $x^2$')
+    ax.set_title('Same mean input, different payoff')
+    ax.legend()
+    a = savefig(fig, tmp_path / 'a.svg')
+    b = savefig(fig, tmp_path / 'b.svg')
+    assert a.read_bytes() == b.read_bytes()
+    assert '<dc:date>' not in a.read_text()
+    assert 'Bold' not in a.read_text()
+    assert 'DejaVuSerif' in a.read_text()
+    plt.close(fig)

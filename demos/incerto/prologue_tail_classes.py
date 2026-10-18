@@ -28,7 +28,6 @@ def main() -> None:
     output.mkdir(parents=True, exist_ok=True)
     set_theme()
     # Stable SVG IDs and no timestamp, so a rerun produces identical assets.
-    matplotlib.rcParams["svg.hashsalt"] = "scft-v4-ch01"
     metadata = {"Date": None, "Creator": "xshi-math prologue_tail_classes.py"}
 
     epsilon = np.array([0.1, 0.01, 0.001])
