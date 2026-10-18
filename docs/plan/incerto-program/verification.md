@@ -8,9 +8,12 @@ The subsequent review branch records its actual checks and sandbox limits in
 [M0.5 verification](m0.5-review.md#verification-and-limits); these historical
 passes do not validate that working tree.
 
-Current chapter-3 implementation and checks are recorded in the
-[chapter-3 checkpoint](../../records/incerto-scft-v4-ch03.md). The historical
-results below do not verify that worktree.
+Current chapter-4 implementation, chapter-3 figure fixes and checks are in the
+[chapter-4 checkpoint](../../records/incerto-scft-v4-ch04.md): 338 Python tests
+passed, 17 SVGs regenerated and inspected, Lean skipped, and fresh HTML checks
+blocked by the sandbox. Separate max review is complete with numerical boundary
+fixes; live reader review remains pending.
+The historical results below do not verify this worktree.
 
 ## Earlier revision: changed artifacts
 

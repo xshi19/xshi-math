@@ -122,11 +122,11 @@ alone rejects the class of all bounded laws with unknown bounds.
 ## Worked calculation
 
 ```{figure} ../assets/figures/incerto/lecture-inference-payoffs.svg
-:alt: Detection probabilities for rare contamination and expected quadratic payoffs as spread increases.
+:alt: Two vertically stacked plots show rare-contamination detection above and expected quadratic payoff changes below.
 
-Left: exact probabilities of at least one contamination, for fixed sample
+Upper panel: exact probabilities of at least one contamination, for fixed sample
 sizes and a varying contamination probability. These are population curves,
-not simulated detection rates. The right panel is explained in the payoff note.
+not simulated detection rates. The lower panel is explained in the payoff note.
 ```
 
 Run `uv run python demos/incerto/lecture_risk.py`. The script evaluates

@@ -7,7 +7,6 @@ No network access or notebook execution is required.
 from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
-matplotlib.rcParams["svg.hashsalt"] = "xshi-math-incerto"
 OUTPUT = Path(__file__).resolve().parents[2] / "assets/incerto/figures"
 OUTPUT.mkdir(parents=True, exist_ok=True)
 
@@ -16,7 +15,7 @@ import matplotlib.pyplot as plt
 
 from xmath.incerto.distributions import pareto_type1
 from xmath.incerto.estimators import max_to_sum_ratio, running_mean
-from xmath.incerto.figures import COLORS, FIGURE_SIZES, set_theme, style_axes
+from xmath.incerto.figures import COLORS, FIGURE_SIZES, savefig, set_theme, style_axes
 
 set_theme()
 
@@ -94,7 +93,7 @@ axes[1].set_title("Repeated-simulation bands")
 axes[1].legend()
 
 style_axes(axes, grid_axis="both")
-plt.savefig(OUTPUT / "lln-preasymptotic-1.svg", metadata={"Date": None})
+savefig(fig, OUTPUT / "lln-preasymptotic-1.svg", metadata={"Date": None})
 plt.close()
 
 # Keep Matplotlib's SVG path continuations clean in source control.

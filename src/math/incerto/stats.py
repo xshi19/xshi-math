@@ -148,9 +148,12 @@ def t_peak_shoulder_tail(
     if sigma <= 0:
         raise ValueError("sigma must be positive")
 
-    discriminant = np.sqrt((df + 1.0) * (17.0 * df + 1.0))
-    outer = np.sqrt(0.5 * (5.0 * df + discriminant + 1.0) / (df - 1.0))
-    inner = np.sqrt(0.5 * (5.0 * df - discriminant + 1.0) / (df - 1.0))
+    # Divide by df before forming the discriminant; rationalize the inner
+    # root to avoid cancellation as df approaches 1 from above.
+    inverse_df = 1.0 / df
+    root_sum = 5.0 + inverse_df + np.sqrt((1.0 + inverse_df) * (17.0 + inverse_df))
+    outer = np.sqrt(root_sum / (2.0 * ((df - 1.0) / df)))
+    inner = np.sqrt(4.0 / root_sum)
     return np.array(
         [
             mu - outer * sigma,
@@ -188,3 +191,39 @@ def empirical_survival_function(x: ArrayLike) -> tuple[NDArray[np.float64], NDAr
         raise ValueError("x must be a nonempty finite one-dimensional sample")
     support, counts = np.unique(values, return_counts=True)
     return support, (values.size - np.cumsum(counts)) / values.size
+
+
+def dispersion_ratios(sample: ArrayLike) -> tuple[float, float]:
+    """Population-ddof sample Std / Gaussian-scaled MeanAD and MedianAD.
+
+    Return NaN for zero over zero, infinity only for positive over zero.
+    Translation and scaling stabilize the calculation; invalid inputs fail.
+    Unrepresentable finite ratios raise FloatingPointError.
+    """
+    x = np.asarray(sample, dtype=float)
+    if x.ndim != 1 or x.size == 0 or not np.all(np.isfinite(x)):
+        raise ValueError("sample must be nonempty, finite and one-dimensional")
+    if np.all(x == x[0]):
+        return float("nan"), float("nan")
+    # Translate by an observed middle value so a lone extreme cannot erase
+    # the central spacings. If opposite extremes overflow, scale first.
+    anchor = np.partition(x, x.size // 2)[x.size // 2]
+    median_is_zero = np.count_nonzero(x == anchor) > x.size // 2
+    with np.errstate(over="ignore"):
+        centered = x - anchor
+    if not np.all(np.isfinite(centered)):
+        scale = np.max(np.abs(x))
+        centered = x / scale - anchor / scale
+    x = centered / np.max(np.abs(centered))
+    std = float(np.std(x))
+    def ratio(denominator, *, is_zero=False):
+        if is_zero:
+            return float("inf")
+        if denominator == 0:
+            raise FloatingPointError("positive dispersion underflows floating-point range")
+        result = float(std / denominator)
+        if not np.isfinite(result):
+            raise FloatingPointError("finite dispersion ratio exceeds floating-point range")
+        return result
+    return (ratio(mean_absolute_deviation(x)),
+            ratio(median_absolute_deviation(x), is_zero=median_is_zero))

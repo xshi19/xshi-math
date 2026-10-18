@@ -114,7 +114,7 @@ property. Repetition, costs and the distribution of $X$ still matter.
 
 ## Worked calculation and sources
 
-The right panel of the [shared figure](incerto-inference-asymmetry.md#worked-calculation)
+The lower panel of the [shared figure](incerto-inference-asymmetry.md#worked-calculation)
 plots $\mathbb E[(4\pm s)^2]-16=s^2$ and its negative for
 $0\le s\le3$. Reproduce the figure and finite payoff table with
 `uv run python demos/incerto/lecture_risk.py`. These are exact finite

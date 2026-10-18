@@ -7,7 +7,6 @@ No network access or notebook execution is required.
 from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
-matplotlib.rcParams["svg.hashsalt"] = "xshi-math-incerto"
 OUTPUT = Path(__file__).resolve().parents[2] / "assets/incerto/figures"
 OUTPUT.mkdir(parents=True, exist_ok=True)
 
@@ -19,7 +18,7 @@ from scipy.stats import genpareto, linregress, lognorm
 
 from xmath.incerto.datasets import load_nyc_dog_name_frequencies
 from xmath.incerto.estimators import hill_stability
-from xmath.incerto.figures import COLORS, FIGURE_SIZES, set_theme, style_axes
+from xmath.incerto.figures import COLORS, FIGURE_SIZES, savefig, set_theme, style_axes
 
 set_theme()
 
@@ -60,7 +59,7 @@ ax.set_ylabel("license-period frequency")
 ax.set_title("Dog-name rank-frequency relation")
 ax.legend()
 style_axes(ax, grid_axis="both")
-plt.savefig(OUTPUT / "nyc-dog-name-tail-1.svg", metadata={"Date": None})
+savefig(fig, OUTPUT / "nyc-dog-name-tail-1.svg", metadata={"Date": None})
 plt.close()
 
 # Descriptive whole-sample baseline: a two-parameter lognormal with location 0.
@@ -118,7 +117,7 @@ ax.set_ylabel("survival across names")
 ax.set_title("Global frequency fit")
 ax.legend()
 style_axes(ax, grid_axis="both")
-plt.savefig(OUTPUT / "nyc-dog-name-tail-2.svg", metadata={"Date": None})
+savefig(fig, OUTPUT / "nyc-dog-name-tail-2.svg", metadata={"Date": None})
 plt.close()
 
 fig, axes = plt.subplots(1, 2, figsize=FIGURE_SIZES["two_panel"], layout="constrained")
@@ -160,7 +159,7 @@ axes[1].legend(
 )
 
 style_axes([*axes, count_axis], grid_axis="both")
-plt.savefig(OUTPUT / "nyc-dog-name-tail-3.svg", metadata={"Date": None})
+savefig(fig, OUTPUT / "nyc-dog-name-tail-3.svg", metadata={"Date": None})
 plt.close()
 
 print("NYC dog-name frequencies")

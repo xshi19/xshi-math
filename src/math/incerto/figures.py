@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
+from math import isfinite
 from pathlib import Path
 from typing import Any
 
@@ -46,13 +47,10 @@ FIGURE_SIZES: dict[str, tuple[float, float]] = {
     "tall": (6.4, 4.6),
 }
 
-_FONT_SERIF = [
-    "Charter",
-    "Georgia",
-    "Palatino Linotype",
-    "Palatino",
-    "DejaVu Serif",
-]
+# Use the family shipped by the locked Matplotlib distribution. A host serif
+# stack can select a different face on each machine; SVG paths bake it in.
+_FONT_SERIF = ["DejaVu Serif"]
+SVG_METADATA = {"Date": None, "Creator": "xshi-math Incerto"}
 
 
 def set_theme(*, scale: float = 1.0) -> None:
@@ -70,7 +68,7 @@ def set_theme(*, scale: float = 1.0) -> None:
         If ``scale`` is not positive.
     """
 
-    if scale <= 0:
+    if not isfinite(scale) or scale <= 0:
         raise ValueError("scale must be positive")
 
     mpl.rcParams.update(
@@ -86,11 +84,19 @@ def set_theme(*, scale: float = 1.0) -> None:
             "font.family": "serif",
             "font.serif": _FONT_SERIF,
             "font.size": 10 * scale,
+            "font.weight": "normal",
+            "font.style": "normal",
+            "text.usetex": False,
+            "text.hinting": "none",
+            "svg.fonttype": "path",
+            "svg.hashsalt": "xshi-math-incerto",
+            "mathtext.default": "it",
             "mathtext.fontset": "dejavuserif",
             "axes.facecolor": COLORS["surface"],
             "axes.edgecolor": COLORS["muted"],
             "axes.labelcolor": COLORS["ink"],
             "axes.labelsize": 10.5 * scale,
+            "axes.labelweight": "normal",
             "axes.linewidth": 1.0,
             "axes.prop_cycle": cycler(color=COLOR_CYCLE),
             "axes.spines.top": False,
@@ -98,6 +104,8 @@ def set_theme(*, scale: float = 1.0) -> None:
             "axes.titlecolor": COLORS["ink"],
             "axes.titlesize": 12.5 * scale,
             "axes.titleweight": "normal",
+            "figure.titleweight": "normal",
+            "figure.labelweight": "normal",
             "axes.grid": True,
             "axes.grid.axis": "y",
             "axes.axisbelow": True,
@@ -224,7 +232,12 @@ def savefig(fig: Figure, path: str | Path, **kwargs: Any) -> Path:
         "pad_inches": 0.08,
     }
     save_kwargs.update(kwargs)
+    if output_path.suffix.lower() == ".svg":
+        # Suppress timestamps even when the caller adds descriptive metadata.
+        save_kwargs["metadata"] = {**SVG_METADATA, **save_kwargs.get("metadata", {}), "Date": None}
     fig.savefig(output_path, **save_kwargs)
+    if output_path.suffix.lower() == ".svg":
+        output_path.write_text("\n".join(line.rstrip() for line in output_path.read_text().splitlines()) + "\n")
     return output_path
 
 
@@ -232,6 +245,7 @@ __all__ = [
     "COLORS",
     "COLOR_CYCLE",
     "FIGURE_SIZES",
+    "SVG_METADATA",
     "savefig",
     "set_theme",
     "style_axes",

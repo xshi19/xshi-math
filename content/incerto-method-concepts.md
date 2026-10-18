@@ -5,6 +5,7 @@ title: Methods
 Method pages describe diagnostics, estimators, and modeling moves that recur
 across fat-tail arguments.
 
+- [Moment estimation and its limits](./incerto-moment-estimation.md)
 - [Hill Estimator](./incerto-hill-estimator.md)
 - [Plug-In Tail Estimation](./incerto-plug-in-tail-estimation.md)
 - [Tail Threshold Selection](./incerto-tail-threshold-selection.md)

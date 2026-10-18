@@ -21,11 +21,12 @@ for implementations and use local `help()` for the installed version.
 | `xmath.incerto.datasets` | `load_amazon_bookrank`, `load_nyc_dog_name_frequencies`, `load_sp500_prices`; explicit local-cache and refresh helpers |
 | `xmath.incerto.distributions` | `pareto_type1`, `double_pareto`, `hypsecant2`, `simple_normal_mixture`, `univariate_variance_gamma`; SciPy-style distribution objects |
 | `xmath.incerto.estimators` | `hill_estimator` (extreme-value index), `hill_alpha_estimator` (reciprocal exponent), `hill_stability`, `pareto_mean_plugin`, `mean_excess`, `running_mean`, `max_to_sum_ratio` |
-| `xmath.incerto.stats` | Gaussian-calibrated `mean_absolute_deviation`, `median_absolute_deviation`; normal and Student-t shoulder boundaries; `empirical_survival_function` (strict exceedance with ties) and `lognorm_params_from_mean_and_variance` |
+| `xmath.incerto.stats` | Gaussian-calibrated `dispersion_ratios`, `mean_absolute_deviation`, `median_absolute_deviation`; normal and Student-t shoulder boundaries; `empirical_survival_function` (strict exceedance with ties) and `lognorm_params_from_mean_and_variance` |
 | `xmath.incerto.tail_diagnostics` | `regular_variation_ratio`, `iid_two_sum_tail`, `subexponential_sum_ratio`; numerical calculations with support and integration checks |
 | `xmath.incerto.tail_classes` | `bounded_spike_summary` (population moments), `log_survival_multiplier_ratio` (log-domain tail ratios); used by the [Prologue models](incerto-scoft-ch1.md) |
 | `xmath.incerto.glossary` | `pareto_tail_quantities` (log survival, conditional means, tail contribution), `pareto_normalized_maximum_cdf` (exact iid maximum law); [chapter 2 worked cases](incerto-scoft-ch2.md#scoft-ch2-demo) |
 | `xmath.incerto.lecture_risk` | `repeated_event_probability`, `survival_from_hazards`, `finite_payoff_mean`, `absorbing_resource_path`, `split_power_damage_logsf`, `block_failure_summary`; [chapter 3 worked models](incerto-scoft-ch3.md#scoft-ch3-demo) |
+| `xmath.incerto.finite_moments` | `normal_mixture_log_density`, `normal_mixture_log_abs_survival`, `normal_mixture_absolute_moment`, `pareto_moment_estimator_summary`, `power_mean`; [finite-moment worked cases](incerto-scoft-ch4.md#worked-cases) |
 | `xmath.incerto.figures` | `set_theme`, `style_axes`, `savefig`; shared figure style and deterministic export helpers |
 
 ```python

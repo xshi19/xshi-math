@@ -124,6 +124,15 @@ To analyze data:
 4. [Decentralized exposure](../incerto-decentralization.md) distinguishes
    nonlinear damage reduction from independence between risks.
 
+## Mixtures and moment estimation
+
+1. [Variance mixtures](../incerto-mixture-uncertainty.md) hold variance fixed
+   while changing kurtosis, or change the moment regime by mixing precision.
+2. [Body and shoulder geometry](../incerto-body-shoulder-tail.md) separates
+   variance curvature, scale curvature, and finite-mixture crossings.
+3. [Moment estimation](../incerto-moment-estimation.md) distinguishes a
+   population moment from the moments and consistency of its estimator.
+
 ## Reading and reference
 
 - [Empirical examples](../incerto-empirical-example-concepts.md): two committed
@@ -132,7 +141,7 @@ To analyze data:
   [Chapter 1 — Prologue](../incerto-scoft-ch1.md),
   [Chapter 2 — Glossary, definitions, and notations](../incerto-scoft-ch2.md),
   [Chapter 3 — Non-technical overview](../incerto-scoft-ch3.md), and
-  [Chapter 4 — How fat tails emerge from random scale](../incerto-scoft-ch4.md).
+  [Chapter 4 — Finite-moment fat tails](../incerto-scoft-ch4.md).
   Chapters 5–7 remain planned.
 - [External guides](../incerto-external-reading.md), including
   [Embrechts, Klüppelberg, and Mikosch](../incerto-reading-embrechts.md).

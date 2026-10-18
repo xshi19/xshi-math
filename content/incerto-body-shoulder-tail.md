@@ -4,6 +4,9 @@ options:
   concept:
     id: body-shoulder-tail
     type: method
+    related:
+      - mixture-uncertainty
+      - moment-estimation
     tags:
       - diagnostics
       - tail-risk
@@ -41,7 +44,7 @@ variance mixture raises density there; negative variance curvature means it
 lowers density there.
 
 The notation $g_v$ denotes the density at fixed variance $v$; a mixture
-averages these densities over a positive random variance $V$. The
+averages these densities over a positive random variance $Y$. The
 [Normix normal-mixtures note](https://xshi19.github.io/math/normix-theory/normix-normal-mixtures/) supplies the
 complementary conditional construction. See the [shared notation](https://xshi19.github.io/math/notation/) canon.
 
@@ -66,7 +69,7 @@ peak and in the far tails, while taking mass from the shoulders.  The shoulders
 are the moderate-deviation region that looks ordinary under a single scale but
 is depleted when variance uncertainty is introduced.
 
-This is a diagnostic for finite-sample geometry, not a tail-index estimator.
+This diagnoses the geometry of a specified population density, not its tail index.
 It explains why stochastic volatility can create both a sharper center and
 fatter-looking tails without producing a [Pareto tail](./incerto-pareto.md).
 Choosing a threshold for tail estimation remains the separate judgment handled
@@ -119,15 +122,15 @@ $$
 This is a local Taylor diagnostic. A sufficient small-perturbation model is
 
 $$
-V_\tau=v_0+\tau Z,\qquad v_0>0,\quad
-\mathbb E[Z]=0,\quad \mathbb E[Z^2]=1,
+Y_\tau=v_0+\tau H,\qquad v_0>0,\quad
+\mathbb E[H]=0,\quad \mathbb E[H^2]=1,
 $$
 
-with bounded $Z$ and $\tau$ small enough that $V_\tau>0$. For each fixed $x$,
+with bounded local perturbation $H$ and $\tau$ small enough that $Y_\tau>0$. For each fixed $x$,
 Taylor's theorem, with bounded third derivative near $v_0$, gives
 
 $$
-\mathbb E[g_{V_\tau}(x)]-g_{v_0}(x)
+\mathbb E[g_{Y_\tau}(x)]-g_{v_0}(x)
 =\frac{\tau^2}{2}
 \frac{\partial^2g_v(x)}{\partial v^2}\bigg|_{v=v_0}
 +O(\tau^3).
@@ -196,9 +199,74 @@ $$
 At $\sigma=1$, its positive zeros are
 $\sqrt{(5-\sqrt{17})/2}\approx0.662$ and
 $\sqrt{(5+\sqrt{17})/2}\approx2.136$. Mean-preserving scale mixing is a
-different operation from mean-preserving variance mixing. Student-t
-scale-curvature comparisons depend on degrees of freedom; a separate
-worked comparison is planned.
+different operation from mean-preserving variance mixing. Student scale-curvature comparisons depend on degrees of freedom, as derived below.
+
+(body-shoulder-student)=
+## Student scale curvature
+
+The scale calculation also has a closed form for a Student density. Write
+$h_s(x)=C_\nu s^{-1}(1+x^2/(\nu s^2))^{-(\nu+1)/2}$, where $s>0$ is
+scale, $\nu>1$ is degrees of freedom, and $C_\nu$ normalizes the density.
+Set $z=x/s$ and $t=z^2/\nu$. Logarithmic differentiation gives
+
+$$
+s\,\partial_s\log h_s=\frac{\nu t-1}{1+t},\qquad
+\frac{s^2\partial_s^2h_s}{h_s}
+=\frac{\nu(\nu-1)t^2-(5\nu+1)t+2}{(1+t)^2}.
+$$
+
+For the second formula, differentiate the first, using
+$\partial_st=-2t/s$, and add the square of the log derivative.
+The numerator is a quadratic with two positive roots when $\nu>1$.
+Solving in $z^2$ gives the four density-curvature boundaries
+
+$$
+x=\pm s\sqrt{
+\frac{5\nu+1\pm\sqrt{(\nu+1)(17\nu+1)}}{2(\nu-1)}}.
+$$
+
+The leading coefficient and the value at zero are positive, so curvature
+is positive inside the inner pair and beyond the outer pair, and negative
+between them. At $\nu=3,s=1$, the positive boundaries are
+$\sqrt{4-\sqrt{13}}\approx0.628$ and
+$\sqrt{4+\sqrt{13}}\approx2.758$. The standard deviation is $\sqrt3$;
+these numbers are in **scale units**. For $\nu\le2$, the variance is not
+finite, although the four-boundary formula still applies when $1<\nu\le2$.
+At $\nu=1$ the quadratic loses its leading term, so that formula's domain
+must not be extended through the zero denominator.
+
+Dividing numerator and denominator of the root formula by $\nu$ shows
+that its two positive roots tend to the Gaussian scale-curvature roots
+as $\nu\to\infty$. This is an algebraic limit, not a fitted threshold rule.
+The [gamma-precision construction](incerto-mixture-uncertainty.md#mixture-variance-precision)
+explains the Student tail exponent and moment conditions separately.
+
+(body-shoulder-worked-figure)=
+## Curvature and exact density differences
+
+```{figure} ../assets/figures/incerto/finite-moment-curvature.svg
+:alt: Two stacked plots compare the Gaussian variance curvature divided by two with exact symmetric mixture density differences divided by squared perturbation size, and show different variance, scale and Student scale boundaries.
+
+The upper panel compares the pointwise quadratic approximation with exact
+mixtures at perturbations 0.1 and 0.6. Vertical lines mark the variance
+curvature zeros; finite-mixture crossings need not stay on those lines.
+The lower panel places normal variance, normal scale, and Student-three
+scale boundaries on the same dimensionless axis. Student scale is 1,
+so its standard deviation is the square root of 3.
+```
+
+Run `uv run python demos/incerto/finite_moments.py`. These are exact density
+calculations on 801 fixed points, with no random sampling. The script
+reports the finite-mixture crossings separately from the local boundaries.
+
+Let $Y$ be a positive mixing variance with $\mathbb EY<\infty$. Jensen's
+inequality for survival needs convexity throughout the mixing interval. If $0<Y\le v_{\max}<\infty$
+and $x^2\ge3v_{\max}$, the displayed $T_v''(x)$ is nonnegative on that
+interval, and $\mathbb E T_Y(x)\ge T_{\mathbb EY}(x)$. If instead
+$Y\ge v_{\min}>0$ and $x^2\le3v_{\min}$, its curvature is nonpositive
+and the inequality reverses. These sufficient conditions show why a
+local tail-curvature statement cannot justify global Jensen claims at
+every threshold under unrestricted mixing.
 
 ## Caveats
 
@@ -215,7 +283,11 @@ worked comparison is planned.
 
 ## References
 
-- Taleb, *Statistical Consequences of Fat Tails* [2020](https://arxiv.org/abs/2001.10488).
+- @taleb2025scoftv4, *Statistical Consequences of Fat Tails*, third edition,
+  2025, ch. 4, §§4.3–4.3.1, printed pp. 75–78. The source uses scale
+  curvature; our variance and survival comparisons are derived separately.
+  The calculations above prove the stated normal and Student cases, not a
+  universal crossover theorem for all unimodal densities.
 
 ## Backlinks
 
@@ -228,7 +300,8 @@ worked comparison is planned.
 Adapted from `incerto-wiki`, `content/concepts/methods/body-shoulder-tail.md`, revision `9717c9c`
 (2026-09-13 Batch 2 import). Copyright (c) 2023 xshi19. Licensed under MIT.
 Links, notation, and qualifications were adapted for this site; executable
-figures and simulations were replaced with static calculations. No upstream
+figures and simulations were initially replaced with static calculations.
+The chapter-4 update adds original reproducible figures. No upstream
 execution or formal-proof verification is claimed for this adaptation.
 
 :::{dropdown} MIT permission notice
