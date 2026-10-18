@@ -3,8 +3,10 @@
 Design baseline: 2026-10-16. V4 chapter-order revision: 2026-10-17, branch
 `plan/incerto-program`, PR #24; revision base `e7aaa5f`.
 The owner authorized M0.5 review and clear source fixes on 2026-10-17.
-Its mathematical review is complete on `review/incerto-m0.5`, based on
-`fbdc480`; chapter implementation remains future work.
+M0.5 mathematical and live reader review are complete after published PR #27
+(`fbf2c6a`). Chapter 1 implementation is complete on `scft/v4-ch01`;
+[its record](../../records/incerto-scft-v4-ch01.md) separates local evidence,
+completed max review, blocked site checks and the pending live review.
 
 The selected SCoFT baseline is the **2025 third edition,
 arXiv:2001.10488v4: 30 chapters and nine appendices (A–I)**. Direct comparison
@@ -43,16 +45,17 @@ Lean omissions require a reason and never block the next chapter.
 | [Templates](templates.md) | Chapter checkpoint and teaching/demo/evidence contracts |
 | [Sources](sources.md) | Edition evidence, title differences, bibliographic locators and copyright boundary |
 | [State](state.yaml) | Canonical records, ordered chunks, dependencies and counts |
-| [M0.5 review](m0.5-review.md) | Completed mathematical review of 24 pages, 448 claim/source/notation records, 15 issues; live reader gate pending |
+| [M0.5 review](m0.5-review.md) | Completed mathematical review of 24 pages, 448 claim/source/notation records, 15 issues; live review passed after PR #27 |
 | [Validation](validation.md) | Schema, executable checks and resume procedure |
 | [Verification](verification.md) | Historical evidence, this revision's checks and pending operator rerun |
 
-`next_chunk` is `#/chunks/scft-v4-ch01`, as requested after the mathematical
-review. M0.5 remains `in-progress` overall: the mathematics workstream and
-issues list are `done`, while the two reported reader issues have source fixes
-but all 24 live desktop/mobile reviews remain pending. Chapter handoffs in
-state list the findings to resolve before affected claims are reused.
-Read current repository guidance before any later implementation task.
+`next_chunk` is `#/chunks/scft-v4-ch02`. Chapter 1 teaching, deterministic
+Python examples and the optional Lean skip are recorded in state. Its separate
+max-reasoning review passed; an external site build remains a follow-up before
+publication; Math Site Editor reviews the chapter-1 pages after publication.
+The owner reports M0.5 live review passed on 2026-10-17. Possible mixed-weight
+rendering without Charter remains pending Xiang's check. Findings 006/007 are
+resolved for chapter-1 reuse and remain assigned for other chapters.
 
 ## Decisions fixed by this design
 
@@ -91,7 +94,8 @@ Read current repository guidance before any later implementation task.
 | `portfolio-manager` | Portfolio Manager bot | Financial data and requested additions |
 | `data-scientist` | Data Scientist bot | Other data requests |
 
-The owner chose Astra max for this revision. Future role assignments do not
+The owner chose Astra xhigh for chapter-1 writing/code and a separate Astra max
+run for subsequent hard-math review. Future role assignments do not
 assert availability or authorize automatic delegation. No Cursor third-party
 models are selected.
 
