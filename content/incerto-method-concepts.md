@@ -13,6 +13,8 @@ across fat-tail arguments.
 - [Max-to-Sum Ratio](./incerto-max-to-sum-ratio.md)
 - [Body, Shoulders, and Tails](./incerto-body-shoulder-tail.md)
 - [Extreme Value Index](./incerto-extreme-value-index.md)
+- [Asymmetric payoffs and exposure](./incerto-asymmetric-payoffs.md)
+- [Size and decentralized exposure](./incerto-decentralization.md)
 
 Return to the [Incerto reading paths](./incerto/index.md), or browse the
 [theorem](./incerto-theorem-concepts.md), [method](./incerto-method-concepts.md),

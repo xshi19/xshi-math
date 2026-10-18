@@ -76,9 +76,8 @@ estimation.
 
 ## References
 
-- Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [@embrechts1997modelling].
-- Resnick, *Heavy-Tail Phenomena* [@resnick2007heavy].
+- @embrechts1997modelling, *Modelling Extremal Events*.
+- @resnick2007heavy, *Heavy-Tail Phenomena*.
 
 ## Source and license
 

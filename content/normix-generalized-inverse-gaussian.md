@@ -5,9 +5,9 @@ title: Generalized inverse Gaussian distribution
 The generalized inverse Gaussian (GIG) distribution supplies the positive
 mixing variable for the [GH family](./normix-generalized-hyperbolic.md).
 Its normalizing integral also gives the posterior moments used by
-[EM](./normix-em-algorithm.md). A standard reference is Bent Jørgensen,
+[EM](./normix-em-algorithm.md). A standard reference is @jorgensen1982gig,
 *Statistical Properties of the Generalized Inverse Gaussian Distribution*
-(1982; electronic edition 2012) [@jorgensen1982gig].
+(electronic edition 2012).
 
 ## Definition and normalizing integral
 

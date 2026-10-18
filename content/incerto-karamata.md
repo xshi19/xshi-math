@@ -206,7 +206,7 @@ These are exact calculations illustrating the cited theorem.
 
 ## References
 
-- Bingham, Goldie, and Teugels, *Regular Variation* [@bingham1987regular].
+- @bingham1987regular, *Regular Variation*.
 - Feller, *An Introduction to Probability Theory and Its Applications, Vol. II*
   (1971, 2nd ed., Wiley).
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*

@@ -80,7 +80,9 @@ def main() -> None:
         table = log_survival_multiplier_ratio(log_sf, [2, 10, 100, 10_000])
         print(name, np.array2string(table, precision=6))
     ax.set(xlabel=r"Threshold $u$", ylabel=r"$-\log[\bar F(2u)/\bar F(u)]$")
-    ax.legend(loc="upper left", fontsize=8)
+    # The theme's 1.8-em handle cuts off the dot in the Weibull dash-dot.
+    # Keep automatic handles from the plotted lines and show a full cycle.
+    ax.legend(loc="upper left", fontsize=8, handlelength=4.8)
     savefig(fig, output / "prologue-tail-ratios.svg", metadata=metadata)
     plt.close(fig)
     # Normalize whitespace in this changed SVG for reproducible, diff-clean output.

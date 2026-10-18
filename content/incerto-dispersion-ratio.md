@@ -123,8 +123,7 @@ stress signal, not a fitted tail exponent.
 
 ## References
 
-- Rousseeuw and Croux, "Alternatives to the Median Absolute Deviation"
-  [@rousseeuw1993alternatives].
+- @rousseeuw1993alternatives, "Alternatives to the Median Absolute Deviation".
 
 ## Backlinks
 

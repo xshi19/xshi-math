@@ -25,6 +25,7 @@ for implementations and use local `help()` for the installed version.
 | `xmath.incerto.tail_diagnostics` | `regular_variation_ratio`, `iid_two_sum_tail`, `subexponential_sum_ratio`; numerical calculations with support and integration checks |
 | `xmath.incerto.tail_classes` | `bounded_spike_summary` (population moments), `log_survival_multiplier_ratio` (log-domain tail ratios); used by the [Prologue models](incerto-scoft-ch1.md) |
 | `xmath.incerto.glossary` | `pareto_tail_quantities` (log survival, conditional means, tail contribution), `pareto_normalized_maximum_cdf` (exact iid maximum law); [chapter 2 worked cases](incerto-scoft-ch2.md#scoft-ch2-demo) |
+| `xmath.incerto.lecture_risk` | `repeated_event_probability`, `survival_from_hazards`, `finite_payoff_mean`, `absorbing_resource_path`, `split_power_damage_logsf`, `block_failure_summary`; [chapter 3 worked models](incerto-scoft-ch3.md#scoft-ch3-demo) |
 | `xmath.incerto.figures` | `set_theme`, `style_axes`, `savefig`; shared figure style and deterministic export helpers |
 
 ```python

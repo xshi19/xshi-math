@@ -76,9 +76,8 @@ visible pre-asymptotic jumps and wide repeated-simulation bands.
 
 ## References
 
-- Feller, *An Introduction to Probability Theory and Its Applications, Vol. II*
-  [@feller1971introduction].
-- Resnick, *Heavy-Tail Phenomena* [@resnick2007heavy].
+- @feller1971introduction, *An Introduction to Probability Theory and Its Applications, Vol. II*.
+- @resnick2007heavy, *Heavy-Tail Phenomena*.
 
 ## Backlinks
 

@@ -1397,13 +1397,13 @@ z
    <g id="legend_1">
     <g id="line2d_95">
      <path d="M 49.187461 13.83875
-L 56.387461 13.83875
-L 63.587461 13.83875
+L 68.387461 13.83875
+L 87.587461 13.83875
 " style="fill: none; stroke: #1b365d; stroke-width: 2; stroke-linecap: square"/>
     </g>
     <g id="text_13">
      <!-- Pareto (alpha=2.5) -->
-     <g transform="translate(69.987461 16.63875) scale(0.08 -0.08)">
+     <g transform="translate(93.987461 16.63875) scale(0.08 -0.08)">
       <defs>
        <path id="DejaVuSerif-33" d="M 1581 2375
 L 2406 2375
@@ -1598,13 +1598,13 @@ z
     </g>
     <g id="line2d_96">
      <path d="M 49.187461 25.839375
-L 56.387461 25.839375
-L 63.587461 25.839375
+L 68.387461 25.839375
+L 87.587461 25.839375
 " style="fill: none; stroke-dasharray: 7.4,3.2; stroke-dashoffset: 0; stroke: #28724f; stroke-width: 2"/>
     </g>
     <g id="text_14">
      <!-- Lognormal (log mean=0, log sd=1) -->
-     <g transform="translate(69.987461 28.639375) scale(0.08 -0.08)">
+     <g transform="translate(93.987461 28.639375) scale(0.08 -0.08)">
       <defs>
        <path id="DejaVuSerif-2f" d="M 353 0
 L 353 331
@@ -1743,13 +1743,13 @@ z
     </g>
     <g id="line2d_97">
      <path d="M 49.187461 37.84
-L 56.387461 37.84
-L 63.587461 37.84
+L 68.387461 37.84
+L 87.587461 37.84
 " style="fill: none; stroke-dasharray: 12.8,3.2,2,3.2; stroke-dashoffset: 0; stroke: #8f5a2a; stroke-width: 2"/>
     </g>
     <g id="text_15">
      <!-- Weibull (shape=0.5) -->
-     <g transform="translate(69.987461 40.64) scale(0.08 -0.08)">
+     <g transform="translate(93.987461 40.64) scale(0.08 -0.08)">
       <defs>
        <path id="DejaVuSerif-3a" d="M 4878 0
 L 4366 0
@@ -1878,16 +1878,16 @@ z
     </g>
     <g id="line2d_98">
      <path d="M 49.187461 49.840625
-L 56.387461 49.840625
-L 63.587461 49.840625
+L 68.387461 49.840625
+L 87.587461 49.840625
 " style="fill: none; stroke-dasharray: 2.8,4.62; stroke-dashoffset: 0; stroke: #9b3a34; stroke-width: 2.8"/>
      <g>
-      <use xlink:href="#m5144343332" x="56.387461" y="49.840625" style="fill: #faf9f5; stroke: #9b3a34; stroke-width: 0.7"/>
+      <use xlink:href="#m5144343332" x="68.387461" y="49.840625" style="fill: #faf9f5; stroke: #9b3a34; stroke-width: 0.7"/>
      </g>
     </g>
     <g id="text_16">
      <!-- Exponential (rate=1) -->
-     <g transform="translate(69.987461 52.640625) scale(0.08 -0.08)">
+     <g transform="translate(93.987461 52.640625) scale(0.08 -0.08)">
       <defs>
        <path id="DejaVuSerif-28" d="M 353 0
 L 353 331
@@ -1972,16 +1972,16 @@ z
     </g>
     <g id="line2d_99">
      <path d="M 49.187461 61.84125
-L 56.387461 61.84125
-L 63.587461 61.84125
+L 68.387461 61.84125
+L 87.587461 61.84125
 " style="fill: none; stroke-dasharray: 7,2.8,1.4,2.8; stroke-dashoffset: 0; stroke: #2f6f73; stroke-width: 1.4"/>
      <g>
-      <use xlink:href="#m6324201816" x="56.387461" y="61.84125" style="fill: #faf9f5; stroke: #2f6f73; stroke-width: 0.7; stroke-linejoin: miter"/>
+      <use xlink:href="#m6324201816" x="68.387461" y="61.84125" style="fill: #faf9f5; stroke: #2f6f73; stroke-width: 0.7; stroke-linejoin: miter"/>
      </g>
     </g>
     <g id="text_17">
      <!-- Gamma (shape=2, rate=1) -->
-     <g transform="translate(69.987461 64.64125) scale(0.08 -0.08)">
+     <g transform="translate(93.987461 64.64125) scale(0.08 -0.08)">
       <defs>
        <path id="DejaVuSerif-2a" d="M 4097 3272
 Q 3988 3856 3641 4136

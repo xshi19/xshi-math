@@ -1,16 +1,17 @@
 # Canonical program inventory. See validation.md for semantics and checks.
 schema_version: 3
-updated: '2026-10-17'
+updated: '2026-10-18'
 repository: xshi19/xshi-math
 baseline_revision: 998a4a11a17b7ae7ba4c306005a4c8e3109f4392
-branch: scft/v4-ch02
-scope: scft-v4-ch02
+branch: scft/v4-ch03
+scope: scft-v4-ch03
 implementation_authorized: true
 authorized_chunks:
 - m0.5-review
 - scft-v4-ch01
 - scft-v4-ch02
-authorization_note: Owner authorized scft-v4-ch02 and chapter-1 reader fixes on 2026-10-17 with gpt-6-astra xhigh; owner-selected gpt-6-astra MAX review completed. No commit or deployment.
+- scft-v4-ch03
+authorization_note: Owner authorized scft-v4-ch03 and chapter-2 reader fixes on 2026-10-18 with gpt-6-astra xhigh; owner-selected gpt-6-astra MAX review completed. No commit or deployment.
 status_semantics:
   todo: Program work has not satisfied its evidence gates; existing prose is recorded separately.
   in-progress: A named chunk is active and has a recorded checkpoint.
@@ -202,8 +203,8 @@ milestones:
     dependencies:
     - M2
     assigned_role: math-site-editor
-next_chunk: '#/chunks/scft-v4-ch03'
-next_chunk_note: Chapter 2 implementation and max review done; external site build/check and live reader review remain recorded follow-ups.
+next_chunk: '#/chunks/scft-v4-ch04'
+next_chunk_note: Chapter 3 implementation and max review done; external site build/check and live reader review remain follow-ups.
 chunks:
   m0.5-review:
     id: m0.5-review
@@ -384,6 +385,7 @@ chunks:
       chapters:
       - scft-v4-ch01
     - id: M05-ISSUE-005
+      chapter_3_resolution: Chapter-3 reader wording and new concept links updated; fresh live review pending publication. Earlier M0.5 live pass remains historical.
       chapter_1_resolution: Published reader wording confirmed by Math Site Editor on 2026-10-17.
       severity: minor
       status: fixed in this PR
@@ -406,6 +408,7 @@ chunks:
       - scft-v4-ch07
       - scft-v4-ch09
     - id: M05-ISSUE-007
+      chapter_3_resolution: Chapter-3 guide/concepts now use taleb2025scoftv4 with checked locators; appendix E.1 restriction checked at p. 191. Other chapters remain assigned.
       chapter_2_resolution: Chapter-2 guide and new context use taleb2025scoftv4 with verified section/page locators. Chapter-3/4 title edits do not certify their source claims.
       chapter_1_resolution: Resolved for chapter-1 source context with taleb2025scoftv4 and printed locators. Other chapters remain assigned.
       severity: minor
@@ -808,28 +811,41 @@ chunks:
       - lean
       teaching_pages:
         required: true
-        status: todo
+        status: done
         page_paths:
         - content/incerto-inference-asymmetry.md
         - content/incerto-asymmetric-payoffs.md
         - content/incerto-ruin.md
         - content/incerto-decentralization.md
+        - content/incerto-scoft-ch3.md
       demos:
         required: true
-        status: todo
+        status: done
         concept_ids:
         - c-inference-asymmetry
         - c-asymmetric-payoffs
         - c-ruin
         - c-decentralization
+        script_paths:
+        - demos/incerto/lecture_risk.py
+        helper_paths:
+        - src/math/incerto/lecture_risk.py
+        test_paths:
+        - tests/test_incerto_lecture_risk.py
+        figure_paths:
+        - assets/figures/incerto/lecture-inference-payoffs.svg
+        - assets/figures/incerto/lecture-ruin.svg
+        - assets/figures/incerto/lecture-scale-dependence.svg
       optional_lean:
         required: false
-        status: optional
+        status: skipped-for-now
         policy: After teaching and demos; record exact checked claims or a skip reason. No chapter gate.
+        reason: No Lean toolchain is installed and sandbox network is unavailable; teaching and numerical evidence
+          take priority. No new checked declaration.
     dependencies:
     - scft-v4-ch02
-    assigned_role: astra-max
-    status: todo
+    assigned_role: astra-xhigh
+    status: done
     milestone: M1
     source_unit_ids:
     - scft-v4-ch03
@@ -841,20 +857,81 @@ chunks:
     existing_pages_reused:
     - content/incerto-counting-exceedances.md
     acceptance:
-    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
-      original explanations for teaching.
+    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations
+      and original explanations for teaching.
     - Resolve relevant M0.5 issues before reusing claims. Reuse canonical pages and reviewed prerequisite statements;
       do not reorder chapter chunks for a later full treatment.
     - Deliver chapter-scoped teaching pages, then bounded reproducible Python demos or visualizations; distinguish
       model calculations from observed-data studies.
-    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
-      or the following chapter.
+    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
+      closure or the following chapter.
     - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
       live pages as a reader.
     queue_items:
     - Inference Asymmetry
     scope_locators:
     - SCoFT v4 section 3.5, printed p. 43
+    checkpoint:
+      completed_at: '2026-10-18'
+      base_revision: 697d55a7ec3d6a019308d4a9a6043e5a7485fcfa
+      working_branch: scft/v4-ch03
+      scope: Chapter-scoped implementation and max review done. External site build and post-publication
+        reader review remain pending.
+      source_review: Read v4 chapter 3, printed pp. 25-68 (PDF pages 39-82), and appendix E.1 p. 191 (PDF page
+        205), with supplied TOC. Read attached precaution paper v1 at II.B/III pp. 2-3 and VII.A-C p. 6. Original
+        model proofs; no source text or figures imported.
+      claim_ids:
+      - CH03-C01
+      - CH03-C02
+      - CH03-C03
+      - CH03-C04
+      - CH03-C05
+      - CH03-C06
+      - CH03-C07
+      - CH03-C08
+      evidence_path: docs/records/incerto-scft-v4-ch03.md
+      deliverable_sequence:
+      - Website guide and four concept notes drafted first
+      - Bounded exact Python cases, tests and deterministic figures completed second
+      - Optional Lean skipped with machine/network reason
+      m0_5_dispositions:
+        M05-ISSUE-005: Chapter-3 reader wording and new concept links updated; fresh live review pending publication.
+          Earlier M0.5 live pass remains historical.
+        M05-ISSUE-007: Chapter-3 guide/concepts now use taleb2025scoftv4 with checked locators; appendix E.1
+          restriction checked at p. 191. Other chapters remain assigned.
+      reader_fixes: Audited all content/*.md bracketed citations; removed duplicated author/year prose using
+        narrative citations or a parenthetical locator. Extended automatic tail-ratio legend handles to show
+        complete dash patterns.
+      checks:
+        pytest: 265 passed in 3.09s; writable offline uv cache. Plain uv run pytest failed on read-only default
+          cache.
+        demos: Exact worked cases passed; five emitted SVGs byte-identical on repeat (three new, tail-ratio changed,
+          kurtosis unchanged); PNG previews reviewed.
+        npm_install: Offline npm ci failed ENOTCACHED. Reused installed MyST from local published checkout with
+          identical package lock.
+        build: 'Blocked: MyST npm preflight; reproduced spawnSync /bin/sh EPERM. No fresh HTML build.'
+        html: Failed on missing fresh pages/config after blocked build; four pre-existing unresolved legacy rows
+          skipped.
+        source_checks: Passed state validator (1001 plan links); source audit (48 files, 833 relative links, 55 citation references); all 49 Incerto TOC entries; SVG XML and whitespace; no nine-word source overlap.
+      max_math_review:
+        status: done
+        assigned_role: astra-max
+        reviewed_at: '2026-10-18'
+        model: gpt-6-astra MAX
+        scope: CH03-C01 through CH03-C08, guide, helpers, figures and citation edits; separate owner-requested run.
+        evidence_path: docs/records/incerto-scft-v4-ch03.md
+        result: Core mathematical claims correct; source context cited-ok. Clarified Gaussian exceedance wording
+          and corrected damage-tail cancellation at extreme powers and near support, with 12 regression cases.
+        checks: 277 tests passed in 3.32s; 9450 independent numerical comparisons/assertions and 1225 Prologue
+          curve/legend checks passed; five regenerated SVGs byte-identical. Source locators and citation edits
+          verified; no copied chapter prose found by manual comparison and overlap scans.
+        xiang_decisions: none
+      live_reader_review:
+        status: pending-publication
+        assigned_role: math-site-editor
+        note: Review new and changed pages after an external successful build and authorized publication.
+      next_action: Rerun site build/check outside sandbox, then publish and obtain live
+        reader review when authorized. Next implementation chunk scft-v4-ch04; no commit.
   scft-v4-ch04:
     id: scft-v4-ch04
     m0_5_issue_ids:
@@ -1145,6 +1222,7 @@ chunks:
     - content/incerto-max-to-sum-ratio.md
     - content/incerto-pareto-moment-existence.md
     - content/incerto-regular-variation.md
+    - content/incerto-ruin.md
     acceptance:
     - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
       original explanations for teaching.
@@ -1417,6 +1495,7 @@ chunks:
     - c-pareto-moments
     existing_pages_reused:
     - content/incerto-pareto-moment-existence.md
+    - content/incerto-asymmetric-payoffs.md
     acceptance:
     - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
       original explanations for teaching.
@@ -1525,6 +1604,7 @@ chunks:
     - c-point-forecast
     existing_pages_reused:
     - content/incerto-pareto-moment-existence.md
+    - content/incerto-asymmetric-payoffs.md
     acceptance:
     - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
       original explanations for teaching.
@@ -2046,6 +2126,7 @@ chunks:
     - c-ruin
     existing_pages_reused:
     - content/incerto-pareto-moment-existence.md
+    - content/incerto-ruin.md
     acceptance:
     - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
       original explanations for teaching.
@@ -2318,6 +2399,7 @@ chunks:
     existing_pages_reused:
     - content/incerto-pareto-moment-existence.md
     - content/incerto-plug-in-tail-estimation.md
+    - content/incerto-asymmetric-payoffs.md
     acceptance:
     - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
       original explanations for teaching.
@@ -2477,7 +2559,8 @@ chunks:
     prerequisite_concept_ids:
     - c-asymmetric-payoffs
     - c-volatility-surface
-    existing_pages_reused: []
+    existing_pages_reused:
+    - content/incerto-asymmetric-payoffs.md
     acceptance:
     - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
       original explanations for teaching.
@@ -2526,7 +2609,8 @@ chunks:
     paper_ids: []
     prerequisite_concept_ids:
     - c-asymmetric-payoffs
-    existing_pages_reused: []
+    existing_pages_reused:
+    - content/incerto-asymmetric-payoffs.md
     acceptance:
     - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
       original explanations for teaching.
@@ -2681,7 +2765,8 @@ chunks:
     paper_ids: []
     prerequisite_concept_ids:
     - c-asymmetric-payoffs
-    existing_pages_reused: []
+    existing_pages_reused:
+    - content/incerto-asymmetric-payoffs.md
     acceptance:
     - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
       original explanations for teaching.
@@ -6919,11 +7004,12 @@ chapters:
     - c-inference-asymmetry
     - c-asymmetric-payoffs
     - c-ruin
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     milestone: M1
-    locator_review: local-v4-TOC-verified; exact-claim-locators-pending
+    locator_review: v4 ch3 pp25-68 read; section/page mapping and original scoped claims in checkpoint; appendix
+      E.1 restriction checked p191
     classification:
     - lean-verifiable
     - numeric-demo
@@ -8647,19 +8733,21 @@ papers:
     version: 1410.5787v1
     url: https://arxiv.org/abs/1410.5787v1
     source_role: primary
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     milestone: M1
-    locator_review: metadata-verified-full-text-scope-pending
+    locator_review: v1 II.B/III pp2-3 and VII.A-C p6 read at mathematical scope; original conditional-hazard
+      and finite-splitting proofs in ch3 checkpoint
     units:
     - id: paper-precaution-scope
-      locator: whole paper; exact sections and theorem numbers to verify
+      locator: v1 II.B/III pp. 2-3; VII.A-C p. 6; absorbing ruin, nonlinear scale and finite dependence scope
+        only
       concept_ids:
       - c-ruin
       - c-decentralization
       - c-ethics
-      status: todo
+      status: done
       dependencies: []
       assigned_role: math-site-editor
       milestone: M1
@@ -8682,6 +8770,7 @@ papers:
     - unit_id: scft-v4-ch03
       relationship: supporting-reading
       review: Title/bibliographic correspondence only; equation and theorem equivalence not asserted.
+    evidence_path: docs/records/incerto-scft-v4-ch03.md
   paper-kappa:
     id: paper-kappa
     title: How Much Data Do You Need? An Operational, Pre-Asymptotic Metric for Fat-tailedness
@@ -10493,17 +10582,19 @@ concepts:
       lean-verifiable: Finite payoff tables separate win probability from expected payoff.
       numeric-demo: Use original examples with visible rare-loss exposure.
     scope: Expected payoff statements require integrability; a high hit rate is insufficient.
-    status: todo
+    status: done
     dependencies: []
     assigned_role: astra-max
     milestone: M1
     page_path: content/incerto-asymmetric-payoffs.md
     canonical_url: /math/incerto/incerto-asymmetric-payoffs/
     coverage:
-      prose: absent
-      scope_note: Proposed original note; path is reserved in this plan only.
+      prose: existing
+      scope_note: Original chapter-3 teaching, worked cases and proofs implemented; max review complete. External
+        build and live reader review pending.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: bounded-exact-demo-tested
+      created_in_chunk: scft-v4-ch03
     source_units:
     - fbr-ch02
     - fbr-ch06
@@ -10512,7 +10603,7 @@ concepts:
     - sitg-app-intro
     - scft-v4-ch03
     completion_scope: in-scope
-    page_status: proposed
+    page_status: existing
     source_priority: 1
     deliverables:
       order:
@@ -10521,16 +10612,27 @@ concepts:
       - lean
       website_math:
         required: true
-        status: todo
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: No Lean toolchain is installed and sandbox network is unavailable; teaching and numerical evidence
+          take priority. No new checked declaration.
     chunk_ids:
     - scft-v4-ch03
     first_chunk: scft-v4-ch03
+    completed_chunk_scopes:
+      scft-v4-ch03:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is installed and sandbox network is unavailable; teaching and numerical
+          evidence take priority. No new checked declaration.
+        evidence_path: docs/records/incerto-scft-v4-ch03.md
+        note: Implementation and max review complete; external build and live review remain open.
   c-induction:
     id: c-induction
     title: Induction and limits of finite evidence
@@ -11325,19 +11427,21 @@ concepts:
     title: Redundancy, size, and decentralized exposure
     classification:
       numeric-demo: Network and concentration models permit controlled stress experiments.
-    scope: Teach finite aggregation and dependence models from the technical paper; numerical stress cases do not
-      establish institutional or normative conclusions.
-    status: todo
+    scope: Teach finite aggregation and dependence models from the technical paper; numerical stress cases do
+      not establish institutional or normative conclusions.
+    status: done
     dependencies: []
     assigned_role: astra-xhigh
     milestone: M1
     page_path: content/incerto-decentralization.md
     canonical_url: /math/incerto/incerto-decentralization/
     coverage:
-      prose: absent
-      scope_note: Proposed original note; path is reserved in this plan only.
+      prose: existing
+      scope_note: Original chapter-3 teaching, worked cases and proofs implemented; max review complete. External
+        build and live reader review pending.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: bounded-exact-demo-tested
+      created_in_chunk: scft-v4-ch03
     source_units:
     - tbs-es01
     - tbs-es08
@@ -11346,7 +11450,7 @@ concepts:
     - sitg-ch14
     - paper-precaution-scope
     completion_scope: in-scope
-    page_status: proposed
+    page_status: existing
     source_priority: 1
     deliverables:
       order:
@@ -11355,18 +11459,27 @@ concepts:
       - lean
       website_math:
         required: true
-        status: todo
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
         status: skipped-for-now
-        reason: No exact declaration selected for this numerical or empirical treatment; teaching and Python evidence
-          take priority.
+        reason: No Lean toolchain is installed and sandbox network is unavailable; teaching and numerical evidence
+          take priority. No new checked declaration.
     chunk_ids:
     - scft-v4-ch03
     first_chunk: scft-v4-ch03
+    completed_chunk_scopes:
+      scft-v4-ch03:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is installed and sandbox network is unavailable; teaching and numerical
+          evidence take priority. No new checked declaration.
+        evidence_path: docs/records/incerto-scft-v4-ch03.md
+        note: Implementation and max review complete; external build and live review remain open.
   c-iatrogenics:
     id: c-iatrogenics
     title: Intervention error and subtractive decisions
@@ -11819,17 +11932,19 @@ concepts:
         formula and limit.
       numeric-demo: Compare finite-horizon outcomes and dependence assumptions.
     scope: No almost-sure ruin claim from unspecified dependence or a merely positive time-varying hazard.
-    status: todo
+    status: done
     dependencies: []
     assigned_role: astra-max
     milestone: M1
     page_path: content/incerto-ruin.md
     canonical_url: /math/incerto/incerto-ruin/
     coverage:
-      prose: absent
-      scope_note: Proposed original note; path is reserved in this plan only.
+      prose: existing
+      scope_note: Original chapter-3 teaching, worked cases and proofs implemented; max review complete. External
+        build and live reader review pending.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: bounded-exact-demo-tested
+      created_in_chunk: scft-v4-ch03
     source_units:
     - tbs-ch13
     - tbs-es02
@@ -11839,7 +11954,7 @@ concepts:
     - scft-v4-ch03
     - paper-precaution-scope
     completion_scope: in-scope
-    page_status: proposed
+    page_status: existing
     source_priority: 1
     deliverables:
       order:
@@ -11848,16 +11963,27 @@ concepts:
       - lean
       website_math:
         required: true
-        status: todo
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: No Lean toolchain is installed and sandbox network is unavailable; teaching and numerical evidence
+          take priority. No new checked declaration.
     chunk_ids:
     - scft-v4-ch03
     first_chunk: scft-v4-ch03
+    completed_chunk_scopes:
+      scft-v4-ch03:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is installed and sandbox network is unavailable; teaching and numerical
+          evidence take priority. No new checked declaration.
+        evidence_path: docs/records/incerto-scft-v4-ch03.md
+        note: Implementation and max review complete; external build and live review remain open.
   c-ergodicity:
     id: c-ergodicity
     title: Time averages and ensemble averages
@@ -11955,7 +12081,7 @@ concepts:
       lean-verifiable: Construct a specified rare-contamination counterexample with controlled sample discrepancy.
       numeric-demo: Compare models indistinguishable in most finite samples.
     scope: Quantify sample size, contamination probability, distance, and the moment that differs.
-    status: todo
+    status: done
     dependencies:
     - c-exceedances
     - c-moment-estimation
@@ -11964,17 +12090,19 @@ concepts:
     page_path: content/incerto-inference-asymmetry.md
     canonical_url: /math/incerto/incerto-inference-asymmetry/
     coverage:
-      prose: absent
-      scope_note: Proposed original note; path is reserved in this plan only.
+      prose: existing
+      scope_note: Original chapter-3 teaching, worked cases and proofs implemented; max review complete. External
+        build and live reader review pending.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: bounded-exact-demo-tested
+      created_in_chunk: scft-v4-ch03
     source_units:
     - fbr-ch07
     - tbs-ch04
     - tbs-es05
     - scft-v4-ch03
     completion_scope: in-scope
-    page_status: proposed
+    page_status: existing
     source_priority: 1
     deliverables:
       order:
@@ -11983,16 +12111,27 @@ concepts:
       - lean
       website_math:
         required: true
-        status: todo
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: No Lean toolchain is installed and sandbox network is unavailable; teaching and numerical evidence
+          take priority. No new checked declaration.
     chunk_ids:
     - scft-v4-ch03
     first_chunk: scft-v4-ch03
+    completed_chunk_scopes:
+      scft-v4-ch03:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is installed and sandbox network is unavailable; teaching and numerical
+          evidence take priority. No new checked declaration.
+        evidence_path: docs/records/incerto-scft-v4-ch03.md
+        note: Implementation and max review complete; external build and live review remain open.
   c-cauchy-running:
     id: c-cauchy-running
     title: Cauchy running statistics
@@ -13843,7 +13982,7 @@ counts:
   concepts_total: 103
   concepts_in_scope: 75
   concepts_out_of_scope: 28
-  existing_concept_pages: 24
+  existing_concept_pages: 28
   checked_lean_concepts: 0
   scft_v4_chapters: 30
   scft_v4_appendices: 9

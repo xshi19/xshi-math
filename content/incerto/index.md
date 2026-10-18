@@ -113,6 +113,17 @@ To analyze data:
 4. The [S&P method](../incerto-sp500-tail.md) extends the workflow to daily
    losses when an authorized local data cache is available.
 
+## Evidence and exposure
+
+1. [Inference asymmetry](../incerto-inference-asymmetry.md) constructs two
+   laws with close finite-sample behavior and very different means.
+2. [Asymmetric payoffs](../incerto-asymmetric-payoffs.md) separates gain
+   frequency, expected payoff and the effect of curvature.
+3. [Ruin](../incerto-ruin.md) gives finite-horizon survival formulas and
+   explains why a growing expectation can coexist with terminating paths.
+4. [Decentralized exposure](../incerto-decentralization.md) distinguishes
+   nonlinear damage reduction from independence between risks.
+
 ## Reading and reference
 
 - [Empirical examples](../incerto-empirical-example-concepts.md): two committed

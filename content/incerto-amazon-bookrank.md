@@ -14,8 +14,8 @@ title: Amazon Book Rank Tail Diagnostics
 
 ## Setup
 
-This empirical example uses Zhu's CC0 Kaggle snapshot of Amazon book sales and
-weekly average sales ranks from 2001 [@zhu2021amazonbookrank].  The cleaned
+This empirical example uses the CC0 Kaggle snapshot from @zhu2021amazonbookrank
+of Amazon book sales and weekly average sales ranks from 2001.  The cleaned
 snapshot is committed at `data/incerto/snapshots/amazon_bookrank_2001.csv` because it
 is small and redistributable.
 
@@ -88,9 +88,9 @@ calculation is a diagnostic bridge, not proof of a generative Pareto law.
 
 ## References
 
-- Zhu, "Amazon Book Sales VS Rank" Kaggle dataset [@zhu2021amazonbookrank].
-- Hill, "A Simple General Approach to Inference About the Tail of a
-  Distribution" [@hill1975simple].
+- @zhu2021amazonbookrank, "Amazon Book Sales VS Rank" Kaggle dataset.
+- @hill1975simple, "A Simple General Approach to Inference About the Tail of a
+  Distribution".
 
 ## Backlinks
 

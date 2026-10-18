@@ -377,8 +377,7 @@ no numerical integration or executable package helper is needed for it.
 
 ## References
 
-- Bingham, Goldie, and Teugels, *Regular Variation*
-  [@bingham1987regular].
+- @bingham1987regular, *Regular Variation*.
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
   [1997](https://doi.org/10.1007/978-3-642-33483-2).
 - Foss, Korshunov, and Zachary, *An Introduction to Heavy-Tailed and

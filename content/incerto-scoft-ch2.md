@@ -12,9 +12,9 @@ questions. This guide uses that distinction to connect the glossary to
 [extreme-value index](incerto-extreme-value-index.md), and the
 [tail class catalog](incerto-tail-class-catalog.md).
 
-The source is Taleb's *Statistical Consequences of Fat Tails*, third edition
-(2025), **arXiv:2001.10488v4, chapter 2, printed pp. 7–21**
-[@taleb2025scoftv4]. The tables give reading locations, not transcriptions
+The source is @taleb2025scoftv4, *Statistical Consequences of Fat Tails*,
+third edition, **arXiv:2001.10488v4, chapter 2, printed pp. 7–21**.
+The tables give reading locations, not transcriptions
 of the glossary. Our examples and arguments are developed independently.
 The [shared notation](https://xshi19.github.io/math/notation/) controls the
 symbols used here; source-specific conventions need translation.

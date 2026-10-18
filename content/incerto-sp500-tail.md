@@ -29,7 +29,7 @@ level, not the probability law $P$ in the
 
 No S&P index levels or derived empirical figures are distributed with this
 page. The source repository records redistribution restrictions for the
-S&P Dow Jones Indices series supplied through FRED [@fred2026sp500].
+S&P 500 series supplied through FRED [@fred2026sp500].
 Use a local data file whose terms permit your intended analysis.
 
 The method below works with a locally supplied cache. Site builds do not
@@ -93,9 +93,9 @@ it is not a forecast of the next daily loss.
 
 ## References
 
-- S&P Dow Jones Indices, S&P 500 through FRED [@fred2026sp500].
-- Hill, tail-index estimation [@hill1975simple].
-- Davison and Smith, threshold exceedances [@davison1990models].
+- @fred2026sp500, S&P 500 through FRED.
+- @hill1975simple, tail-index estimation.
+- @davison1990models, threshold exceedances.
 
 ## Source and license
 

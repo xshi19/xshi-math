@@ -618,16 +618,18 @@ Historical prerequisites (inactive): [c-luck-skill](#c-luck-skill).
 
 ## Asymmetric payoffs and exposure (`c-asymmetric-payoffs`)
 
-Home: `content/incerto-asymmetric-payoffs.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: `content/incerto-asymmetric-payoffs.md` (existing). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Expected payoff statements require integrability; a high hit rate is insufficient.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`).
+
+Lean limit: No Lean toolchain is installed and sandbox network is unavailable; teaching and numerical evidence take priority. No new checked declaration.
 
 - **numeric-demo:** Use original examples with visible rare-loss exposure.
 - **lean-verifiable:** Finite payoff tables separate win probability from expected payoff.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Original chapter-3 teaching and exact Python cases complete. Max review is complete; external build and live reader review remain pending; see [chapter 3 evidence](../../records/incerto-scft-v4-ch03.md).
 
 Prerequisites: none within this inventory.
 
@@ -1037,17 +1039,17 @@ Historical prerequisites (inactive): [c-survivorship](#c-survivorship).
 
 ## Redundancy, size, and decentralized exposure (`c-decentralization`)
 
-Home: `content/incerto-decentralization.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-xhigh`.
+Home: `content/incerto-decentralization.md` (existing). Status: **done**. Milestone: **M1**. Lead: `astra-xhigh`.
 
 Teach finite aggregation and dependence models from the technical paper; numerical stress cases do not establish institutional or normative conclusions.
 
 Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`).
 
-Lean limit: No exact declaration selected for this numerical or empirical treatment; teaching and Python evidence take priority.
+Lean limit: No Lean toolchain is installed and sandbox network is unavailable; teaching and numerical evidence take priority. No new checked declaration.
 
 - **numeric-demo:** Network and concentration models permit controlled stress experiments.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Original chapter-3 teaching and exact Python cases complete. Max review is complete; external build and live reader review remain pending; see [chapter 3 evidence](../../records/incerto-scft-v4-ch03.md).
 
 Prerequisites: none within this inventory.
 
@@ -1274,16 +1276,18 @@ Historical prerequisites (inactive): none within this inventory.
 
 ## Ruin and repeated exposure (`c-ruin`)
 
-Home: `content/incerto-ruin.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: `content/incerto-ruin.md` (existing). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 No almost-sure ruin claim from unspecified dependence or a merely positive time-varying hazard.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`).
+
+Lean limit: No Lean toolchain is installed and sandbox network is unavailable; teaching and numerical evidence take priority. No new checked declaration.
 
 - **numeric-demo:** Compare finite-horizon outcomes and dependence assumptions.
 - **lean-verifiable:** Independent repeated trials with fixed positive ruin probability give an exact finite-horizon formula and limit.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Original chapter-3 teaching and exact Python cases complete. Max review is complete; external build and live reader review remain pending; see [chapter 3 evidence](../../records/incerto-scft-v4-ch03.md).
 
 Prerequisites: none within this inventory.
 
@@ -1337,16 +1341,18 @@ Chapter chunks: `scft-v4-ch04`, `scft-v4-ch08`, `scft-v4-ch28`.
 
 ## Finite-sample evidence and tail non-identification (`c-inference-asymmetry`)
 
-Home: `content/incerto-inference-asymmetry.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: `content/incerto-inference-asymmetry.md` (existing). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Quantify sample size, contamination probability, distance, and the moment that differs.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`).
+
+Lean limit: No Lean toolchain is installed and sandbox network is unavailable; teaching and numerical evidence take priority. No new checked declaration.
 
 - **numeric-demo:** Compare models indistinguishable in most finite samples.
 - **lean-verifiable:** Construct a specified rare-contamination counterexample with controlled sample discrepancy.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Original chapter-3 teaching and exact Python cases complete. Max review is complete; external build and live reader review remain pending; see [chapter 3 evidence](../../records/incerto-scft-v4-ch03.md).
 
 Prerequisites: [c-exceedances](#c-exceedances), [c-moment-estimation](#c-moment-estimation).
 
