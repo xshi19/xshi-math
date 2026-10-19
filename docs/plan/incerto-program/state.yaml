@@ -3,8 +3,8 @@ schema_version: 3
 updated: '2026-10-18'
 repository: xshi19/xshi-math
 baseline_revision: 998a4a11a17b7ae7ba4c306005a4c8e3109f4392
-branch: scft/v4-ch05
-scope: scft-v4-ch05
+branch: scft/v4-ch06
+scope: scft-v4-ch06
 implementation_authorized: true
 authorized_chunks:
 - m0.5-review
@@ -13,7 +13,8 @@ authorized_chunks:
 - scft-v4-ch03
 - scft-v4-ch04
 - scft-v4-ch05
-authorization_note: Owner authorized scft-v4-ch05 and appendix B on 2026-10-18 with gpt-6-astra xhigh; separate owner-selected gpt-6-astra max review completed with fixes. No commit or deployment.
+- scft-v4-ch06
+authorization_note: Owner authorized scft-v4-ch06 and appendix A plus chapter-5 reader figure fixes on 2026-10-18 with gpt-6-astra xhigh; separate owner-selected gpt-6-astra max review completed with numerical-domain and caption fixes. No commit or deployment.
 status_semantics:
   todo: Program work has not satisfied its evidence gates; existing prose is recorded separately.
   in-progress: A named chunk is active and has a recorded checkpoint.
@@ -205,9 +206,8 @@ milestones:
     dependencies:
     - M2
     assigned_role: math-site-editor
-next_chunk: '#/chunks/scft-v4-ch06'
-next_chunk_note: Chapter 5 implementation, separate Astra max review and operator build/check outside the sandbox
-  done; post-publication reader review remains pending. Chapter 6 is not authorized by this run.
+next_chunk: '#/chunks/scft-v4-ch07'
+next_chunk_note: Chapter 6 teaching/Python, chapter-5 figure fixes, separate max review and operator build/check outside the sandbox done; post-publication live review pending. Chapter 7 is not authorized by this run.
 chunks:
   m0.5-review:
     id: m0.5-review
@@ -1282,28 +1282,42 @@ chunks:
       - lean
       teaching_pages:
         required: true
-        status: todo
+        status: done
         page_paths:
         - content/incerto-iso-density-tail-geometry.md
         - content/incerto-multivariate-tails.md
         - content/incerto-tail-class-catalog.md
         - content/incerto-pareto.md
+        - content/incerto-scoft-ch6.md
       demos:
         required: true
-        status: todo
+        status: done
         concept_ids:
         - c-tail-geometry
         - c-multivariate-tails
         - c-tail-catalog
         - c-pareto
+        script_paths:
+        - demos/incerto/multivariate_tails.py
+        helper_paths:
+        - src/math/incerto/multivariate.py
+        test_paths:
+        - tests/test_incerto_multivariate.py
+        figure_paths:
+        - assets/figures/incerto/multivariate-geometry.svg
+        - assets/figures/incerto/multivariate-information.svg
+        - assets/figures/incerto/multivariate-spectra.svg
+        - assets/figures/incerto/multivariate-sampling.svg
+        - assets/figures/incerto/multivariate-regimes.svg
       optional_lean:
         required: false
-        status: optional
+        status: skipped-for-now
         policy: After teaching and demos; record exact checked claims or a skip reason. No chapter gate.
+        reason: No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
     dependencies:
     - scft-v4-ch05
     assigned_role: astra-xhigh
-    status: todo
+    status: done
     milestone: M1
     source_unit_ids:
     - scft-v4-ch06
@@ -1323,16 +1337,74 @@ chunks:
     - content/incerto-tail-class-catalog.md
     - content/incerto-mixture-uncertainty.md
     acceptance:
-    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations
-      and original explanations for teaching.
+    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
+      original explanations for teaching.
     - Resolve relevant M0.5 issues before reusing claims. Reuse canonical pages and reviewed prerequisite statements;
       do not reorder chapter chunks for a later full treatment.
     - Deliver chapter-scoped teaching pages, then bounded reproducible Python demos or visualizations; distinguish
       model calculations from observed-data studies.
-    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
-      closure or the following chapter.
+    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
+      or the following chapter.
     - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
       live pages as a reader.
+    checkpoint:
+      completed_at: '2026-10-18'
+      base_revision: 8c50598
+      working_branch: scft/v4-ch06
+      scope: Chapter-6 and appendix-A teaching/Python implementation, chapter-5 reader figure fixes and separate
+        max review complete; external HTML checks and live review pending.
+      guide_title: Chapter 6 — Thick tails in higher dimensions
+      source_review: Read supplied v4 chapter 6 pp. 107-120 (PDF 121-134), appendix A pp. 121-125 (PDF 135-139),
+        and v4 TOC. Checked every section locator. General historical/portfolio claims and finite-sample bias/rate
+        claims are not adopted.
+      claim_ids:
+      - CH06-C01
+      - CH06-C02
+      - CH06-C03
+      - CH06-C04
+      - CH06-C05
+      - CH06-C06
+      - CH06-C07
+      - CH06-C08
+      - CH06-C09
+      evidence_path: docs/records/incerto-scft-v4-ch06.md
+      deliverable_sequence:
+      - Guide and concept teaching drafted first
+      - Bounded Python, tests and five shared-style figures completed second
+      - Optional Lean skipped with toolchain/network reason
+      m0_5_dispositions:
+        M05-ISSUE-007: Chapter-6 density geometry and all new chapter/appendix context pinned to taleb2025scoftv4
+          with checked section/page locators. Other chapter assignments remain open.
+      reader_followups: 'Task B: moved matching legend; separated exponential/logistic and explicit signed ticks;
+        log-log positive truncated moments. Regenerated four chapter-5 SVGs and reviewed all nine new/regenerated
+        SVGs at 390px/900px.'
+      checks:
+        pytest: 452 passed in 4.20s, including 60 chapter-6 cases after max review; offline writable uv cache.
+        demos: Five chapter-6 and four chapter-5 figures; finite-value/error checks and deterministic regeneration;
+          actual SVG previews at 390px and 900px.
+        npm_install: Offline npm ci ENOTCACHED; local node_modules copied from pub32 checkout after byte-identical
+          package-lock comparison.
+        build: 'Blocked: MyST npm preflight; direct probe reproduces EPERM spawnSync /bin/sh.'
+        html: 'Failed: fresh HTML, assets and config missing after blocked build.'
+        source_checks: State validator, source links, citations, TOC, graph and whitespace checked; see evidence
+          record.
+      max_math_review:
+        status: done
+        assigned_role: astra-max
+        model: gpt-6-astra max
+        completed_at: '2026-10-18'
+        result: All priority mathematical claims correct; numerical-domain and caption fixes applied.
+        scope: CH06-C01 through CH06-C09, citation locators, numerical boundaries and all nine SVGs/captions.
+          Added nine complex-parameter rejection tests; all plotted values unchanged. Retained Darling
+          original-text access limitation recorded separately from chapter-6 claim verdicts.
+        evidence_path: docs/records/incerto-scft-v4-ch06.md
+        evidence_anchor: max-review
+      live_reader_review:
+        status: pending-publication
+        assigned_role: math-site-editor
+        note: Review changed pages and figures after successful external build and authorized publication.
+      next_action: External build/check and post-publication reader review. Next implementation
+        chunk scft-v4-ch07; not authorized in this run.
   scft-v4-ch07:
     id: scft-v4-ch07
     m0_5_issue_ids:
@@ -2650,17 +2722,18 @@ chunks:
     - c-tail-geometry
     existing_pages_reused:
     - content/incerto-iso-density-tail-geometry.md
-    - content/incerto-pareto-moment-existence.md
     - content/incerto-mixture-uncertainty.md
+    - content/incerto-multivariate-tails.md
+    - content/incerto-pareto-moment-existence.md
     acceptance:
-    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations
-      and original explanations for teaching.
+    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
+      original explanations for teaching.
     - Resolve relevant M0.5 issues before reusing claims. Reuse canonical pages and reviewed prerequisite statements;
       do not reorder chapter chunks for a later full treatment.
     - Deliver chapter-scoped teaching pages, then bounded reproducible Python demos or visualizations; distinguish
       model calculations from observed-data studies.
-    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
-      closure or the following chapter.
+    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
+      or the following chapter.
     - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
       live pages as a reader.
   scft-v4-ch30:
@@ -3846,7 +3919,8 @@ chunks:
     prerequisite_concept_ids:
     - c-multivariate-tails
     - c-payoff-algebra
-    existing_pages_reused: []
+    existing_pages_reused:
+    - content/incerto-multivariate-tails.md
     acceptance:
     - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
       original explanations for teaching.
@@ -7298,11 +7372,11 @@ chapters:
     concept_ids:
     - c-tail-geometry
     - c-multivariate-tails
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     milestone: M1
-    locator_review: local-v4-TOC-verified; exact-claim-locators-pending
+    locator_review: local-v4-full-text-checked; exact scoped section/page locators and completed max review in chapter-6 evidence
     classification:
     - lean-verifiable
     - numeric-demo
@@ -7956,11 +8030,11 @@ chapters:
     concept_ids:
     - c-tail-catalog
     - c-pareto
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     milestone: M1
-    locator_review: local-v4-TOC-verified; exact-claim-locators-pending
+    locator_review: local-v4-full-text-checked; exact scoped section/page locators and completed max review in chapter-6 evidence
     classification:
     - lean-verifiable
     - numeric-demo
@@ -9608,7 +9682,7 @@ concepts:
       lean-verifiable: Density, survival, and support identities admit exact analysis.
       numeric-demo: Compare simulated exceedances with the stated survival law.
     scope: Positive scale x_m and alpha; distinguish normalized distribution from a tail approximation.
-    status: in-progress
+    status: done
     dependencies: []
     assigned_role: astra-max
     milestone: M1
@@ -9616,10 +9690,9 @@ concepts:
     canonical_url: /math/incerto/incerto-pareto/
     coverage:
       prose: existing
-      scope_note: Chapter-5 teaching and deterministic worked cases implemented; separate max review complete with fixes;
-        no checked Lean. Later chapter extensions remain.
+      scope_note: Chapter-6 teaching and bounded Python implemented; separate max review complete with numerical-domain and caption fixes; no checked Lean.
       lean: absent
-      python: chapter-5-deterministic-demo-verified
+      python: chapter-6-bounded-demo-verified
     source_units:
     - tbs-ch16
     - scft-v4-ch02
@@ -9635,17 +9708,18 @@ concepts:
       - lean
       website_math:
         required: true
-        status: in-progress
+        status: done
       python:
         required: true
-        status: in-progress
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
         skipped_scopes:
         - scope: scft-v4-ch05
           status: skipped-for-now
           reason: No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
+        reason: No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
     chunk_ids:
     - scft-v4-ch02
     - scft-v4-ch05
@@ -9657,8 +9731,8 @@ concepts:
         python: done
         lean: skipped-for-now
         lean_reason: No Lean toolchain is installed on this machine and the sandbox has no network. Xiang ranks
-          Lean last; skip the approved exceedance-fraction pilot after teaching and demos. No Lean project or
-          checked declaration added.
+          Lean last; skip the approved exceedance-fraction pilot after teaching and demos. No Lean project or checked
+          declaration added.
         evidence_path: docs/records/incerto-scft-v4-ch02.md
         note: Implementation and max review complete; build and live review remain separate.
       scft-v4-ch05:
@@ -9668,6 +9742,13 @@ concepts:
         lean_reason: No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
         evidence_path: docs/records/incerto-scft-v4-ch05.md
         note: Chapter implementation and separate max review complete; site verification pending.
+      scft-v4-ch06:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
+        evidence_path: docs/records/incerto-scft-v4-ch06.md
+        note: Implementation and separate max review complete; site verification pending.
   c-regular-variation:
     id: c-regular-variation
     title: Regular variation
@@ -10464,7 +10545,7 @@ concepts:
       lean-verifiable: Product-density comparisons are exact under their independence assumptions.
       numeric-demo: Compare contours and integrated regional probabilities.
     scope: Point density and probability mass must remain distinct.
-    status: todo
+    status: done
     dependencies:
     - c-pareto
     assigned_role: astra-max
@@ -10473,9 +10554,9 @@ concepts:
     canonical_url: /math/incerto/incerto-iso-density-tail-geometry/
     coverage:
       prose: existing
-      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      scope_note: Chapter-6 teaching and bounded Python implemented; separate max review complete with numerical-domain and caption fixes; no checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-6-bounded-demo-verified
     source_units:
     - scft-v4-ch06
     completion_scope: in-scope
@@ -10488,16 +10569,25 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
     chunk_ids:
     - scft-v4-ch06
     first_chunk: scft-v4-ch06
+    completed_chunk_scopes:
+      scft-v4-ch06:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
+        evidence_path: docs/records/incerto-scft-v4-ch06.md
+        note: Implementation and separate max review complete; site verification pending.
   c-cramer:
     id: c-cramer
     title: Exponential-moment gate
@@ -10628,7 +10718,7 @@ concepts:
       lean-verifiable: The convolution decomposition and exact light-tail ratios are precise proof targets.
       numeric-demo: Population tail-ratio curves illustrate distinct asymptotic classes.
     scope: Keep cited class memberships separate from the elementary convolution derivation and exact ratio checks.
-    status: in-progress
+    status: done
     dependencies:
     - c-regular-variation
     - c-subexponential
@@ -10639,10 +10729,9 @@ concepts:
     canonical_url: /math/incerto/incerto-tail-class-catalog/
     coverage:
       prose: existing
-      scope_note: Chapter-5 teaching and deterministic worked cases implemented; separate max review complete with fixes;
-        no checked Lean. Later chapter extensions remain.
+      scope_note: Chapter-6 teaching and bounded Python implemented; separate max review complete with numerical-domain and caption fixes; no checked Lean.
       lean: absent
-      python: chapter-5-deterministic-demo-verified
+      python: chapter-6-bounded-demo-verified
     source_units:
     - tbs-ch15
     - tbs-es06
@@ -10661,17 +10750,18 @@ concepts:
       - lean
       website_math:
         required: true
-        status: in-progress
+        status: done
       python:
         required: true
-        status: in-progress
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
         skipped_scopes:
         - scope: scft-v4-ch05
           status: skipped-for-now
           reason: No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
+        reason: No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
     chunk_ids:
     - scft-v4-ch01
     - scft-v4-ch02
@@ -10690,8 +10780,8 @@ concepts:
         python: done
         lean: skipped-for-now
         lean_reason: No Lean toolchain is installed on this machine and the sandbox has no network. Xiang ranks
-          Lean last; skip the approved exceedance-fraction pilot after teaching and demos. No Lean project or
-          checked declaration added.
+          Lean last; skip the approved exceedance-fraction pilot after teaching and demos. No Lean project or checked
+          declaration added.
         evidence_path: docs/records/incerto-scft-v4-ch02.md
         note: Implementation and max review complete; build and live review remain separate.
       scft-v4-ch05:
@@ -10701,6 +10791,13 @@ concepts:
         lean_reason: No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
         evidence_path: docs/records/incerto-scft-v4-ch05.md
         note: Chapter implementation and separate max review complete; site verification pending.
+      scft-v4-ch06:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
+        evidence_path: docs/records/incerto-scft-v4-ch06.md
+        note: Implementation and separate max review complete; site verification pending.
   c-luck-skill:
     id: c-luck-skill
     title: Luck, skill, and performance selection
@@ -12543,7 +12640,7 @@ concepts:
       lean-verifiable: A specified model can test existence of covariance and validity of dependence formulas.
       numeric-demo: Contrast correlation, tail dependence, and geometric diagnostics.
     scope: PCA and covariance interpretations require moments; mutual information needs its own existence checks.
-    status: todo
+    status: in-progress
     dependencies:
     - c-tail-geometry
     - c-mixture-uncertainty
@@ -12552,17 +12649,19 @@ concepts:
     page_path: content/incerto-multivariate-tails.md
     canonical_url: /math/incerto/incerto-multivariate-tails/
     coverage:
-      prose: absent
-      scope_note: Proposed original note; path is reserved in this plan only.
+      prose: existing
+      scope_note: Chapter-6 teaching and bounded Python implemented; separate max review complete with numerical-domain and caption fixes; no checked Lean.
+        Chapter-29 extension remains.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-6-bounded-demo-verified
       related_foundations:
       - content/normix-normal-mixtures.md
+      created_in_chunk: scft-v4-ch06
     source_units:
     - scft-v4-ch06
     - scft-v4-ch29
     completion_scope: in-scope
-    page_status: proposed
+    page_status: existing
     source_priority: 1
     deliverables:
       order:
@@ -12571,17 +12670,29 @@ concepts:
       - lean
       website_math:
         required: true
-        status: todo
+        status: in-progress
       python:
         required: true
-        status: todo
+        status: in-progress
       lean:
         required: false
         status: optional
+        skipped_scopes:
+        - scope: scft-v4-ch06
+          status: skipped-for-now
+          reason: No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
     chunk_ids:
     - scft-v4-ch06
     - scft-v4-ch29
     first_chunk: scft-v4-ch06
+    completed_chunk_scopes:
+      scft-v4-ch06:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
+        evidence_path: docs/records/incerto-scft-v4-ch06.md
+        note: Implementation and separate max review complete; site verification pending.
   c-kappa:
     id: c-kappa
     title: Finite-sum concentration metric
@@ -14309,7 +14420,7 @@ counts:
   concepts_total: 103
   concepts_in_scope: 75
   concepts_out_of_scope: 28
-  existing_concept_pages: 31
+  existing_concept_pages: 32
   checked_lean_concepts: 0
   scft_v4_chapters: 30
   scft_v4_appendices: 9

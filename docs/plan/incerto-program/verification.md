@@ -1,5 +1,13 @@
 # Design verification
 
+Current chapter-6 evidence is in the [max review](../../records/incerto-scft-v4-ch06.md#max-review):
+teaching and Python implemented; 452 tests pass, five new/four regenerated SVGs
+reviewed at 390px/900px. Separate max review passed with numerical-domain
+and caption fixes; the retained Darling original-text access limit is recorded.
+MyST build remains
+blocked by sandbox `EPERM`; HTML and live review require an external rerun.
+The historical evidence below is retained at its original scope.
+
 Baseline: 2026-10-16, revision `998a4a11a17b7ae7ba4c306005a4c8e3109f4392`.
 Owner revisions: 2026-10-17, branch `plan/incerto-program`, PR #24.
 The records below retain their original design scope and results, including
@@ -8,7 +16,7 @@ The subsequent review branch records its actual checks and sandbox limits in
 [M0.5 verification](m0.5-review.md#verification-and-limits); these historical
 passes do not validate that working tree.
 
-Current chapter-5 and appendix-B implementation and checks are in the
+Prior chapter-5 and appendix-B implementation and checks are in the
 [chapter-5 checkpoint](../../records/incerto-scft-v4-ch05.md#max-review):
 separate Astra max review passed with fixes; 392 Python tests passed,
 including 54 chapter-5 cases. Four deterministic SVGs use the shared style
