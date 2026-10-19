@@ -50,16 +50,16 @@ Chapter chunks: `scft-v4-ch02`.
 
 ## Pareto distribution (`c-pareto`)
 
-Home: [content/incerto-pareto.md](../../../content/incerto-pareto.md). Status: **in-progress**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-pareto.md](../../../content/incerto-pareto.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Positive scale x_m and alpha; distinguish normalized distribution from a tail approximation.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`). Chapter-5 teaching/Python done; Lean skipped for toolchain/network limits.
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`). Chapter-6 teaching/Python done; Lean skipped for toolchain/network limits.
 
 - **numeric-demo:** Compare simulated exceedances with the stated survival law.
 - **lean-verifiable:** Density, survival, and support identities admit exact analysis.
 
-Coverage: Chapter-5 teaching and deterministic worked cases implemented; separate max review complete with fixes; no checked Lean. Later chapter extensions remain. See [chapter-5 evidence](../../records/incerto-scft-v4-ch05.md).
+Coverage: Chapter-6 teaching and bounded Python implemented; separate max review complete with numerical-domain and caption fixes; no checked Lean. See [chapter-6 evidence](../../records/incerto-scft-v4-ch06.md).
 
 Prerequisites: none within this inventory.
 
@@ -431,16 +431,16 @@ Chapter chunks: `scft-v4-ch04`.
 
 ## Multivariate tail geometry (`c-tail-geometry`)
 
-Home: [content/incerto-iso-density-tail-geometry.md](../../../content/incerto-iso-density-tail-geometry.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-iso-density-tail-geometry.md](../../../content/incerto-iso-density-tail-geometry.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Point density and probability mass must remain distinct.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`). Chapter-6 teaching/Python done; Lean skipped for toolchain/network limits.
 
 - **numeric-demo:** Compare contours and integrated regional probabilities.
 - **lean-verifiable:** Product-density comparisons are exact under their independence assumptions.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-6 teaching and bounded Python implemented; separate max review complete with numerical-domain and caption fixes; no checked Lean. See [chapter-6 evidence](../../records/incerto-scft-v4-ch06.md).
 
 Prerequisites: [c-pareto](#c-pareto).
 
@@ -515,16 +515,16 @@ Chapter chunks: `scft-v4-ch07`.
 
 ## Tail classes and implication boundaries (`c-tail-catalog`)
 
-Home: [content/incerto-tail-class-catalog.md](../../../content/incerto-tail-class-catalog.md). Status: **in-progress**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-tail-class-catalog.md](../../../content/incerto-tail-class-catalog.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Keep cited class memberships separate from the elementary convolution derivation and exact ratio checks.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`). Chapter-5 teaching/Python done; Lean skipped for toolchain/network limits.
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`). Chapter-6 teaching/Python done; Lean skipped for toolchain/network limits.
 
 - **numeric-demo:** Population tail-ratio curves illustrate distinct asymptotic classes.
 - **lean-verifiable:** The convolution decomposition and exact light-tail ratios are precise proof targets.
 
-Coverage: Chapter-5 teaching and deterministic worked cases implemented; separate max review complete with fixes; no checked Lean. Later chapter extensions remain. See [chapter-5 evidence](../../records/incerto-scft-v4-ch05.md).
+Coverage: Chapter-6 teaching and bounded Python implemented; separate max review complete with numerical-domain and caption fixes; no checked Lean. See [chapter-6 evidence](../../records/incerto-scft-v4-ch06.md).
 
 Prerequisites: [c-regular-variation](#c-regular-variation), [c-subexponential](#c-subexponential), [c-cramer](#c-cramer).
 
@@ -1414,16 +1414,16 @@ Chapter chunks: `scft-v4-ch04`, `scft-v4-ch07`, `scft-v4-ch20`.
 
 ## Multivariate tails and dependence summaries (`c-multivariate-tails`)
 
-Home: `content/incerto-multivariate-tails.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-multivariate-tails.md](../../../content/incerto-multivariate-tails.md). Status: **in-progress**. Milestone: **M1**. Lead: `astra-max`.
 
 PCA and covariance interpretations require moments; mutual information needs its own existence checks.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `optional`). Chapter-6 teaching/Python done; Lean skipped for toolchain/network limits.
 
 - **numeric-demo:** Contrast correlation, tail dependence, and geometric diagnostics.
 - **lean-verifiable:** A specified model can test existence of covariance and validity of dependence formulas.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Chapter-6 teaching and bounded Python implemented; separate max review complete with numerical-domain and caption fixes; no checked Lean. Chapter-29 extension remains. See [chapter-6 evidence](../../records/incerto-scft-v4-ch06.md).
 
 Prerequisites: [c-tail-geometry](#c-tail-geometry), [c-mixture-uncertainty](#c-mixture-uncertainty).
 

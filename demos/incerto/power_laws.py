@@ -32,7 +32,9 @@ def export(fig, output, name):
         for line in ax.lines:
             if not np.all(np.isfinite(line.get_ydata())):
                 raise FloatingPointError(f"nonfinite plotted curve: {name}")
-        ax.legend(fontsize=10, handlelength=3.5)
+        if ax.get_legend() is None:
+            ax.legend(fontsize=10, handlelength=3.5, loc="upper center",
+                      bbox_to_anchor=(.5, -.24))
     savefig(fig, output / name)
     plt.close(fig)
 
@@ -42,7 +44,7 @@ def main():
     output.mkdir(parents=True, exist_ok=True)
     set_theme(scale=1.1)
 
-    fig, axes = plt.subplots(2, 1, figsize=(5, 8), layout="constrained")
+    fig, axes = plt.subplots(3, 1, figsize=(5, 13), layout="constrained")
     u = np.geomspace(1, 16, 241)
     models = ((pareto(1.5), "Pareto 1.5", "-"),
               (weibull_min(.5), "Weibull 0.5", "--"),
@@ -50,23 +52,28 @@ def main():
               (logistic(), "Logistic", ":"),
               (norm(), "Normal", "-"))
     for rv, label, style in models:
-        axes[0].plot(u, 2*rv.logsf(u)-rv.logsf(2*u), style, label=label)
+        target = axes[1] if label in {"Exponential", "Logistic"} else axes[0]
+        target.plot(u, 2*rv.logsf(u)-rv.logsf(2*u), style, label=label)
     axes[0].set(xlabel="Threshold u", ylabel="Log squared-survival ratio",
                 yscale="symlog", title="Two exceedances versus one at 2u")
+    axes[0].set_yticks([-4, -2, -1, 0, 1, 2, 10, 100],
+                      labels=["-4", "-2", "-1", "0", "1", "2", "10", "100"])
+    axes[1].set(xlabel="Threshold u", ylabel="Log squared-survival ratio",
+                ylim=(-.55, .05), title="Linear detail: exponential and logistic")
     u = np.geomspace(3, 1e4, 81)
     for rv, label, style in models[:3]:
         result = iid_two_sum_tail(rv, u, rtol=1e-9, maxlevel=12)
         if not np.all(result["success"]) or not np.all(np.isfinite(result["log_ratio"])):
             raise FloatingPointError(f"convolution failed: {label}")
-        axes[1].plot(u, result["ratio"], style, label=label)
+        axes[2].plot(u, result["ratio"], style, label=label)
         print(f"{label} two-sum ratio at 3/1e4: {result['ratio'][0]:.9g}, "
               f"{result['ratio'][-1]:.9g}; max quadrature evaluations {max(result['nfev']):.0f}")
-    axes[1].axhline(1, color=COLORS["muted"], linewidth=1, label="Subexponential limit")
-    axes[1].set(xscale="log", yscale="log", xlabel="Threshold u", ylabel="Two-sum ratio R(u)",
+    axes[2].axhline(1, color=COLORS["muted"], linewidth=1, label="Subexponential limit")
+    axes[2].set(xscale="log", yscale="log", xlabel="Threshold u", ylabel="Two-sum ratio R(u)",
                 title="A separate convolution question")
     export(fig, output, "power-law-diagnostics.svg")
 
-    fig, axes = plt.subplots(3, 1, figsize=(5, 10.5), layout="constrained")
+    fig, axes = plt.subplots(3, 1, figsize=(5, 13), layout="constrained")
     u = np.geomspace(1, 1e4, 241)
     for a, b, label, style in ((1, 2, "Independent: 1 and 2", "-"),
                                (1, 1, "Independent: 1 and 1", "--")):
@@ -75,8 +82,8 @@ def main():
     axes[0].set(xscale="log", yscale="log", xlabel="Product threshold", ylabel="Survival",
                 title="Equal exponents add a log factor")
     for p, style in ((1, "-"), (1.5, "--"), (2, "-.")):
-        axes[1].plot(u, pareto_truncated_moment(u, 1.5, p), style, label=f"Order {p:g}")
-    axes[1].set(xscale="log", yscale="symlog", ylim=(0, None), xlabel="Upper cutoff b",
+        axes[1].plot(u[1:], pareto_truncated_moment(u[1:], 1.5, p), style, label=f"Order {p:g}")
+    axes[1].set(xscale="log", yscale="log", xlabel="Upper cutoff b",
                 ylabel="Truncated moment", title="Below, at, and above the boundary")
     u = np.geomspace(1.01, 1e4, 241)
     for rho, style in ((0, "-"), (1, "--")):
@@ -93,7 +100,7 @@ def main():
     dp = double_pareto(3)
     student_models = ((t(3, scale=scales["tail_scale"]), "Student: tail matched", "--"),
                       (t(3, scale=scales["variance_scale"]), "Student: variance matched", "-."))
-    fig, axes = plt.subplots(3, 1, figsize=(5, 10.5), layout="constrained")
+    fig, axes = plt.subplots(3, 1, figsize=(5, 13), layout="constrained")
     x, u = np.linspace(-4, 4, 501), np.geomspace(1, 1e4, 241)
     axes[0].plot(x, dp.pdf(x), label="Double Pareto")
     axes[2].plot(u, np.exp(dp.logsf(2*u)-dp.logsf(u)), label="Double Pareto")
