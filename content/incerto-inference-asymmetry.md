@@ -129,7 +129,30 @@ sizes and a varying contamination probability. These are population curves,
 not simulated detection rates. The lower panel is explained in the payoff note.
 ```
 
-Run `uv run python demos/incerto/lecture_risk.py`. The script evaluates
+Use [`repeated_event_probability`](incerto-api-reference.md#api-repeated-event-probability), [`finite_payoff_mean`](incerto-api-reference.md#api-finite-payoff-mean).
+
+```python
+from xmath.incerto.lecture_risk import repeated_event_probability, finite_payoff_mean
+
+epsilon, alpha, cutoff = 1e-4, 1.5, 1e6
+tail_mean = alpha * cutoff / (alpha - 1)
+print("Mixture mean:", finite_payoff_mean([1 - epsilon, epsilon], [0.5, tail_mean]))
+for n in (10, 1000, 10000):
+    print(n, round(repeated_event_probability(epsilon, n), 6))
+```
+
+**Output**
+
+```text
+Mixture mean: 300.49995
+10 0.001
+1000 0.095167
+10000 0.632139
+```
+
+The component label is detectable here because the supports are disjoint.
+
+Figure regeneration: `uv run python demos/incerto/lecture_risk.py`. The script evaluates
 three sample sizes on 161 probabilities from $10^{-6}$ to $10^{-2}$ and
 prints the example above. It uses no random draws or external data.
 

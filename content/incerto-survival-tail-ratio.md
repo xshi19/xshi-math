@@ -120,7 +120,7 @@ $$
 This law is light-tailed. Its density is bounded by a constant times
 $e^{-2k|x|}$, so its MGF is finite for $|\theta|<2k$ by comparison
 with an exponential integral on each half-line. The density is
-$\tfrac{k}{2}\operatorname{sech}^2(kx)$, the `hypsecant2` helper's law
+$\tfrac{k}{2}\operatorname{sech}^2(kx)$, the [`hypsecant2`](incerto-api-reference.md#api-hypsecant2) helper's law
 with `loc=0, scale=1/k`.
 The name identifies this squared-secant convention, not the ordinary
 hyperbolic-secant distribution.
@@ -157,7 +157,31 @@ Weibull shape $1/2$, and rate-one exponential. The finite plots illustrate
 different questions; only the convolution ratio defines subexponentiality.
 ```
 
-Run `uv run python demos/incerto/power_laws.py`. Log survival values prevent
+Use [`pareto_type1`](incerto-api-reference.md#api-pareto-type1), [`iid_two_sum_tail`](incerto-api-reference.md#api-iid-two-sum-tail).
+
+```python
+import numpy as np
+from xmath.incerto.distributions import pareto_type1
+from xmath.incerto.tail_diagnostics import iid_two_sum_tail
+
+law = pareto_type1(1.5)
+u = np.array([3., 10., 100.])
+print("Squared-survival ratio:", np.exp(2 * law.logsf(u) - law.logsf(2 * u)))
+result = iid_two_sum_tail(law, u)
+assert result["success"].all()
+print("Two-sum ratio:", result["ratio"].round(4))
+```
+
+**Output**
+
+```text
+Squared-survival ratio: [0.54433105 0.08944272 0.00282843]
+Two-sum ratio: [1.7691 1.3914 1.0444]
+```
+
+The convolution ratio uses independent summands.
+
+Figure regeneration: `uv run python demos/incerto/power_laws.py`. Log survival values prevent
 division of underflowed probabilities. The convolution helper uses
 one-dimensional adaptive quadrature; the demo stops on a failed error check.
 No random sampling or empirical fitting is involved.
@@ -192,36 +216,3 @@ No random sampling or empirical fitting is involved.
 - Related catalog: [Tail Class Catalog](./incerto-tail-class-catalog.md).
 - Related diagnostic: [Max-to-Sum Ratio](./incerto-max-to-sum-ratio.md).
 - Used by: [Iso-Density Tail Geometry](./incerto-iso-density-tail-geometry.md).
-
-## Source and adaptation
-
-Adapted from `incerto-wiki`, `content/concepts/methods/survival-tail-ratio.md`, revision `9717c9c`
-(2026-09-13 Batch 2 import). Copyright (c) 2023 xshi19. Licensed under MIT.
-Links, notation, and qualifications were adapted for this site; executable
-figures and simulations were replaced with static calculations. No upstream
-execution or formal-proof verification is claimed for this adaptation.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

@@ -30,9 +30,29 @@ $s<t$, every observation exceeding $t$ also exceeds $s$. Therefore
 $\widehat S_n(t)\leq\widehat S_n(s)$. These statements follow directly from
 counting; they are exact finite-sample arguments.
 
-The helper `xmath.exceedance_fraction` implements this convention. From a checkout,
-run `uv run python demos/incerto/exceedances.py` to obtain fractions $1$, $1/4$,
-and $0$ at thresholds $0$, $2$, and $4$. The observations are synthetic and fixed.
+Use [`exceedance_fraction`](incerto-api-reference.md#api-exceedance-fraction), [`empirical_survival_function`](incerto-api-reference.md#api-empirical-survival-function).
+
+```python
+from xmath import exceedance_fraction
+from xmath.incerto.stats import empirical_survival_function
+
+sample = [1, 2, 2, 4]
+print([exceedance_fraction(sample, u) for u in (0, 2, 4)])
+support, survival = empirical_survival_function(sample)
+print(list(zip(support.tolist(), survival.tolist())))
+```
+
+**Output**
+
+```text
+[1.0, 0.25, 0.0]
+[(1.0, 0.75), (2.0, 0.25), (4.0, 0.0)]
+```
+
+Ties form one jump.
+
+The same fixed-sample calculation is available as
+`uv run python demos/incerto/exceedances.py`.
 
 A zero count above $4$ does not establish that a population cannot exceed $4$.
 Inference about an unseen population requires sampling and modeling assumptions
@@ -64,10 +84,10 @@ mass at $u$; it is not the complement of this CDF.
 | $2$ | $3/4$ | $1/4$ | $3/4$ |
 | $4$ | $1$ | $0$ | $1/4$ |
 
-`xmath.incerto.stats.empirical_survival_function` groups tied observations
-and returns these strict survival values at the distinct observations.
+The runnable example above uses
+[`empirical_survival_function`](incerto-api-reference.md#api-empirical-survival-function).
 The chapter-2 demo, `uv run python demos/incerto/glossary_worked_cases.py`,
-draws the steps and prints this table. Rank plotting positions with a nonzero
+draws the steps. Rank plotting positions with a nonzero
 last ordinate are a different plotting convention.
 
 ## What iid sampling adds

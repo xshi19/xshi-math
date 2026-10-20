@@ -135,10 +135,31 @@ behind §§2.2.27–28, pp. 19–20, without importing a uniform convergence the
 (scoft-ch2-demo)=
 ## Reproduce the worked cases
 
-```sh
-uv run python demos/incerto/exceedances.py
-uv run python demos/incerto/glossary_worked_cases.py
+Use [`empirical_survival_function`](incerto-api-reference.md#api-empirical-survival-function), [`pareto_tail_quantities`](incerto-api-reference.md#api-pareto-tail-quantities).
+
+```python
+from xmath.incerto.stats import empirical_survival_function
+from xmath.incerto.glossary import pareto_tail_quantities
+
+print("Support / strict survival:", empirical_survival_function([1, 2, 2, 4]))
+for alpha in (0.8, 1, 1.5, 3):
+    result = pareto_tail_quantities(alpha, x_m=1, threshold=4)
+    print(alpha, {name: round(value, 6) for name, value in result.items()})
 ```
+
+**Output**
+
+```text
+Support / strict survival: (array([1., 2., 4.]), array([0.75, 0.25, 0.  ]))
+0.8 {'log_survival': -1.109035, 'mean_excess': inf, 'conditional_mean': inf, 'tail_first_moment': inf}
+1 {'log_survival': -1.386294, 'mean_excess': inf, 'conditional_mean': inf, 'tail_first_moment': inf}
+1.5 {'log_survival': -2.079442, 'mean_excess': 8.0, 'conditional_mean': 12.0, 'tail_first_moment': 1.5}
+3 {'log_survival': -4.158883, 'mean_excess': 2.0, 'conditional_mean': 6.0, 'tail_first_moment': 0.09375}
+```
+
+
+
+Figure regeneration: `uv run python demos/incerto/exceedances.py`; `uv run python demos/incerto/glossary_worked_cases.py`.
 
 The second script uses the fixed list $(1,2,2,4)$ and exact population
 formulas. It prints conditional Pareto quantities at $u=1,4,16$ for
@@ -166,8 +187,6 @@ which grows without bound even as its multiplier ratio approaches the
 Pareto value. The catalog proves the limiting claim and validates the law.
 ```
 
-The numerical helper uses log probabilities for tail calculations and
-reports mathematical infinity for Pareto means when $\alpha\le1$.
 Unexpected non-finite arithmetic raises an error. CDF values may round to
 zero or one at floating-point limits; this does not assert finite support.
 Tests compare finite formulas with independent integration and distribution

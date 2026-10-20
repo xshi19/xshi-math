@@ -138,7 +138,27 @@ for $\rho=0,1$. These deterministic calculations illustrate a slowly varying
 correction and the strict moment boundary; no observations were sampled.
 ```
 
-Run `uv run python demos/incerto/power_laws.py`. Each panel uses 241
+Use [`pareto_truncated_moment`](incerto-api-reference.md#api-pareto-truncated-moment).
+
+```python
+from xmath.incerto.power_laws import pareto_truncated_moment
+
+for order in (1, 1.5, 2):
+    moments = pareto_truncated_moment([10, 100, 10000], alpha=1.5, order=order)
+    print(order, moments.round(4))
+```
+
+**Output**
+
+```text
+1 [2.0513 2.7    2.97  ]
+1.5 [ 3.4539  6.9078 13.8155]
+2 [  6.4868  27.     297.    ]
+```
+
+These are indicator-truncated population moments; no sample is censored.
+
+Figure regeneration: `uv run python demos/incerto/power_laws.py`. Each panel uses 241
 cutoffs from $1$ to $10^4$ (the middle omits the zero endpoint, leaving
 240 points; the last begins at $1.01$ to avoid a zero leading term). The [Pareto product proof](incerto-pareto.md#pareto-independent-products)
 and [Karamata calculation](incerto-karamata.md#karamata-moment-test-computation)
@@ -197,36 +217,3 @@ population question.
 - Used by: [LLN Failure Under Infinite Mean](./incerto-lln-failure.md),
   [Pre-Asymptotic LLN Behavior](./incerto-lln-preasymptotic.md), and
   [Max-to-Sum Ratio](./incerto-max-to-sum-ratio.md).
-
-## Source and adaptation
-
-Adapted from `incerto-wiki`, `content/concepts/theorems/pareto-moment-existence.md`, revision `9717c9c`
-(2026-09-13 import). Copyright (c) 2023 xshi19. Licensed under MIT.
-Links and notation were adapted for this site; executable figures and simulations
-were replaced with static calculations. No upstream execution or formal-proof
-verification is claimed for this adaptation.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

@@ -135,12 +135,28 @@ for $\alpha>2$. For $1<\alpha\le2$, the mean exists but the variance
 is infinite. For $\alpha\le1$, the ordinary mean, and hence variance
 about that mean, is undefined; the second raw moment is still infinite.
 
-The library helper `xmath.incerto.distributions.double_pareto` reports the
-mean as `NaN` and the variance as $+\infty$ for $0<\alpha\le1$.
-The variance result is a reporting convention reflecting the infinite raw
-second moment; it does not define variance about an undefined mean.
-For $1<\alpha\le2$ it reports mean $0$ and variance $+\infty$;
-for $\alpha>2$ it reports mean $0$ and the finite variance above.
+Use [`double_pareto`](incerto-api-reference.md#api-double-pareto).
+
+```python
+from xmath.incerto.distributions import double_pareto
+
+for alpha in (0.5, 1, 1.5, 2, 3):
+    mean, variance = double_pareto(alpha).stats(moments="mv")
+    print(f"alpha={alpha:g}: mean={mean:g}, variance={variance:g}")
+```
+
+**Output**
+
+```text
+alpha=0.5: mean=nan, variance=inf
+alpha=1: mean=nan, variance=inf
+alpha=1.5: mean=0, variance=inf
+alpha=2: mean=0, variance=inf
+alpha=3: mean=0, variance=1
+```
+
+For $0<\alpha\le1$, `inf` reflects the infinite raw second moment,
+not variance about an undefined mean.
 
 More generally, integration of the absolute-value density gives the beta
 integral
@@ -244,11 +260,31 @@ $2$, approaching $1/8$. Matching variance and matching a tail constant
 choose different Student scales; neither makes the distributions identical.
 ```
 
-Run `uv run python demos/incerto/power_laws.py`. The figure uses 501 density
+Use [`double_pareto`](incerto-api-reference.md#api-double-pareto), [`student_double_pareto_scales`](incerto-api-reference.md#api-student-double-pareto-scales).
+
+```python
+from xmath.incerto.distributions import double_pareto
+from xmath.incerto.power_laws import student_double_pareto_scales
+
+law = double_pareto(3)
+print("Mean / variance:", law.stats(moments="mv"))
+print("Survival at 1, 10:", law.sf([1, 10]))
+print("Student matching:", student_double_pareto_scales(3))
+```
+
+**Output**
+
+```text
+Mean / variance: (np.float64(0.0), np.float64(1.0))
+Survival at 1, 10: [0.0625     0.00037566]
+Student matching: {'student_tail_constant': 1.1026577908435844, 'tail_scale': 0.7682627055029694, 'variance_scale': 0.5773502691896257, 'tail_matched_variance': 1.770682754000227}
+```
+
+
+
+Figure regeneration: `uv run python demos/incerto/power_laws.py`. The figure uses 501 density
 points on $[-4,4]$ and 241 thresholds from $1$ to $10^4$ for each tail
-panel. All values are dimensionless, exact-model evaluations. This comparison
-does not change the helper's retained `NaN`/`+inf` reporting convention
-when $\alpha\le1$, or define variance about an undefined mean.
+panel. All values are dimensionless, exact-model evaluations.
 
 ## Caveats
 
@@ -273,36 +309,3 @@ when $\alpha\le1$, or define variance about an undefined mean.
 - Depends on: [Pareto Distribution](./incerto-pareto.md) and
   [Regular Variation](./incerto-regular-variation.md).
 - Used by: [Chapter 5](incerto-scoft-ch5.md) and its Student comparison.
-
-## Source and adaptation
-
-Adapted from `incerto-wiki`, `content/concepts/distributions/double-pareto.md`, revision `9717c9c`
-(2026-09-13 Batch 2 import). Copyright (c) 2023 xshi19. Licensed under MIT.
-Links, notation, and qualifications were adapted for this site; executable
-figures and simulations were replaced with static calculations. No upstream
-execution or formal-proof verification is claimed for this adaptation.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

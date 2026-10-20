@@ -100,9 +100,27 @@ establishes none of those population assumptions.
 
 From the installed repository environment, run:
 
-```sh
-uv run python demos/incerto/prologue_tail_classes.py
+Use [`bounded_spike_summary`](incerto-api-reference.md#api-bounded-spike-summary).
+
+```python
+from xmath.incerto.tail_classes import bounded_spike_summary
+
+for epsilon in (0.1, 0.01, 0.001):
+    print(epsilon, bounded_spike_summary(epsilon))
 ```
+
+**Output**
+
+```text
+0.1 {'support_radius': 3.1622776601683795, 'mean': 0.0, 'variance': 1.0, 'kurtosis': 10.0}
+0.01 {'support_radius': 10.0, 'mean': 0.0, 'variance': 1.0, 'kurtosis': 100.0}
+0.001 {'support_radius': 31.622776601683793, 'mean': 0.0, 'variance': 1.0, 'kurtosis': 1000.0}
+```
+
+Every law here has bounded support, so large kurtosis alone does not
+establish a heavy asymptotic tail.
+
+Figure regeneration: `uv run python demos/incerto/prologue_tail_classes.py`.
 
 The script evaluates specified probability laws in dimensionless units.
 There are no observed data, random draws, fitted parameters, or confidence

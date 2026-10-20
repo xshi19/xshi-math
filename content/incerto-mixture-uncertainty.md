@@ -174,7 +174,31 @@ later treatment and requires a specified limiting construction.
 
 ## Reproduce the worked cases
 
-Run `uv run python demos/incerto/finite_moments.py`. The mixture curves use
+Use [`normal_mixture_absolute_moment`](incerto-api-reference.md#api-normal-mixture-absolute-moment), [`normal_mixture_log_abs_survival`](incerto-api-reference.md#api-normal-mixture-log-abs-survival).
+
+```python
+import numpy as np
+from xmath.incerto.finite_moments import (
+    normal_mixture_absolute_moment, normal_mixture_log_abs_survival,
+)
+
+for variances, weights in (([1], [1]), ([0.5, 50.5], [0.99, 0.01])):
+    m2 = normal_mixture_absolute_moment(2, variances, weights)
+    m4 = normal_mixture_absolute_moment(4, variances, weights)
+    tail = np.exp(normal_mixture_log_abs_survival(4, variances, weights))
+    print("Variance / kurtosis / P(|X|>4):", m2, m4 / m2**2, tail)
+```
+
+**Output**
+
+```text
+Variance / kurtosis / P(|X|>4): 0.9999999999999999 3.0000000000000004 6.33424836662398e-05
+Variance / kurtosis / P(|X|>4): 1.0000000000000002 77.25000000000006 0.005735194638476147
+```
+
+All moments of these two finite Gaussian mixtures exist.
+
+Figure regeneration: `uv run python demos/incerto/finite_moments.py`. The mixture curves use
 801 central-density and 241 tail-threshold points, with the parameters above.
 The script also checks moment formulas and reports a bounded, seeded
 estimation experiment described in [moment estimation](incerto-moment-estimation.md).
@@ -184,13 +208,12 @@ parts of a density gain or lose under a small variance perturbation.
 (mixture-variance-gamma)=
 ## Variance–mean gamma calculation
 
-The following extension permits a moving conditional mean. It retains the
-scalar calculation previously given in the chapter guide.
+The following extension permits a moving conditional mean.
 
 For a gamma mixture, let $Y\sim\operatorname{Gamma}(\lambda,\vartheta)$
 (shape and scale) and $X=\gamma Y+\sqrt{Y}Z$. The local parameters satisfy
 $A>|\gamma|$, $\lambda>0$, and $\vartheta=2/(A^2-\gamma^2)$.
-The legacy helper `univariate_variance_gamma(alpha, beta, lam)` uses
+The helper [`univariate_variance_gamma(alpha, beta, lam)`](incerto-api-reference.md#api-univariate-variance-gamma) uses
 `alpha` for $A$, `beta` for $\gamma$, and `lam` for $\lambda$; its `alpha`
 is not the Pareto exponent. Conditioning and the gamma MGF give
 
@@ -249,38 +272,3 @@ $(A/2)e^{-A|x|}$. The general family relationships remain in the
   calculations above state their own hypotheses and proofs.
 - The linked DLMF identities supply the Bessel integral and asymptotics used
   only in the variance–mean gamma density calculation.
-
-## Source and license
-
-Original mixture and moment explanations with the variance–mean gamma
-calculation retained from this repository's chapter-4 guide. That calculation
-was adapted from `xshi19/incerto-wiki`,
-`content/concepts/distributions/normal-mixture.md` and
-`content/concepts/distributions/variance-gamma.md`, revision
-`9717c9cf83aee18b47f423a14bce2f0d14bb8bcb`, under MIT. The source books
-retain their own rights. No book prose or figures are reproduced.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

@@ -112,13 +112,33 @@ Cauchy experiment is reserved for chapter 7; recursive mixing for chapter 20.
 
 ## Worked cases
 
-Run `uv run python demos/incerto/finite_moments.py` for the deterministic
+Use [`normal_mixture_absolute_moment`](incerto-api-reference.md#api-normal-mixture-absolute-moment), [`power_mean`](incerto-api-reference.md#api-power-mean).
+
+```python
+from xmath.incerto.finite_moments import normal_mixture_absolute_moment, power_mean
+
+variances, weights = [0.5, 50.5], [0.99, 0.01]
+for order in (2, 4):
+    print(order, normal_mixture_absolute_moment(order, variances, weights))
+print("Power means:", [power_mean([0, 0, 0, 4], p) for p in (1, 2, 4)])
+```
+
+**Output**
+
+```text
+2 1.0000000000000002
+4 77.25000000000009
+Power means: [1.0, 2.0, 2.8284271247461903]
+```
+
+The finite mixture and the fixed vector answer different moment and norm questions.
+
+Figure regeneration: `uv run python demos/incerto/finite_moments.py` for the deterministic
 mixture, curvature and norm figures and the seeded moment experiment.
-Run `uv run python demos/incerto/dispersion_ratio.py` for the existing
+Figure regeneration: `uv run python demos/incerto/dispersion_ratio.py` for the existing
 Gaussian, Student, and Pareto comparison. Model curves and simulations are
 identified separately in their concept-page captions; no external data are
-needed. The scalar variance–mean gamma derivation previously on this page
-now lives in the [mixture note](incerto-mixture-uncertainty.md#mixture-variance-gamma).
+needed. The scalar variance–mean gamma derivation is in the [mixture note](incerto-mixture-uncertainty.md#mixture-variance-gamma).
 
 ## References
 
@@ -126,38 +146,3 @@ now lives in the [mixture note](incerto-mixture-uncertainty.md#mixture-variance-
   2025, arXiv:2001.10488v4, ch. 4, §§4.1–4.5, printed pp. 69–89.
   The table gives the section locators used. Our examples, proofs and figures
   are developed independently; the concept pages identify cited inputs.
-
-## Source and license
-
-Adapted from `xshi19/incerto-wiki`, `content/reading-guides/taleb-scoft/ch4.md`,
-with scalar calculations adapted from `content/concepts/distributions/normal-mixture.md`
-and `content/concepts/distributions/variance-gamma.md`,
-at revision `9717c9cf83aee18b47f423a14bce2f0d14bb8bcb`.
-The original author-controlled material is used under MIT; the cited books
-and external datasets retain their own rights. Calculations are static and
-are not executed by the site build.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

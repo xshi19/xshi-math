@@ -25,36 +25,3 @@ fills notation gaps, adds proofs, and connects ideas.
 | [Chapter 5 — Subexponentials and power laws](incerto-scoft-ch5.md) | Tail classes, sums, products, and entropy constraints | [Regular variation](incerto-regular-variation.md), [Subexponentiality](incerto-subexponentiality.md), [Karamata](incerto-karamata.md), [Maximum entropy](incerto-maximum-entropy.md) |
 | [Chapter 6 — Thick tails in higher dimensions](incerto-scoft-ch6.md) | Dependence, information, spectra and regimes | [Multivariate tails](incerto-multivariate-tails.md), [Density geometry](incerto-iso-density-tail-geometry.md), [Tail class catalog](incerto-tail-class-catalog.md) |
 | 7 | Planned guide | Planned; no page published |
-
-## Source and license
-
-Adapted from `xshi19/incerto-wiki`, `content/reading-guides/taleb-scoft/intro.md`,
-at revision `9717c9cf83aee18b47f423a14bce2f0d14bb8bcb`.
-The original author-controlled material is used under MIT; the cited books
-and external datasets retain their own rights. Calculations are static and
-are not executed by the site build.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

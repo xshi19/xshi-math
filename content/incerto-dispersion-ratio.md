@@ -56,11 +56,26 @@ names `MeanAD` and `MedianAD` are local conventions for this page.
   $\sigma$, so the ratios should be near $1$.
 - For Student-t or Pareto samples, large observations can push the standard
   deviation much higher than the absolute-deviation scales.
-- In a single-outlier sample, the median absolute deviation can be zero while
-  the standard deviation is large, so the second ratio is recorded as infinite when the numerator is positive.
-  For a constant sample both numerator and denominator vanish; the helper
-  returns `NaN` for both undefined ratios. It returns infinity only for a
-  positive numerator over a zero denominator.
+
+Use [`dispersion_ratios`](incerto-api-reference.md#api-dispersion-ratios).
+
+```python
+from xmath.incerto.stats import dispersion_ratios
+
+for sample in ([2, 2, 2], [0, 0, 10], [1, 2, 3]):
+    mean_ratio, median_ratio = dispersion_ratios(sample)
+    print(f"{sample}: Std/MeanAD={mean_ratio:.6g}, Std/MedianAD={median_ratio:.6g}")
+```
+
+**Output**
+
+```text
+[2, 2, 2]: Std/MeanAD=nan, Std/MedianAD=nan
+[0, 0, 10]: Std/MeanAD=0.846284, Std/MedianAD=inf
+[1, 2, 3]: Std/MeanAD=0.977205, Std/MedianAD=0.550719
+```
+
+The ratios distinguish $0/0$ from a positive numerator over a zero denominator.
 
 ## Calibration
 
@@ -99,9 +114,28 @@ those observations much more weight than either absolute-deviation statistic.
 The simulation compares Gaussian, Student-t, and Pareto samples across sample
 sizes.  It reports repeated-simulation medians of the two dispersion ratios.
 
-Run `uv run python demos/incerto/dispersion_ratio.py` after installing `xshi-math[incerto]`
-to reproduce these static figures. The script records the sample sizes and
-random seeds where simulation is used.
+Use [`dispersion_ratios`](incerto-api-reference.md#api-dispersion-ratios).
+
+```python
+import numpy as np
+from xmath.incerto.stats import dispersion_ratios
+
+rng = np.random.default_rng(20261020)
+for label, sample in (("Normal", rng.normal(size=5000)),
+                      ("Student 3", rng.standard_t(3, size=5000))):
+    print(label, np.round(dispersion_ratios(sample), 3))
+```
+
+**Output**
+
+```text
+Normal [1.003 1.021]
+Student 3 [1.175 1.383]
+```
+
+These are sample diagnostics, not estimates of a tail exponent.
+
+Figure regeneration: `uv run python demos/incerto/dispersion_ratio.py`.
 
 ![Repeated-sample medians of Gaussian-calibrated standard-deviation to mean and median absolute-deviation ratios](../assets/incerto/figures/dispersion-ratio-1.svg)
 
@@ -158,36 +192,3 @@ Pareto(1.5); n=1000; median Std/MeanAD=2.457; median Std/MedianAD=9.386
 Pareto(1.5); n=5000; median Std/MeanAD=3.086; median Std/MedianAD=12.000
 Pareto(1.5); n=20000; median Std/MeanAD=3.974; median Std/MedianAD=16.015
 ```
-
-## Source and license
-
-Adapted from `xshi19/incerto-wiki`, `content/concepts/examples/dispersion-ratio.md`,
-at revision `9717c9cf83aee18b47f423a14bce2f0d14bb8bcb`.
-The original author-controlled material is used under MIT; the cited books
-and external datasets retain their own rights. Calculations are static and
-are not executed by the site build.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

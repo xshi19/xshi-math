@@ -188,17 +188,42 @@ $|t_1|+|t_2|$ instead has diamond level sets. Thus closure under linear
 combinations does not require ellipticality.
 
 ```{figure} ../assets/figures/incerto/multivariate-geometry.svg
-:alt: Three vertically stacked contour panels compare independent Cauchy, spherical Cauchy, and a normal mixture with correlations plus and minus 0.8.
+:alt: Three vertically stacked contour panels compare independent Cauchy, spherical Cauchy, and a normal mixture with correlations plus and minus 0.8. Each legend identifies contours at 5, 15, 35 and 65 percent of that panel's density at the origin.
 
 Exact density contours on the same coordinate window. The first two laws
 have identical standard Cauchy marginals but different contours. In the
 third, both marginals are standard normal and covariance is the identity,
-yet the contours are not elliptical. Levels are common fractions of each
-panel's density at the origin; they are not equal enclosed probabilities.
+yet the contours are not elliptical. The color and line-style keys identify
+levels at 5%, 15%, 35% and 65% of each panel's density at the origin;
+these are density levels, not equal enclosed probabilities.
 The finite window is a plotting range, not a truncation of any law.
 ```
 
-Run `uv run python demos/incerto/multivariate_tails.py` for the contours,
+Use [`bivariate_student`](incerto-api-reference.md#api-bivariate-student).
+
+```python
+import numpy as np
+from xmath.incerto.multivariate import bivariate_student
+
+rng = np.random.default_rng(20261020)
+sample = bivariate_student(rng, nu=1, rho=0, size=10000)
+radius = np.linalg.norm(sample, axis=1)
+angle = np.arctan2(sample[:, 1], sample[:, 0])
+sector = (radius > 3) & (angle >= 0) & (angle <= np.pi / 3)
+print("Sector frequency:", sector.mean())
+print("Exact probability:", 1 / (6 * np.sqrt(10)))
+```
+
+**Output**
+
+```text
+Sector frequency: 0.0533
+Exact probability: 0.05270462766947299
+```
+
+The 10,000 seeded draws illustrate an integrated probability, not a density contour level.
+
+Figure regeneration: `uv run python demos/incerto/multivariate_tails.py` for the contours,
 the sector integral and the earlier constrained-density ratios. The chapter
 6 guide links the [sample-correlation and information calculations](incerto-multivariate-tails.md).
 
@@ -229,36 +254,3 @@ the sector integral and the earlier constrained-density ratios. The chapter
   [Subexponentiality](./incerto-subexponentiality.md).
 - Related diagnostic: [Max-to-Sum Ratio](./incerto-max-to-sum-ratio.md).
 - Related density geometry: [Body, Shoulders, and Tails](./incerto-body-shoulder-tail.md).
-
-## Source and adaptation
-
-Adapted from `incerto-wiki`, `content/concepts/methods/iso-density-tail-geometry.md`, revision `9717c9c`
-(2026-09-13 import). Copyright (c) 2023 xshi19. Licensed under MIT.
-Links and notation were adapted for this site; executable figures and simulations
-were replaced with static calculations. No upstream execution or formal-proof
-verification is claimed for this adaptation.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

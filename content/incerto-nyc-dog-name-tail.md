@@ -74,9 +74,30 @@ panel reports the Pareto tail exponent
 $\widehat\alpha=1/\widehat\xi$.  These symbols follow the shared
 [notation table](https://xshi19.github.io/math/notation/).
 
-Run `python demos/incerto/nyc_dog_name_tail.py` after installing `xshi-math[incerto]`
-to reproduce these static figures. The script records the sample sizes and
-random seeds where simulation is used.
+Use [`load_nyc_dog_name_frequencies`](incerto-api-reference.md#api-load-nyc-dog-name-frequencies), [`hill_stability`](incerto-api-reference.md#api-hill-stability), [`DogNameFrequencyData.frequency_for`](incerto-api-reference.md#api-dognamefrequencydata-frequency-for).
+
+```python
+from xmath.incerto.datasets import load_nyc_dog_name_frequencies
+from xmath.incerto.estimators import hill_stability
+
+data = load_nyc_dog_name_frequencies()
+print("Names / records:", data.name.size, data.frequency.sum())
+print("Safari:", data.frequency_for("Safari"))
+result = hill_stability(data.frequency, [50, 200, 1000])
+print("Hill alpha:", result["alpha"].round(3))
+```
+
+**Output**
+
+```text
+Names / records: 34680 789724
+Safari: 3
+Hill alpha: [1.896 1.287 1.056]
+```
+
+The bundled aggregate is read locally in an editable checkout.
+
+Figure regeneration: `uv run python demos/incerto/nyc_dog_name_tail.py`.
 
 ![nyc dog name tail diagnostic 1](../assets/incerto/figures/nyc-dog-name-tail-1.svg)
 
@@ -104,7 +125,23 @@ The same aggregate can answer case-insensitive name-frequency questions.  The
 result remains a count of license-period rows unless the underlying records
 can be shown to represent different dogs.
 
-For the name lookup, the same script prints the included license-period frequency of Safari.
+Use [`load_nyc_dog_name_frequencies`](incerto-api-reference.md#api-load-nyc-dog-name-frequencies), [`DogNameFrequencyData.frequency_for`](incerto-api-reference.md#api-dognamefrequencydata-frequency-for).
+
+```python
+from xmath.incerto.datasets import load_nyc_dog_name_frequencies
+
+data = load_nyc_dog_name_frequencies()
+for name in ("Safari", " safari ", "SAFARI"):
+    print(repr(name), data.frequency_for(name))
+```
+
+**Output**
+
+```text
+'Safari' 3
+' safari ' 3
+'SAFARI' 3
+```
 
 ## Caveats
 
@@ -146,6 +183,8 @@ For the name lookup, the same script prints the included license-period frequenc
 The committed demo produced the following on 2026-10-17. These are sample
 calculations, with seeds and sample sizes specified in the script.
 
+:::{dropdown} Output: full demo
+
 ```text
 NYC dog-name frequencies
   Normalized names: 34,680
@@ -164,36 +203,4 @@ Selected tail-sensitivity points
   k=5,000; threshold=    15; Hill alpha=0.783
 Safari: 3 included license-period records
 ```
-
-## Source and license
-
-Adapted from `xshi19/incerto-wiki`, `content/concepts/examples/nyc-dog-name-tail.md`,
-at revision `9717c9cf83aee18b47f423a14bce2f0d14bb8bcb`.
-The original author-controlled material is used under MIT; the cited books
-and external datasets retain their own rights. Calculations are static and
-are not executed by the site build.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 :::

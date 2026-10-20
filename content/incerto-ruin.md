@@ -110,7 +110,27 @@ infinite-horizon survival. The lower panel uses $q=0.02$, $a=1.04$;
 it compares ensemble expectation with survival, not with simulated paths.
 ```
 
-Run `uv run python demos/incerto/lecture_risk.py`. The grids contain
+Use [`survival_from_hazards`](incerto-api-reference.md#api-survival-from-hazards), [`absorbing_resource_path`](incerto-api-reference.md#api-absorbing-resource-path).
+
+```python
+from xmath.incerto.lecture_risk import survival_from_hazards, absorbing_resource_path
+
+print("Survival through step 3:", survival_from_hazards([0.02] * 3))
+for increments in ([-4, 4], [4, -4]):
+    print(increments, absorbing_resource_path(3, increments))
+```
+
+**Output**
+
+```text
+Survival through step 3: [1.       0.98     0.9604   0.941192]
+[-4, 4] [3. 0. 0.]
+[4, -4] [3. 7. 3.]
+```
+
+Ruin is absorbing.
+
+Figure regeneration: `uv run python demos/incerto/lecture_risk.py`. The grids contain
 $N=0,\ldots,400$ and $k=0,\ldots,200$; the two ordered increment
 examples are printed separately. There is no RNG or external data.
 

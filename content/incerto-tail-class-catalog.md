@@ -269,7 +269,31 @@ provides the exponential-moment contrast for these two light-tailed laws.
 (tail-class-catalog-demo)=
 ## A finite model comparison
 
-Run `uv run python demos/incerto/prologue_tail_classes.py` from the
+Use [`pareto_type1`](incerto-api-reference.md#api-pareto-type1), [`log_survival_multiplier_ratio`](incerto-api-reference.md#api-log-survival-multiplier-ratio).
+
+```python
+import numpy as np
+from scipy.stats import expon, lognorm
+from xmath.incerto.distributions import pareto_type1
+from xmath.incerto.tail_classes import log_survival_multiplier_ratio
+
+for label, law in (("Pareto", pareto_type1(2.5)),
+                   ("Lognormal", lognorm(1)), ("Exponential", expon())):
+    log_ratio = log_survival_multiplier_ratio(law.logsf, [2, 10, 100])
+    print(label, np.round(log_ratio, 4))
+```
+
+**Output**
+
+```text
+Pareto [-1.7329 -1.7329 -1.7329]
+Lognormal [-1.0808 -2.0516 -3.5628]
+Exponential [  -2.  -10. -100.]
+```
+
+A finite grid illustrates the specified laws and cannot classify unknown data.
+
+Figure regeneration: `uv run python demos/incerto/prologue_tail_classes.py` from the
 repository root. It evaluates $\log A_2(u)$ for Pareto
 $(\alpha=5/2,x_m=1)$, standard lognormal, Weibull $(\beta=1/2)$,
 exponential (rate $1$), and gamma (shape $2$, rate $1$).
@@ -407,8 +431,30 @@ Exact appendix-A examples. The location mixture uses $\sigma=1$, with
 $m=0$ and $2$ in the density panel. The last panel compares conditional
 hazard $0.05$ each step with $p_j=2^{-j-1}$, starting intact. The first
 survival tends to zero; the second stays at least $1/2$. Neither construction
-asserts a power-tail law. Run `uv run python demos/incerto/multivariate_tails.py`.
+asserts a power-tail law. Figure regeneration: `uv run python demos/incerto/multivariate_tails.py`.
 ```
+
+Use [`normal_location_mixture_kurtosis`](incerto-api-reference.md#api-normal-location-mixture-kurtosis), [`survival_from_hazards`](incerto-api-reference.md#api-survival-from-hazards).
+
+```python
+from xmath.incerto.multivariate import normal_location_mixture_kurtosis
+from xmath.incerto.lecture_risk import survival_from_hazards
+
+print("Location-mixture kurtosis:", normal_location_mixture_kurtosis(2))
+print("Constant hazard:", survival_from_hazards([0.05] * 100)[-1])
+hazards = [2.0**(-j - 1) for j in range(1, 101)]
+print("Decreasing hazard:", survival_from_hazards(hazards)[-1])
+```
+
+**Output**
+
+```text
+Location-mixture kurtosis: 1.7199999999999998
+Constant hazard: 0.005920529220334054
+Decreasing hazard: 0.5775761901732049
+```
+
+Neither example asserts a power-tail law.
 
 The [Pareto mixture contrast](incerto-pareto.md#pareto-regime-mixture)
 shows what changes when one regime actually has a power tail.
@@ -517,36 +563,3 @@ no numerical integration or executable package helper is needed for it.
   [Regular Variation](./incerto-regular-variation.md).
 - Example distribution: [Pareto Distribution](./incerto-pareto.md).
 - Related diagnostic: [Max-to-Sum Ratio](./incerto-max-to-sum-ratio.md).
-
-## Source and adaptation
-
-Adapted from `incerto-wiki`, `content/concepts/distributions/tail-class-catalog.md`, revision `9717c9c`
-(2026-09-13 import). Copyright (c) 2023 xshi19. Licensed under MIT.
-Links and notation were adapted for this site; executable figures and simulations
-were replaced with static calculations. No upstream execution or formal-proof
-verification is claimed for this adaptation.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

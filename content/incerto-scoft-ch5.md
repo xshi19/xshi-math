@@ -116,8 +116,29 @@ The formula $\xi=1/\alpha$ is restricted to the positive regularly varying case.
 (scoft-ch5-demo)=
 ## Reproduce the worked models
 
-Run `uv run python demos/incerto/power_laws.py` after installing the repository
-dependencies. It produces four original figures: tail diagnostics, products
+Use [`pareto_truncated_moment`](incerto-api-reference.md#api-pareto-truncated-moment), [`q_exponential_logsf`](incerto-api-reference.md#api-q-exponential-logsf).
+
+```python
+from xmath.incerto.power_laws import pareto_truncated_moment, q_exponential_logsf
+
+print("Boundary moment:", pareto_truncated_moment([10, 100], alpha=1.5, order=1.5))
+for q in (0.75, 1, 1.25):
+    print(q, q_exponential_logsf([0, 1, 2], q, beta=2))
+```
+
+**Output**
+
+```text
+Boundary moment: [3.45387764 6.90775528]
+0.75 [-0.        -3.4657359       -inf]
+1 [-0. -2. -4.]
+1.25 [-0.         -1.21639532 -2.07944154]
+```
+
+A log survival of `-inf` at the compact endpoint means zero survival.
+
+Figure regeneration: `uv run python demos/incerto/power_laws.py` after installing the repository
+dependencies. It produces four figures: tail diagnostics, products
 and moment integrals, Student/double-Pareto matching, and entropy constraints.
 The grids and one-dimensional quadrature are bounded; no random draws,
 external data, fitted parameters, censoring, or sampling intervals are used.

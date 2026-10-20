@@ -123,7 +123,32 @@ They agree exactly at $k=1$. Separate linear and logarithmic panels retain
 both comparisons. The Bernoulli model is bounded and is not heavy-tailed.
 ```
 
-Run `uv run python demos/incerto/lecture_risk.py`. The script evaluates
+Use [`split_power_damage_logsf`](incerto-api-reference.md#api-split-power-damage-logsf), [`block_failure_summary`](incerto-api-reference.md#api-block-failure-summary).
+
+```python
+import numpy as np
+from xmath.incerto.lecture_risk import split_power_damage_logsf, block_failure_summary
+
+for modules in (1, 16):
+    log_tail = split_power_damage_logsf(4, alpha=1.5, power=2, modules=modules)
+    print(modules, float(np.exp(log_tail)))
+for blocks in (1, 10):
+    print(blocks, block_failure_summary(0.02, blocks))
+```
+
+**Output**
+
+```text
+1 0.3535533905932738
+16 0.044194173824159244
+1 {'mean': 0.02, 'variance': 0.0196, 'any_failure': 0.02, 'total_failure': 0.02}
+10 {'mean': 0.02, 'variance': 0.0019600000000000004, 'any_failure': 0.1829271931124531, 'total_failure': 1.0240000000000003e-17}
+```
+
+The split-damage calculation assumes equal modules; the block calculation
+assumes independent failures and equal exposures.
+
+Figure regeneration: `uv run python demos/incerto/lecture_risk.py`. The script evaluates
 161 thresholds from $0.01$ to $100$ and 40 block counts, prints the
 worked cases, and generates the figure without sampling or external data.
 

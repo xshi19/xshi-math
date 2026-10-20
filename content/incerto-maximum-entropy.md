@@ -242,7 +242,31 @@ the plotted range is finite. These are model calculations, with no sampled
 or observed data.
 ```
 
-Run `uv run python demos/incerto/power_laws.py`. The helper checks the
+Use [`entropy_log_constraint_example`](incerto-api-reference.md#api-entropy-log-constraint-example).
+
+```python
+from xmath.incerto.power_laws import entropy_log_constraint_example
+
+result = entropy_log_constraint_example()
+for name, value in result.items():
+    print(name, round(value, 6))
+```
+
+**Output**
+
+```text
+pareto_mass 1.0
+pareto_log_moment 0.5
+pareto_entropy 0.806853
+log_gamma_mass 1.0
+log_gamma_log_moment 0.5
+log_gamma_entropy 0.690921
+kl 0.115932
+```
+
+This quadrature checks one worked case, not global optimality.
+
+Figure regeneration: `uv run python demos/incerto/power_laws.py`. The helper checks the
 constraint, entropy and KL integrals independently by adaptive quadrature,
 and the demo evaluates 301 points for each panel. No fitted distribution or
 uncertainty interval is involved. Selecting a log-moment constraint is a
