@@ -189,6 +189,42 @@ The exact Pareto ratio is constant at $2^{-\alpha}$; the log-corrected
 ratio approaches the same target slowly. A finite diagnostic curve can
 suggest regular variation, but the definition is about the asymptotic limit.
 
+```{figure} ../assets/figures/incerto/glossary-slow-variation.svg
+:name: regular-variation-slow-ratio
+:alt: The doubling ratio of a logarithmically corrected power tail decreases slowly toward the constant one-quarter ratio of an exact Pareto tail on a logarithmic threshold axis.
+
+This reused chapter-2 figure uses $\bar F(u)=u^{-2}(1+\log u)$ for
+$u\ge1$, extended by one below $1$. It has exponent $2$ and slowly
+varying factor $1+\log u$, differing from the preceding exponent-$1.5$
+example with factor $\log u$. Its doubling ratio is
+$\tfrac14[1+\log 2/(1+\log u)]$, which approaches $1/4$.
+All values are population evaluations; the threshold axis is logarithmic.
+```
+
+Use [`regular_variation_ratio`](incerto-api-reference.md#api-regular-variation-ratio)
+to evaluate the law used in the figure:
+
+```python
+import numpy as np
+from xmath.incerto.tail_diagnostics import regular_variation_ratio
+
+survival = lambda u: u**-2 * (1 + np.log(u))
+result = regular_variation_ratio(survival, [1, 10, 100, 10000])
+for u, ratio in zip(result["threshold"], result["ratio"]):
+    print(f"u={u:.4g}: ratio={ratio:.4g}, limit=0.25")
+```
+
+**Output**
+
+```text
+u=1: ratio=0.4233, limit=0.25
+u=10: ratio=0.3025, limit=0.25
+u=100: ratio=0.2809, limit=0.25
+u=1e+04: ratio=0.267, limit=0.25
+```
+
+The existing producer is `uv run python demos/incerto/glossary_worked_cases.py`.
+
 The [chapter 5 demo](incerto-scoft-ch5.md#scoft-ch5-demo) compares
 multiplier ratios for Student and shifted double-Pareto tails. Their finite
 threshold differences are explained by the

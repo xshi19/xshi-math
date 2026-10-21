@@ -133,6 +133,81 @@ $\beta(u)/u=\xi$ is specific to the exact Pareto tail. Selected-threshold
 uncertainty, dependence, and tail approximation error are additional to the
 sampling uncertainty of a fit at a fixed threshold.
 
+(threshold-synthetic-figures)=
+## Coordinated diagnostics on one sample
+
+```{figure} ../assets/figures/incerto/threshold-diagnostics.svg
+:alt: Six vertically aligned panels show survival, Hill index, mean excess, fitted GPD shape, modified scale and exceedance counts for one mixture sample as the threshold rises.
+
+One iid sample of $30{,}000$ from the model above, PCG64 seed 20261021.
+Every panel uses the same threshold axis; dotted lines mark the known
+population join $u=3$. Thresholds are observed order statistics near a
+fixed grid, so Hill uses the same baseline as the strict exceedance count.
+Dashed references are population quantities; the exact Pareto references
+start at $3$. The mean-excess and fitted-parameter curves are masked below
+50 exceedances, with the excluded threshold region shaded. Counts remain
+visible; numerical fit failures would appear as crosses in the count panel.
+The survival panel uses strict empirical survival and omits its zero endpoint
+on log axes. No threshold is selected by the plot.
+```
+
+The GPD fits hold excess location at zero and check numerical convergence,
+positive scale and support for every excess. We plot both fitted shape
+and modified scale $\widehat\beta(u)-\widehat\xi(u)u$. Success of these
+checks means the numerical fit is usable for the display; it does not
+establish a global likelihood optimum or validate the model.
+
+```{figure} ../assets/figures/incerto/threshold-pp.svg
+:alt: GPD probability-probability checks at thresholds 2, 3 and 12 compare fitted CDF values with empirical plotting positions, with counts shown for each threshold.
+
+The same sample at three fixed thresholds. Each panel places fitted GPD
+CDF values at the ordered excesses on the horizontal axis and $i/(m+1)$
+on the vertical axis, where $m$ is that panel's exceedance count and
+$i=1,\ldots,m$. These are plotting positions,
+not strict survival probabilities. Parameters are fitted on the displayed
+data, so proximity to the diagonal is an in-sample diagnostic with no
+confidence-band interpretation. The body affects the fit at $u=2$;
+raising the threshold loses observations. Agreement or a plateau across
+these checks does not single out a unique threshold.
+```
+
+Use [`pareto_type1`](incerto-api-reference.md#api-pareto-type1) and
+[`gpd_threshold_fit`](incerto-api-reference.md#api-gpd-threshold-fit).
+This reproduces the three fixed-threshold fits without writing figures:
+
+:::{dropdown} Code
+
+```python
+import numpy as np
+from xmath.incerto.distributions import pareto_type1
+from xmath.incerto.estimators import gpd_threshold_fit
+
+rng = np.random.default_rng(20261021)
+tail = rng.random(30000) < 0.18
+x = rng.uniform(1, 3, 30000)
+x[tail] = pareto_type1.rvs(1.7, scale=3, size=tail.sum(), random_state=rng)
+for u in (2, 3, 12):
+    fit = gpd_threshold_fit(x, u, min_exceedances=50)
+    print(f"u={u:d}: count={fit['count']:d}, status={fit['status']}")
+    print(f"  xi={fit['xi']:.4g}, beta={fit['beta']:.4g}, modified_scale={fit['modified_scale']:.4g}")
+```
+
+**Output**
+
+```text
+u=2: count=17596, status=ok
+  xi=0.5065, beta=0.8523, modified_scale=-0.1608
+u=3: count=5344, status=ok
+  xi=0.5929, beta=1.744, modified_scale=-0.03471
+u=12: count=501, status=ok
+  xi=0.5553, beta=7.346, modified_scale=0.683
+```
+:::
+
+Regenerate both figures with `uv run python demos/incerto/tail_estimation.py`.
+The runner also exports the Hill and mean-excess comparisons; its fixed
+sample sizes and fit-iteration caps bound the work.
+
 ## Caveats
 
 - Threshold selection is a modeling judgment, not a theorem.  Different

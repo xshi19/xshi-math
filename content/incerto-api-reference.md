@@ -32,8 +32,8 @@ for implementations and use local `help()` for the installed version.
 | Module | Entry points and purpose |
 | --- | --- |
 | `xmath.incerto.datasets` | [`load_amazon_bookrank`](incerto-api-reference.md#api-load-amazon-bookrank), [`load_nyc_dog_name_frequencies`](incerto-api-reference.md#api-load-nyc-dog-name-frequencies), [`load_sp500_prices`](incerto-api-reference.md#api-load-sp500-prices); explicit local-cache and refresh helpers |
-| `xmath.incerto.distributions` | [`pareto_type1`](incerto-api-reference.md#api-pareto-type1), [`double_pareto`](incerto-api-reference.md#api-double-pareto), [`hypsecant2`](incerto-api-reference.md#api-hypsecant2), [`simple_normal_mixture`](incerto-api-reference.md#api-simple-normal-mixture), [`univariate_variance_gamma`](incerto-api-reference.md#api-univariate-variance-gamma); SciPy-style distribution objects |
-| `xmath.incerto.estimators` | [`hill_estimator`](incerto-api-reference.md#api-hill-estimator) (extreme-value index), [`hill_alpha_estimator`](incerto-api-reference.md#api-hill-alpha-estimator) (reciprocal exponent), [`hill_stability`](incerto-api-reference.md#api-hill-stability), [`pareto_mean_plugin`](incerto-api-reference.md#api-pareto-mean-plugin), [`mean_excess`](incerto-api-reference.md#api-mean-excess), [`running_mean`](incerto-api-reference.md#api-running-mean), [`max_to_sum_ratio`](incerto-api-reference.md#api-max-to-sum-ratio) |
+| `xmath.incerto.distributions` | [`pareto_type1`](incerto-api-reference.md#api-pareto-type1), [`double_pareto`](incerto-api-reference.md#api-double-pareto), [`hypsecant2`](incerto-api-reference.md#api-hypsecant2), [`simple_normal_mixture`](incerto-api-reference.md#api-simple-normal-mixture), [`univariate_variance_gamma`](incerto-api-reference.md#api-univariate-variance-gamma), [`generalized_pareto`](incerto-api-reference.md#api-generalized-pareto), [`generalized_extreme_value`](incerto-api-reference.md#api-generalized-extreme-value), [`frechet`](incerto-api-reference.md#api-frechet); SciPy-style distribution objects |
+| `xmath.incerto.estimators` | [`hill_estimator`](incerto-api-reference.md#api-hill-estimator) (extreme-value index), [`hill_alpha_estimator`](incerto-api-reference.md#api-hill-alpha-estimator) (reciprocal exponent), [`hill_stability`](incerto-api-reference.md#api-hill-stability), [`pareto_mean_plugin`](incerto-api-reference.md#api-pareto-mean-plugin), [`mean_excess`](incerto-api-reference.md#api-mean-excess), [`running_mean`](incerto-api-reference.md#api-running-mean), [`max_to_sum_ratio`](incerto-api-reference.md#api-max-to-sum-ratio), [`max_to_sum_path`](incerto-api-reference.md#api-max-to-sum-path), [`gpd_threshold_fit`](incerto-api-reference.md#api-gpd-threshold-fit) |
 | `xmath.incerto.stats` | Gaussian-calibrated [`dispersion_ratios`](incerto-api-reference.md#api-dispersion-ratios), [`mean_absolute_deviation`](incerto-api-reference.md#api-mean-absolute-deviation), [`median_absolute_deviation`](incerto-api-reference.md#api-median-absolute-deviation); normal and Student-t shoulder boundaries; [`empirical_survival_function`](incerto-api-reference.md#api-empirical-survival-function) (strict exceedance with ties) and [`lognorm_params_from_mean_and_variance`](incerto-api-reference.md#api-lognorm-params-from-mean-and-variance) |
 | `xmath.incerto.tail_diagnostics` | [`regular_variation_ratio`](incerto-api-reference.md#api-regular-variation-ratio), [`iid_two_sum_tail`](incerto-api-reference.md#api-iid-two-sum-tail), [`subexponential_sum_ratio`](incerto-api-reference.md#api-subexponential-sum-ratio); numerical calculations with support and integration checks |
 | `xmath.incerto.tail_classes` | [`bounded_spike_summary`](incerto-api-reference.md#api-bounded-spike-summary) (population moments), [`log_survival_multiplier_ratio`](incerto-api-reference.md#api-log-survival-multiplier-ratio) (log-domain tail ratios); used by the [Prologue models](incerto-scoft-ch1.md) |
@@ -41,7 +41,7 @@ for implementations and use local `help()` for the installed version.
 | `xmath.incerto.lecture_risk` | [`repeated_event_probability`](incerto-api-reference.md#api-repeated-event-probability), [`survival_from_hazards`](incerto-api-reference.md#api-survival-from-hazards), [`finite_payoff_mean`](incerto-api-reference.md#api-finite-payoff-mean), [`absorbing_resource_path`](incerto-api-reference.md#api-absorbing-resource-path), [`split_power_damage_logsf`](incerto-api-reference.md#api-split-power-damage-logsf), [`block_failure_summary`](incerto-api-reference.md#api-block-failure-summary); [chapter 3 worked models](incerto-scoft-ch3.md#scoft-ch3-demo) |
 | `xmath.incerto.finite_moments` | [`normal_mixture_log_density`](incerto-api-reference.md#api-normal-mixture-log-density), [`normal_mixture_log_abs_survival`](incerto-api-reference.md#api-normal-mixture-log-abs-survival), [`normal_mixture_absolute_moment`](incerto-api-reference.md#api-normal-mixture-absolute-moment), [`pareto_moment_estimator_summary`](incerto-api-reference.md#api-pareto-moment-estimator-summary), [`power_mean`](incerto-api-reference.md#api-power-mean); [finite-moment worked cases](incerto-scoft-ch4.md#worked-cases) |
 | `xmath.incerto.multivariate` | [`student_entropy`](incerto-api-reference.md#api-student-entropy), [`student_mutual_information`](incerto-api-reference.md#api-student-mutual-information), [`bivariate_student`](incerto-api-reference.md#api-bivariate-student), [`sample_correlation`](incerto-api-reference.md#api-sample-correlation), [`symmetric_spectrum`](incerto-api-reference.md#api-symmetric-spectrum), [`regression_population_r2`](incerto-api-reference.md#api-regression-population-r2), [`normal_location_mixture_kurtosis`](incerto-api-reference.md#api-normal-location-mixture-kurtosis); [chapter 6 worked cases](incerto-scoft-ch6.md#scoft-ch6-demo). Student helpers deliberately restrict degrees of freedom to [0.5, 1000]. |
-| `xmath.incerto.figures` | [`set_theme`](incerto-api-reference.md#api-set-theme), [`style_axes`](incerto-api-reference.md#api-style-axes), [`savefig`](incerto-api-reference.md#api-savefig); shared figure style and deterministic export helpers |
+| `xmath.incerto.figures` | [`set_theme`](incerto-api-reference.md#api-set-theme), [`style_axes`](incerto-api-reference.md#api-style-axes), [`savefig`](incerto-api-reference.md#api-savefig), [`vertical_figure`](incerto-api-reference.md#api-vertical-figure), [`distribution_card`](incerto-api-reference.md#api-distribution-card); shared figure style and deterministic export helpers |
 | `xmath.incerto.power_laws` | [`pareto_product_logsf`](incerto-api-reference.md#api-pareto-product-logsf), [`pareto_truncated_moment`](incerto-api-reference.md#api-pareto-truncated-moment), [`student_double_pareto_scales`](incerto-api-reference.md#api-student-double-pareto-scales), [`q_exponential_logsf`](incerto-api-reference.md#api-q-exponential-logsf), [`entropy_log_constraint_example`](incerto-api-reference.md#api-entropy-log-constraint-example); [chapter 5 worked cases](incerto-scoft-ch5.md#scoft-ch5-demo) |
 
 Use [`pareto_type1`](incerto-api-reference.md#api-pareto-type1) and
@@ -347,6 +347,95 @@ print("[" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 
+
+(api-generalized-pareto)=
+#### [`generalized_pareto`](incerto-api-reference.md#api-generalized-pareto)
+
+`generalized_pareto(xi, beta=1.0)`
+
+Returns a frozen zero-location GPD with finite scalar shape $\xi$ and
+finite scale $\beta>0$. Methods include `pdf`, `cdf`, `sf`, `logsf`,
+`ppf`, `rvs` and `support`. Support is $[0,\infty)$ for $\xi\ge0$ and
+$[0,-\beta/\xi]$ for $\xi<0$. CDF/survival extend continuously at
+support boundaries. Endpoint densities can be infinite when $\xi<-1$.
+Invalid parameters raise `ValueError`.
+
+```python
+from xmath.incerto.distributions import generalized_pareto
+
+law = generalized_pareto(-0.4)
+print("Survival: [" + ", ".join(f"{v:.4g}" for v in law.sf([-1, 0, 1, 2.5, 3])) + "]")
+```
+
+**Output**
+
+```text
+Survival: [1, 1, 0.2789, 0, 0]
+```
+
+(api-generalized-extreme-value)=
+#### [`generalized_extreme_value`](incerto-api-reference.md#api-generalized-extreme-value)
+
+`generalized_extreme_value(xi, mu=0.0, sigma=1.0)`
+
+Returns a frozen GEV with the [page's shape convention](incerto-generalized-extreme-value.md):
+positive $\xi$ is heavy-tailed, zero is Gumbel, negative has a finite
+right endpoint. The adapter uses `scipy.stats.genextreme(c=-xi)` and
+exposes the same methods as the GPD adapter. Require finite scalar
+parameters and $\sigma>0$. Outside support, density is zero and
+CDF/survival have their limiting values. For $\xi<-1$, the density
+diverges as the right endpoint is approached, although SciPy 1.18 returns
+zero at the endpoint itself. This single-point convention does not change
+probabilities. Invalid parameters raise `ValueError`.
+
+```python
+from xmath.incerto.distributions import generalized_extreme_value
+
+for xi in (-0.3, 0, 0.3):
+    law = generalized_extreme_value(xi)
+    print(f"xi={xi:.4g}: cdf(0)={law.cdf(0):.4g}, sf(4)={law.sf(4):.4g}")
+```
+
+**Output**
+
+```text
+xi=-0.3: cdf(0)=0.3679, sf(4)=0
+xi=0: cdf(0)=0.3679, sf(4)=0.01815
+xi=0.3: cdf(0)=0.3679, sf(4)=0.06966
+```
+
+(api-frechet)=
+#### [`frechet`](incerto-api-reference.md#api-frechet)
+
+`frechet(alpha, scale=1.0)`
+
+Returns a frozen zero-location Fréchet law with CDF
+$\exp[-(y/\mathrm{scale})^{-\alpha}]$ for $y>0$. Both parameters are
+finite positive scalars. Uses SciPy `invweibull`, including `pdf`, `cdf`,
+`sf`, `logsf`, `ppf`, `rvs` and `support`. At and below zero,
+density and CDF are zero, survival one. Use `sf` rather than subtracting
+`cdf` from one when the right tail is small. Invalid parameters raise `ValueError`.
+The adapter inherits SciPy's numerical limits: for example, SciPy 1.18
+returns `nan` for `frechet(3).pdf(1e-100)` because intermediate powers
+overflow, although the true density rounds to zero. The P1 figure grids
+avoid this range.
+
+```python
+from xmath.incerto.distributions import frechet
+
+law = frechet(1.5)
+for y in (0, 1, 10):
+    print(f"y={y:d}: pdf={law.pdf(y):.4g}, cdf={law.cdf(y):.4g}, sf={law.sf(y):.4g}")
+```
+
+**Output**
+
+```text
+y=0: pdf=0, cdf=0, sf=1
+y=1: pdf=0.5518, cdf=0.3679, sf=0.6321
+y=10: pdf=0.004596, cdf=0.9689, sf=0.03113
+```
+
 ### Estimators
 
 Module: `xmath.incerto.estimators`.
@@ -476,6 +565,63 @@ print(f"{max_to_sum_ratio([1, 2, 7]):.4g}")
 0.7
 ```
 
+
+
+(api-max-to-sum-path)=
+#### [`max_to_sum_path`](incerto-api-reference.md#api-max-to-sum-path)
+
+`max_to_sum_path(x)`
+
+Returns the maximum divided by the sum for every prefix of a nonempty,
+finite, real, nonnegative one-dimensional list. Zero-total prefixes return
+`nan`. Log accumulation avoids overflow of the sum and avoids scaling early
+prefixes by a much larger future observation. Negative/nonfinite/complex
+values and wrong dimensions raise `ValueError`; ordinary rounding remains.
+
+```python
+from xmath.incerto.estimators import max_to_sum_path
+
+path = max_to_sum_path([0, 1, 1, 8])
+print("Prefix ratios: [" + ", ".join(f"{v:.4g}" for v in path) + "]")
+```
+
+**Output**
+
+```text
+Prefix ratios: [nan, 1, 0.5, 0.8]
+```
+
+(api-gpd-threshold-fit)=
+#### [`gpd_threshold_fit`](incerto-api-reference.md#api-gpd-threshold-fit)
+
+`gpd_threshold_fit(x, threshold, *, min_exceedances=30)`
+
+Numerically fits a zero-location GPD to strict excesses above a finite
+threshold. Returns `threshold`, integer `count`, `xi`, `beta`,
+`modified_scale` ($\widehat\beta-\widehat\xi u$), `success` and `status`.
+Finite real one-dimensional data are required; invalid input raises.
+Insufficient or constant excesses, overflow when forming excesses, and failed
+numerical fits retain counts but report `nan` parameters and an explanatory
+status. The optimizer stops
+at 2,000 iterations or 4,000 evaluations. Checks cover numerical convergence,
+finite parameters/log density, positive scale and every excess's support.
+Success is no guarantee of a global MLE, a valid tail model or an appropriate
+threshold. No confidence interval is returned.
+
+```python
+from xmath.incerto.estimators import gpd_threshold_fit
+
+fit = gpd_threshold_fit([1, 2, 2, 4], 2, min_exceedances=2)
+print(f"Count: {fit['count']:d}; status: {fit['status']}")
+print(f"xi: {fit['xi']:.4g}; beta: {fit['beta']:.4g}")
+```
+
+**Output**
+
+```text
+Count: 1; status: insufficient count
+xi: nan; beta: nan
+```
 
 (api-mean-excess)=
 #### [`mean_excess`](incerto-api-reference.md#api-mean-excess)
@@ -1422,6 +1568,74 @@ Apply final Incerto styling to one or more axes.
 `savefig(fig, path, **kwargs)`
 
 Save a figure with Incerto defaults.
+
+(api-vertical-figure)=
+#### [`vertical_figure`](incerto-api-reference.md#api-vertical-figure)
+
+`vertical_figure(panels, *, panel_height=3.8)`
+
+Returns a figure and a flat array of vertically stacked axes, five inches
+wide. `panels` is a positive integer; `panel_height` is positive and finite.
+Call [`set_theme`](incerto-api-reference.md#api-set-theme) with `scale=1.1`
+for the P1 mobile layout. This adds no drawing or export side effect.
+
+```python
+import matplotlib.pyplot as plt
+from xmath.incerto.figures import set_theme, vertical_figure
+
+set_theme(scale=1.1)
+fig, axes = vertical_figure(3)
+print(f"Panels: {len(axes):d}; width: {fig.get_figwidth():.4g} inches")
+plt.close(fig)
+```
+
+**Output**
+
+```text
+Panels: 3; width: 5 inches
+```
+
+(api-distribution-card)=
+#### [`distribution_card`](incerto-api-reference.md#api-distribution-card)
+
+`distribution_card(models, x, tail_x, *, title, support_note, coordinate="x", tail_label="Survival")`
+
+Returns a three-panel density/CDF/log-log survival figure. `models` contains
+`(frozen_law, label)` pairs exposing `pdf`, `cdf`, `sf` and `support`;
+`x` and `tail_x` are increasing finite vectors, with positive `tail_x`.
+Finite support endpoints get dotted markers in the corresponding curve color.
+Exact zero survival is masked on log axes; the visible probability range
+starts at $10^{-8}$. Nonfinite evaluations raise, including a grid point
+on a singular density endpoint. The caller supplies support text and explicit
+parameters; the helper performs no moment matching.
+
+Use [`savefig`](incerto-api-reference.md#api-savefig) for deterministic SVG export.
+This example constructs the card without writing files:
+
+:::{dropdown} Code
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+from xmath.incerto.distributions import generalized_pareto
+from xmath.incerto.figures import distribution_card, set_theme
+
+set_theme(scale=1.1)
+fig = distribution_card(
+    [(generalized_pareto(-0.4), "xi = -0.4")],
+    np.linspace(-0.2, 4, 101), np.geomspace(0.05, 10, 101),
+    title="GPD", support_note="Support: 0 ≤ y ≤ 2.5", coordinate="Excess y",
+)
+print(f"Card panels: {len(fig.axes):d}")
+plt.close(fig)
+```
+
+**Output**
+
+```text
+Card panels: 3
+```
+:::
 
 ### Base package
 

@@ -3,10 +3,13 @@
 from __future__ import annotations
 
 import operator
+import warnings
 from collections.abc import Iterable
 
 import numpy as np
 from numpy.typing import ArrayLike, NDArray
+from scipy.optimize import fmin
+from scipy.stats import genpareto
 
 
 def _positive_1d_sample(x: ArrayLike) -> NDArray[np.float64]:
@@ -300,6 +303,91 @@ def max_to_sum_ratio(
     return float(result) if np.ndim(result) == 0 else result
 
 
+def max_to_sum_path(x: ArrayLike) -> NDArray[np.float64]:
+    """Return each prefix's maximum / sum for a finite nonnegative 1-D list.
+
+    Zero-total prefixes return NaN, including an all-zero list. Empty,
+    nonfinite, complex or negative inputs raise ValueError. Log accumulation
+    avoids overflow of sums and preserves early tiny observations even when
+    a later record is huge. Ordinary floating-point rounding remains.
+    """
+    if np.iscomplexobj(x):
+        raise ValueError("x must be real")
+    values = np.asarray(x, dtype=float)
+    if (values.ndim != 1 or values.size == 0 or not np.all(np.isfinite(values))
+            or np.any(values < 0)):
+        raise ValueError("x must be a nonempty finite nonnegative vector")
+    with np.errstate(divide="ignore"):
+        logs = np.log(values)
+    log_max = np.maximum.accumulate(logs)
+    log_sum = np.logaddexp.accumulate(logs)
+    result = np.full(values.shape, np.nan)
+    positive = np.isfinite(log_sum)
+    result[positive] = np.exp(log_max[positive] - log_sum[positive])
+    return result
+
+
+def gpd_threshold_fit(x: ArrayLike, threshold: float, *, min_exceedances: int = 30):
+    """Fit a zero-location GPD to strict excesses x[x > threshold]-threshold.
+
+    Finite real 1-D data and a finite scalar threshold are required. Return
+    threshold, count, xi, beta, modified_scale=beta-xi*threshold, success and
+    status. Insufficient/constant excesses, overflow in forming excesses, or a
+    failed numerical fit retain the count but return NaN parameters and an
+    explanatory status. Nelder-Mead
+    is capped at 2000 iterations / 4000 evaluations; check convergence, finite
+    parameters/log likelihood, and strict interior support for every excess.
+    A successful local numerical fit is not a global MLE guarantee or a
+    validation of the tail model. No uncertainty interval is computed.
+    """
+    if np.iscomplexobj(x) or np.iscomplexobj(threshold):
+        raise ValueError("data and threshold must be real")
+    values = np.asarray(x, dtype=float)
+    if values.ndim != 1 or values.size == 0 or not np.all(np.isfinite(values)):
+        raise ValueError("x must be a nonempty finite vector")
+    if np.ndim(threshold) != 0 or not np.isfinite(threshold):
+        raise ValueError("threshold must be a finite scalar")
+    u = float(threshold)
+    minimum = _validate_min_exceedances(min_exceedances)
+    exceedances = values[values > u]
+    result = dict(threshold=u, count=int(exceedances.size), xi=np.nan, beta=np.nan,
+                  modified_scale=np.nan, success=False, status="insufficient count")
+    if exceedances.size < minimum:
+        return result
+    try:
+        with np.errstate(over="raise"):
+            excesses = exceedances - u
+    except FloatingPointError as exc:
+        result["status"] = f"fit failed: {exc}"
+        return result
+    if np.ptp(excesses) == 0:
+        result["status"] = "constant excesses"
+        return result
+
+    def optimizer(function, start, args=(), disp=0):
+        fitted, _, _, _, flag = fmin(function, start, args=args, disp=False,
+                                     full_output=True, maxiter=2000, maxfun=4000)
+        if flag:
+            raise RuntimeError("optimizer did not converge")
+        return fitted
+
+    try:
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", RuntimeWarning)
+            xi, loc, beta = genpareto.fit(excesses, floc=0, optimizer=optimizer)
+            modified = beta - xi * u
+            if (not np.all(np.isfinite([xi, loc, beta, modified])) or loc != 0
+                    or beta <= 0 or np.any(1 + xi * (excesses / beta) <= 0)
+                    or not np.all(np.isfinite(genpareto.logpdf(excesses, xi, scale=beta)))):
+                raise ValueError("invalid fitted parameters or support")
+    except (ValueError, RuntimeError, FloatingPointError, RuntimeWarning) as exc:
+        result["status"] = f"fit failed: {exc}"
+        return result
+    result.update(xi=float(xi), beta=float(beta), modified_scale=float(modified),
+                  success=True, status="ok")
+    return result
+
+
 def mean_excess(
     x: ArrayLike,
     thresholds: ArrayLike,
@@ -373,10 +461,12 @@ def _validate_min_exceedances(min_exceedances: int) -> int:
 
 
 __all__ = [
+    "gpd_threshold_fit",
     "hill_alpha_estimator",
     "hill_estimator",
     "hill_stability",
     "max_to_sum_ratio",
+    "max_to_sum_path",
     "mean_excess",
     "pareto_mean_plugin",
     "running_mean",

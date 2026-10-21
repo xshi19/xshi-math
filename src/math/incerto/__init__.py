@@ -10,6 +10,9 @@ from xmath.incerto.datasets import (
     load_sp500_prices,
 )
 from xmath.incerto.distributions import (
+    frechet,
+    generalized_extreme_value,
+    generalized_pareto,
     double_pareto,
     hypsecant2,
     pareto_type1,
@@ -17,10 +20,12 @@ from xmath.incerto.distributions import (
     univariate_variance_gamma,
 )
 from xmath.incerto.estimators import (
+    gpd_threshold_fit,
     hill_alpha_estimator,
     hill_estimator,
     hill_stability,
     max_to_sum_ratio,
+    max_to_sum_path,
     mean_excess,
     pareto_mean_plugin,
     running_mean,
@@ -39,6 +44,11 @@ from xmath.incerto.tail_diagnostics import (
 )
 
 __all__ = [
+    "frechet",
+    "generalized_extreme_value",
+    "generalized_pareto",
+    "gpd_threshold_fit",
+    "max_to_sum_path",
     "BookRankData",
     "DatasetNotAvailable",
     "DogNameFrequencyData",

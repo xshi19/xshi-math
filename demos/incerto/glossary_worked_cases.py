@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from xmath import exceedance_fraction
-from xmath.incerto.figures import COLORS, savefig, set_theme
+from xmath.incerto.figures import COLORS, savefig, set_theme, vertical_figure
 from xmath.incerto.glossary import (
     pareto_normalized_maximum_cdf,
     pareto_tail_quantities,
@@ -24,8 +24,8 @@ from xmath.incerto.stats import empirical_survival_function
 from xmath.incerto.tail_classes import log_survival_multiplier_ratio
 
 
-def main() -> None:
-    output = Path(__file__).resolve().parents[2] / "assets/figures/incerto"
+def main(output=None) -> None:
+    output = Path(output) if output is not None else Path(__file__).resolve().parents[2] / "assets/figures/incerto"
     output.mkdir(parents=True, exist_ok=True)
     set_theme()
     metadata = {"Date": None, "Creator": "xshi-math glossary_worked_cases.py"}
@@ -80,12 +80,14 @@ def main() -> None:
     ratios = np.exp(log_survival_multiplier_ratio(log_sf, u))
     if not np.all(np.isfinite(ratios)):
         raise ValueError("non-finite multiplier ratio")
-    fig, ax = plt.subplots(figsize=(6.6, 3.8), layout="constrained")
+    set_theme(scale=1.1)
+    fig, axes = vertical_figure(1, panel_height=3.6)
+    ax = axes[0]
     ax.semilogx(u, ratios, color=COLORS["teal"], label="Log-corrected power tail")
-    ax.axhline(.25, color=COLORS["brick"], linestyle="--", label="Exact Pareto, alpha=2")
+    ax.axhline(.25, color=COLORS["brick"], linestyle="--", label="Exact Pareto, α = 2")
     ax.set(xlabel=r"Threshold $u$", ylabel=r"$\bar F(2u)/\bar F(u)$",
-           ylim=(.23, .44))
-    ax.legend(loc="upper right")
+           ylim=(.23, .44), title="Doubling survival ratio · α = 2")
+    ax.legend(loc="upper center", bbox_to_anchor=(.5, -.25), handlelength=3)
     savefig(fig, output / "glossary-slow-variation.svg", metadata=metadata)
     plt.close(fig)
     # Matplotlib emits trailing spaces inside SVG paths; keep exports diff-clean.

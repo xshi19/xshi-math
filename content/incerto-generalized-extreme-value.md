@@ -71,6 +71,40 @@ With $\mu=0$ and $\sigma=1$, the support makes the three shapes explicit.
 Every curve passes through $H(0)=e^{-1}$. Positive shape gives a power-law
 right tail; negative shape gives a finite right endpoint.
 
+```{figure} ../assets/figures/incerto/gev-card.svg
+:name: gev-distribution-card
+:alt: GEV densities and CDFs show a left endpoint for positive shape and a right endpoint for negative shape. A third log-log panel shows survival only at positive thresholds.
+
+Exact GEV laws with $(\mu,\sigma)=(0,1)$ and $\xi=-0.3,0,0.3$.
+The dotted boundaries are $-10/3$ for positive shape and $10/3$ for
+negative shape. The Gumbel law has no finite endpoint. The log-log panel
+shows only positive thresholds, with survival below $10^{-8}$ outside
+the viewport and exact zero omitted.
+```
+
+[`generalized_extreme_value`](incerto-api-reference.md#api-generalized-extreme-value)
+uses the shape sign in this page's CDF. It passes `c=-xi` to
+[SciPy's `genextreme`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.genextreme.html).
+
+```python
+from xmath.incerto.distributions import generalized_extreme_value
+
+for xi in (-0.3, 0, 0.3):
+    law = generalized_extreme_value(xi)
+    left, right = law.support()
+    print(f"xi={xi:.4g}: support=[{left:.4g}, {right:.4g}], cdf(0)={law.cdf(0):.4g}")
+```
+
+**Output**
+
+```text
+xi=-0.3: support=[-inf, 3.333], cdf(0)=0.3679
+xi=0: support=[-inf, inf], cdf(0)=0.3679
+xi=0.3: support=[-3.333, inf], cdf(0)=0.3679
+```
+
+Regenerate the card with `uv run python demos/incerto/distribution_cards.py`.
+
 ## Pareto block maxima example
 
 If $X_1,\dots,X_n$ are iid [Pareto Type I](./incerto-pareto.md) with lower cutoff $x_m$ and exponent

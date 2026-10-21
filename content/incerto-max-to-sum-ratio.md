@@ -97,10 +97,20 @@ different:
 - Exact Pareto $\alpha=1$: $M_n/S_n\to0$ in probability, but slowly;
   $M_n/(x_m n)$ is bounded in probability, while
   $S_n/(x_m n\log n)\to1$ in probability (a cited limit).
+  This is not almost-sure convergence of the ratio.
 - $0<\alpha<1$: under standard regular-variation assumptions, $M_n/S_n$ has
-  a nondegenerate limiting distribution.  Infinite mean does not imply that
+  a nondegenerate limiting distribution
+  [@darling1952influence].
+  Infinite mean does not imply that
   one observation asymptotically equals the whole sum; several of the largest
   observations may keep material shares.
+
+For iid nonnegative variables with $P(X>0)>0$, the converse to the
+finite-mean theorem also holds: $R_n\to0$ almost surely **if and only if**
+$\mathbb E[X]<\infty$. This converse is cited from
+@obrien1980limit, not proved above.
+It does not rule out convergence in probability with an infinite mean,
+as the exact Pareto $\alpha=1$ case shows.
 
 ## An exact running-list diagnostic
 
@@ -123,7 +133,50 @@ $x_m n^{1/\alpha}$, whereas the sum is asymptotic to $n\mu$. Thus a typical
 ratio has scale $n^{1/\alpha-1}$: its exponent is $-3/13$ at $\alpha=1.3$
 and $-2/3$ at $\alpha=3$. This scale comparison supplies no universal finite-$n$
 quantile or confidence bound. The infinite-mean limits cited above require
-separate asymptotic results; no Monte Carlo quantiles are reported here.
+separate asymptotic results; the simulation below illustrates finite samples.
+
+(max-to-sum-paths)=
+## Paths and repeated samples across the mean boundary
+
+```{figure} ../assets/figures/incerto/max-to-sum.svg
+:alt: Paired path and sampling-quantile panels show running maximum-to-sum ratios for Pareto exponents 0.8, 1 and 1.3, including large upward record jumps and slower decay at the mean boundary.
+
+Exact iid Pareto draws with $x_m=1$ and $\alpha=0.8,1,1.3$.
+Each path panel retains all $30{,}000$ prefixes for three independent
+paths. Each companion panel shows pointwise 10th and 90th sampling
+percentiles and the median from 400 independent paths, evaluated at
+100 requested log-spaced checkpoints (duplicate integer checkpoints removed).
+These are sampling quantiles under specified laws, not confidence intervals
+or simultaneous path bands. Independent PCG64 streams use seeds
+20261030–20261032 for the displayed paths and 20261040–20261042 for
+the ensembles. The broad shares at $\alpha=0.8$ do not imply convergence to one;
+the slow decay at $\alpha=1$ is compatible with an infinite mean and
+convergence of the ratio to zero in probability. Finite plots do not prove
+these asymptotic statements.
+```
+
+[`max_to_sum_path`](incerto-api-reference.md#api-max-to-sum-path) returns
+one ratio per prefix. Zero-total prefixes are undefined and return `nan`.
+
+```python
+from xmath.incerto.estimators import max_to_sum_path
+
+path = max_to_sum_path([1, 1, 1, 1, 16, 1, 1, 1, 1])
+for n in (4, 5, 9):
+    print(f"n={n:d}: ratio={path[n-1]:.4g}")
+print("Zero prefix: [" + ", ".join(f"{v:.4g}" for v in max_to_sum_path([0, 2, 2])) + "]")
+```
+
+**Output**
+
+```text
+n=4: ratio=0.25
+n=5: ratio=0.8
+n=9: ratio=0.6667
+Zero prefix: [nan, 1, 0.5]
+```
+
+Regenerate the figure with `uv run python demos/incerto/max_to_sum.py`.
 
 ## Reference distributions for the diagnostic
 
@@ -195,12 +248,19 @@ The finite-mean theorem for $R_n$ proves no resampling validity statement.
   cancellation.  Apply it to nonnegative losses, severities, exposures, or
   possibly $|X_i|$, explicitly changing the interpretation.
 - A running max-to-sum curve is order-dependent, while the final $R_n$ is not.
-- For $\alpha<1$, exact limiting behavior of $M_n/S_n$ belongs to stable and
-  Poisson point process asymptotics. Here those limits are cited from Resnick
-  (2007); only the finite-mean statement is proved.
+- For $0<\alpha<1$, exact limiting behavior of $M_n/S_n$ belongs to stable and
+  Poisson point process asymptotics. Here those limits are cited from Darling
+  (1952) and Resnick (2007); only the finite-mean implication is proved.
 
 ## References
 
+- Darling, "The influence of the maximum term in the addition of independent
+  random variables," *Transactions of the American Mathematical Society*
+  **73** (1952), 95–107
+  [DOI](https://doi.org/10.1090/S0002-9947-1952-0048726-0).
+- O'Brien, "A limit theorem for sample maxima and heavy branches in
+  Galton–Watson trees," *Journal of Applied Probability* **17** (1980),
+  539–545 [DOI](https://doi.org/10.2307/3213043).
 - Politis and Romano, "Large Sample Confidence Regions Based on Subsamples
   under Minimal Assumptions," *The Annals of Statistics* **22** (1994),
   2031–2050 [DOI](https://doi.org/10.1214/aos/1176325770).

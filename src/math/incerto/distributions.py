@@ -12,7 +12,60 @@ import numpy as np
 from numpy.typing import ArrayLike, NDArray
 from scipy import special
 from scipy.stats import gamma as gamma_distribution
-from scipy.stats import norm, rv_continuous
+from scipy.stats import genextreme, genpareto, invweibull, norm, rv_continuous
+
+
+def _finite_parameter(value: float, name: str, *, positive: bool = False) -> float:
+    if np.iscomplexobj(value) or np.ndim(value) != 0:
+        raise ValueError(f"{name} must be a real scalar")
+    try:
+        value = float(value)
+    except (TypeError, ValueError, OverflowError) as exc:
+        raise ValueError(f"{name} must be a finite real scalar") from exc
+    if not np.isfinite(value) or (positive and value <= 0):
+        raise ValueError(f"{name} must be finite" + (" and positive" if positive else ""))
+    return value
+
+
+def generalized_pareto(xi: float, beta: float = 1.0):
+    """Frozen zero-location GPD with the page's shape xi and scale beta > 0.
+
+    Exposes SciPy pdf/cdf/sf/logsf/ppf/rvs/support methods. Support is [0, inf)
+    for xi >= 0, otherwise [0, -beta/xi]. CDF/survival extend by 0/1 below
+    zero and by 1/0 at and above a finite upper endpoint. The density at that
+    endpoint can be infinite when xi < -1. Finite scalar parameters required.
+    """
+    return genpareto(_finite_parameter(xi, "xi"),
+                     scale=_finite_parameter(beta, "beta", positive=True))
+
+
+def generalized_extreme_value(xi: float, mu: float = 0.0, sigma: float = 1.0):
+    """Frozen GEV with CDF exp(-(1 + xi*(x-mu)/sigma)**(-1/xi)).
+
+    Uses SciPy genextreme(c=-xi): positive xi is the heavy right-tail regime.
+    The xi=0 limit is Gumbel. Support ends at mu-sigma/xi on the left for
+    xi>0 and on the right for xi<0; cdf/sf extend continuously outside it.
+    Exposes pdf/cdf/sf/logsf/ppf/rvs/support. Parameters are finite scalars,
+    sigma > 0. For xi < -1 the density diverges on approach to the right
+    endpoint, but SciPy 1.18 assigns pdf=0 at the endpoint itself. A density's
+    value at one point does not change the law; cdf=1 and sf=0 there.
+    """
+    return genextreme(-_finite_parameter(xi, "xi"),
+                      loc=_finite_parameter(mu, "mu"),
+                      scale=_finite_parameter(sigma, "sigma", positive=True))
+
+
+def frechet(alpha: float, scale: float = 1.0):
+    """Frozen Frechet law: CDF exp(-(y/scale)**(-alpha)) for y > 0.
+
+    Finite positive scalar alpha and scale; zero location. Uses SciPy's
+    invweibull and exposes pdf/cdf/sf/logsf/ppf/rvs/support. Below/at zero,
+    pdf=cdf=0 and sf=1. Use sf directly to preserve small right tails.
+    Inherits SciPy's numerical limits: tiny positive y/scale can overflow
+    intermediate powers (e.g. alpha=3, y/scale=1e-100 gives pdf=NaN in 1.18).
+    """
+    return invweibull(_finite_parameter(alpha, "alpha", positive=True),
+                      scale=_finite_parameter(scale, "scale", positive=True))
 
 
 def _csch(x: ArrayLike) -> NDArray[np.float64]:
@@ -354,6 +407,9 @@ univariate_variance_gamma = univariate_variance_gamma_gen(
 )
 
 __all__ = [
+    "generalized_pareto",
+    "generalized_extreme_value",
+    "frechet",
     "double_pareto",
     "double_pareto_gen",
     "hypsecant2",

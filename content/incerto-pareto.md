@@ -97,11 +97,26 @@ $$
 \frac{f(2x)}{f(x)}=2^{-(\alpha+1)}.
 $$
 
-This ratio describes the decay of the density without a numerical plot.
+This density exponent differs by one from the survival exponent.
 
 Larger $\alpha$ concentrates more mass near $x_m$ and makes
 the density decay faster.  Smaller $\alpha$ keeps more visible mass far from the
 cutoff.
+
+```{figure} ../assets/figures/incerto/pareto-card.svg
+:name: pareto-distribution-card
+:alt: Three stacked panels show Pareto densities and CDFs on linear axes and straight survival lines on log-log axes, with the lower cutoff at one marked.
+
+Exact Pareto laws with $x_m=1$ and $\alpha=0.8,1.5,3$.
+Dotted vertical lines mark the lower support boundary. Larger exponents
+concentrate more density near $1$. For $x\ge1$, the log-log survival slope
+is $-\alpha$, while the density exponent is $-(\alpha+1)$; below the
+cutoff, survival is one. The last panel uses positive thresholds and a
+lower visible probability of $10^{-8}$.
+```
+
+The card uses [`pareto_type1`](incerto-api-reference.md#api-pareto-type1).
+Regenerate it with `uv run python demos/incerto/distribution_cards.py`.
 
 ## Power-law survival
 
