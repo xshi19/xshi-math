@@ -10,7 +10,7 @@ barrier, and how splitting exposure changes aggregate damage.
 This guide uses @taleb2025scoftv4, *Statistical Consequences of Fat Tails*,
 third edition, **arXiv:2001.10488v4, ch. 3, printed pp. 25–68**.
 The section locators below refer to that version. Our concept notes develop
-original models and proofs; the lecture supplies their context. Empirical
+models and proofs; the lecture supplies their context. Empirical
 and policy assertions in the lecture are outside these calculations.
 
 ## Notation at the point of use
@@ -119,9 +119,25 @@ failure probabilities fixed and varies dependence between modules.
 
 Run from the repository root after installing the development dependencies:
 
-```sh
-uv run python demos/incerto/lecture_risk.py
+Use [`repeated_event_probability`](incerto-api-reference.md#api-repeated-event-probability), [`finite_payoff_mean`](incerto-api-reference.md#api-finite-payoff-mean).
+
+```python
+from xmath.incerto.lecture_risk import repeated_event_probability, finite_payoff_mean
+
+print(f"Rare component seen: {repeated_event_probability(1e-4, 1000):.4g}")
+print(f"Frequent gains, mean: {finite_payoff_mean([0.98, 0.02], [1, -80]):.4g}")
 ```
+
+**Output**
+
+```text
+Rare component seen: 0.09517
+Frequent gains, mean: -0.62
+```
+
+
+
+Figure regeneration: `uv run python demos/incerto/lecture_risk.py`.
 
 The script uses installed helpers in `xmath.incerto.lecture_risk`, exact
 finite formulas, fixed grids and no RNG or external data. It prints the
@@ -137,41 +153,8 @@ No finite plot proves an infinite-horizon or tail limit.
   appendix E.1, p. 191, for the conditioning restriction only.
 - [The precaution paper, arXiv:1410.5787v1](https://arxiv.org/pdf/1410.5787v1),
   §II.B and §III, pp. 2–3, and §VII.A–C, p. 6: context for absorbing
-  ruin, nonlinear damage and dependence. The linked notes supply original
+  ruin, nonlinear damage and dependence. The linked notes supply
   proofs for their specified models, without adopting policy conclusions.
 - @embrechts1997modelling, *Modelling Extremal Events*, and
   @resnick2007heavy, *Heavy-Tail Phenomena*: broader tail theory;
   the existing concept notes identify the results they use.
-
-## Source and license
-
-Adapted from `xshi19/incerto-wiki`, `content/reading-guides/taleb-scoft/ch3.md`,
-at revision `9717c9cf83aee18b47f423a14bce2f0d14bb8bcb`.
-The original author-controlled material is used under MIT; the cited books
-and external datasets retain their own rights. Calculations are static and
-are not executed by the site build.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

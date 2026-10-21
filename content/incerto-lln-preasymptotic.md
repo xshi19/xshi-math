@@ -53,9 +53,36 @@ Type I law.
 The left panel shows single running-mean paths at log-spaced checkpoints.  The
 right panel summarizes repeated final sample means at several sample sizes.
 
-Run `python demos/incerto/lln_preasymptotic.py` after installing `xshi-math[incerto]`
-to reproduce these static figures. The script records the sample sizes and
-random seeds where simulation is used.
+Use [`pareto_type1`](incerto-api-reference.md#api-pareto-type1), [`running_mean`](incerto-api-reference.md#api-running-mean), [`max_to_sum_ratio`](incerto-api-reference.md#api-max-to-sum-ratio).
+
+```python
+import numpy as np
+from xmath.incerto.distributions import pareto_type1
+from xmath.incerto.estimators import running_mean, max_to_sum_ratio
+
+rng = np.random.default_rng(20261020)
+for alpha in (0.8, 1.0, 1.3):
+    sample = pareto_type1.rvs(alpha, size=5000, random_state=rng)
+    means = running_mean(sample)[[99, 999, 4999]]
+    print(f"alpha={alpha:.4g}: [" + ", ".join(f"{v:.4g}" for v in means) + "]")
+    print(f"Maximum share: {max_to_sum_ratio(sample):.3f}")
+```
+
+**Output**
+
+```text
+alpha=0.8: [127, 81.28, 37.8]
+Maximum share: 0.115
+alpha=1: [5.203, 7.27, 8.461]
+Maximum share: 0.064
+alpha=1.3: [3.292, 5.847, 4.178]
+Maximum share: 0.097
+```
+
+Only the $\alpha=1.3$ law has a finite population mean, $13/3$;
+a finite path does not prove convergence.
+
+Figure regeneration: `uv run python demos/incerto/lln_preasymptotic.py`.
 
 ![lln preasymptotic diagnostic 1](../assets/incerto/figures/lln-preasymptotic-1.svg)
 
@@ -105,36 +132,3 @@ Pareto alpha=1.3:
   largest observation's share of total: 0.010
   finite theoretical mean: 4.333
 ```
-
-## Source and license
-
-Adapted from `xshi19/incerto-wiki`, `content/concepts/examples/lln-preasymptotic.md`,
-at revision `9717c9cf83aee18b47f423a14bce2f0d14bb8bcb`.
-The original author-controlled material is used under MIT; the cited books
-and external datasets retain their own rights. Calculations are static and
-are not executed by the site build.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

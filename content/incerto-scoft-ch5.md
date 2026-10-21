@@ -116,8 +116,31 @@ The formula $\xi=1/\alpha$ is restricted to the positive regularly varying case.
 (scoft-ch5-demo)=
 ## Reproduce the worked models
 
-Run `uv run python demos/incerto/power_laws.py` after installing the repository
-dependencies. It produces four original figures: tail diagnostics, products
+Use [`pareto_truncated_moment`](incerto-api-reference.md#api-pareto-truncated-moment), [`q_exponential_logsf`](incerto-api-reference.md#api-q-exponential-logsf).
+
+```python
+from xmath.incerto.power_laws import pareto_truncated_moment, q_exponential_logsf
+
+moments = pareto_truncated_moment([10, 100], alpha=1.5, order=1.5)
+print("Boundary moment: [" + ", ".join(f"{v:.4g}" for v in moments) + "]")
+for q in (0.75, 1, 1.25):
+    values = q_exponential_logsf([0, 1, 2], q, beta=2)
+    print(f"q={q:.4g}: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
+```
+
+**Output**
+
+```text
+Boundary moment: [3.454, 6.908]
+q=0.75: [-0, -3.466, -inf]
+q=1: [-0, -2, -4]
+q=1.25: [-0, -1.216, -2.079]
+```
+
+A log survival of `-inf` at the compact endpoint means zero survival.
+
+Figure regeneration: `uv run python demos/incerto/power_laws.py` after installing the repository
+dependencies. It produces four figures: tail diagnostics, products
 and moment integrals, Student/double-Pareto matching, and entropy constraints.
 The grids and one-dimensional quadrature are bounded; no random draws,
 external data, fitted parameters, censoring, or sampling intervals are used.

@@ -232,6 +232,42 @@ the probability is $1/8$, the mean excess is $8$, the conditional mean is
 $12$, and the tail contribution is $3/2$. Replacing that contribution by
 $u\bar F(u)=1/2$ would discard the entire excess integral.
 
+Use [`pareto_tail_quantities`](incerto-api-reference.md#api-pareto-tail-quantities).
+
+:::{dropdown} Code
+
+```python
+from xmath.incerto.glossary import pareto_tail_quantities
+
+for alpha in (1, 1.5, 3):
+    print(f"alpha={alpha:.4g}")
+    for name, value in pareto_tail_quantities(alpha, x_m=1, threshold=4).items():
+        print(f"  {name}: {value:.4g}")
+```
+
+**Output**
+
+```text
+alpha=1
+  log_survival: -1.386
+  mean_excess: inf
+  conditional_mean: inf
+  tail_first_moment: inf
+alpha=1.5
+  log_survival: -2.079
+  mean_excess: 8
+  conditional_mean: 12
+  tail_first_moment: 1.5
+alpha=3
+  log_survival: -4.159
+  mean_excess: 2
+  conditional_mean: 6
+  tail_first_moment: 0.09375
+```
+:::
+
+
+
 These definitions clarify SCoFT v4 §2.2.4, pp. 10–11, and §§2.2.23–24,
 pp. 17–18 [@taleb2025scoftv4]. The exact Pareto calculation here does not
 classify arbitrary tails from a finite mean-excess plot. Reproduce it with
@@ -399,7 +435,27 @@ always preserves the heavier tail therefore need additional hypotheses.
 The [power-transformation proof](incerto-regular-variation.md#regular-variation-powers)
 handles deterministic powers separately.
 
-Run `uv run python demos/incerto/power_laws.py` for these product survivals,
+Use [`pareto_product_logsf`](incerto-api-reference.md#api-pareto-product-logsf).
+
+```python
+import numpy as np
+from xmath.incerto.power_laws import pareto_product_logsf
+
+for a, b in ((1, 2), (1, 1)):
+    survival = np.exp(pareto_product_logsf(np.log([1, 10, 100]), a, b))
+    print(f"a={a:d}, b={b:d}: [" + ", ".join(f"{v:.4g}" for v in survival) + "]")
+```
+
+**Output**
+
+```text
+a=1, b=2: [1, 0.19, 0.0199]
+a=1, b=1: [1, 0.3303, 0.05605]
+```
+
+Equal exponents introduce the logarithmic factor derived above.
+
+Figure regeneration: `uv run python demos/incerto/power_laws.py` for these product survivals,
 the [moment-integral figure](incerto-pareto-moment-existence.md#pareto-moments-demo),
 and exact population checks. This adds no new growing-sample dominance claim;
 the earlier three max-to-sum regimes remain unchanged.
@@ -422,7 +478,7 @@ the earlier three max-to-sum regimes remain unchanged.
 
 The regime question in SCoFT v4 appendix A, §A.1, pp. 122–124
 [@taleb2025scoftv4], does not by itself specify a Pareto law.
-Here is a separate original example that does. With probability
+Here is an example that does. With probability
 $w\in(0,1]$, draw a Pareto variable with cutoff $x_m>0$ and exponent
 $\alpha>0$; otherwise draw a uniform variable on $[0,x_m]$.
 For $u\ge x_m$, conditioning on the regime proves
@@ -471,36 +527,3 @@ The chapter-6 demo prints this example without sampling or clipping it.
   [Pre-Asymptotic LLN Behavior](./incerto-lln-preasymptotic.md),
   [Max-to-Sum Ratio](./incerto-max-to-sum-ratio.md),
   and [Hill Estimator](./incerto-hill-estimator.md).
-
-## Source and adaptation
-
-Adapted from `incerto-wiki`, `content/concepts/distributions/pareto.md`, revision `9717c9c`
-(2026-09-13 import). Copyright (c) 2023 xshi19. Licensed under MIT.
-Links and notation were adapted for this site; executable figures and simulations
-were replaced with static calculations. No upstream execution or formal-proof
-verification is claimed for this adaptation.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

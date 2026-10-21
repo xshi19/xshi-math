@@ -113,6 +113,32 @@ gives $P(M_n\le r)=F(r)^n\to0$ for every $r<x_F$, even without a
 nondegenerate normalized limit. The EVI definition needs that additional
 limit and its normalizing constants.
 
+Use [`pareto_normalized_maximum_cdf`](incerto-api-reference.md#api-pareto-normalized-maximum-cdf).
+
+```python
+import numpy as np
+from xmath.incerto.glossary import pareto_normalized_maximum_cdf
+
+y = [0.5, 1, 2]
+for n in (1, 4, 16, 64):
+    values = pareto_normalized_maximum_cdf(y, alpha=1.5, n=n)
+    print(f"n={n:d}: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
+limit = np.exp(-np.array(y)**-1.5)
+print("Frechet limit: [" + ", ".join(f"{v:.4g}" for v in limit) + "]")
+```
+
+**Output**
+
+```text
+n=1: [0, 0, 0.6464]
+n=4: [0.007359, 0.3164, 0.6906]
+n=16: [0.04449, 0.3561, 0.6994]
+n=64: [0.05542, 0.365, 0.7015]
+Frechet limit: [0.05911, 0.3679, 0.7022]
+```
+
+These finite-$n$ CDFs are population calculations, not estimates from sampled maxima.
+
 `uv run python demos/incerto/glossary_worked_cases.py` compares the exact
 CDFs for $\alpha=3/2$, $n=1,4,16,64$, with the Fréchet limit on a fixed
 positive grid. These are population CDF evaluations, not fits to simulated
@@ -242,36 +268,3 @@ finite-sample estimates would be a diagnostic, not proof of the tail model.
   [Pickands-Balkema-de Haan Theorem](./incerto-pickands-balkema-de-haan.md),
   [Tail Threshold Selection](./incerto-tail-threshold-selection.md), and
   [S&P 500 Tail Diagnostics](./incerto-sp500-tail.md).
-
-## Source and adaptation
-
-Adapted from `incerto-wiki`, `content/concepts/methods/extreme-value-index.md`, revision `9717c9c`
-(2026-09-13 import). Copyright (c) 2023 xshi19. Licensed under MIT.
-Links and notation were adapted for this site; executable figures and simulations
-were replaced with static calculations. No upstream execution or formal-proof
-verification is claimed for this adaptation.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

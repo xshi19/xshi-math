@@ -62,9 +62,34 @@ diagnostic:
 Any resulting exponent is sample-specific and should be read as an empirical
 description, not a structural parameter of Amazon.
 
-Run `python demos/incerto/amazon_bookrank.py` after installing `xshi-math[incerto]`
-to reproduce these static figures. The script records the sample sizes and
-random seeds where simulation is used.
+Use [`load_amazon_bookrank`](incerto-api-reference.md#api-load-amazon-bookrank), [`hill_alpha_estimator`](incerto-api-reference.md#api-hill-alpha-estimator).
+
+```python
+from xmath.incerto.datasets import load_amazon_bookrank
+from xmath.incerto.estimators import hill_alpha_estimator
+
+data = load_amazon_bookrank()
+sales = data.weekly_sales[data.weekly_sales > 10]
+print(f"Snapshot rows: {data.weekly_sales.size:d}")
+for k in (10, 20, 40, 80, 120):
+    print(f"{k} {hill_alpha_estimator(sales, k):.3f}")
+```
+
+**Output**
+
+```text
+Snapshot rows: 861
+10 3.670
+20 2.509
+40 2.270
+80 2.116
+120 2.066
+```
+
+Run in an editable checkout with the bundled CC0 snapshot; the estimates
+are threshold-sensitive descriptions of this sample.
+
+Figure regeneration: `uv run python demos/incerto/amazon_bookrank.py`.
 
 ![amazon bookrank diagnostic 1](../assets/incerto/figures/amazon-bookrank-1.svg)
 
@@ -113,36 +138,3 @@ Hill alpha on sales > 10 for k= 40: 2.27
 Hill alpha on sales > 10 for k= 80: 2.12
 Hill alpha on sales > 10 for k=120: 2.07
 ```
-
-## Source and license
-
-Adapted from `xshi19/incerto-wiki`, `content/concepts/examples/amazon-bookrank.md`,
-at revision `9717c9cf83aee18b47f423a14bce2f0d14bb8bcb`.
-The original author-controlled material is used under MIT; the cited books
-and external datasets retain their own rights. Calculations are static and
-are not executed by the site build.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

@@ -18,7 +18,7 @@ An ordinary finite expected payoff requires $\mathbb E|g(X)|<\infty$.
 (payoffs-hit-rate)=
 ## The frequency of gains does not determine their mean
 
-Consider this original finite payoff table, in arbitrary payoff units:
+Consider this finite payoff table, in arbitrary payoff units:
 
 | Outcome probability | Payoff A | Payoff B |
 | --- | --- | --- |
@@ -113,6 +113,27 @@ $g(x)=\max(x-u,0)-d\ge-d$, for fixed $u$ and $d\ge0$, is a separate
 property. Repetition, costs and the distribution of $X$ still matter.
 
 ## Worked calculation and sources
+
+Use [`finite_payoff_mean`](incerto-api-reference.md#api-finite-payoff-mean).
+
+```python
+from xmath.incerto.lecture_risk import finite_payoff_mean
+
+probabilities = [0.98, 0.02]
+print(f"A: {finite_payoff_mean(probabilities, [1, -80]):.4g}")
+print(f"B: {finite_payoff_mean(probabilities, [-1, 80]):.4g}")
+print(f"Convex gap: {finite_payoff_mean([0.5, 0.5], [2**2, 6**2]) - 4**2:.4g}")
+```
+
+**Output**
+
+```text
+A: -0.62
+B: 0.62
+Convex gap: 4
+```
+
+A’s higher gain frequency does not imply a higher expected payoff.
 
 The lower panel of the [shared figure](incerto-inference-asymmetry.md#worked-calculation)
 plots $\mathbb E[(4\pm s)^2]-16=s^2$ and its negative for

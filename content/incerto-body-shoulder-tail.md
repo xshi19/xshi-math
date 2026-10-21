@@ -255,7 +255,31 @@ scale boundaries on the same dimensionless axis. Student scale is 1,
 so its standard deviation is the square root of 3.
 ```
 
-Run `uv run python demos/incerto/finite_moments.py`. These are exact density
+Use [`normal_peak_shoulder_tail`](incerto-api-reference.md#api-normal-peak-shoulder-tail), [`normal_variance_peak_shoulder_tail`](incerto-api-reference.md#api-normal-variance-peak-shoulder-tail), [`t_peak_shoulder_tail`](incerto-api-reference.md#api-t-peak-shoulder-tail).
+
+```python
+from xmath.incerto.stats import (
+    normal_peak_shoulder_tail, normal_variance_peak_shoulder_tail,
+    t_peak_shoulder_tail,
+)
+
+for label, values in (("Normal, scale", normal_peak_shoulder_tail()),
+                      ("Normal, variance", normal_variance_peak_shoulder_tail()),
+                      ("Student 3, scale", t_peak_shoulder_tail(3))):
+    print(f"{label}: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
+```
+
+**Output**
+
+```text
+Normal, scale: [-2.136, -0.6622, 0.6622, 2.136]
+Normal, variance: [-2.334, -0.742, 0.742, 2.334]
+Student 3, scale: [-2.758, -0.6281, 0.6281, 2.758]
+```
+
+These are local perturbation boundaries at unit scale, not fitted tail thresholds.
+
+Figure regeneration: `uv run python demos/incerto/finite_moments.py`. These are exact density
 calculations on 801 fixed points, with no random sampling. The script
 reports the finite-mixture crossings separately from the local boundaries.
 
@@ -294,37 +318,3 @@ every threshold under unrestricted mixing.
 - Depends on: [Normix normal mixtures](https://xshi19.github.io/math/normix-theory/normix-normal-mixtures/)
   and the canonical density notation in [Shared notation](https://xshi19.github.io/math/notation/).
 - Used by: [Dispersion Ratio Under Fat Tails](./incerto-dispersion-ratio.md).
-
-## Source and adaptation
-
-Adapted from `incerto-wiki`, `content/concepts/methods/body-shoulder-tail.md`, revision `9717c9c`
-(2026-09-13 Batch 2 import). Copyright (c) 2023 xshi19. Licensed under MIT.
-Links, notation, and qualifications were adapted for this site; executable
-figures and simulations were initially replaced with static calculations.
-The chapter-4 update adds original reproducible figures. No upstream
-execution or formal-proof verification is claimed for this adaptation.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

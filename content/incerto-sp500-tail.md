@@ -47,25 +47,42 @@ another data root; a wheel installation defaults to the user's cache.
 
 ## Reproducible method
 
-Run `python demos/incerto/sp500_tail.py`. Without data, it prints an
-availability message and exits successfully. With data, it reports the
-sample dates, loss count, Hill estimates, and mean excess across thresholds.
-It does not publish index data or produce figures during the site build.
+Use [`DatasetNotAvailable`](incerto-api-reference.md#api-datasetnotavailable), [`load_sp500_prices`](incerto-api-reference.md#api-load-sp500-prices), [`hill_alpha_estimator`](incerto-api-reference.md#api-hill-alpha-estimator), [`mean_excess`](incerto-api-reference.md#api-mean-excess), [`PriceSeries.negative_log_returns`](incerto-api-reference.md#api-priceseries-negative-log-returns).
+
+:::{dropdown} Code: run this calculation
 
 ```python
 import numpy as np
-from xmath.incerto.datasets import load_sp500_prices
+from xmath.incerto.datasets import DatasetNotAvailable, load_sp500_prices
 from xmath.incerto.estimators import hill_alpha_estimator, mean_excess
 
-prices = load_sp500_prices(fetch=False)
-dates, losses = prices.negative_log_returns()
-for k in (25, 50, 100, 200, 400):
-    if k < len(losses):
-        print(k, hill_alpha_estimator(losses, k))
-if len(losses) >= 20:
-    thresholds = np.quantile(losses, [0.8, 0.9, 0.95])
-    print(mean_excess(losses, thresholds, min_exceedances=5))
+try:
+    prices = load_sp500_prices(fetch=False)
+except DatasetNotAvailable:
+    print("No local S&P cache; supply an authorized price file to run this example.")
+else:
+    dates, losses = prices.negative_log_returns()
+    print(f"Window / loss days: {prices.date[0]} {prices.date[-1]} {len(losses):d}")
+    for k in (25, 50, 100, 200, 400):
+        if k < len(losses):
+            print(f"{k:d} {hill_alpha_estimator(losses, k):.4g}")
+    if len(losses) >= 20:
+        thresholds = np.quantile(losses, [0.8, 0.9, 0.95])
+        for name, values in mean_excess(losses, thresholds, min_exceedances=5).items():
+            fmt = ".0f" if name == "exceedances" else ".3e"
+            print(f"{name}: [" + ", ".join(format(v, fmt) for v in values) + "]")
 ```
+
+**Output**
+
+```text
+No local S&P cache; supply an authorized price file to run this example.
+```
+:::
+
+The output above is for an absent local cache; results with a cache depend
+on that local sample.
+The same diagnostics are available as `uv run python demos/incerto/sp500_tail.py`.
 
 The rank-based plotting position at sorted losses $\ell_{(i)}$ is
 $1-i/(n+1)$; it keeps plotted probabilities positive at the largest loss.
@@ -96,36 +113,3 @@ it is not a forecast of the next daily loss.
 - @fred2026sp500, S&P 500 through FRED.
 - @hill1975simple, tail-index estimation.
 - @davison1990models, threshold exceedances.
-
-## Source and license
-
-Adapted from `xshi19/incerto-wiki`, `content/concepts/examples/sp500-tail.md`,
-at revision `9717c9cf83aee18b47f423a14bce2f0d14bb8bcb`.
-The original author-controlled material is used under MIT; the cited books
-and external datasets retain their own rights. Calculations are static and
-are not executed by the site build.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

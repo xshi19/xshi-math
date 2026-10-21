@@ -81,10 +81,25 @@ $$
 \qquad \widehat\xi_n<1.
 $$
 
-If $\widehat\xi_n\ge1$, the fitted Pareto model has no finite mean. We report
-$+\infty$ in this case, rather than extend the rational formula to a negative
-number or silently discard the fit. If every observation equals $x_m$, the
-exponent has no finite maximizer; the limiting plug-in mean is $x_m$.
+Use [`pareto_mean_plugin`](incerto-api-reference.md#api-pareto-mean-plugin).
+
+```python
+from xmath.incerto.estimators import pareto_mean_plugin
+
+for sample in ([1, 1], [1, 2], [4, 4]):
+    print(f"{sample} {pareto_mean_plugin(sample, x_m=1):.4g}")
+```
+
+**Output**
+
+```text
+[1, 1] 1
+[1, 2] 1.53
+[4, 4] inf
+```
+
+An all-cutoff sample uses the limiting mean $x_m$; a fit with
+$\widehat\xi_n\ge1$ has no finite mean.
 
 (plugin-pareto-error-scale)=
 ## Why the logarithmic fit can improve concentration
@@ -171,8 +186,7 @@ by comparing these powers of $n$.
 
 If a repeated-sample experiment is performed, non-finite fits must count as
 infinite errors, including when summarizing quantiles and exceedance
-probabilities. The original simulation is not run in this static adaptation;
-there is no measured performance table here.
+probabilities. No repeated-sample performance table is reported here.
 
 Neither the normal limit nor a finite simulation establishes MSE dominance or
 tests whether an empirical dataset is Pareto.
@@ -297,36 +311,3 @@ mean to recover by this method.
   [Pareto Moment Existence](./incerto-pareto-moment-existence.md).
 - Reading guides: [SCoFT](./incerto-scoft-intro.md) and
   [external references](./incerto-external-reading.md).
-
-## Source and adaptation
-
-Adapted from `incerto-wiki`, `content/concepts/methods/plug-in-tail-estimation.md`, revision `9717c9c`
-(2026-09-13 import). Copyright (c) 2023 xshi19. Licensed under MIT.
-Links and notation were adapted for this site; executable figures and simulations
-were replaced with static calculations. No upstream execution or formal-proof
-verification is claimed for this adaptation.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

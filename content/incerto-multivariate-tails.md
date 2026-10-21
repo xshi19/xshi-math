@@ -34,10 +34,11 @@ Symbols follow the [shared notation](https://xshi19.github.io/math/notation/).
 An elliptical law has characteristic function
 
 $$
-\varphi_X(t)=e^{it^T\mu}\Psi(t^T\Sigma t),\qquad t\in\mathbb R^d,
+\varphi_X(t)=e^{it^T\mu}\Psi(t^T\Sigma t),
 $$
 
-where $\Psi$ is a scalar function for which this is a characteristic function.
+for $t\in\mathbb R^d$, where $\Psi$ is a scalar function for which this is a
+characteristic function.
 The definition can allow positive semidefinite $\Sigma$ and singular laws;
 our density calculations use positive definite $\Sigma$.
 It does not require moments or independence of coordinates.
@@ -48,7 +49,9 @@ extends to
 
 $$
 X=\mu+\sqrt Y\,AZ,
-\qquad
+$$
+
+$$
 \varphi_X(t)=e^{it^T\mu}\mathbb E e^{-Yt^T\Sigma t/2}.
 $$
 
@@ -82,11 +85,13 @@ Writing $q=(x-\mu)^T\Sigma^{-1}(x-\mu)$, integration over $g>0$ gives
 $$
 \begin{aligned}
 f_d(x)
-&=\frac{(\nu/2)^{\nu/2}}{(2\pi)^{d/2}|\Sigma|^{1/2}\Gamma(\nu/2)}
-  \int_0^\infty g^{(\nu+d)/2-1}e^{-(\nu+q)g/2}\,dg\\
+&=\frac{(\nu/2)^{\nu/2}}
+ {(2\pi)^{d/2}|\Sigma|^{1/2}\Gamma(\nu/2)}\\
+&\quad\times\int_0^\infty
+ g^{(\nu+d)/2-1}e^{-(\nu+q)g/2}\,dg\\
 &=\frac{\Gamma((\nu+d)/2)}
- {\Gamma(\nu/2)(\nu\pi)^{d/2}|\Sigma|^{1/2}}
- \left(1+\frac q\nu\right)^{-(\nu+d)/2}.
+ {\Gamma(\nu/2)(\nu\pi)^{d/2}|\Sigma|^{1/2}}\\
+&\quad\times\left(1+\frac q\nu\right)^{-(\nu+d)/2}.
 \end{aligned}
 $$
 
@@ -101,8 +106,10 @@ therefore applies to each coordinate: a mean exists for $\nu>1$, and
 finite covariance requires $\nu>2$. Gamma integration gives
 
 $$
-\mathbb E G^{-1}=\frac{\nu}{\nu-2},\qquad
+\begin{gathered}
+\mathbb E G^{-1}=\frac{\nu}{\nu-2},\\
 \operatorname{Cov}(X)=\frac{\nu}{\nu-2}\Sigma\quad(\nu>2).
+\end{gathered}
 $$
 
 For $\nu\le2$, a finite sample scatter matrix can still be calculated;
@@ -131,8 +138,11 @@ $u>0$, put $p_u(y)=2\bar\Phi(u/\sqrt y)$, with $\bar\Phi$ the standard
 normal survival. Conditional independence gives
 
 $$
-P(|X_1|>u,|X_2|>u)-P(|X_1|>u)^2
+\begin{aligned}
+&P(|X_1|>u,|X_2|>u)\\
+&\quad-P(|X_1|>u)^2
 =\operatorname{Var}(p_u(Y))>0.
+\end{aligned}
 $$
 
 The variance is positive because $p_u$ is strictly increasing and the
@@ -147,8 +157,11 @@ coefficient.
 For a bivariate density $f$ with marginals $f_1,f_2$, mutual information is
 
 $$
-I(X_1;X_2)=\int_{\mathbb R^2}f(x_1,x_2)
- \log\frac{f(x_1,x_2)}{f_1(x_1)f_2(x_2)}\,dx_1dx_2.
+\begin{aligned}
+&I(X_1;X_2)\\
+&=\int_{\mathbb R^2}f(x_1,x_2)\\
+&\quad\times\log\frac{f(x_1,x_2)}{f_1(x_1)f_2(x_2)}\,dx_1dx_2.
+\end{aligned}
 $$
 
 It is KL divergence from the joint law to the product of its marginals.
@@ -178,11 +191,11 @@ normalized log density now proves
 
 $$
 \begin{aligned}
-h_d(\nu,\Sigma)
-={}&\log\frac{\Gamma(\nu/2)}{\Gamma((\nu+d)/2)}
-+\frac d2\log(\nu\pi)+\frac12\log|\Sigma|\\
+&h_d(\nu,\Sigma)\\
+&=\log\frac{\Gamma(\nu/2)}{\Gamma((\nu+d)/2)}\\
+&+\frac d2\log(\nu\pi)+\frac12\log|\Sigma|\\
 &+\frac{\nu+d}{2}
-  \left[\psi_0((\nu+d)/2)-\psi_0(\nu/2)\right].
+  \left[\psi_0\!\left(\frac{\nu+d}{2}\right)-\psi_0\!\left(\frac\nu2\right)\right].
 \end{aligned}
 $$
 
@@ -192,7 +205,9 @@ scatter and off-diagonal entry $\rho$, $|\rho|<1$,
 
 $$
 I_\nu(\rho)=-\frac12\log(1-\rho^2)+\lambda_\nu,
-\qquad
+$$
+
+$$
 \lambda_\nu=2h_1(\nu,1)-h_2(\nu,I_2)>0.
 $$
 
@@ -258,7 +273,10 @@ real symmetric matrix $M$ with eigenvalues $\ell_1,\ldots,\ell_n$,
 
 $$
 \sum_j\ell_j^2=\operatorname{tr}(M^2)=\sum_{i,j}M_{ij}^2,
-\qquad \max_j|\ell_j|=\|M\|_2\ge\max_{i,j}|M_{ij}|.
+$$
+
+$$
+\max_j|\ell_j|=\|M\|_2\ge\max_{i,j}|M_{ij}|.
 $$
 
 Orthogonal diagonalization proves the first identity, and
@@ -269,12 +287,14 @@ sample covariance matrix $D^TD/n$, with $D$ a centered data matrix;
 that matrix is positive semidefinite and has a different construction.
 
 ```{figure} ../assets/figures/incerto/multivariate-spectra.svg
-:alt: Three vertical panels compare full empirical eigenvalue CDFs for normal, variance-standardized Student 3, and Student 1.5 symmetric matrices. Each panel has its own linear horizontal scale.
+:alt: Three vertical panels compare empirical eigenvalue CDFs for normal, variance-standardized Student 3, and Student 1.5 symmetric matrices. The Student 1.5 view spans minus 10 to 10, with counts outside that range annotated; CDF ordinates retain every eigenvalue.
 
 Twelve independent $80\times80$ symmetric matrices per law, all divided by
-$\sqrt{80}$; no eigenvalue is discarded. Each thin curve is a matrix's
-empirical CDF. The normal and Student-3 entries have variance one; Student
-1.5 has unit Student scale and infinite variance. The common divisor in the
+$\sqrt{80}$. Each thin curve is a matrix's empirical CDF, computed from all
+80 eigenvalues. The Student-1.5 viewport is $[-10,10]$; 39 eigenvalues lie below
+it and 40 above it, out of 960 across all twelve matrices. The CDFs keep those
+values in their ranks and denominators. The normal and Student-3 entries have
+variance one; Student 1.5 has unit Student scale and infinite variance. The common divisor in the
 last panel is a finite comparison convention, not a proposed limit scaling.
 The dashed semicircle CDF appears only in the two finite-variance panels.
 ```
@@ -288,10 +308,12 @@ Define the response $V=b+aX+\varepsilon$; the letter $Y$ remains reserved
 for mixing variance. Independence gives
 
 $$
-\operatorname{Cov}(X,V)=a,\qquad
-\operatorname{Var}(V)=a^2+\tau^2,\qquad
+\begin{gathered}
+\operatorname{Cov}(X,V)=a,\\
+\operatorname{Var}(V)=a^2+\tau^2,\\
 R^2_{\mathrm{pop}}=\operatorname{Corr}(X,V)^2
 =\frac{a^2}{a^2+\tau^2}.
+\end{gathered}
 $$
 
 For iid pairs, the strong law applied to $X,V,X^2,V^2,XV$ proves that
@@ -307,9 +329,26 @@ statement, extend $R_n^2$ by zero on samples with a constant column.
 The strong law makes both denominators positive eventually almost surely;
 this bounded extension therefore satisfies
 $\mathbb E R_n^2\to R^2_{\mathrm{pop}}$ by bounded convergence.
-The coefficient on a degenerate sample itself remains undefined; the
-numerical helper returns NaN there.
-It supplies no $O(n^{-2})$ error or universal upward-bias claim.
+The coefficient on a degenerate sample itself remains undefined.
+The convergence argument supplies no $O(n^{-2})$ error or universal upward-bias claim.
+
+Use [`sample_correlation`](incerto-api-reference.md#api-sample-correlation).
+
+```python
+from xmath.incerto.multivariate import sample_correlation
+
+print(f"Constant centered column: {sample_correlation([1, 1, 1], [1, 2, 3]):.4g}")
+print(f"Zero uncentered column: {sample_correlation([0, 0, 0], [1, 2, 3], centered=False):.4g}")
+print(f"Nondegenerate columns: {sample_correlation([1, 2, 3], [2, 4, 6]):.4g}")
+```
+
+**Output**
+
+```text
+Constant centered column: nan
+Zero uncentered column: nan
+Nondegenerate columns: 1
+```
 
 For Student error with scale $s>0$ and $\nu>2$,
 $\tau^2=s^2\nu/(\nu-2)$. At $a=s=1$, $\nu=3$, the target is
@@ -320,7 +359,7 @@ Letting a finite-variance family's $\nu$ decrease to two sends its target
 to zero, but does not define a correlation at the boundary.
 
 ```{figure} ../assets/figures/incerto/multivariate-sampling.svg
-:alt: Two vertical panels plot medians and 10th to 90th percentile bands of centered sample correlation and fitted regression R squared across four sample sizes.
+:alt: The upper panel, Sample correlation, plots medians and 10th to 90th percentile bands for Student 1.5 and Student 5 samples. The lower panel shows fitted regression R squared across the same four sample sizes.
 
 PCG64 seed 20261018, 400 replications at each size 30, 100, 300, 1000.
 Upper panel: bivariate Students with common scale and scatter parameter 0.6;
@@ -332,7 +371,34 @@ Monte Carlo confidence intervals. No draw is clipped or removed.
 
 ## Reproduce and read further
 
-Run `uv run python demos/incerto/multivariate_tails.py`. It prints the
+Use [`bivariate_student`](incerto-api-reference.md#api-bivariate-student), [`sample_correlation`](incerto-api-reference.md#api-sample-correlation), [`student_mutual_information`](incerto-api-reference.md#api-student-mutual-information).
+
+```python
+import numpy as np
+from xmath.incerto.multivariate import (
+    bivariate_student, sample_correlation, student_mutual_information,
+)
+
+rng = np.random.default_rng(20261020)
+for nu in (1.5, 5):
+    sample = bivariate_student(rng, nu, rho=0, size=2000)
+    print(f"nu={nu:.4g}, sample r: {sample_correlation(*sample.T):.3f}")
+    print(f"Population information: {student_mutual_information(nu):.4g}")
+```
+
+**Output**
+
+```text
+nu=1.5, sample r: -0.098
+Population information: 0.1281
+nu=5, sample r: -0.036
+Population information: 0.01713
+```
+
+Diagonal scatter gives zero population correlation only for $\nu=5$ here;
+at $\nu=1.5$ that population coefficient is undefined.
+
+Figure regeneration: `uv run python demos/incerto/multivariate_tails.py`. It prints the
 finite-model calculations, quadrature errors and sampling quantiles, and
 creates these three figures plus the linked geometry and regime figures.
 The [API reference](incerto-api-reference.md) lists the tested helper module.
@@ -345,4 +411,4 @@ mixture and independence questions; §6.4, pp. 114–115, motivates mutual
 information; §6.5, pp. 115–116, spectra; §6.6, pp. 116–117, sample
 correlation; and §6.7, pp. 117–119, regression. These are context locators.
 The source's historical regressions and general portfolio prescriptions
-are not evidence for the original models proved here.
+are not evidence for the models proved here.

@@ -183,8 +183,25 @@ on this grid, despite having every moment.
 ## Fitting a model introduces another boundary
 
 The [known-cutoff Pareto plug-in](incerto-plug-in-tail-estimation.md#plugin-caveats)
-uses $\widehat\xi_n=n^{-1}\sum\log(X_i/x_m)$ and returns
-$x_m/(1-\widehat\xi_n)$ when $\widehat\xi_n<1$, otherwise infinity.
+uses $\widehat\xi_n=n^{-1}\sum\log(X_i/x_m)$.
+
+Use [`pareto_mean_plugin`](incerto-api-reference.md#api-pareto-mean-plugin).
+
+```python
+from xmath.incerto.estimators import pareto_mean_plugin
+
+for sample in ([1, 1], [1, 2], [4, 4]):
+    print(f"{sample} {pareto_mean_plugin(sample, x_m=1):.4g}")
+```
+
+**Output**
+
+```text
+[1, 1] 1
+[1, 2] 1.53
+[4, 4] inf
+```
+
 Under an exact iid Pareto model with $\alpha>1$, the log-excess average has
 a gamma density that is positive and continuous at 1. Consequently even
 conditional on a finite fit,
@@ -262,7 +279,43 @@ estimand or dominates every estimator under every loss.
 
 ## Reproduce and interpret
 
-Run `uv run python demos/incerto/finite_moments.py`. NumPy's PCG64 generator
+Use [`pareto_type1`](incerto-api-reference.md#api-pareto-type1), [`pareto_moment_estimator_summary`](incerto-api-reference.md#api-pareto-moment-estimator-summary).
+
+:::{dropdown} Code
+
+```python
+import numpy as np
+from xmath.incerto.distributions import pareto_type1
+from xmath.incerto.finite_moments import pareto_moment_estimator_summary
+
+rng = np.random.default_rng(20261020)
+for alpha in (3, 6):
+    sample = pareto_type1.rvs(alpha, size=(100, 200), random_state=rng)
+    estimates = np.mean(sample**2, axis=1)
+    print(f"alpha={alpha:.4g}")
+    for name, value in pareto_moment_estimator_summary(alpha, q=2, n=200).items():
+        print(f"  {name}: {value:.4g}")
+    quantiles = np.quantile(estimates, [0.1, 0.5, 0.9])
+    print("Sample quantiles: [" + ", ".join(f"{v:.4g}" for v in quantiles) + "]")
+```
+
+**Output**
+
+```text
+alpha=3
+  moment: 3
+  estimator_variance: inf
+Sample quantiles: [2.335, 2.726, 3.491]
+alpha=6
+  moment: 1.5
+  estimator_variance: 0.00375
+Sample quantiles: [1.433, 1.497, 1.592]
+```
+:::
+
+The quantiles describe 100 seeded second-moment estimates from samples of size 200.
+
+Figure regeneration: `uv run python demos/incerto/finite_moments.py`. NumPy's PCG64 generator
 uses seed `20261018`; sample sizes are 50, 200, 1000, and 5000, with 600
 independent replications per law and size. The four laws are unit normal,
 the stated rare-state mixture, and Pareto with $x_m=1$, $\alpha=3,6$.

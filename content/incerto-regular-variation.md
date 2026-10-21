@@ -232,36 +232,3 @@ threshold differences are explained by the
   [Pareto Moment Existence](./incerto-pareto-moment-existence.md),
   [Generalized Central Limit Theorem](./incerto-generalized-central-limit-theorem.md),
   and [Hill Estimator](./incerto-hill-estimator.md).
-
-## Source and adaptation
-
-Adapted from `incerto-wiki`, `content/concepts/theorems/regular-variation.md`, revision `9717c9c`
-(2026-09-13 import). Copyright (c) 2023 xshi19. Licensed under MIT.
-Links and notation were adapted for this site; executable figures and simulations
-were replaced with static calculations. No upstream execution or formal-proof
-verification is claimed for this adaptation.
-
-:::{dropdown} MIT permission notice
-
-MIT License
-
-Copyright (c) 2023 xshi19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-:::

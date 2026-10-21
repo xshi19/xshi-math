@@ -12,7 +12,7 @@ shared scale, independence, and correlation.
 This guide uses @taleb2025scoftv4, third edition (2025),
 arXiv:2001.10488v4, chapter 6, printed pp. 107–120, and attached
 appendix A, pp. 121–125. The substantive numbered sections end on
-p. 119; p. 120 is the chapter transition. The notes supply original
+p. 119; p. 120 is the chapter transition. The notes supply
 arguments and examples, with proved and cited results identified locally.
 
 ## Reading map
@@ -86,7 +86,30 @@ The appendix's state probabilities must not be read as point densities.
 (scoft-ch6-demo)=
 ## Worked cases
 
-Run `uv run python demos/incerto/multivariate_tails.py`. Five single-column
+Use [`student_mutual_information`](incerto-api-reference.md#api-student-mutual-information), [`regression_population_r2`](incerto-api-reference.md#api-regression-population-r2), [`symmetric_spectrum`](incerto-api-reference.md#api-symmetric-spectrum).
+
+```python
+from xmath.incerto.multivariate import (
+    student_mutual_information, regression_population_r2, symmetric_spectrum,
+)
+
+print(f"Cauchy information: {student_mutual_information(1, rho=0):.4g}")
+print(f"Regression target: {regression_population_r2(1, error_variance=3):.4g}")
+values = symmetric_spectrum([[0, 2], [2, 0]])
+print("Matrix eigenvalues: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
+```
+
+**Output**
+
+```text
+Cauchy information: 0.2242
+Regression target: 0.25
+Matrix eigenvalues: [-2, 2]
+```
+
+Information is measured in nats; the finite matrix example implies no random-matrix limit.
+
+Figure regeneration: `uv run python demos/incerto/multivariate_tails.py`. Five single-column
 figures use exact density/entropy formulas, checked one-dimensional
 quadrature, and bounded seeded simulations:
 
@@ -94,7 +117,7 @@ quadrature, and bounded seeded simulations:
 | --- | --- |
 | Independent versus spherical Cauchy; switching normal correlation | [Density contours](incerto-iso-density-tail-geometry.md#tail-geometry-switching), 241-by-241 grid on $[-4,4]^2$ |
 | Student information and joint absolute exceedances | [Information](incerto-multivariate-tails.md#multivariate-information), $\nu\in[0.75,30]$, and gamma-precision quadrature at $\nu=3$ |
-| Symmetric matrix spectra | [Spectra](incerto-multivariate-tails.md#multivariate-spectra), twelve matrices of size 80 per law |
+| Symmetric matrix spectra | [Spectra](incerto-multivariate-tails.md#multivariate-spectra), twelve matrices of size 80 per law; Student-1.5 view $[-10,10]$ with outside counts annotated |
 | Sample correlation and fitted regression $R^2$ | [Sampling](incerto-multivariate-tails.md#multivariate-regression), 400 replications at four sizes through 1000 |
 | Separated regimes and conditional failure | [Appendix A examples](incerto-tail-class-catalog.md#tail-catalog-regimes), exact normal-mixture formulas and 100 transition steps |
 
