@@ -149,6 +149,50 @@ In a distribution with a bounded body and a Pareto tail, increasing $k$ far
 enough pulls body observations into the calculation. For empirical data,
 a plateau is evidence to inspect, not a certificate.
 
+(hill-synthetic-stability)=
+## Seeded stability comparison
+
+```{figure} ../assets/figures/incerto/hill-stability.svg
+:alt: Hill extreme-value-index estimates versus retained count for exact Pareto and a body-tail mixture, with known truth and a third panel mapping counts to observed thresholds.
+
+Two iid samples of $30{,}000$ observations: exact Pareto with $x_m=1$,
+$\alpha=1.7$ (PCG64 seed 20261020), and the
+[uniform-body/Pareto-tail model](incerto-tail-threshold-selection.md#tail-threshold-selection-diagnostics)
+(seed 20261021). The mixture is uniform on $[1,3]$ with probability
+$0.82$ and Pareto with minimum $3$, exponent $1.7$, otherwise.
+Both tail targets are $\xi=1/1.7$. The marked count of 5,344 is realized,
+not its population expectation. The third panel maps $k$ to
+$x_{n-k:n}$; these continuous draws have no ties, so strict exceedance
+counts equal $k$. Increasing $k$ eventually includes the mixture body.
+A stable-looking segment supplies no unique threshold choice.
+```
+
+Use [`pareto_type1`](incerto-api-reference.md#api-pareto-type1) and
+[`hill_stability`](incerto-api-reference.md#api-hill-stability) to reproduce
+selected points of the first panel:
+
+```python
+import numpy as np
+from xmath.incerto.distributions import pareto_type1
+from xmath.incerto.estimators import hill_stability
+
+x = pareto_type1.rvs(1.7, size=30000, random_state=np.random.default_rng(20261020))
+hill = hill_stability(x, [50, 500, 5000])
+for k, xi in zip(hill["k"], hill["xi"]):
+    print(f"k={int(k):d}: xi={xi:.4g}, truth={1/1.7:.4g}")
+```
+
+**Output**
+
+```text
+k=50: xi=0.627, truth=0.5882
+k=500: xi=0.5728, truth=0.5882
+k=5000: xi=0.58, truth=0.5882
+```
+
+Regenerate all panels with `uv run python demos/incerto/tail_estimation.py`.
+The same mixture sample supplies the coordinated threshold diagnostics.
+
 ## Failure modes
 
 - Hill is a right-tail estimator for strictly positive data: every realized

@@ -7,6 +7,8 @@ from math import isfinite
 from pathlib import Path
 from typing import Any
 
+import numpy as np
+import matplotlib.pyplot as plt
 from cycler import cycler
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
@@ -202,6 +204,68 @@ def _flatten_axes(axes: Iterable[Axes]) -> list[Axes]:
     return axes_list
 
 
+def vertical_figure(panels: int, *, panel_height: float = 3.8):
+    """Single-column axes at width 5 inches, sized for a 390 px article.
+
+    Apply set_theme(scale=1.1) first. Returns (figure, flat array of axes),
+    including for one panel. Layout leaves room for outside legends.
+    """
+    if isinstance(panels, bool) or not isinstance(panels, (int, np.integer)) or panels < 1:
+        raise ValueError("panels must be a positive integer")
+    if not isfinite(panel_height) or panel_height <= 0:
+        raise ValueError("panel_height must be positive and finite")
+    fig, axes = plt.subplots(panels, 1, figsize=(5, panel_height * panels),
+                              squeeze=False, layout="constrained")
+    return fig, axes[:, 0]
+
+
+def distribution_card(models, x, tail_x, *, title: str, support_note: str,
+                      coordinate: str = "x", tail_label: str = "Survival"):
+    """Build a shared vertical PDF/CDF/log-log survival card; return its figure.
+
+    models is a sequence of (frozen SciPy-like law, label) pairs exposing
+    pdf/cdf/sf/support. Grids are increasing finite 1-D vectors; tail_x > 0.
+    Finite support boundaries are marked in view, with matching curve colors.
+    Zero survival is masked on log axes, never replaced by a positive floor.
+    Density infinities/NaNs fail: choose parameters with finite endpoint
+    densities or a grid avoiding the singular endpoint. No implicit matching
+    of means/variances or distribution parameters is performed.
+    """
+    grids = [np.asarray(grid, dtype=float) for grid in (x, tail_x)]
+    for grid in grids:
+        if (grid.ndim != 1 or grid.size < 2 or not np.all(np.isfinite(grid))
+                or np.any(np.diff(grid) <= 0)):
+            raise ValueError("grids must be increasing finite vectors")
+    if np.any(grids[1] <= 0) or not models:
+        raise ValueError("positive tail grid and at least one model required")
+    fig, axes = vertical_figure(3, panel_height=3.6)
+    styles = ("-", "--", "-.", ":")
+    for index, (law, label) in enumerate(models):
+        color, style = COLOR_CYCLE[index % len(COLOR_CYCLE)], styles[index % len(styles)]
+        for ax, method, grid in zip(axes, (law.pdf, law.cdf, law.sf),
+                                    (grids[0], grids[0], grids[1])):
+            values = np.asarray(method(grid))
+            if values.shape != grid.shape or not np.all(np.isfinite(values)):
+                plt.close(fig)
+                raise ValueError("card evaluations must be finite and match the grid")
+            if ax is axes[2]:
+                values = np.where(values > 0, values, np.nan)
+            ax.plot(grid, values, color=color, linestyle=style, label=label)
+            for endpoint in law.support():
+                if np.isfinite(endpoint) and grid[0] <= endpoint <= grid[-1]:
+                    ax.axvline(endpoint, color=color, linestyle=":", linewidth=.9, alpha=.7)
+    axes[0].set(title=title + "\n" + support_note, ylabel="Density", ylim=(0, None))
+    axes[0].legend(loc="upper center", bbox_to_anchor=(.5, -.28),
+                   ncol=3, handlelength=2.4, columnspacing=.8)
+    axes[1].set(title="Cumulative probability", ylabel="CDF", ylim=(-.02, 1.02))
+    axes[2].set(title=tail_label + " · positive thresholds",
+                ylabel="Survival (log scale)", xscale="log", yscale="log", ylim=(1e-8, 1.1))
+    for ax, grid in zip(axes, (grids[0], grids[0], grids[1])):
+        ax.set(xlabel=f"{coordinate}" + (" (log scale)" if ax is axes[2] else ""),
+               xlim=(grid[0], grid[-1]))
+    return fig
+
+
 def savefig(fig: Figure, path: str | Path, **kwargs: Any) -> Path:
     """Save a figure with Incerto defaults.
 
@@ -246,6 +310,8 @@ __all__ = [
     "COLOR_CYCLE",
     "FIGURE_SIZES",
     "SVG_METADATA",
+    "distribution_card",
+    "vertical_figure",
     "savefig",
     "set_theme",
     "style_axes",

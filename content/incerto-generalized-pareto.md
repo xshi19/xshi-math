@@ -74,6 +74,39 @@ For $\beta=1$, the three examples from the survival formula are:
 is the exponential boundary, and negative $\xi$ ends at the finite endpoint
 $-\beta/\xi$.
 
+```{figure} ../assets/figures/incerto/gpd-card.svg
+:name: gpd-distribution-card
+:alt: Stacked density, CDF and log-log survival panels compare negative, zero and positive GPD shape. The negative-shape tail ends at 2.5.
+
+Exact GPD laws with $\beta=1$ and $\xi=-0.4,0,0.4$. All start at
+zero; the negative-shape law ends at $-\beta/\xi=2.5$, marked by a
+matching dotted line. Its CDF stays at one beyond that point. Zero
+survival is omitted on logarithmic axes; it is never replaced by a small
+positive probability. The survival viewport starts at $10^{-8}$.
+```
+
+Use [`generalized_pareto`](incerto-api-reference.md#api-generalized-pareto).
+The endpoint calculation is visible in the returned CDF and survival:
+
+```python
+from xmath.incerto.distributions import generalized_pareto
+
+law = generalized_pareto(-0.4, beta=1)
+for y in (0, 1, 2.5, 3):
+    print(f"y={y:.4g}: pdf={law.pdf(y):.4g}, cdf={law.cdf(y):.4g}, sf={law.sf(y):.4g}")
+```
+
+**Output**
+
+```text
+y=0: pdf=1, cdf=0, sf=1
+y=1: pdf=0.4648, cdf=0.7211, sf=0.2789
+y=2.5: pdf=0, cdf=1, sf=0
+y=3: pdf=0, cdf=1, sf=0
+```
+
+Regenerate the card with `uv run python demos/incerto/distribution_cards.py`.
+
 ## Threshold-excess stability and Pareto special case
 
 A GPD is stable under raising the threshold. If $Y$ has parameters

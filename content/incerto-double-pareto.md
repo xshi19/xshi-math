@@ -102,6 +102,22 @@ Smaller $\alpha$ lowers the central density and puts more probability far
 from zero on both sides. The chance of a large positive value and the chance
 of an equally large negative value decay at the same power rate.
 
+```{figure} ../assets/figures/incerto/double-pareto-card.svg
+:name: double-pareto-distribution-card
+:alt: Symmetric densities peak at zero, CDFs pass through one half, and positive-threshold right-tail survivals curve toward power laws on log-log axes.
+
+The page's shifted symmetric law $X=B(Y-1)$, with unit Pareto minimum
+and $\alpha=0.8,1.5,3$. Support is the whole real line, so there is no
+finite support endpoint. The log-log panel shows the **right-tail**
+probability $P(X>x)=\tfrac12(1+x)^{-\alpha}$ for $x>0$;
+the absolute-tail probability would be twice as large. The shift causes
+curvature at small thresholds. No means or variances are matched.
+```
+
+Regenerate the card with `uv run python demos/incerto/distribution_cards.py`;
+the [`double_pareto`](incerto-api-reference.md#api-double-pareto) example below
+uses the same distribution convention.
+
 ## Derivation from signed Pareto magnitude
 
 We derive the symmetric shifted construction used here from the signed

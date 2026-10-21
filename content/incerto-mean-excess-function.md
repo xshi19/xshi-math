@@ -153,6 +153,47 @@ even though $x_F=3$.
 Empirical values are diagnostics; high thresholds aim to reduce tail-model
 bias but leave fewer exceedances and more noise.
 
+(mean-excess-synthetic)=
+## Population curves and sample estimates
+
+```{figure} ../assets/figures/incerto/mean-excess.svg
+:alt: Three pairs of vertically stacked panels compare increasing Pareto, flat exponential and decreasing uniform population mean excess with noisy estimates and their retained counts.
+
+Dashed curves are population mean excesses; solid curves are estimates
+from $n=30{,}000$ iid observations per law. Here the Pareto exponent is
+$1.7$ to reuse the exact-Pareto sample from the Hill comparison; the earlier
+table uses $1.6$. The exponential mean is $1$ and the uniform support is
+$[0,5]$. Seeds are 20261020, 20261022 and 20261023, respectively (PCG64).
+Each estimate stops when fewer than 50 observations strictly exceed the
+threshold; the shaded count region remains visible. The uniform population
+curve is drawn only for $u<5$, where conditioning is defined. Pareto laws
+with $\alpha\le1$ have infinite population mean excess: this is labelled,
+with no finite population curve drawn for those laws.
+```
+
+Use [`mean_excess`](incerto-api-reference.md#api-mean-excess); masking
+retains the counts and reports an unavailable estimate as `nan`:
+
+```python
+from xmath.incerto.estimators import mean_excess
+
+result = mean_excess([1, 2, 2, 4], [1, 2, 4], min_exceedances=2)
+for u, count, mean in zip(result["threshold"], result["exceedances"], result["mean_excess"]):
+    print(f"u={u:.4g}: count={int(count):d}, mean_excess={mean:.4g}")
+```
+
+**Output**
+
+```text
+u=1: count=3, mean_excess=1.667
+u=2: count=1, mean_excess=nan
+u=4: count=0, mean_excess=nan
+```
+
+Regenerate the figure with `uv run python demos/incerto/tail_estimation.py`.
+The [threshold comparison](incerto-tail-threshold-selection.md#threshold-synthetic-figures)
+adds the shared mixture sample, whose body changes the population curve below $3$.
+
 ## Caveats
 
 - The mean excess function is itself a mean.  If the fitted tail has
