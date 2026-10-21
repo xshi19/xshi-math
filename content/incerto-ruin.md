@@ -115,17 +115,19 @@ Use [`survival_from_hazards`](incerto-api-reference.md#api-survival-from-hazards
 ```python
 from xmath.incerto.lecture_risk import survival_from_hazards, absorbing_resource_path
 
-print("Survival through step 3:", survival_from_hazards([0.02] * 3))
+survival = survival_from_hazards([0.02] * 3)
+print("Survival through step 3: [" + ", ".join(f"{v:.4g}" for v in survival) + "]")
 for increments in ([-4, 4], [4, -4]):
-    print(increments, absorbing_resource_path(3, increments))
+    path = absorbing_resource_path(3, increments)
+    print(f"{increments}: [" + ", ".join(f"{v:.4g}" for v in path) + "]")
 ```
 
 **Output**
 
 ```text
-Survival through step 3: [1.       0.98     0.9604   0.941192]
-[-4, 4] [3. 0. 0.]
-[4, -4] [3. 7. 3.]
+Survival through step 3: [1, 0.98, 0.9604, 0.9412]
+[-4, 4]: [3, 0, 0]
+[4, -4]: [3, 7, 3]
 ```
 
 Ruin is absorbing.

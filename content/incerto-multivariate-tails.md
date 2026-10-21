@@ -337,9 +337,9 @@ Use [`sample_correlation`](incerto-api-reference.md#api-sample-correlation).
 ```python
 from xmath.incerto.multivariate import sample_correlation
 
-print("Constant centered column:", sample_correlation([1, 1, 1], [1, 2, 3]))
-print("Zero uncentered column:", sample_correlation([0, 0, 0], [1, 2, 3], centered=False))
-print("Nondegenerate columns:", round(sample_correlation([1, 2, 3], [2, 4, 6]), 6))
+print(f"Constant centered column: {sample_correlation([1, 1, 1], [1, 2, 3]):.4g}")
+print(f"Zero uncentered column: {sample_correlation([0, 0, 0], [1, 2, 3], centered=False):.4g}")
+print(f"Nondegenerate columns: {sample_correlation([1, 2, 3], [2, 4, 6]):.4g}")
 ```
 
 **Output**
@@ -347,7 +347,7 @@ print("Nondegenerate columns:", round(sample_correlation([1, 2, 3], [2, 4, 6]), 
 ```text
 Constant centered column: nan
 Zero uncentered column: nan
-Nondegenerate columns: 1.0
+Nondegenerate columns: 1
 ```
 
 For Student error with scale $s>0$ and $\nu>2$,
@@ -382,17 +382,17 @@ from xmath.incerto.multivariate import (
 rng = np.random.default_rng(20261020)
 for nu in (1.5, 5):
     sample = bivariate_student(rng, nu, rho=0, size=2000)
-    print(nu, "sample r:", round(sample_correlation(*sample.T), 3))
-    print("Population information:", round(student_mutual_information(nu), 6))
+    print(f"nu={nu:.4g}, sample r: {sample_correlation(*sample.T):.3f}")
+    print(f"Population information: {student_mutual_information(nu):.4g}")
 ```
 
 **Output**
 
 ```text
-1.5 sample r: -0.098
-Population information: 0.128109
-5 sample r: -0.036
-Population information: 0.017128
+nu=1.5, sample r: -0.098
+Population information: 0.1281
+nu=5, sample r: -0.036
+Population information: 0.01713
 ```
 
 Diagonal scatter gives zero population correlation only for $\nu=5$ here;

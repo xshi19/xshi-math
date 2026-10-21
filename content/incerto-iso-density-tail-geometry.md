@@ -210,15 +210,15 @@ sample = bivariate_student(rng, nu=1, rho=0, size=10000)
 radius = np.linalg.norm(sample, axis=1)
 angle = np.arctan2(sample[:, 1], sample[:, 0])
 sector = (radius > 3) & (angle >= 0) & (angle <= np.pi / 3)
-print("Sector frequency:", sector.mean())
-print("Exact probability:", 1 / (6 * np.sqrt(10)))
+print(f"Sector frequency: {sector.mean():.4g}")
+print(f"Exact probability: {1 / (6 * np.sqrt(10)):.4g}")
 ```
 
 **Output**
 
 ```text
 Sector frequency: 0.0533
-Exact probability: 0.05270462766947299
+Exact probability: 0.0527
 ```
 
 The 10,000 seeded draws illustrate an integrated probability, not a density contour level.

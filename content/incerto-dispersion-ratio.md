@@ -64,15 +64,15 @@ from xmath.incerto.stats import dispersion_ratios
 
 for sample in ([2, 2, 2], [0, 0, 10], [1, 2, 3]):
     mean_ratio, median_ratio = dispersion_ratios(sample)
-    print(f"{sample}: Std/MeanAD={mean_ratio:.6g}, Std/MedianAD={median_ratio:.6g}")
+    print(f"{sample}: Std/MeanAD={mean_ratio:.4g}, Std/MedianAD={median_ratio:.4g}")
 ```
 
 **Output**
 
 ```text
 [2, 2, 2]: Std/MeanAD=nan, Std/MedianAD=nan
-[0, 0, 10]: Std/MeanAD=0.846284, Std/MedianAD=inf
-[1, 2, 3]: Std/MeanAD=0.977205, Std/MedianAD=0.550719
+[0, 0, 10]: Std/MeanAD=0.8463, Std/MedianAD=inf
+[1, 2, 3]: Std/MeanAD=0.9772, Std/MedianAD=0.5507
 ```
 
 The ratios distinguish $0/0$ from a positive numerator over a zero denominator.
@@ -123,14 +123,15 @@ from xmath.incerto.stats import dispersion_ratios
 rng = np.random.default_rng(20261020)
 for label, sample in (("Normal", rng.normal(size=5000)),
                       ("Student 3", rng.standard_t(3, size=5000))):
-    print(label, np.round(dispersion_ratios(sample), 3))
+    values = dispersion_ratios(sample)
+    print(f"{label}: [" + ", ".join(f"{v:.3f}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-Normal [1.003 1.021]
-Student 3 [1.175 1.383]
+Normal: [1.003, 1.021]
+Student 3: [1.175, 1.383]
 ```
 
 These are sample diagnostics, not estimates of a tail exponent.

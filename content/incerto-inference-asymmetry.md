@@ -136,18 +136,19 @@ from xmath.incerto.lecture_risk import repeated_event_probability, finite_payoff
 
 epsilon, alpha, cutoff = 1e-4, 1.5, 1e6
 tail_mean = alpha * cutoff / (alpha - 1)
-print("Mixture mean:", finite_payoff_mean([1 - epsilon, epsilon], [0.5, tail_mean]))
+mean = finite_payoff_mean([1 - epsilon, epsilon], [0.5, tail_mean])
+print(f"Mixture mean: {mean:.4g}")
 for n in (10, 1000, 10000):
-    print(n, round(repeated_event_probability(epsilon, n), 6))
+    print(f"{n:d} {repeated_event_probability(epsilon, n):.3e}")
 ```
 
 **Output**
 
 ```text
-Mixture mean: 300.49995
-10 0.001
-1000 0.095167
-10000 0.632139
+Mixture mean: 300.5
+10 9.996e-04
+1000 9.517e-02
+10000 6.321e-01
 ```
 
 The component label is detectable here because the supports are disjoint.

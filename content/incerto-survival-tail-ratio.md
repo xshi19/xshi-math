@@ -166,17 +166,18 @@ from xmath.incerto.tail_diagnostics import iid_two_sum_tail
 
 law = pareto_type1(1.5)
 u = np.array([3., 10., 100.])
-print("Squared-survival ratio:", np.exp(2 * law.logsf(u) - law.logsf(2 * u)))
+ratio = np.exp(2 * law.logsf(u) - law.logsf(2 * u))
+print("Squared-survival ratio: [" + ", ".join(f"{v:.4g}" for v in ratio) + "]")
 result = iid_two_sum_tail(law, u)
 assert result["success"].all()
-print("Two-sum ratio:", result["ratio"].round(4))
+print("Two-sum ratio: [" + ", ".join(f"{v:.4g}" for v in result["ratio"]) + "]")
 ```
 
 **Output**
 
 ```text
-Squared-survival ratio: [0.54433105 0.08944272 0.00282843]
-Two-sum ratio: [1.7691 1.3914 1.0444]
+Squared-survival ratio: [0.5443, 0.08944, 0.002828]
+Two-sum ratio: [1.769, 1.391, 1.044]
 ```
 
 The convolution ratio uses independent summands.

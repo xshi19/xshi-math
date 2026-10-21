@@ -121,18 +121,20 @@ Use [`pareto_truncated_moment`](incerto-api-reference.md#api-pareto-truncated-mo
 ```python
 from xmath.incerto.power_laws import pareto_truncated_moment, q_exponential_logsf
 
-print("Boundary moment:", pareto_truncated_moment([10, 100], alpha=1.5, order=1.5))
+moments = pareto_truncated_moment([10, 100], alpha=1.5, order=1.5)
+print("Boundary moment: [" + ", ".join(f"{v:.4g}" for v in moments) + "]")
 for q in (0.75, 1, 1.25):
-    print(q, q_exponential_logsf([0, 1, 2], q, beta=2))
+    values = q_exponential_logsf([0, 1, 2], q, beta=2)
+    print(f"q={q:.4g}: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-Boundary moment: [3.45387764 6.90775528]
-0.75 [-0.        -3.4657359       -inf]
-1 [-0. -2. -4.]
-1.25 [-0.         -1.21639532 -2.07944154]
+Boundary moment: [3.454, 6.908]
+q=0.75: [-0, -3.466, -inf]
+q=1: [-0, -2, -4]
+q=1.25: [-0, -1.216, -2.079]
 ```
 
 A log survival of `-inf` at the compact endpoint means zero survival.

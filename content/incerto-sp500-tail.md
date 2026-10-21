@@ -62,13 +62,15 @@ except DatasetNotAvailable:
     print("No local S&P cache; supply an authorized price file to run this example.")
 else:
     dates, losses = prices.negative_log_returns()
-    print("Window / loss days:", prices.date[0], prices.date[-1], len(losses))
+    print(f"Window / loss days: {prices.date[0]} {prices.date[-1]} {len(losses):d}")
     for k in (25, 50, 100, 200, 400):
         if k < len(losses):
-            print(k, hill_alpha_estimator(losses, k))
+            print(f"{k:d} {hill_alpha_estimator(losses, k):.4g}")
     if len(losses) >= 20:
         thresholds = np.quantile(losses, [0.8, 0.9, 0.95])
-        print(mean_excess(losses, thresholds, min_exceedances=5))
+        for name, values in mean_excess(losses, thresholds, min_exceedances=5).items():
+            fmt = ".0f" if name == "exceedances" else ".3e"
+            print(f"{name}: [" + ", ".join(format(v, fmt) for v in values) + "]")
 ```
 
 **Output**

@@ -37,16 +37,19 @@ from xmath import exceedance_fraction
 from xmath.incerto.stats import empirical_survival_function
 
 sample = [1, 2, 2, 4]
-print([exceedance_fraction(sample, u) for u in (0, 2, 4)])
+fractions = [exceedance_fraction(sample, u) for u in (0, 2, 4)]
+print("Fractions: [" + ", ".join(f"{v:.4g}" for v in fractions) + "]")
 support, survival = empirical_survival_function(sample)
-print(list(zip(support.tolist(), survival.tolist())))
+print("Support: [" + ", ".join(f"{v:.4g}" for v in support) + "]")
+print("Strict survival: [" + ", ".join(f"{v:.4g}" for v in survival) + "]")
 ```
 
 **Output**
 
 ```text
-[1.0, 0.25, 0.0]
-[(1.0, 0.75), (2.0, 0.25), (4.0, 0.0)]
+Fractions: [1, 0.25, 0]
+Support: [1, 2, 4]
+Strict survival: [0.75, 0.25, 0]
 ```
 
 Ties form one jump.

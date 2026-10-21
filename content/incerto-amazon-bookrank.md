@@ -70,20 +70,20 @@ from xmath.incerto.estimators import hill_alpha_estimator
 
 data = load_amazon_bookrank()
 sales = data.weekly_sales[data.weekly_sales > 10]
-print("Snapshot rows:", data.weekly_sales.size)
+print(f"Snapshot rows: {data.weekly_sales.size:d}")
 for k in (10, 20, 40, 80, 120):
-    print(k, round(hill_alpha_estimator(sales, k), 2))
+    print(f"{k} {hill_alpha_estimator(sales, k):.3f}")
 ```
 
 **Output**
 
 ```text
 Snapshot rows: 861
-10 3.67
-20 2.51
-40 2.27
-80 2.12
-120 2.07
+10 3.670
+20 2.509
+40 2.270
+80 2.116
+120 2.066
 ```
 
 Run in an editable checkout with the bundled CC0 snapshot; the estimates

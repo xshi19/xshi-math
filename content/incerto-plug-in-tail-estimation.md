@@ -87,14 +87,14 @@ Use [`pareto_mean_plugin`](incerto-api-reference.md#api-pareto-mean-plugin).
 from xmath.incerto.estimators import pareto_mean_plugin
 
 for sample in ([1, 1], [1, 2], [4, 4]):
-    print(sample, round(pareto_mean_plugin(sample, x_m=1), 6))
+    print(f"{sample} {pareto_mean_plugin(sample, x_m=1):.4g}")
 ```
 
 **Output**
 
 ```text
-[1, 1] 1.0
-[1, 2] 1.530394
+[1, 1] 1
+[1, 2] 1.53
 [4, 4] inf
 ```
 

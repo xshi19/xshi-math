@@ -124,15 +124,15 @@ Use [`repeated_event_probability`](incerto-api-reference.md#api-repeated-event-p
 ```python
 from xmath.incerto.lecture_risk import repeated_event_probability, finite_payoff_mean
 
-print("Rare component seen:", repeated_event_probability(1e-4, 1000))
-print("Frequent gains, mean:", finite_payoff_mean([0.98, 0.02], [1, -80]))
+print(f"Rare component seen: {repeated_event_probability(1e-4, 1000):.4g}")
+print(f"Frequent gains, mean: {finite_payoff_mean([0.98, 0.02], [1, -80]):.4g}")
 ```
 
 **Output**
 
 ```text
-Rare component seen: 0.09516710644145375
-Frequent gains, mean: -0.6200000000000001
+Rare component seen: 0.09517
+Frequent gains, mean: -0.62
 ```
 
 

@@ -102,20 +102,37 @@ From the installed repository environment, run:
 
 Use [`bounded_spike_summary`](incerto-api-reference.md#api-bounded-spike-summary).
 
+:::{dropdown} Code
+
 ```python
 from xmath.incerto.tail_classes import bounded_spike_summary
 
 for epsilon in (0.1, 0.01, 0.001):
-    print(epsilon, bounded_spike_summary(epsilon))
+    print(f"epsilon={epsilon:.4g}")
+    for name, value in bounded_spike_summary(epsilon).items():
+        print(f"  {name}: {value:.4g}")
 ```
 
 **Output**
 
 ```text
-0.1 {'support_radius': 3.1622776601683795, 'mean': 0.0, 'variance': 1.0, 'kurtosis': 10.0}
-0.01 {'support_radius': 10.0, 'mean': 0.0, 'variance': 1.0, 'kurtosis': 100.0}
-0.001 {'support_radius': 31.622776601683793, 'mean': 0.0, 'variance': 1.0, 'kurtosis': 1000.0}
+epsilon=0.1
+  support_radius: 3.162
+  mean: 0
+  variance: 1
+  kurtosis: 10
+epsilon=0.01
+  support_radius: 10
+  mean: 0
+  variance: 1
+  kurtosis: 100
+epsilon=0.001
+  support_radius: 31.62
+  mean: 0
+  variance: 1
+  kurtosis: 1000
 ```
+:::
 
 Every law here has bounded support, so large kurtosis alone does not
 establish a heavy asymptotic tail.

@@ -137,25 +137,49 @@ behind §§2.2.27–28, pp. 19–20, without importing a uniform convergence the
 
 Use [`empirical_survival_function`](incerto-api-reference.md#api-empirical-survival-function), [`pareto_tail_quantities`](incerto-api-reference.md#api-pareto-tail-quantities).
 
+:::{dropdown} Code
+
 ```python
 from xmath.incerto.stats import empirical_survival_function
 from xmath.incerto.glossary import pareto_tail_quantities
 
-print("Support / strict survival:", empirical_survival_function([1, 2, 2, 4]))
+support, survival = empirical_survival_function([1, 2, 2, 4])
+print("Support: [" + ", ".join(f"{v:.4g}" for v in support) + "]")
+print("Strict survival: [" + ", ".join(f"{v:.4g}" for v in survival) + "]")
 for alpha in (0.8, 1, 1.5, 3):
     result = pareto_tail_quantities(alpha, x_m=1, threshold=4)
-    print(alpha, {name: round(value, 6) for name, value in result.items()})
+    print(f"alpha={alpha:.4g}")
+    for name, value in result.items():
+        print(f"  {name}: {value:.4g}")
 ```
 
 **Output**
 
 ```text
-Support / strict survival: (array([1., 2., 4.]), array([0.75, 0.25, 0.  ]))
-0.8 {'log_survival': -1.109035, 'mean_excess': inf, 'conditional_mean': inf, 'tail_first_moment': inf}
-1 {'log_survival': -1.386294, 'mean_excess': inf, 'conditional_mean': inf, 'tail_first_moment': inf}
-1.5 {'log_survival': -2.079442, 'mean_excess': 8.0, 'conditional_mean': 12.0, 'tail_first_moment': 1.5}
-3 {'log_survival': -4.158883, 'mean_excess': 2.0, 'conditional_mean': 6.0, 'tail_first_moment': 0.09375}
+Support: [1, 2, 4]
+Strict survival: [0.75, 0.25, 0]
+alpha=0.8
+  log_survival: -1.109
+  mean_excess: inf
+  conditional_mean: inf
+  tail_first_moment: inf
+alpha=1
+  log_survival: -1.386
+  mean_excess: inf
+  conditional_mean: inf
+  tail_first_moment: inf
+alpha=1.5
+  log_survival: -2.079
+  mean_excess: 8
+  conditional_mean: 12
+  tail_first_moment: 1.5
+alpha=3
+  log_survival: -4.159
+  mean_excess: 2
+  conditional_mean: 6
+  tail_first_moment: 0.09375
 ```
+:::
 
 
 

@@ -263,17 +263,18 @@ from xmath.incerto.stats import (
     t_peak_shoulder_tail,
 )
 
-print("Normal, scale:", normal_peak_shoulder_tail().round(4))
-print("Normal, variance:", normal_variance_peak_shoulder_tail().round(4))
-print("Student 3, scale:", t_peak_shoulder_tail(3).round(4))
+for label, values in (("Normal, scale", normal_peak_shoulder_tail()),
+                      ("Normal, variance", normal_variance_peak_shoulder_tail()),
+                      ("Student 3, scale", t_peak_shoulder_tail(3))):
+    print(f"{label}: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-Normal, scale: [-2.1358 -0.6622  0.6622  2.1358]
-Normal, variance: [-2.3344 -0.742   0.742   2.3344]
-Student 3, scale: [-2.7578 -0.6281  0.6281  2.7578]
+Normal, scale: [-2.136, -0.6622, 0.6622, 2.136]
+Normal, variance: [-2.334, -0.742, 0.742, 2.334]
+Student 3, scale: [-2.758, -0.6281, 0.6281, 2.758]
 ```
 
 These are local perturbation boundaries at unit scale, not fitted tail thresholds.

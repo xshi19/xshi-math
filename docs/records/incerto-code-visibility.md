@@ -403,3 +403,61 @@ an expanded case. API rows retain one convention sentence where needed.
   code, chapter-6 figure fixes and demo changes are retained. No repository
   files were deleted and no staging, commit, push, transfer or publication
   was performed.
+
+## Plain numeric output convention
+
+2026-10-20 follow-up from `1d273d8` on `site/code-visibility` (PR #35).
+Xiang selected Codex GPT-6-Astra xhigh and requested no commits or file
+deletions.
+
+Xiang decided to keep the third-party data notices unchanged: the Amazon
+CC0 notice, NYC Open Data notice and FRED notice remain as they were.
+This decision is separate from the earlier removal of self-attribution.
+
+Public Incerto snippets print plain numbers with explicit formatting,
+normally `:.4g` or three to four decimal places. Small probabilities use
+scientific notation when fixed notation would exceed six decimal places.
+Counts print as integers, infinities and missing values as `inf`/`nan`,
+vectors as short comma-separated lists, and dictionaries as `key: value`
+lines. Array and NumPy scalar representations are not reader-facing output.
+
+Reviewed all 90 Python snippets across 30 pages, including all 54 API
+examples. Reformatted the 87 snippets that print numbers; the other three
+print paths. The Incerto index has no Python snippets. Package signatures,
+return types, numerical calculations, inputs and seeds are unchanged.
+
+[`scripts/regenerate_incerto_outputs.py`](../../scripts/regenerate_incerto_outputs.py)
+regenerates all 90 adjacent Output blocks and the NYC full-demo output from
+real execution. Run it with
+`UV_CACHE_DIR=/tmp/m05-uv-cache uv run python scripts/regenerate_incerto_outputs.py`
+in this sandbox. It reuses the snippet tests' isolated runner and checks
+formatting before updating pages. The NYC demo runs from a temporary copy
+so its figures stay outside the repository. No output is transcribed by hand.
+
+The snippet tests retain exact stdout matching apart from trailing
+whitespace. New assertions reject `np.float64`, `np.int64`, `array(` and
+float literals with more than six digits after the decimal point, including
+scientific mantissas. They cover every text Output block and both S&P data
+branches; regression cases check accepted and rejected formatting.
+
+### Verification of plain numeric output
+
+- Regeneration executed all 90 snippets and the NYC full demo successfully.
+  Of the 91 captured Output blocks, 83 changed text; eight already matched.
+  The three additional historical demo text blocks also pass the formatting
+  guard and were left unchanged.
+- `UV_CACHE_DIR=/tmp/m05-uv-cache uv run pytest`: **645 passed in 58.77 s**.
+  This includes all 90 exact snippet-output comparisons, API links,
+  dropdown checks, formatting regression cases and both S&P data branches.
+- `git diff --check` and separate whitespace checks for the new script
+  passed. Reviewed the content/test/record diff and the entire new script.
+  Relative Markdown links resolve. Comparing page text outside Python/text
+  fences and the four added Code dropdowns confirms that the only prose
+  addition is the API output-format convention; notices, mathematical prose,
+  equations and citations are unchanged.
+- This follow-up changes 30 public pages, the snippet test, this record and
+  one new regeneration script: **33 files total**. No package or demo source
+  changed. No files were deleted, and nothing was staged or committed.
+- Site build, HTML checks and browser review were not run. The standard site
+  builder removes existing build directories, so it was not used under the
+  no-deletions instruction. No rendered-page verification is claimed.

@@ -142,7 +142,7 @@ from xmath.incerto.distributions import double_pareto
 
 for alpha in (0.5, 1, 1.5, 2, 3):
     mean, variance = double_pareto(alpha).stats(moments="mv")
-    print(f"alpha={alpha:g}: mean={mean:g}, variance={variance:g}")
+    print(f"alpha={alpha:.4g}: mean={mean:.4g}, variance={variance:.4g}")
 ```
 
 **Output**
@@ -267,17 +267,24 @@ from xmath.incerto.distributions import double_pareto
 from xmath.incerto.power_laws import student_double_pareto_scales
 
 law = double_pareto(3)
-print("Mean / variance:", law.stats(moments="mv"))
-print("Survival at 1, 10:", law.sf([1, 10]))
-print("Student matching:", student_double_pareto_scales(3))
+mean, variance = law.stats(moments="mv")
+print(f"Mean: {mean:.4g}; variance: {variance:.4g}")
+print("Survival at 1, 10: [" + ", ".join(f"{v:.3e}" for v in law.sf([1, 10])) + "]")
+print("Student matching:")
+for name, value in student_double_pareto_scales(3).items():
+    print(f"  {name}: {value:.4g}")
 ```
 
 **Output**
 
 ```text
-Mean / variance: (np.float64(0.0), np.float64(1.0))
-Survival at 1, 10: [0.0625     0.00037566]
-Student matching: {'student_tail_constant': 1.1026577908435844, 'tail_scale': 0.7682627055029694, 'variance_scale': 0.5773502691896257, 'tail_matched_variance': 1.770682754000227}
+Mean: 0; variance: 1
+Survival at 1, 10: [6.250e-02, 3.757e-04]
+Student matching:
+  student_tail_constant: 1.103
+  tail_scale: 0.7683
+  variance_scale: 0.5774
+  tail_matched_variance: 1.771
 ```
 
 

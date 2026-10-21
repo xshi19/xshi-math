@@ -145,15 +145,15 @@ from xmath.incerto.power_laws import pareto_truncated_moment
 
 for order in (1, 1.5, 2):
     moments = pareto_truncated_moment([10, 100, 10000], alpha=1.5, order=order)
-    print(order, moments.round(4))
+    print(f"order={order:.4g}: [" + ", ".join(f"{v:.4g}" for v in moments) + "]")
 ```
 
 **Output**
 
 ```text
-1 [2.0513 2.7    2.97  ]
-1.5 [ 3.4539  6.9078 13.8155]
-2 [  6.4868  27.     297.    ]
+order=1: [2.051, 2.7, 2.97]
+order=1.5: [3.454, 6.908, 13.82]
+order=2: [6.487, 27, 297]
 ```
 
 These are indicator-truncated population moments; no sample is censored.

@@ -120,17 +120,17 @@ Use [`finite_payoff_mean`](incerto-api-reference.md#api-finite-payoff-mean).
 from xmath.incerto.lecture_risk import finite_payoff_mean
 
 probabilities = [0.98, 0.02]
-print("A:", finite_payoff_mean(probabilities, [1, -80]))
-print("B:", finite_payoff_mean(probabilities, [-1, 80]))
-print("Convex gap:", finite_payoff_mean([0.5, 0.5], [2**2, 6**2]) - 4**2)
+print(f"A: {finite_payoff_mean(probabilities, [1, -80]):.4g}")
+print(f"B: {finite_payoff_mean(probabilities, [-1, 80]):.4g}")
+print(f"Convex gap: {finite_payoff_mean([0.5, 0.5], [2**2, 6**2]) - 4**2:.4g}")
 ```
 
 **Output**
 
 ```text
-A: -0.6200000000000001
-B: 0.6200000000000001
-Convex gap: 4.0
+A: -0.62
+B: 0.62
+Convex gap: 4
 ```
 
 A’s higher gain frequency does not imply a higher expected payoff.

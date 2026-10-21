@@ -17,6 +17,11 @@ whitespace only. Bundled dataset examples require an
 editable checkout (or a populated `INCERTO_DATA_DIR`). Longer examples expand
 under a **Code** dropdown.
 
+Numeric output uses about four significant digits or three to four decimal
+places, with scientific notation for small probabilities. Counts remain
+integers; vectors print as short lists and dictionaries as `key: value` lines.
+Mathematical infinities and missing values print as `inf` and `nan`.
+
 The base `xmath` helpers require only NumPy. The Incerto extra adds SciPy and
 Matplotlib; graph generation uses NetworkX and PyYAML from the development
 group. Dataset fetching uses standard-library `urllib`. The Python modules
@@ -50,7 +55,7 @@ from xmath.incerto.estimators import hill_alpha_estimator
 rng = np.random.default_rng(20261017)
 x = pareto_type1.rvs(2.5, size=1000, random_state=rng)
 alpha_hat = hill_alpha_estimator(x, k=100)
-print("Estimated alpha:", round(alpha_hat, 3))
+print(f"Estimated alpha: {alpha_hat:.3f}")
 ```
 
 **Output**
@@ -104,15 +109,15 @@ prices = PriceSeries(
     close=np.array([100., 90., 99.]), source="synthetic example",
 )
 dates, values = prices.log_returns()
-print("Ending dates:", dates)
-print("Log returns:", values.round(6))
+print("Ending dates: [" + ", ".join(str(day) for day in dates) + "]")
+print("Log returns: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-Ending dates: ['2020-01-02' '2020-01-03']
-Log returns: [-0.105361  0.09531 ]
+Ending dates: [2020-01-02, 2020-01-03]
+Log returns: [-0.1054, 0.09531]
 ```
 
 
@@ -130,15 +135,15 @@ prices = PriceSeries(
     close=np.array([100., 90., 99.]), source="synthetic example",
 )
 dates, values = prices.negative_log_returns()
-print("Ending dates:", dates)
-print("Positive losses:", values.round(6))
+print("Ending dates: [" + ", ".join(str(day) for day in dates) + "]")
+print("Positive losses: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-Ending dates: ['2020-01-02']
-Positive losses: [0.105361]
+Ending dates: [2020-01-02]
+Positive losses: [0.1054]
 ```
 
 
@@ -163,15 +168,15 @@ from xmath.incerto.datasets import DogNameFrequencyData
 
 names = DogNameFrequencyData(np.array(["SAFARI"]), np.array([3]), "synthetic example")
 for name in ("Safari", " safari ", "MISSING"):
-    print(repr(name), names.frequency_for(name))
+    print(f"{name!r}: {names.frequency_for(name):d}")
 ```
 
 **Output**
 
 ```text
-'Safari' 3
-' safari ' 3
-'MISSING' 0
+'Safari': 3
+' safari ': 3
+'MISSING': 0
 ```
 
 
@@ -331,13 +336,14 @@ Variance–gamma law requiring `alpha > abs(beta)` and `lam > 0`; this `alpha` i
 ```python
 from xmath.incerto.distributions import hypsecant2
 
-print(hypsecant2.chf([0, 1, 2]).round(6))
+values = hypsecant2.chf([0, 1, 2])
+print("[" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-[1.      +0.j 0.682569+0.j 0.272029+0.j]
+[1+0j, 0.6826+0j, 0.272+0j]
 ```
 
 
@@ -353,13 +359,13 @@ Module: `xmath.incerto.estimators`.
 ```python
 from xmath.incerto.estimators import hill_estimator
 
-print("xi:", round(hill_estimator([1, 2, 4, 8], k=2), 6))
+print(f"xi: {hill_estimator([1, 2, 4, 8], k=2):.4g}")
 ```
 
 **Output**
 
 ```text
-xi: 1.039721
+xi: 1.04
 ```
 
 
@@ -372,13 +378,13 @@ xi: 1.039721
 from xmath.incerto.estimators import hill_alpha_estimator
 
 for sample in ([1, 2, 4, 8], [1, 1, 1, 1]):
-    print(sample, "alpha:", round(hill_alpha_estimator(sample, k=2), 6))
+    print(sample, "alpha:", f"{hill_alpha_estimator(sample, k=2):.4g}")
 ```
 
 **Output**
 
 ```text
-[1, 2, 4, 8] alpha: 0.961797
+[1, 2, 4, 8] alpha: 0.9618
 [1, 1, 1, 1] alpha: inf
 ```
 
@@ -392,14 +398,14 @@ for sample in ([1, 2, 4, 8], [1, 1, 1, 1]):
 from xmath.incerto.estimators import pareto_mean_plugin
 
 for sample in ([1, 1], [1, 2], [4, 4]):
-    print(sample, round(pareto_mean_plugin(sample, x_m=1), 6))
+    print(f"{sample} {pareto_mean_plugin(sample, x_m=1):.4g}")
 ```
 
 **Output**
 
 ```text
-[1, 1] 1.0
-[1, 2] 1.530394
+[1, 1] 1
+[1, 2] 1.53
 [4, 4] inf
 ```
 
@@ -415,15 +421,16 @@ The cutoff is known; statistical calibration assumes an exact iid Pareto model.
 from xmath.incerto.estimators import hill_stability
 
 for name, values in hill_stability([1, 2, 4, 8], [1, 2]).items():
-    print(name, values.round(6))
+    fmt = ".0f" if name == "k" else ".4g"
+    print(f"{name}: [" + ", ".join(format(v, fmt) for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-k [1. 2.]
-xi [0.693147 1.039721]
-alpha [1.442695 0.961797]
+k: [1, 2]
+xi: [0.6931, 1.04]
+alpha: [1.443, 0.9618]
 ```
 
 
@@ -435,16 +442,20 @@ alpha [1.442695 0.961797]
 ```python
 from xmath.incerto.estimators import running_mean
 
-print(running_mean([1, 2, 6]))
-print(running_mean([[1, 2, 6], [2, 4, 12]], axis=1))
+values = running_mean([1, 2, 6])
+print("Vector: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
+print("Rows:")
+for row in running_mean([[1, 2, 6], [2, 4, 12]], axis=1):
+    print("[" + ", ".join(f"{v:.4g}" for v in row) + "]")
 ```
 
 **Output**
 
 ```text
-[1.  1.5 3. ]
-[[1.  1.5 3. ]
- [2.  3.  6. ]]
+Vector: [1, 1.5, 3]
+Rows:
+[1, 1.5, 3]
+[2, 3, 6]
 ```
 
 
@@ -456,7 +467,7 @@ print(running_mean([[1, 2, 6], [2, 4, 12]], axis=1))
 ```python
 from xmath.incerto.estimators import max_to_sum_ratio
 
-print(max_to_sum_ratio([1, 2, 7]))
+print(f"{max_to_sum_ratio([1, 2, 7]):.4g}")
 ```
 
 **Output**
@@ -475,15 +486,16 @@ print(max_to_sum_ratio([1, 2, 7]))
 from xmath.incerto.estimators import mean_excess
 
 for name, values in mean_excess([1, 2, 2, 4], [1, 2, 4]).items():
-    print(name, values)
+    fmt = ".0f" if name == "exceedances" else ".4g"
+    print(f"{name}: [" + ", ".join(format(v, fmt) for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-threshold [1. 2. 4.]
-mean_excess [1.66666667 2.                nan]
-exceedances [3. 1. 0.]
+threshold: [1, 2, 4]
+mean_excess: [1.667, 2, nan]
+exceedances: [3, 1, 0]
 ```
 
 
@@ -499,13 +511,13 @@ Module: `xmath.incerto.stats`.
 ```python
 from xmath.incerto.stats import mean_absolute_deviation
 
-print("Gaussian-calibrated MeanAD:", round(mean_absolute_deviation([1, 2, 3]), 6))
+print(f"Gaussian-calibrated MeanAD: {mean_absolute_deviation([1, 2, 3]):.4g}")
 ```
 
 **Output**
 
 ```text
-Gaussian-calibrated MeanAD: 0.835543
+Gaussian-calibrated MeanAD: 0.8355
 ```
 
 
@@ -517,13 +529,13 @@ Gaussian-calibrated MeanAD: 0.835543
 ```python
 from xmath.incerto.stats import median_absolute_deviation
 
-print("Gaussian-calibrated MedianAD:", round(median_absolute_deviation([1, 2, 3]), 6))
+print(f"Gaussian-calibrated MedianAD: {median_absolute_deviation([1, 2, 3]):.4g}")
 ```
 
 **Output**
 
 ```text
-Gaussian-calibrated MedianAD: 1.482602
+Gaussian-calibrated MedianAD: 1.483
 ```
 
 
@@ -535,13 +547,14 @@ Gaussian-calibrated MedianAD: 1.482602
 ```python
 from xmath.incerto.stats import normal_peak_shoulder_tail
 
-print("Normal scale boundaries:", normal_peak_shoulder_tail().round(6))
+values = normal_peak_shoulder_tail()
+print("Normal scale boundaries: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-Normal scale boundaries: [-2.135779 -0.662153  0.662153  2.135779]
+Normal scale boundaries: [-2.136, -0.6622, 0.6622, 2.136]
 ```
 
 
@@ -553,13 +566,14 @@ Normal scale boundaries: [-2.135779 -0.662153  0.662153  2.135779]
 ```python
 from xmath.incerto.stats import normal_variance_peak_shoulder_tail
 
-print("Normal variance boundaries:", normal_variance_peak_shoulder_tail().round(6))
+values = normal_variance_peak_shoulder_tail()
+print("Normal variance boundaries: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-Normal variance boundaries: [-2.334414 -0.741964  0.741964  2.334414]
+Normal variance boundaries: [-2.334, -0.742, 0.742, 2.334]
 ```
 
 
@@ -571,13 +585,14 @@ Normal variance boundaries: [-2.334414 -0.741964  0.741964  2.334414]
 ```python
 from xmath.incerto.stats import t_peak_shoulder_tail
 
-print("Student-3 scale boundaries:", t_peak_shoulder_tail(3).round(6))
+values = t_peak_shoulder_tail(3)
+print("Student-3 scale boundaries: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-Student-3 scale boundaries: [-2.757816 -0.628052  0.628052  2.757816]
+Student-3 scale boundaries: [-2.758, -0.6281, 0.6281, 2.758]
 ```
 
 
@@ -590,13 +605,13 @@ Student-3 scale boundaries: [-2.757816 -0.628052  0.628052  2.757816]
 from xmath.incerto.stats import lognorm_params_from_mean_and_variance
 
 mu, sigma = lognorm_params_from_mean_and_variance(mean=2, variance=3)
-print(f"Log-location: {mu:.6f}; log-scale: {sigma:.6f}")
+print(f"Log-location: {mu:.4f}; log-scale: {sigma:.4f}")
 ```
 
 **Output**
 
 ```text
-Log-location: 0.413339; log-scale: 0.748075
+Log-location: 0.4133; log-scale: 0.7481
 ```
 
 
@@ -609,15 +624,15 @@ Log-location: 0.413339; log-scale: 0.748075
 from xmath.incerto.stats import empirical_survival_function
 
 support, survival = empirical_survival_function([1, 2, 2, 4])
-print("Support:", support)
-print("Strict survival:", survival)
+print("Support: [" + ", ".join(f"{v:.4g}" for v in support) + "]")
+print("Strict survival: [" + ", ".join(f"{v:.4g}" for v in survival) + "]")
 ```
 
 **Output**
 
 ```text
-Support: [1. 2. 4.]
-Strict survival: [0.75 0.25 0.  ]
+Support: [1, 2, 4]
+Strict survival: [0.75, 0.25, 0]
 ```
 
 
@@ -631,15 +646,15 @@ from xmath.incerto.stats import dispersion_ratios
 
 for sample in ([2, 2, 2], [0, 0, 10], [1, 2, 3]):
     mean_ratio, median_ratio = dispersion_ratios(sample)
-    print(f"{sample}: Std/MeanAD={mean_ratio:.6g}, Std/MedianAD={median_ratio:.6g}")
+    print(f"{sample}: Std/MeanAD={mean_ratio:.4g}, Std/MedianAD={median_ratio:.4g}")
 ```
 
 **Output**
 
 ```text
 [2, 2, 2]: Std/MeanAD=nan, Std/MedianAD=nan
-[0, 0, 10]: Std/MeanAD=0.846284, Std/MedianAD=inf
-[1, 2, 3]: Std/MeanAD=0.977205, Std/MedianAD=0.550719
+[0, 0, 10]: Std/MeanAD=0.8463, Std/MedianAD=inf
+[1, 2, 3]: Std/MeanAD=0.9772, Std/MedianAD=0.5507
 ```
 
 Standard deviation uses `ddof=0`; both absolute deviations are Gaussian-calibrated.
@@ -660,16 +675,16 @@ from xmath.incerto.tail_diagnostics import regular_variation_ratio
 
 result = regular_variation_ratio(pareto_type1(2).sf, [2, 4], multiplier=2)
 for name, values in result.items():
-    print(name, values)
+    print(f"{name}: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-threshold [2. 4.]
-survival [0.25   0.0625]
-multiplied_survival [0.0625   0.015625]
-ratio [0.25 0.25]
+threshold: [2, 4]
+survival: [0.25, 0.0625]
+multiplied_survival: [0.0625, 0.01562]
+ratio: [0.25, 0.25]
 ```
 
 
@@ -684,16 +699,16 @@ from xmath.incerto.tail_diagnostics import iid_two_sum_tail
 
 result = iid_two_sum_tail(pareto_type1(1.5), [3, 10, 100])
 print("Fields:", ", ".join(result))
-print("Two-sum ratio:", result["ratio"].round(6))
-print("Quadrature success:", result["success"])
+print("Two-sum ratio: [" + ", ".join(f"{v:.4g}" for v in result["ratio"]) + "]")
+print("Quadrature success: [" + ", ".join(str(v) for v in result["success"]) + "]")
 ```
 
 **Output**
 
 ```text
 Fields: x, threshold, log_tail, tail, log_ratio, ratio, success, log_abs_error, nfev
-Two-sum ratio: [1.769076 1.391402 1.044435]
-Quadrature success: [ True  True  True]
+Two-sum ratio: [1.769, 1.391, 1.044]
+Quadrature success: [True, True, True]
 ```
 
 
@@ -711,17 +726,18 @@ result = subexponential_sum_ratio(
     law.rvs, law.sf, [3, 10], sample_size=10000, random_state=20261020,
 )
 for name, values in result.items():
-    print(name, values.round(6))
+    fmt = ".0f" if name == "sum_exceedances" else ".4g"
+    print(f"{name}: [" + ", ".join(format(v, fmt) for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-threshold [ 3. 10.]
-single_tail [0.19245  0.031623]
-sum_tail [0.6793 0.0875]
-ratio [1.764873 1.383496]
-sum_exceedances [6793.  875.]
+threshold: [3, 10]
+single_tail: [0.1925, 0.03162]
+sum_tail: [0.6793, 0.0875]
+ratio: [1.765, 1.383]
+sum_exceedances: [6793, 875]
 ```
 
 These seeded Monte Carlo values are finite-sample diagnostics.
@@ -740,16 +756,16 @@ Module: `xmath.incerto.tail_classes`.
 from xmath.incerto.tail_classes import bounded_spike_summary
 
 for name, value in bounded_spike_summary(0.01).items():
-    print(name, round(value, 6))
+    print(f"{name}: {value:.4g}")
 ```
 
 **Output**
 
 ```text
-support_radius 10.0
-mean 0.0
-variance 1.0
-kurtosis 100.0
+support_radius: 10
+mean: 0
+variance: 1
+kurtosis: 100
 ```
 
 The symmetric three-point law has total nonzero probability `epsilon`.
@@ -764,13 +780,14 @@ The symmetric three-point law has total nonzero probability `epsilon`.
 from xmath.incerto.distributions import pareto_type1
 from xmath.incerto.tail_classes import log_survival_multiplier_ratio
 
-print(log_survival_multiplier_ratio(pareto_type1(2).logsf, [2, 10, 100]).round(6))
+values = log_survival_multiplier_ratio(pareto_type1(2).logsf, [2, 10, 100])
+print("[" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-[-1.386294 -1.386294 -1.386294]
+[-1.386, -1.386, -1.386]
 ```
 
 
@@ -788,14 +805,24 @@ from xmath.incerto.glossary import pareto_tail_quantities
 
 for alpha in (1, 1.5):
     result = pareto_tail_quantities(alpha, x_m=1, threshold=4)
-    print(alpha, {name: round(value, 6) for name, value in result.items()})
+    print(f"alpha={alpha:.4g}")
+    for name, value in result.items():
+        print(f"  {name}: {value:.4g}")
 ```
 
 **Output**
 
 ```text
-1 {'log_survival': -1.386294, 'mean_excess': inf, 'conditional_mean': inf, 'tail_first_moment': inf}
-1.5 {'log_survival': -2.079442, 'mean_excess': 8.0, 'conditional_mean': 12.0, 'tail_first_moment': 1.5}
+alpha=1
+  log_survival: -1.386
+  mean_excess: inf
+  conditional_mean: inf
+  tail_first_moment: inf
+alpha=1.5
+  log_survival: -2.079
+  mean_excess: 8
+  conditional_mean: 12
+  tail_first_moment: 1.5
 ```
 
 
@@ -808,15 +835,16 @@ for alpha in (1, 1.5):
 from xmath.incerto.glossary import pareto_normalized_maximum_cdf
 
 for n in (1, 4, 16):
-    print(n, pareto_normalized_maximum_cdf([0.5, 1, 2], alpha=1.5, n=n).round(6))
+    values = pareto_normalized_maximum_cdf([0.5, 1, 2], alpha=1.5, n=n)
+    print(f"n={n:d}: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-1 [0.       0.       0.646447]
-4 [0.007359 0.316406 0.690621]
-16 [0.044492 0.356074 0.69941 ]
+n=1: [0, 0, 0.6464]
+n=4: [0.007359, 0.3164, 0.6906]
+n=16: [0.04449, 0.3561, 0.6994]
 ```
 
 The maximum is divided by $x_m n^{1/\alpha}$ under an exact iid Pareto model.
@@ -835,15 +863,15 @@ Module: `xmath.incerto.lecture_risk`.
 from xmath.incerto.lecture_risk import repeated_event_probability
 
 for trials in (0, 1, 1000):
-    print(trials, round(repeated_event_probability(1e-4, trials), 6))
+    print(f"{trials:d} {repeated_event_probability(1e-4, trials):.3e}")
 ```
 
 **Output**
 
 ```text
-0 0.0
-1 0.0001
-1000 0.095167
+0 0.000e+00
+1 1.000e-04
+1000 9.517e-02
 ```
 
 Trials are independent with the same event probability.
@@ -857,13 +885,14 @@ Trials are independent with the same event probability.
 ```python
 from xmath.incerto.lecture_risk import survival_from_hazards
 
-print(survival_from_hazards([0.02] * 3))
+values = survival_from_hazards([0.02] * 3)
+print("[" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-[1.       0.98     0.9604   0.941192]
+[1, 0.98, 0.9604, 0.9412]
 ```
 
 The initial survival is included; inputs are conditional hazards.
@@ -877,13 +906,13 @@ The initial survival is included; inputs are conditional hazards.
 ```python
 from xmath.incerto.lecture_risk import finite_payoff_mean
 
-print(finite_payoff_mean([0.98, 0.02], [1, -80]))
+print(f"{finite_payoff_mean([0.98, 0.02], [1, -80]):.4g}")
 ```
 
 **Output**
 
 ```text
--0.6200000000000001
+-0.62
 ```
 
 Probabilities must sum to one; there is no implicit normalization.
@@ -898,14 +927,15 @@ Probabilities must sum to one; there is no implicit normalization.
 from xmath.incerto.lecture_risk import absorbing_resource_path
 
 for increments in ([-4, 4], [4, -4]):
-    print(increments, absorbing_resource_path(3, increments))
+    path = absorbing_resource_path(3, increments)
+    print(f"{increments}: [" + ", ".join(f"{v:.4g}" for v in path) + "]")
 ```
 
 **Output**
 
 ```text
-[-4, 4] [3. 0. 0.]
-[4, -4] [3. 7. 3.]
+[-4, 4]: [3, 0, 0]
+[4, -4]: [3, 7, 3]
 ```
 
 The initial resource level is included and ruin is absorbing.
@@ -921,14 +951,14 @@ from xmath.incerto.lecture_risk import split_power_damage_logsf
 
 for modules in (1, 16):
     value = split_power_damage_logsf(4, alpha=1.5, power=2, modules=modules)
-    print(modules, "log survival:", round(float(value), 6))
+    print(f"{modules:d} log survival: {value:.4g}")
 ```
 
 **Output**
 
 ```text
-1 log survival: -1.039721
-16 log survival: -3.119162
+1 log survival: -1.04
+16 log survival: -3.119
 ```
 
 The model splits a Pareto power-damage exposure into equal modules.
@@ -943,7 +973,7 @@ The model splits a Pareto power-damage exposure into equal modules.
 from xmath.incerto.lecture_risk import block_failure_summary
 
 for name, value in block_failure_summary(0.02, blocks=10).items():
-    print(f"{name}: {value:.6g}")
+    print(f"{name}: {value:.4g}")
 ```
 
 **Output**
@@ -951,7 +981,7 @@ for name, value in block_failure_summary(0.02, blocks=10).items():
 ```text
 mean: 0.02
 variance: 0.00196
-any_failure: 0.182927
+any_failure: 0.1829
 total_failure: 1.024e-17
 ```
 
@@ -970,13 +1000,14 @@ Module: `xmath.incerto.finite_moments`.
 ```python
 from xmath.incerto.finite_moments import normal_mixture_log_density
 
-print(normal_mixture_log_density([0, 1, 4], [0.5, 50.5], [0.99, 0.01]).round(6))
+values = normal_mixture_log_density([0, 1, 4], [0.5, 50.5], [0.99, 0.01])
+print("[" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-[-0.581411 -1.579714 -7.64338 ]
+[-0.5814, -1.58, -7.643]
 ```
 
 Components are centered Gaussian laws with the stated variances and weights.
@@ -990,13 +1021,14 @@ Components are centered Gaussian laws with the stated variances and weights.
 ```python
 from xmath.incerto.finite_moments import normal_mixture_log_abs_survival
 
-print(normal_mixture_log_abs_survival([0, 1, 4], [0.5, 50.5], [0.99, 0.01]).round(6))
+values = normal_mixture_log_abs_survival([0, 1, 4], [0.5, 50.5], [0.99, 0.01])
+print("[" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-[ 0.       -1.804194 -5.161134]
+[0, -1.804, -5.161]
 ```
 
 Thresholds are finite and nonnegative; exceedances are two-sided absolute values.
@@ -1011,13 +1043,13 @@ Thresholds are finite and nonnegative; exceedances are two-sided absolute values
 from xmath.incerto.finite_moments import normal_mixture_absolute_moment
 
 for order in (2, 4):
-    print(order, round(normal_mixture_absolute_moment(order, [0.5, 50.5], [0.99, 0.01]), 6))
+    print(f"{order} {normal_mixture_absolute_moment(order, [0.5, 50.5], [0.99, 0.01]):.4g}")
 ```
 
 **Output**
 
 ```text
-2 1.0
+2 1
 4 77.25
 ```
 
@@ -1033,15 +1065,23 @@ All positive-order absolute moments exist for a finite Gaussian mixture.
 from xmath.incerto.finite_moments import pareto_moment_estimator_summary
 
 for alpha in (1.5, 3, 6):
-    print(alpha, pareto_moment_estimator_summary(alpha, q=2, n=200))
+    print(f"alpha={alpha:.4g}")
+    for name, value in pareto_moment_estimator_summary(alpha, q=2, n=200).items():
+        print(f"  {name}: {value:.4g}")
 ```
 
 **Output**
 
 ```text
-1.5 {'moment': inf, 'estimator_variance': nan}
-3 {'moment': 3.0000000000000004, 'estimator_variance': inf}
-6 {'moment': 1.5, 'estimator_variance': 0.003750000000000002}
+alpha=1.5
+  moment: inf
+  estimator_variance: nan
+alpha=3
+  moment: 3
+  estimator_variance: inf
+alpha=6
+  moment: 1.5
+  estimator_variance: 0.00375
 ```
 
 The empirical moment averages `n` iid exact Pareto observations.
@@ -1056,16 +1096,16 @@ The empirical moment averages `n` iid exact Pareto observations.
 from xmath.incerto.finite_moments import power_mean
 
 for order in (1, 2, 4, float("inf")):
-    print(order, round(power_mean([0, 0, 0, -4], order), 6))
+    print(f"{order} {power_mean([0, 0, 0, -4], order):.4g}")
 ```
 
 **Output**
 
 ```text
-1 1.0
-2 2.0
-4 2.828427
-inf 4.0
+1 1
+2 2
+4 2.828
+inf 4
 ```
 
 Orders are at least one; powers use absolute values and normalization by sample size.
@@ -1084,14 +1124,14 @@ Module: `xmath.incerto.multivariate`.
 from xmath.incerto.multivariate import student_entropy
 
 for dimension in (1, 2):
-    print(dimension, round(student_entropy(3, dimension, logdet=0), 6))
+    print(f"{dimension} {student_entropy(3, dimension, logdet=0):.4g}")
 ```
 
 **Output**
 
 ```text
-1 1.773478
-2 3.504544
+1 1.773
+2 3.505
 ```
 
 Entropy is in nats; `logdet` is the log determinant of scatter.
@@ -1106,14 +1146,14 @@ Entropy is in nats; `logdet` is the log determinant of scatter.
 from xmath.incerto.multivariate import student_mutual_information
 
 for nu in (1, 5):
-    print(nu, round(student_mutual_information(nu, rho=0), 6))
+    print(f"{nu} {student_mutual_information(nu, rho=0):.4g}")
 ```
 
 **Output**
 
 ```text
-1 0.224171
-5 0.017128
+1 0.2242
+5 0.01713
 ```
 
 Mutual information is in nats for unit diagonal scatter.
@@ -1129,15 +1169,16 @@ import numpy as np
 from xmath.incerto.multivariate import bivariate_student
 
 rng = np.random.default_rng(20261020)
-print(bivariate_student(rng, nu=3, rho=0.6, size=3).round(6))
+for row in bivariate_student(rng, nu=3, rho=0.6, size=3):
+    print("[" + ", ".join(f"{v:.4g}" for v in row) + "]")
 ```
 
 **Output**
 
 ```text
-[[-1.722413 -1.126431]
- [-1.263474 -0.024399]
- [ 7.266111  2.57196 ]]
+[-1.722, -1.126]
+[-1.263, -0.0244]
+[7.266, 2.572]
 ```
 
 Each pair shares one gamma precision, with unit diagonal scatter and off-diagonal `rho`.
@@ -1152,15 +1193,15 @@ Each pair shares one gamma precision, with unit diagonal scatter and off-diagona
 from xmath.incerto.multivariate import sample_correlation
 
 for centered in (True, False):
-    print(centered, round(sample_correlation([1, 2, 3], [3, 2, 1], centered=centered), 6))
-print("Constant centered column:", sample_correlation([1, 1, 1], [1, 2, 3]))
+    print(f"{centered} {sample_correlation([1, 2, 3], [3, 2, 1], centered=centered):.4g}")
+print(f"Constant centered column: {sample_correlation([1, 1, 1], [1, 2, 3]):.4g}")
 ```
 
 **Output**
 
 ```text
-True -1.0
-False 0.714286
+True -1
+False 0.7143
 Constant centered column: nan
 ```
 
@@ -1175,13 +1216,14 @@ Constant centered column: nan
 ```python
 from xmath.incerto.multivariate import symmetric_spectrum
 
-print(symmetric_spectrum([[0, 2], [2, 0]]))
+values = symmetric_spectrum([[0, 2], [2, 0]])
+print("[" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-[-2.  2.]
+[-2, 2]
 ```
 
 The real square input must be finite, nonempty, and exactly symmetric.
@@ -1195,13 +1237,13 @@ The real square input must be finite, nonempty, and exactly symmetric.
 ```python
 from xmath.incerto.multivariate import regression_population_r2
 
-print(regression_population_r2(slope=1, error_variance=3))
+print(f"{regression_population_r2(slope=1, error_variance=3):.4g}")
 ```
 
 **Output**
 
 ```text
-0.24999999999999994
+0.25
 ```
 
 The error is independent and the predictor has variance one.
@@ -1216,14 +1258,14 @@ The error is independent and the predictor has variance one.
 from xmath.incerto.multivariate import normal_location_mixture_kurtosis
 
 for separation in (0, 2):
-    print(separation, normal_location_mixture_kurtosis(separation, sigma=1))
+    print(f"{separation:d} {normal_location_mixture_kurtosis(separation, sigma=1):.4g}")
 ```
 
 **Output**
 
 ```text
-0 3.0
-2 1.7199999999999998
+0 3
+2 1.72
 ```
 
 Equal Gaussian components are centered at plus and minus `separation`, with common standard deviation `sigma`.
@@ -1243,14 +1285,15 @@ import numpy as np
 from xmath.incerto.power_laws import pareto_product_logsf
 
 for a, b in ((1, 2), (1, 1)):
-    print((a, b), pareto_product_logsf(np.log([1, 10, 100]), a, b).round(6))
+    values = pareto_product_logsf(np.log([1, 10, 100]), a, b)
+    print(f"a={a:d}, b={b:d}: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-(1, 2) [-0.       -1.660731 -3.917036]
-(1, 1) [-0.       -1.10788  -2.881481]
+a=1, b=2: [-0, -1.661, -3.917]
+a=1, b=1: [-0, -1.108, -2.881]
 ```
 
 The factors are independent unit-minimum Paretos; thresholds enter on the log scale.
@@ -1265,15 +1308,16 @@ The factors are independent unit-minimum Paretos; thresholds enter on the log sc
 from xmath.incerto.power_laws import pareto_truncated_moment
 
 for order in (1, 1.5, 2):
-    print(order, pareto_truncated_moment([10, 100], alpha=1.5, order=order).round(6))
+    values = pareto_truncated_moment([10, 100], alpha=1.5, order=order)
+    print(f"order={order:.4g}: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-1 [2.051317 2.7     ]
-1.5 [3.453878 6.907755]
-2 [ 6.486833 27.      ]
+order=1: [2.051, 2.7]
+order=1.5: [3.454, 6.908]
+order=2: [6.487, 27]
 ```
 
 Truncation uses the indicator below `cutoff`, without conditional renormalization.
@@ -1288,16 +1332,16 @@ Truncation uses the indicator below `cutoff`, without conditional renormalizatio
 from xmath.incerto.power_laws import student_double_pareto_scales
 
 for name, value in student_double_pareto_scales(3).items():
-    print(name, round(value, 6))
+    print(f"{name}: {value:.4g}")
 ```
 
 **Output**
 
 ```text
-student_tail_constant 1.102658
-tail_scale 0.768263
-variance_scale 0.57735
-tail_matched_variance 1.770683
+student_tail_constant: 1.103
+tail_scale: 0.7683
+variance_scale: 0.5774
+tail_matched_variance: 1.771
 ```
 
 Matching uses a unit shifted double Pareto and requires `alpha > 2`.
@@ -1312,15 +1356,16 @@ Matching uses a unit shifted double Pareto and requires `alpha > 2`.
 from xmath.incerto.power_laws import q_exponential_logsf
 
 for q in (0.75, 1, 1.25):
-    print(q, q_exponential_logsf([0, 1, 2], q, beta=2).round(6))
+    values = q_exponential_logsf([0, 1, 2], q, beta=2)
+    print(f"q={q:.4g}: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-0.75 [-0.       -3.465736      -inf]
-1 [-0. -2. -4.]
-1.25 [-0.       -1.216395 -2.079442]
+q=0.75: [-0, -3.466, -inf]
+q=1: [-0, -2, -4]
+q=1.25: [-0, -1.216, -2.079]
 ```
 
 The normalized law requires `x >= 0` and `0 < q < 2`; `-inf` means zero survival.
@@ -1335,19 +1380,19 @@ The normalized law requires `x >= 0` and `0 < q < 2`; `-inf` means zero survival
 from xmath.incerto.power_laws import entropy_log_constraint_example
 
 for name, value in entropy_log_constraint_example().items():
-    print(name, round(value, 6))
+    print(f"{name}: {value:.4g}")
 ```
 
 **Output**
 
 ```text
-pareto_mass 1.0
-pareto_log_moment 0.5
-pareto_entropy 0.806853
-log_gamma_mass 1.0
-log_gamma_log_moment 0.5
-log_gamma_entropy 0.690921
-kl 0.115932
+pareto_mass: 1
+pareto_log_moment: 0.5
+pareto_entropy: 0.8069
+log_gamma_mass: 1
+log_gamma_log_moment: 0.5
+log_gamma_entropy: 0.6909
+kl: 0.1159
 ```
 
 Independent quadrature uses $x_m=1$ and $\mathbb E\log X=1/2$.
@@ -1389,15 +1434,15 @@ Save a figure with Incerto defaults.
 from xmath import exceedance_fraction
 
 for threshold in (0, 2, 4):
-    print(threshold, exceedance_fraction([1, 2, 2, 4], threshold))
+    print(f"{threshold:d} {exceedance_fraction([1, 2, 2, 4], threshold):.4g}")
 ```
 
 **Output**
 
 ```text
-0 1.0
+0 1
 2 0.25
-4 0.0
+4 0
 ```
 
 Exceedances are strict; the sample must be nonempty and finite.

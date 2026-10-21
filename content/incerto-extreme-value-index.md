@@ -121,18 +121,20 @@ from xmath.incerto.glossary import pareto_normalized_maximum_cdf
 
 y = [0.5, 1, 2]
 for n in (1, 4, 16, 64):
-    print(n, pareto_normalized_maximum_cdf(y, alpha=1.5, n=n).round(4))
-print("Frechet limit:", np.exp(-np.array(y)**-1.5).round(4))
+    values = pareto_normalized_maximum_cdf(y, alpha=1.5, n=n)
+    print(f"n={n:d}: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
+limit = np.exp(-np.array(y)**-1.5)
+print("Frechet limit: [" + ", ".join(f"{v:.4g}" for v in limit) + "]")
 ```
 
 **Output**
 
 ```text
-1 [0.     0.     0.6464]
-4 [0.0074 0.3164 0.6906]
-16 [0.0445 0.3561 0.6994]
-64 [0.0554 0.365  0.7015]
-Frechet limit: [0.0591 0.3679 0.7022]
+n=1: [0, 0, 0.6464]
+n=4: [0.007359, 0.3164, 0.6906]
+n=16: [0.04449, 0.3561, 0.6994]
+n=64: [0.05542, 0.365, 0.7015]
+Frechet limit: [0.05911, 0.3679, 0.7022]
 ```
 
 These finite-$n$ CDFs are population calculations, not estimates from sampled maxima.

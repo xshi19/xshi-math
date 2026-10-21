@@ -191,14 +191,14 @@ Use [`pareto_mean_plugin`](incerto-api-reference.md#api-pareto-mean-plugin).
 from xmath.incerto.estimators import pareto_mean_plugin
 
 for sample in ([1, 1], [1, 2], [4, 4]):
-    print(sample, round(pareto_mean_plugin(sample, x_m=1), 6))
+    print(f"{sample} {pareto_mean_plugin(sample, x_m=1):.4g}")
 ```
 
 **Output**
 
 ```text
-[1, 1] 1.0
-[1, 2] 1.530394
+[1, 1] 1
+[1, 2] 1.53
 [4, 4] inf
 ```
 
@@ -281,6 +281,8 @@ estimand or dominates every estimator under every loss.
 
 Use [`pareto_type1`](incerto-api-reference.md#api-pareto-type1), [`pareto_moment_estimator_summary`](incerto-api-reference.md#api-pareto-moment-estimator-summary).
 
+:::{dropdown} Code
+
 ```python
 import numpy as np
 from xmath.incerto.distributions import pareto_type1
@@ -290,18 +292,26 @@ rng = np.random.default_rng(20261020)
 for alpha in (3, 6):
     sample = pareto_type1.rvs(alpha, size=(100, 200), random_state=rng)
     estimates = np.mean(sample**2, axis=1)
-    print(alpha, pareto_moment_estimator_summary(alpha, q=2, n=200))
-    print("Sample quantiles:", np.quantile(estimates, [0.1, 0.5, 0.9]).round(3))
+    print(f"alpha={alpha:.4g}")
+    for name, value in pareto_moment_estimator_summary(alpha, q=2, n=200).items():
+        print(f"  {name}: {value:.4g}")
+    quantiles = np.quantile(estimates, [0.1, 0.5, 0.9])
+    print("Sample quantiles: [" + ", ".join(f"{v:.4g}" for v in quantiles) + "]")
 ```
 
 **Output**
 
 ```text
-3 {'moment': 3.0000000000000004, 'estimator_variance': inf}
-Sample quantiles: [2.335 2.726 3.491]
-6 {'moment': 1.5, 'estimator_variance': 0.003750000000000002}
-Sample quantiles: [1.433 1.497 1.592]
+alpha=3
+  moment: 3
+  estimator_variance: inf
+Sample quantiles: [2.335, 2.726, 3.491]
+alpha=6
+  moment: 1.5
+  estimator_variance: 0.00375
+Sample quantiles: [1.433, 1.497, 1.592]
 ```
+:::
 
 The quantiles describe 100 seeded second-moment estimates from samples of size 200.
 

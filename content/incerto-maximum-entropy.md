@@ -249,19 +249,19 @@ from xmath.incerto.power_laws import entropy_log_constraint_example
 
 result = entropy_log_constraint_example()
 for name, value in result.items():
-    print(name, round(value, 6))
+    print(f"{name}: {value:.4g}")
 ```
 
 **Output**
 
 ```text
-pareto_mass 1.0
-pareto_log_moment 0.5
-pareto_entropy 0.806853
-log_gamma_mass 1.0
-log_gamma_log_moment 0.5
-log_gamma_entropy 0.690921
-kl 0.115932
+pareto_mass: 1
+pareto_log_moment: 0.5
+pareto_entropy: 0.8069
+log_gamma_mass: 1
+log_gamma_log_moment: 0.5
+log_gamma_entropy: 0.6909
+kl: 0.1159
 ```
 
 This quadrature checks one worked case, not global optimality.

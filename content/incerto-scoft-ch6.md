@@ -93,17 +93,18 @@ from xmath.incerto.multivariate import (
     student_mutual_information, regression_population_r2, symmetric_spectrum,
 )
 
-print("Cauchy information:", student_mutual_information(1, rho=0))
-print("Regression target:", regression_population_r2(1, error_variance=3))
-print("Matrix eigenvalues:", symmetric_spectrum([[0, 2], [2, 0]]))
+print(f"Cauchy information: {student_mutual_information(1, rho=0):.4g}")
+print(f"Regression target: {regression_population_r2(1, error_variance=3):.4g}")
+values = symmetric_spectrum([[0, 2], [2, 0]])
+print("Matrix eigenvalues: [" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-Cauchy information: 0.22417142752923613
-Regression target: 0.24999999999999994
-Matrix eigenvalues: [-2.  2.]
+Cauchy information: 0.2242
+Regression target: 0.25
+Matrix eigenvalues: [-2, 2]
 ```
 
 Information is measured in nats; the finite matrix example implies no random-matrix limit.

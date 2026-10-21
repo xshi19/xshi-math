@@ -234,20 +234,37 @@ $u\bar F(u)=1/2$ would discard the entire excess integral.
 
 Use [`pareto_tail_quantities`](incerto-api-reference.md#api-pareto-tail-quantities).
 
+:::{dropdown} Code
+
 ```python
 from xmath.incerto.glossary import pareto_tail_quantities
 
 for alpha in (1, 1.5, 3):
-    print(alpha, pareto_tail_quantities(alpha, x_m=1, threshold=4))
+    print(f"alpha={alpha:.4g}")
+    for name, value in pareto_tail_quantities(alpha, x_m=1, threshold=4).items():
+        print(f"  {name}: {value:.4g}")
 ```
 
 **Output**
 
 ```text
-1 {'log_survival': -1.3862943611198906, 'mean_excess': inf, 'conditional_mean': inf, 'tail_first_moment': inf}
-1.5 {'log_survival': -2.0794415416798357, 'mean_excess': 8.0, 'conditional_mean': 12.0, 'tail_first_moment': 1.5000000000000004}
-3 {'log_survival': -4.1588830833596715, 'mean_excess': 2.0, 'conditional_mean': 6.0, 'tail_first_moment': 0.09375000000000003}
+alpha=1
+  log_survival: -1.386
+  mean_excess: inf
+  conditional_mean: inf
+  tail_first_moment: inf
+alpha=1.5
+  log_survival: -2.079
+  mean_excess: 8
+  conditional_mean: 12
+  tail_first_moment: 1.5
+alpha=3
+  log_survival: -4.159
+  mean_excess: 2
+  conditional_mean: 6
+  tail_first_moment: 0.09375
 ```
+:::
 
 
 
@@ -426,14 +443,14 @@ from xmath.incerto.power_laws import pareto_product_logsf
 
 for a, b in ((1, 2), (1, 1)):
     survival = np.exp(pareto_product_logsf(np.log([1, 10, 100]), a, b))
-    print((a, b), survival.round(6))
+    print(f"a={a:d}, b={b:d}: [" + ", ".join(f"{v:.4g}" for v in survival) + "]")
 ```
 
 **Output**
 
 ```text
-(1, 2) [1.     0.19   0.0199]
-(1, 1) [1.       0.330259 0.056052]
+a=1, b=2: [1, 0.19, 0.0199]
+a=1, b=1: [1, 0.3303, 0.05605]
 ```
 
 Equal exponents introduce the logarithmic factor derived above.

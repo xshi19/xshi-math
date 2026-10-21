@@ -119,16 +119,17 @@ from xmath.incerto.finite_moments import normal_mixture_absolute_moment, power_m
 
 variances, weights = [0.5, 50.5], [0.99, 0.01]
 for order in (2, 4):
-    print(order, normal_mixture_absolute_moment(order, variances, weights))
-print("Power means:", [power_mean([0, 0, 0, 4], p) for p in (1, 2, 4)])
+    print(f"{order:d} {normal_mixture_absolute_moment(order, variances, weights):.4g}")
+means = [power_mean([0, 0, 0, 4], p) for p in (1, 2, 4)]
+print("Power means: [" + ", ".join(f"{v:.4g}" for v in means) + "]")
 ```
 
 **Output**
 
 ```text
-2 1.0000000000000002
-4 77.25000000000009
-Power means: [1.0, 2.0, 2.8284271247461903]
+2 1
+4 77.25
+Power means: [1, 2, 2.828]
 ```
 
 The finite mixture and the fixed vector answer different moment and norm questions.

@@ -63,18 +63,19 @@ from xmath.incerto.estimators import running_mean, max_to_sum_ratio
 rng = np.random.default_rng(20261020)
 for alpha in (0.8, 1.0, 1.3):
     sample = pareto_type1.rvs(alpha, size=5000, random_state=rng)
-    print(alpha, running_mean(sample)[[99, 999, 4999]].round(3))
-    print("Maximum share:", round(max_to_sum_ratio(sample), 3))
+    means = running_mean(sample)[[99, 999, 4999]]
+    print(f"alpha={alpha:.4g}: [" + ", ".join(f"{v:.4g}" for v in means) + "]")
+    print(f"Maximum share: {max_to_sum_ratio(sample):.3f}")
 ```
 
 **Output**
 
 ```text
-0.8 [127.009  81.285  37.795]
+alpha=0.8: [127, 81.28, 37.8]
 Maximum share: 0.115
-1.0 [5.203 7.27  8.461]
+alpha=1: [5.203, 7.27, 8.461]
 Maximum share: 0.064
-1.3 [3.292 5.847 4.178]
+alpha=1.3: [3.292, 5.847, 4.178]
 Maximum share: 0.097
 ```
 

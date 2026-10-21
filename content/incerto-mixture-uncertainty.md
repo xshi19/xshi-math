@@ -186,14 +186,14 @@ for variances, weights in (([1], [1]), ([0.5, 50.5], [0.99, 0.01])):
     m2 = normal_mixture_absolute_moment(2, variances, weights)
     m4 = normal_mixture_absolute_moment(4, variances, weights)
     tail = np.exp(normal_mixture_log_abs_survival(4, variances, weights))
-    print("Variance / kurtosis / P(|X|>4):", m2, m4 / m2**2, tail)
+    print(f"Variance / kurtosis / P(|X|>4): {m2:.4g} {m4 / m2**2:.4g} {tail:.4g}")
 ```
 
 **Output**
 
 ```text
-Variance / kurtosis / P(|X|>4): 0.9999999999999999 3.0000000000000004 6.33424836662398e-05
-Variance / kurtosis / P(|X|>4): 1.0000000000000002 77.25000000000006 0.005735194638476147
+Variance / kurtosis / P(|X|>4): 1 3 6.334e-05
+Variance / kurtosis / P(|X|>4): 1 77.25 0.005735
 ```
 
 All moments of these two finite Gaussian mixtures exist.

@@ -272,7 +272,6 @@ provides the exponential-moment contrast for these two light-tailed laws.
 Use [`pareto_type1`](incerto-api-reference.md#api-pareto-type1), [`log_survival_multiplier_ratio`](incerto-api-reference.md#api-log-survival-multiplier-ratio).
 
 ```python
-import numpy as np
 from scipy.stats import expon, lognorm
 from xmath.incerto.distributions import pareto_type1
 from xmath.incerto.tail_classes import log_survival_multiplier_ratio
@@ -280,15 +279,15 @@ from xmath.incerto.tail_classes import log_survival_multiplier_ratio
 for label, law in (("Pareto", pareto_type1(2.5)),
                    ("Lognormal", lognorm(1)), ("Exponential", expon())):
     log_ratio = log_survival_multiplier_ratio(law.logsf, [2, 10, 100])
-    print(label, np.round(log_ratio, 4))
+    print(f"{label}: [" + ", ".join(f"{v:.4g}" for v in log_ratio) + "]")
 ```
 
 **Output**
 
 ```text
-Pareto [-1.7329 -1.7329 -1.7329]
-Lognormal [-1.0808 -2.0516 -3.5628]
-Exponential [  -2.  -10. -100.]
+Pareto: [-1.733, -1.733, -1.733]
+Lognormal: [-1.081, -2.052, -3.563]
+Exponential: [-2, -10, -100]
 ```
 
 A finite grid illustrates the specified laws and cannot classify unknown data.
@@ -440,18 +439,18 @@ Use [`normal_location_mixture_kurtosis`](incerto-api-reference.md#api-normal-loc
 from xmath.incerto.multivariate import normal_location_mixture_kurtosis
 from xmath.incerto.lecture_risk import survival_from_hazards
 
-print("Location-mixture kurtosis:", normal_location_mixture_kurtosis(2))
-print("Constant hazard:", survival_from_hazards([0.05] * 100)[-1])
+print(f"Location-mixture kurtosis: {normal_location_mixture_kurtosis(2):.4g}")
+print(f"Constant hazard: {survival_from_hazards([0.05] * 100)[-1]:.4g}")
 hazards = [2.0**(-j - 1) for j in range(1, 101)]
-print("Decreasing hazard:", survival_from_hazards(hazards)[-1])
+print(f"Decreasing hazard: {survival_from_hazards(hazards)[-1]:.4g}")
 ```
 
 **Output**
 
 ```text
-Location-mixture kurtosis: 1.7199999999999998
-Constant hazard: 0.005920529220334054
-Decreasing hazard: 0.5775761901732049
+Location-mixture kurtosis: 1.72
+Constant hazard: 0.005921
+Decreasing hazard: 0.5776
 ```
 
 Neither example asserts a power-tail law.

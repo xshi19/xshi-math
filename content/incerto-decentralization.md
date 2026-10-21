@@ -131,18 +131,28 @@ from xmath.incerto.lecture_risk import split_power_damage_logsf, block_failure_s
 
 for modules in (1, 16):
     log_tail = split_power_damage_logsf(4, alpha=1.5, power=2, modules=modules)
-    print(modules, float(np.exp(log_tail)))
+    print(f"modules={modules:d}: {np.exp(log_tail):.4g}")
 for blocks in (1, 10):
-    print(blocks, block_failure_summary(0.02, blocks))
+    print(f"blocks={blocks:d}")
+    for name, value in block_failure_summary(0.02, blocks).items():
+        print(f"  {name}: {value:.4g}")
 ```
 
 **Output**
 
 ```text
-1 0.3535533905932738
-16 0.044194173824159244
-1 {'mean': 0.02, 'variance': 0.0196, 'any_failure': 0.02, 'total_failure': 0.02}
-10 {'mean': 0.02, 'variance': 0.0019600000000000004, 'any_failure': 0.1829271931124531, 'total_failure': 1.0240000000000003e-17}
+modules=1: 0.3536
+modules=16: 0.04419
+blocks=1
+  mean: 0.02
+  variance: 0.0196
+  any_failure: 0.02
+  total_failure: 0.02
+blocks=10
+  mean: 0.02
+  variance: 0.00196
+  any_failure: 0.1829
+  total_failure: 1.024e-17
 ```
 
 The split-damage calculation assumes equal modules; the block calculation

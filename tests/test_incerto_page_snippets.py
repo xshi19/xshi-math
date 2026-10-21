@@ -8,6 +8,7 @@ writes beneath the repository. The financial example also runs against a
 synthetic local price cache so its data-present branch cannot silently rot.
 An immediately following **Output** text block is checked against captured
 stdout, ignoring trailing whitespace on each line and at the end only.
+All text output must use plain numbers with at most six decimal places.
 """
 
 import ast
@@ -25,6 +26,8 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGES = sorted((ROOT / "content").glob("incerto-*.md")) + [ROOT / "content/incerto/index.md"]
 PYTHON_BLOCK = re.compile(r"^```python\n(.*?)\n```[ \t]*$", re.M | re.S)
 OUTPUT_BLOCK = re.compile(r"\s*\*\*Output\*\*[ \t]*\n\s*```text\n(.*?)\n```[ \t]*(?:\n|$)", re.S)
+TEXT_BLOCK = re.compile(r"^```text\n(.*?)\n```[ \t]*$", re.M | re.S)
+LONG_DECIMAL = re.compile(r"(?<![\w.])[+-]?(?:\d+)?\.\d{7,}(?:[eE][+-]?\d+)?")
 API = (ROOT / "content/incerto-api-reference.md").read_text()
 
 
@@ -90,9 +93,16 @@ def strip_trailing_whitespace(text):
     return "\n".join(line.rstrip() for line in text.rstrip().splitlines())
 
 
+def assert_plain_numbers(output):
+    for token in ("np.float64", "np.int64", "array("):
+        assert token not in output, f"NumPy representation in output: {token}"
+    assert not LONG_DECIMAL.search(output), f"More than six decimal places in output: {output}"
+
+
 @pytest.mark.parametrize("page,index,code,expected", SNIPPETS)
 def test_incerto_python_block(page, index, code, expected, tmp_path):
     output = run_snippet(page, index, code, tmp_path)
+    assert_plain_numbers(output)
     if expected is not None:
         assert strip_trailing_whitespace(output) == strip_trailing_whitespace(expected)
     if page.stem == "incerto-sp500-tail":
@@ -121,6 +131,26 @@ def test_output_blocks_are_paired():
         assert labelled == paired, page
 
 
+def test_output_blocks_use_plain_numbers():
+    # Include the recorded full-demo output as well as paired snippet outputs.
+    for page in PAGES:
+        for block in TEXT_BLOCK.finditer(page.read_text()):
+            assert_plain_numbers(block.group(1))
+
+
+@pytest.mark.parametrize("output", [
+    "np.float64(0.0)", "np.int64(3)", "array([1, 2])",
+    "value: -0.1234567", "[.1234567]", "value: 1.2345678e-10",
+])
+def test_plain_number_check_rejects_reprs_and_long_decimals(output):
+    with pytest.raises(AssertionError):
+        assert_plain_numbers(output)
+
+
+def test_plain_number_check_accepts_short_numbers():
+    assert_plain_numbers("count: 789724\n[0, -2, 0.123456, 1.024e-17, inf, -inf, nan]")
+
+
 def test_output_comparison_rejects_changed_values(tmp_path):
     page = ROOT / "content/incerto-api-reference.md"
     with pytest.raises(AssertionError):
@@ -143,6 +173,7 @@ def test_financial_snippet_with_local_synthetic_prices(tmp_path):
         "date,close\n" + "".join(f"{day},{price:.16g}\n" for day, price in zip(dates, prices))
     )
     output = run_snippet(page, 1, code, tmp_path, data_dir=cache.parent)
+    assert_plain_numbers(output)
     assert "Window / loss days: 2020-01-01 2021-05-15 500" in output
     assert "25 " in output and "400 " in output
     assert "mean_excess" in output and "exceedances" in output

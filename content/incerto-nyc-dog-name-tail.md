@@ -81,10 +81,10 @@ from xmath.incerto.datasets import load_nyc_dog_name_frequencies
 from xmath.incerto.estimators import hill_stability
 
 data = load_nyc_dog_name_frequencies()
-print("Names / records:", data.name.size, data.frequency.sum())
-print("Safari:", data.frequency_for("Safari"))
+print(f"Names / records: {data.name.size:d} {data.frequency.sum():d}")
+print(f"Safari: {data.frequency_for('Safari'):d}")
 result = hill_stability(data.frequency, [50, 200, 1000])
-print("Hill alpha:", result["alpha"].round(3))
+print("Hill alpha: [" + ", ".join(f"{v:.3f}" for v in result["alpha"]) + "]")
 ```
 
 **Output**
@@ -92,7 +92,7 @@ print("Hill alpha:", result["alpha"].round(3))
 ```text
 Names / records: 34680 789724
 Safari: 3
-Hill alpha: [1.896 1.287 1.056]
+Hill alpha: [1.896, 1.287, 1.056]
 ```
 
 The bundled aggregate is read locally in an editable checkout.
@@ -132,15 +132,15 @@ from xmath.incerto.datasets import load_nyc_dog_name_frequencies
 
 data = load_nyc_dog_name_frequencies()
 for name in ("Safari", " safari ", "SAFARI"):
-    print(repr(name), data.frequency_for(name))
+    print(f"{name!r}: {data.frequency_for(name):d}")
 ```
 
 **Output**
 
 ```text
-'Safari' 3
-' safari ' 3
-'SAFARI' 3
+'Safari': 3
+' safari ': 3
+'SAFARI': 3
 ```
 
 ## Caveats
