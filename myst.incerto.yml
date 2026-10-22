@@ -22,6 +22,7 @@ project:
             - file: content/incerto-tail-class-catalog.md
             - file: content/incerto-mixture-uncertainty.md
             - file: content/incerto-multivariate-tails.md
+            - file: content/incerto-rayleigh-speed.md
         - file: content/incerto-theorem-concepts.md
           title: Theorems
           children:
