@@ -109,6 +109,12 @@
       "target": "amazon-bookrank"
     },
     {
+      "id": "dependency:hill-estimator->layoffs-tails",
+      "kind": "dependency",
+      "source": "hill-estimator",
+      "target": "layoffs-tails"
+    },
+    {
       "id": "dependency:hill-estimator->nyc-dog-name-tail",
       "kind": "dependency",
       "source": "hill-estimator",
@@ -331,10 +337,22 @@
       "target": "moment-estimation"
     },
     {
+      "id": "dependency:power-law-fitting->layoffs-tails",
+      "kind": "dependency",
+      "source": "power-law-fitting",
+      "target": "layoffs-tails"
+    },
+    {
       "id": "dependency:power-law-fitting->power-law-goodness-of-fit",
       "kind": "dependency",
       "source": "power-law-fitting",
       "target": "power-law-goodness-of-fit"
+    },
+    {
+      "id": "dependency:power-law-goodness-of-fit->layoffs-tails",
+      "kind": "dependency",
+      "source": "power-law-goodness-of-fit",
+      "target": "layoffs-tails"
     },
     {
       "id": "dependency:regular-variation->cramer-condition",
@@ -437,6 +455,12 @@
       "kind": "dependency",
       "source": "survival-tail-ratio",
       "target": "iso-density-tail-geometry"
+    },
+    {
+      "id": "dependency:tail-threshold-selection->layoffs-tails",
+      "kind": "dependency",
+      "source": "tail-threshold-selection",
+      "target": "layoffs-tails"
     },
     {
       "id": "dependency:tail-threshold-selection->nyc-dog-name-tail",
@@ -791,6 +815,30 @@
       "kind": "reference",
       "source": "karamata",
       "target": "pareto-moment-existence"
+    },
+    {
+      "id": "reference:karamata->pickands-balkema-de-haan",
+      "kind": "reference",
+      "source": "karamata",
+      "target": "pickands-balkema-de-haan"
+    },
+    {
+      "id": "reference:layoffs-tails->nyc-dog-name-tail",
+      "kind": "reference",
+      "source": "layoffs-tails",
+      "target": "nyc-dog-name-tail"
+    },
+    {
+      "id": "reference:layoffs-tails->pareto-moment-existence",
+      "kind": "reference",
+      "source": "layoffs-tails",
+      "target": "pareto-moment-existence"
+    },
+    {
+      "id": "reference:layoffs-tails->sp500-tail",
+      "kind": "reference",
+      "source": "layoffs-tails",
+      "target": "sp500-tail"
     },
     {
       "id": "reference:lln-failure->max-to-sum-ratio",
@@ -1249,6 +1297,10 @@
           "x": 390.0,
           "y": 455.0
         },
+        "layoffs-tails": {
+          "x": 1290.0,
+          "y": 455.0
+        },
         "lln-failure": {
           "x": 390.0,
           "y": 546.0
@@ -1342,182 +1394,186 @@
           "y": 546.0
         }
       },
-      "width": 1230
+      "width": 1380
     },
     "knowledge": {
       "height": 680,
       "nodes": {
         "amazon-bookrank": {
-          "x": 146.27658843729517,
-          "y": 451.9602293436321
+          "x": 99.73563317393311,
+          "y": 519.0559292509018
         },
         "asymmetric-payoffs": {
-          "x": 504.45885849041474,
-          "y": 533.7388287229
+          "x": 788.36077355664,
+          "y": 372.82160879572814
         },
         "body-shoulder-tail": {
-          "x": 462.47541898243594,
-          "y": 259.43726097454277
+          "x": 303.27671644182396,
+          "y": 281.41372925214023
         },
         "cauchy-running": {
-          "x": 763.981486186322,
-          "y": 191.8413630261798
+          "x": 725.8009757854899,
+          "y": 145.42427700881478
         },
         "cramer-condition": {
-          "x": 569.5402451854527,
-          "y": 355.39125772158053
+          "x": 529.7397863160745,
+          "y": 234.13873268899886
         },
         "decentralization": {
-          "x": 595.4732687281485,
-          "y": 460.66123951933395
+          "x": 740.3276210632906,
+          "y": 308.0453184193076
         },
         "dispersion-ratio": {
-          "x": 638.3994618428984,
+          "x": 356.61660665584776,
           "y": 90.0
         },
         "double-pareto": {
-          "x": 465.1805833996164,
-          "y": 414.4322313198562
+          "x": 648.2473597947046,
+          "y": 342.9455944796023
         },
         "ergodicity": {
           "x": 830.0,
-          "y": 401.37662618063075
+          "y": 109.14395702451786
         },
         "extreme-value-index": {
-          "x": 248.51589511185156,
-          "y": 239.6364217234901
+          "x": 391.2404288569079,
+          "y": 506.3498075917868
         },
         "frechet": {
-          "x": 288.26092078478536,
-          "y": 155.3709721288475
+          "x": 571.9305632415221,
+          "y": 540.4030205276251
         },
         "generalized-central-limit-theorem": {
-          "x": 520.3655481379301,
-          "y": 189.38156726120982
+          "x": 536.0143365081985,
+          "y": 288.49416052886124
         },
         "generalized-extreme-value": {
-          "x": 197.33124375643578,
-          "y": 163.89110996611433
-        },
-        "generalized-pareto": {
-          "x": 143.14974631517975,
-          "y": 257.2867658379704
-        },
-        "hidden-tail": {
-          "x": 314.78056052540273,
-          "y": 277.8148661960036
-        },
-        "hill-estimator": {
-          "x": 242.40054333595444,
-          "y": 357.97540387756885
-        },
-        "inference-asymmetry": {
-          "x": 433.0743019447917,
-          "y": 480.4976493962073
-        },
-        "iso-density-tail-geometry": {
-          "x": 687.9368808188855,
-          "y": 259.26339262622264
-        },
-        "kappa": {
-          "x": 661.1020149122436,
-          "y": 212.49608418500566
-        },
-        "karamata": {
-          "x": 393.42732369984,
-          "y": 206.45067831197707
-        },
-        "lln-failure": {
-          "x": 562.800214097311,
-          "y": 178.41735249980752
-        },
-        "lln-preasymptotic": {
-          "x": 468.34764711033864,
-          "y": 156.71592328053833
-        },
-        "max-to-sum-ratio": {
-          "x": 508.97558073115744,
-          "y": 266.0530395096302
-        },
-        "maximum-entropy": {
-          "x": 555.6868550685662,
-          "y": 491.50479938037915
-        },
-        "mean-excess-function": {
-          "x": 191.43601945437103,
-          "y": 230.6180928740144
-        },
-        "mixture-uncertainty": {
-          "x": 634.9880775995567,
-          "y": 393.2984344787696
-        },
-        "moment-estimation": {
-          "x": 581.3215015896251,
-          "y": 260.4888864986005
-        },
-        "multivariate-tails": {
-          "x": 671.7135004998032,
-          "y": 370.7770310969706
-        },
-        "nyc-dog-name-tail": {
-          "x": 175.48277571722707,
-          "y": 362.4583417846096
-        },
-        "pareto": {
-          "x": 388.84752366493194,
-          "y": 313.69753354977325
-        },
-        "pareto-moment-existence": {
-          "x": 482.0404363359068,
-          "y": 326.41756815360225
-        },
-        "pickands-balkema-de-haan": {
-          "x": 206.11602219388925,
-          "y": 282.2065264851142
-        },
-        "plug-in-tail-estimation": {
-          "x": 360.7030870688836,
-          "y": 256.4470873408651
-        },
-        "power-law-fitting": {
-          "x": 285.0969606369548,
-          "y": 424.2627169228275
-        },
-        "power-law-goodness-of-fit": {
-          "x": 287.96743366057103,
-          "y": 511.19303992641954
-        },
-        "rayleigh-speed": {
-          "x": 653.8852989508856,
+          "x": 470.7057705468891,
           "y": 590.0
         },
+        "generalized-pareto": {
+          "x": 279.16431282935923,
+          "y": 550.2128374004091
+        },
+        "hidden-tail": {
+          "x": 511.97141164897397,
+          "y": 480.1107007779056
+        },
+        "hill-estimator": {
+          "x": 256.848513006346,
+          "y": 467.25376357358
+        },
+        "inference-asymmetry": {
+          "x": 712.8906975030551,
+          "y": 418.1787844985292
+        },
+        "iso-density-tail-geometry": {
+          "x": 445.1632609736162,
+          "y": 165.74433719629508
+        },
+        "kappa": {
+          "x": 548.5138777200282,
+          "y": 142.85784489521993
+        },
+        "karamata": {
+          "x": 512.016240280326,
+          "y": 430.02338636025223
+        },
+        "layoffs-tails": {
+          "x": 163.5513087451032,
+          "y": 449.15262322916436
+        },
+        "lln-failure": {
+          "x": 610.8618189072521,
+          "y": 296.2735639714425
+        },
+        "lln-preasymptotic": {
+          "x": 407.30796638338364,
+          "y": 314.8783838741756
+        },
+        "max-to-sum-ratio": {
+          "x": 554.5430623539424,
+          "y": 328.62262981301205
+        },
+        "maximum-entropy": {
+          "x": 251.69034208585552,
+          "y": 240.5737140689214
+        },
+        "mean-excess-function": {
+          "x": 349.1151591624136,
+          "y": 547.2617362218921
+        },
+        "mixture-uncertainty": {
+          "x": 509.35863836952115,
+          "y": 183.0012705330427
+        },
+        "moment-estimation": {
+          "x": 449.3395032111993,
+          "y": 230.41114420388163
+        },
+        "multivariate-tails": {
+          "x": 317.0811194994161,
+          "y": 192.22510613519836
+        },
+        "nyc-dog-name-tail": {
+          "x": 90.0,
+          "y": 448.2959709945994
+        },
+        "pareto": {
+          "x": 436.05576792628113,
+          "y": 395.0351416569587
+        },
+        "pareto-moment-existence": {
+          "x": 478.6406388271278,
+          "y": 337.86406662738034
+        },
+        "pickands-balkema-de-haan": {
+          "x": 424.49774393175454,
+          "y": 533.2895737932124
+        },
+        "plug-in-tail-estimation": {
+          "x": 374.63071347782494,
+          "y": 403.03204719693105
+        },
+        "power-law-fitting": {
+          "x": 227.45152364079573,
+          "y": 399.0611100050785
+        },
+        "power-law-goodness-of-fit": {
+          "x": 130.3164481568698,
+          "y": 365.26455401751684
+        },
+        "rayleigh-speed": {
+          "x": 261.24920017483424,
+          "y": 121.70379637252407
+        },
         "regular-variation": {
-          "x": 412.8608456960808,
-          "y": 329.75967849774224
+          "x": 497.86041816005303,
+          "y": 381.21464238241765
         },
         "ruin": {
-          "x": 655.3544030359458,
-          "y": 532.1758615578051
+          "x": 816.6270093534656,
+          "y": 264.5324204314155
         },
         "sp500-tail": {
-          "x": 90.0,
-          "y": 297.29197484247976
+          "x": 215.59412611227694,
+          "y": 573.0893164434392
         },
         "subexponentiality": {
-          "x": 564.6144226022261,
-          "y": 299.2262285475822
+          "x": 597.74206885012,
+          "y": 259.26747655314216
         },
         "survival-tail-ratio": {
-          "x": 635.6279318818687,
-          "y": 317.67782358264515
+          "x": 628.007366114937,
+          "y": 214.65952819801555
         },
         "tail-class-catalog": {
-          "x": 511.31904255371137,
-          "y": 417.1035747455083
+          "x": 429.02508105488323,
+          "y": 275.042248177364
         },
         "tail-threshold-selection": {
-          "x": 283.6347080287095,
-          "y": 338.7180674405611
+          "x": 296.3900680166405,
+          "y": 440.24785420717774
         }
       },
       "width": 920
@@ -2025,6 +2081,19 @@
       "url": "/math/incerto/incerto-tail-threshold-selection/"
     },
     {
+      "id": "layoffs-tails",
+      "path": "content/incerto-layoffs-tails.md",
+      "status": "active",
+      "tags": [
+        "empirical",
+        "tail-risk",
+        "employment"
+      ],
+      "title": "Tech layoffs \u2014 counts and workforce losses",
+      "type": "empirical-example",
+      "url": "/math/incerto/incerto-layoffs-tails/"
+    },
+    {
       "id": "hidden-tail",
       "path": "content/incerto-hidden-tail.md",
       "status": "active",
@@ -2065,13 +2134,13 @@
   ],
   "schema_version": 2,
   "stats": {
-    "dependency_edge_count": 74,
-    "node_count": 43,
-    "reference_edge_count": 91,
+    "dependency_edge_count": 78,
+    "node_count": 44,
+    "reference_edge_count": 95,
     "related_edge_count": 25,
     "type_counts": {
       "distribution": 9,
-      "empirical-example": 6,
+      "empirical-example": 7,
       "method": 15,
       "theorem": 13
     }
@@ -2119,6 +2188,7 @@
     "nyc-dog-name-tail",
     "power-law-fitting",
     "sp500-tail",
-    "power-law-goodness-of-fit"
+    "power-law-goodness-of-fit",
+    "layoffs-tails"
   ]
 }

@@ -1,7 +1,7 @@
 """Execute every fenced ``python`` block on the public Incerto pages.
 
 Convention: a line containing exactly ```python starts a runnable example;
-there is no opt-out marker. Blocks inside MyST dropdowns count too. Each
+the local-data layoffs block is skipped when its CSV is absent. Blocks inside MyST dropdowns count too. Each
 block must be self-contained, print a result or create a figure, and finish
 quickly. Processes run with Agg, a temporary cwd/cache, no network, and no
 writes beneath the repository. The financial example also runs against a
@@ -65,6 +65,15 @@ exec(compile(sys.stdin.read(), sys.argv[2], "exec"), {"__name__": "__main__"})
 '''
 
 
+def requires_layoffs_data(page, code):
+    return page.stem == "incerto-layoffs-tails" and "load_layoffs(" in code
+
+
+def layoffs_data_available():
+    path = os.environ.get("INCERTO_LAYOFFS_PATH")
+    return Path(path or ROOT / "data/incerto/cache/layoffs/layoffs.csv").is_file()
+
+
 def run_snippet(page, index, code, tmp_path, *, data_dir=None):
     env = {
         **os.environ,
@@ -101,6 +110,8 @@ def assert_plain_numbers(output):
 
 @pytest.mark.parametrize("page,index,code,expected", SNIPPETS)
 def test_incerto_python_block(page, index, code, expected, tmp_path):
+    if requires_layoffs_data(page, code) and not layoffs_data_available():
+        pytest.skip("Local layoffs CSV absent; recorded output is checked separately")
     output = run_snippet(page, index, code, tmp_path)
     assert_plain_numbers(output)
     if expected is not None:
@@ -204,3 +215,36 @@ def test_powerlaw_theory_examples_are_registered_for_exact_output_checks():
         snippets = list(page_snippets(page.read_text()))
         assert len(snippets) == 4
         assert all(expected is not None for _, _, expected in snippets)
+
+
+def test_layoffs_snippet_with_synthetic_local_csv(tmp_path, monkeypatch):
+    page = ROOT / "content/incerto-layoffs-tails.md"
+    code = next(code for _, code, _ in page_snippets(page.read_text())
+                if requires_layoffs_data(page, code))
+    source = tmp_path / "synthetic-layoffs.csv"
+    source.write_text("company,date,n,frac\n" + "".join(
+        f"Synthetic {i},2020-03-11,{10+i*i},{(i % 80 + 1)/100}\n" for i in range(180)))
+    monkeypatch.setenv("INCERTO_LAYOFFS_PATH", str(source))
+    output = run_snippet(page, 2, code, tmp_path)
+    assert_plain_numbers(output)
+    assert "Events: 180" in output
+    assert "Counts: 180 observations" in output
+    assert "Log loss: 180 observations" in output
+    assert "Hill k=18" in output and "Hill k=36" in output
+
+
+def test_layoffs_recorded_snippet_matches_aggregate_output():
+    import json
+    page = ROOT / "content/incerto-layoffs-tails.md"
+    record = json.loads((ROOT / "assets/incerto/outputs/layoffs-tails.json").read_text())
+    expected = next(expected for _, code, expected in page_snippets(page.read_text())
+                    if requires_layoffs_data(page, code))
+    lines = [f"Events: {record['events']}"]
+    for title, key in (("Counts", "counts"), ("Log loss", "pct_logloss_reported")):
+        sample = record['samples'][key]
+        lines.append(f"{title}: {sample['n']} observations")
+        for point in sample['hill_reported']:
+            lines.append(f"  Hill k={point['k']}: {point['alpha']:.2f}")
+        fit = sample['csn']
+        lines.append(f"  CSN cutoff={fit['xmin']:.3f}, tail={fit['n_tail']}, alpha={fit['alpha']:.2f}")
+    assert "\n".join(lines) == expected

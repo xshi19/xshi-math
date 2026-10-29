@@ -268,6 +268,70 @@ def hill_stability(
     }
 
 
+def hill_stability_bootstrap(
+    x: ArrayLike, k_values: Iterable[int], *, replicates: int = 1000,
+    confidence: float = 0.95, random_state=None,
+) -> dict:
+    """Pointwise bootstrap percentile intervals conditional on a finite estimate.
+
+    Resample the entire size-n sample with replacement, holding each k fixed.
+    Uses NumPy default_rng (PCG64 for an integer seed), with one resample shared
+    across all k in a replicate. Return hill_stability fields plus lower,
+    upper and finite_replicates arrays. Zero log spacings give infinite alpha;
+    exclude these from percentiles and report the number of finite estimates
+    at each k, as in the reference layoffs calculation. Thus lower and upper
+    are conditional on a finite estimate at that k. Emit a RuntimeWarning if
+    more than 5% of replicates are excluded at any k. Raise ValueError if any
+    k has no finite replicates.
+
+    Percentiles use NumPy's linear interpolation. Intervals describe resampling
+    variability, not simultaneous coverage or threshold/model/dependence error.
+    Ordinary n-out-of-n bootstrap coverage is not guaranteed for extremes.
+    """
+    if np.iscomplexobj(x):
+        raise ValueError("x must be real")
+    sample = _positive_1d_sample(x)
+    result = hill_stability(sample, k_values)
+    b = operator.index(replicates)
+    if isinstance(replicates, (bool, np.bool_)) or b < 2:
+        raise ValueError("replicates must be an integer >= 2")
+    if np.ndim(confidence) != 0 or not np.isfinite(confidence) or not 0 < confidence < 1:
+        raise ValueError("confidence must lie strictly between zero and one")
+    rng = np.random.default_rng(random_state)
+    ks = result["k"].astype(int)
+    draws = np.empty((b, ks.size))
+    for i in range(b):
+        logs = np.log(np.sort(rng.choice(sample, sample.size))[::-1])
+        # Direct centered differences avoid spurious finite estimates when
+        # every selected order statistic ties with the threshold.
+        xi = np.array([np.mean(logs[:k] - logs[k]) for k in ks])
+        draws[i] = np.divide(1., xi, out=np.full_like(xi, np.inf), where=xi > 0)
+    finite = np.isfinite(draws)
+    counts = finite.sum(axis=0)
+    if np.any(counts == 0):
+        raise ValueError("at least one k has no finite bootstrap estimates")
+    excluded = b - counts
+    many_excluded = excluded > 0.05 * b
+    if np.any(many_excluded):
+        warnings.warn(
+            "More than 5% of bootstrap replicates have non-finite estimates "
+            f"for k={ks[many_excluded].tolist()} "
+            f"(excluded {excluded[many_excluded].tolist()} of {b}); "
+            "percentile intervals are conditional on a finite estimate.",
+            RuntimeWarning,
+            stacklevel=2,
+        )
+    probabilities = [(1-confidence)/2, (1+confidence)/2]
+    intervals = np.array([np.quantile(draws[finite[:, j], j], probabilities)
+                          for j in range(ks.size)])
+    # Point estimates use the same direct definition as each resample.
+    result["xi"] = np.array([hill_estimator(sample, int(k)) for k in ks])
+    result["alpha"] = np.divide(1., result["xi"], out=np.full(ks.size, np.inf),
+                                where=result["xi"] > 0)
+    result.update(lower=intervals[:, 0], upper=intervals[:, 1], finite_replicates=counts)
+    return result
+
+
 def running_mean(
     x: ArrayLike,
     axis: int | None = None,
@@ -506,6 +570,7 @@ __all__ = [
     "hill_alpha_estimator",
     "hill_estimator",
     "hill_stability",
+    "hill_stability_bootstrap",
     "max_to_sum_ratio",
     "max_to_sum_path",
     "mean_excess",

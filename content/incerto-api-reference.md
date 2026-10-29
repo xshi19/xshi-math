@@ -34,9 +34,9 @@ for implementations and use local `help()` for the installed version.
 | `xmath.incerto.extremes` | [`pareto_hidden_moment`](incerto-api-reference.md#api-pareto-hidden-moment), [`expected_pareto_hidden_fraction`](incerto-api-reference.md#api-expected-pareto-hidden-fraction), [`maximum_missing_mass`](incerto-api-reference.md#api-maximum-missing-mass), [`pareto_exponent_sampling`](incerto-api-reference.md#api-pareto-exponent-sampling), [`gaussian_maximum_norming`](incerto-api-reference.md#api-gaussian-maximum-norming), [`gaussian_maximum_cdf`](incerto-api-reference.md#api-gaussian-maximum-cdf), [`expected_gaussian_hidden_mean`](incerto-api-reference.md#api-expected-gaussian-hidden-mean); [chapter 9 maxima and hidden tails](incerto-scoft-ch9.md) |
 | `xmath.incerto.concentration` | [`kappa_from_mads`](incerto-api-reference.md#api-kappa-from-mads), [`stable_kappa`](incerto-api-reference.md#api-stable-kappa), [`gaussian_sum_mad`](incerto-api-reference.md#api-gaussian-sum-mad), [`gamma_sum_mad`](incerto-api-reference.md#api-gamma-sum-mad), [`student_sum_mad`](incerto-api-reference.md#api-student-sum-mad), [`estimate_sum_mad`](incerto-api-reference.md#api-estimate-sum-mad), [`lognormal_sum_mad`](incerto-api-reference.md#api-lognormal-sum-mad), [`normal_location_mixture_sum_mad`](incerto-api-reference.md#api-normal-location-mixture-sum-mad), [`gaussian_equivalent_n`](incerto-api-reference.md#api-gaussian-equivalent-n); [finite-sample concentration](incerto-kappa.md) and [sample sufficiency](incerto-moment-estimation.md#moment-estimation-sufficiency) |
 | `xmath.incerto.gas_speeds` | [`chi_speed`](incerto-api-reference.md#api-chi-speed), [`sample_chi_speed`](incerto-api-reference.md#api-sample-chi-speed), [`fit_speed_models`](incerto-api-reference.md#api-fit-speed-models), [`speed_fit_table`](incerto-api-reference.md#api-speed-fit-table), [`speed_qq`](incerto-api-reference.md#api-speed-qq), [`squared_speed_ks`](incerto-api-reference.md#api-squared-speed-ks), [`speed_fit_figure`](incerto-api-reference.md#api-speed-fit-figure); [Rayleigh chamber speeds](incerto-rayleigh-speed.md) and fitted comparisons |
-| `xmath.incerto.datasets` | [`load_amazon_bookrank`](incerto-api-reference.md#api-load-amazon-bookrank), [`load_nyc_dog_name_frequencies`](incerto-api-reference.md#api-load-nyc-dog-name-frequencies), [`load_sp500_prices`](incerto-api-reference.md#api-load-sp500-prices); explicit local-cache and refresh helpers |
+| `xmath.incerto.datasets` | [`load_layoffs`](incerto-api-reference.md#api-load-layoffs), [`clean_layoffs`](incerto-api-reference.md#api-clean-layoffs), [`workforce_log_loss`](incerto-api-reference.md#api-workforce-log-loss); [`load_amazon_bookrank`](incerto-api-reference.md#api-load-amazon-bookrank), [`load_nyc_dog_name_frequencies`](incerto-api-reference.md#api-load-nyc-dog-name-frequencies), [`load_sp500_prices`](incerto-api-reference.md#api-load-sp500-prices); explicit local-cache and refresh helpers |
 | `xmath.incerto.distributions` | [`pareto_type1`](incerto-api-reference.md#api-pareto-type1), [`double_pareto`](incerto-api-reference.md#api-double-pareto), [`hypsecant2`](incerto-api-reference.md#api-hypsecant2), [`simple_normal_mixture`](incerto-api-reference.md#api-simple-normal-mixture), [`univariate_variance_gamma`](incerto-api-reference.md#api-univariate-variance-gamma), [`generalized_pareto`](incerto-api-reference.md#api-generalized-pareto), [`generalized_extreme_value`](incerto-api-reference.md#api-generalized-extreme-value), [`frechet`](incerto-api-reference.md#api-frechet); SciPy-style distribution objects |
-| `xmath.incerto.estimators` | [`hill_estimator`](incerto-api-reference.md#api-hill-estimator) (extreme-value index), [`hill_alpha_estimator`](incerto-api-reference.md#api-hill-alpha-estimator) (reciprocal exponent), [`hill_stability`](incerto-api-reference.md#api-hill-stability), [`pareto_mean_plugin`](incerto-api-reference.md#api-pareto-mean-plugin), [`mean_excess`](incerto-api-reference.md#api-mean-excess), [`running_mean`](incerto-api-reference.md#api-running-mean), [`max_to_sum_ratio`](incerto-api-reference.md#api-max-to-sum-ratio), [`max_to_sum_path`](incerto-api-reference.md#api-max-to-sum-path), [`gpd_threshold_fit`](incerto-api-reference.md#api-gpd-threshold-fit) |
+| `xmath.incerto.estimators` | [`hill_stability_bootstrap`](incerto-api-reference.md#api-hill-stability-bootstrap); [`hill_estimator`](incerto-api-reference.md#api-hill-estimator) (extreme-value index), [`hill_alpha_estimator`](incerto-api-reference.md#api-hill-alpha-estimator) (reciprocal exponent), [`hill_stability`](incerto-api-reference.md#api-hill-stability), [`pareto_mean_plugin`](incerto-api-reference.md#api-pareto-mean-plugin), [`mean_excess`](incerto-api-reference.md#api-mean-excess), [`running_mean`](incerto-api-reference.md#api-running-mean), [`max_to_sum_ratio`](incerto-api-reference.md#api-max-to-sum-ratio), [`max_to_sum_path`](incerto-api-reference.md#api-max-to-sum-path), [`gpd_threshold_fit`](incerto-api-reference.md#api-gpd-threshold-fit) |
 | `xmath.incerto.stats` | Gaussian-calibrated [`dispersion_ratios`](incerto-api-reference.md#api-dispersion-ratios), [`mean_absolute_deviation`](incerto-api-reference.md#api-mean-absolute-deviation), [`median_absolute_deviation`](incerto-api-reference.md#api-median-absolute-deviation); normal and Student-t shoulder boundaries; [`empirical_survival_function`](incerto-api-reference.md#api-empirical-survival-function) (strict exceedance with ties) and [`lognorm_params_from_mean_and_variance`](incerto-api-reference.md#api-lognorm-params-from-mean-and-variance) |
 | `xmath.incerto.tail_diagnostics` | [`regular_variation_ratio`](incerto-api-reference.md#api-regular-variation-ratio), [`iid_two_sum_tail`](incerto-api-reference.md#api-iid-two-sum-tail), [`subexponential_sum_ratio`](incerto-api-reference.md#api-subexponential-sum-ratio); numerical calculations with support and integration checks |
 | `xmath.incerto.tail_classes` | [`bounded_spike_summary`](incerto-api-reference.md#api-bounded-spike-summary) (population moments), [`log_survival_multiplier_ratio`](incerto-api-reference.md#api-log-survival-multiplier-ratio) (log-domain tail ratios); used by the [Prologue models](incerto-scoft-ch1.md) |
@@ -94,6 +94,83 @@ Module: `xmath.incerto.datasets`.
 #### [`DatasetNotAvailable`](incerto-api-reference.md#api-datasetnotavailable)
 
 Raised when a dataset is missing or a fetch cannot provide usable data.
+
+(api-layoffdata)=
+#### [`LayoffData`](incerto-api-reference.md#api-layoffdata)
+
+Company-date event arrays: `company`, `date`, `count`, and `fraction`, plus
+`input_rows` and `source`. Missing measurements are NaN; dates have day
+resolution. Counts and fractions are aligned by event, but may be missing
+independently.
+
+(api-clean-layoffs)=
+#### [`clean_layoffs`](incerto-api-reference.md#api-clean-layoffs)
+
+`clean_layoffs(rows, *, source="")`
+
+Accept an iterable of mappings with `company`, `date`, and either raw
+`total_laid_off`/`percentage_laid_off` or cleaned `n`/`frac` fields. Fractions
+are already in [0,1]. Trim company names, parse ISO or month/day/year dates,
+and sort by company/date. Within a group, sum available counts and maximize
+available fractions; all-missing groups stay missing. No imputation, case
+folding, or duplicate removal. Invalid measurements/dates and empty inputs
+raise `ValueError`. Counts must be nonnegative exactly represented integers;
+fractions must lie in [0,1]. Blank, None, and NaN measurements remain missing.
+Returns [`LayoffData`](incerto-api-reference.md#api-layoffdata).
+
+```python
+from xmath.incerto.datasets import clean_layoffs
+
+rows = [dict(company=" A ", date="2020-03-11", n=10, frac=0.1),
+        dict(company="A", date="03/11/2020", n=20, frac=0.2)]
+data = clean_layoffs(rows)
+print(f"Rows / events: {data.input_rows} {data.count.size}")
+print(f"Count / fraction: {data.count[0]:.0f} {data.fraction[0]:.2f}")
+```
+
+**Output**
+
+```text
+Rows / events: 2 1
+Count / fraction: 30 0.20
+```
+
+(api-load-layoffs)=
+#### [`load_layoffs`](incerto-api-reference.md#api-load-layoffs)
+
+`load_layoffs(path=None, *, data_dir=None)`
+
+Read a local CSV and apply
+[`clean_layoffs`](incerto-api-reference.md#api-clean-layoffs).
+An explicit `path` wins; otherwise read `cache/layoffs/layoffs.csv` beneath
+[`data_root`](incerto-api-reference.md#api-data-root). No downloads or writes.
+Missing files raise
+[`DatasetNotAvailable`](incerto-api-reference.md#api-datasetnotavailable).
+See the [layoffs example](incerto-layoffs-tails.md) for visible code and
+recorded output; its data-dependent snippet is skipped when data are absent.
+
+(api-workforce-log-loss)=
+#### [`workforce_log_loss`](incerto-api-reference.md#api-workforce-log-loss)
+
+`workforce_log_loss(fractions)`
+
+Return the float vector `-log1p(-p)` for real finite fractions in [0,1).
+Zero maps to zero; missing, nonfinite, out-of-range, complex or non-vector
+inputs raise `ValueError`. Full-workforce cuts (`p=1`) must be separated by
+the caller. No clipping, imputation, or automatic removal.
+
+```python
+from xmath.incerto.datasets import workforce_log_loss
+
+values = workforce_log_loss([0, 0.5, 0.9])
+print("Log loss: [" + ", ".join(f"{v:.3f}" for v in values) + "]")
+```
+
+**Output**
+
+```text
+Log loss: [0.000, 0.693, 2.303]
+```
 
 (api-priceseries)=
 #### [`PriceSeries`](incerto-api-reference.md#api-priceseries)
@@ -556,6 +633,43 @@ xi: [0.6931, 1.04]
 alpha: [1.443, 0.9618]
 ```
 
+
+(api-hill-stability-bootstrap)=
+#### [`hill_stability_bootstrap`](incerto-api-reference.md#api-hill-stability-bootstrap)
+
+`hill_stability_bootstrap(x, k_values, *, replicates=1000, confidence=0.95, random_state=None)`
+
+Resample the whole positive finite vector with replacement. Keep each integer
+`k` fixed; share each replicate across the curve. Return the
+[`hill_stability`](incerto-api-reference.md#api-hill-stability) fields plus
+`lower`, `upper`, and `finite_replicates` arrays. The `lower` and `upper`
+percentiles are **conditional on a finite estimate** at each `k`, using linear
+interpolation. Infinite estimates from zero log spacings are omitted;
+`finite_replicates` counts the retained estimates. Excluding more than 5% of
+replicates at any `k` emits a `RuntimeWarning` with the affected `k` values and
+excluded counts. No finite replicates for any `k` raises `ValueError`.
+At least two replicates and a confidence level strictly between 0 and 1 are
+required. Integer seeds select NumPy's default PCG64 generator.
+
+Intervals are pointwise resampling summaries, not simultaneous confidence
+bands or an assurance of extreme-value bootstrap coverage. They omit
+threshold choice, model error, and dependence. See the
+[layoffs example](incerto-layoffs-tails.md) for the empirical use.
+
+```python
+from xmath.incerto.estimators import hill_stability_bootstrap
+
+result = hill_stability_bootstrap([1, 2, 4, 8, 16], [2], replicates=40, random_state=7)
+print(f"Hill alpha: {result['alpha'][0]:.3f}")
+print(f"Finite replicates: {result['finite_replicates'][0]}")
+```
+
+**Output**
+
+```text
+Hill alpha: 0.962
+Finite replicates: 39
+```
 
 (api-running-mean)=
 #### [`running_mean`](incerto-api-reference.md#api-running-mean)
