@@ -33,7 +33,7 @@ def main(output=None):
          "Support: y ≥ 0; y ≤ 2.5 if ξ = −0.4", "Excess y", "Survival"),
         ("gev-card.svg", [(generalized_extreme_value(s), fr"$\xi={s:g}$") for s in (-.3, 0, .3)],
          (-4, 6), (.03, 30), "GEV · location 0, scale 1",
-         "ξ = 0.3: x ≥ −10/3\nξ = −0.3: x ≤ 10/3; ξ = 0: all real x", "x", "Right-tail survival"),
+         "", "x", "Right-tail survival"),
         ("frechet-card.svg", [(frechet(a), fr"$\alpha={a:g}$") for a in alphas],
          (-.25, 5), (.03, 100), "Fréchet · scale 1", "Support: y > 0 · boundary at 0", "y", "Survival"),
         ("double-pareto-card.svg", [(double_pareto(a), fr"$\alpha={a:g}$") for a in alphas],

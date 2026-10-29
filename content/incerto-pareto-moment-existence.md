@@ -208,7 +208,7 @@ population question.
   power transformations and squared observations; the exact Pareto integral
   and its equality boundary are proved here.
 - @bingham1987regular, *Regular Variation*.
-- Resnick, *Heavy-Tail Phenomena* [2007](https://doi.org/10.1007/978-0-387-45024-7).
+- Resnick, *Heavy-Tail Phenomena* @resnick2007heavy.
 
 ## Backlinks
 

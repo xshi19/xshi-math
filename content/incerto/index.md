@@ -81,6 +81,11 @@ and infinite-mean averages.
    averages of nonnegative iid variables with infinite mean diverge almost
    surely. Capped Pareto means make the truncation argument explicit.
 
+The [chapter 7 guide](../incerto-scoft-ch7.md) adds
+[Cauchy running statistics](../incerto-cauchy-running.md) and
+[time versus ensemble averages](../incerto-ergodicity.md), with separate
+statements for integrability, ergodicity and multiplicative growth.
+
 ## Tail catalog & indexes
 
 The [tail class catalog](../incerto-tail-class-catalog.md) compares regular

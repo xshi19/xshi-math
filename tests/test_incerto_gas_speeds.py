@@ -163,7 +163,7 @@ def test_squared_speed_ks_is_fixed_null_and_scale_invariant(experiment):
         squared_speed_ks([1e308])
 
 
-@pytest.mark.parametrize(("kind", "panels"), [("density", 2), ("qq", 5)])
+@pytest.mark.parametrize(("kind", "panels"), [("density", 2), ("qq", 2), ("qq-tail", 2)])
 def test_figures_are_single_column_finite_and_reproducible(experiment, tmp_path, kind, panels):
     sample, fits = experiment
     fig = speed_fit_figure(sample, fits, kind=kind)

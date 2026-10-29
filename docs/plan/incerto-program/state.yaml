@@ -1,10 +1,10 @@
 # Canonical program inventory. See validation.md for semantics and checks.
 schema_version: 3
-updated: '2026-10-18'
+updated: '2026-10-28'
 repository: xshi19/xshi-math
 baseline_revision: 998a4a11a17b7ae7ba4c306005a4c8e3109f4392
-branch: scft/v4-ch06
-scope: scft-v4-ch06
+branch: scft/v4-ch07-viz-p2
+scope: scft-v4-ch07
 implementation_authorized: true
 authorized_chunks:
 - m0.5-review
@@ -14,7 +14,9 @@ authorized_chunks:
 - scft-v4-ch04
 - scft-v4-ch05
 - scft-v4-ch06
-authorization_note: Owner authorized scft-v4-ch06 and appendix A plus chapter-5 reader figure fixes on 2026-10-18 with gpt-6-astra xhigh; separate owner-selected gpt-6-astra max review completed with numerical-domain and caption fixes. No commit or deployment.
+- scft-v4-ch07
+authorization_note: Owner authorized chapter 7 with appendices C/D, visualization P2 ranks 11–15 and listed minor
+  fixes, using gpt-6-astra xhigh; separate gpt-6-astra max review follows. No commit, file deletion or publication.
 status_semantics:
   todo: Program work has not satisfied its evidence gates; existing prose is recorded separately.
   in-progress: A named chunk is active and has a recorded checkpoint.
@@ -206,8 +208,9 @@ milestones:
     dependencies:
     - M2
     assigned_role: math-site-editor
-next_chunk: '#/chunks/scft-v4-ch07'
-next_chunk_note: Chapter 6 teaching/Python, chapter-5 figure fixes, separate max review and operator build/check outside the sandbox done; post-publication live review pending. Chapter 7 is not authorized by this run.
+next_chunk: '#/chunks/scft-v4-ch08'
+next_chunk_note: Chapter-7/C/D teaching and Python, P2 ranks 11–15 and requested reader fixes implemented. Separate
+  max review and external site/browser checks pending; chapter 8 not executed.
 chunks:
   m0.5-review:
     id: m0.5-review
@@ -368,6 +371,8 @@ chunks:
       - scft-v4-ch02
       - scft-v4-ch09
     - id: M05-ISSUE-002
+      chapter_7_resolution: Confirmed existing zero-prefix convention and eventual positivity; numerical helper
+        still returns NaN for zero totals. Already resolved, not newly closed.
       severity: minor
       status: fixed in this PR
       disposition: resolved
@@ -400,6 +405,9 @@ chunks:
       - scft-v4-ch04
       - scft-v4-ch09
     - id: M05-ISSUE-006
+      chapter_7_resolution: Verified Durrett Jan-2019 manuscript stable-attraction, SLLN, Berry–Esseen and ergodic
+        theorem locators. Proved symmetric stable MAD and Bernoulli bound locally. Darling original-text access
+        limitation and chapter-9 source work remain open.
       chapter_5_resolution: Chapter-5 cited claims checked against BGT Theorem 1.3.1 p. 12 and Theorem 1.5.11
         p. 28, and FKZ Corollary 3.20/Theorem 3.21 p. 52 and Theorems 3.29-3.30 pp. 57-58. Other chapters remain
         assigned.
@@ -415,6 +423,8 @@ chunks:
       - scft-v4-ch07
       - scft-v4-ch09
     - id: M05-ISSUE-007
+      chapter_7_resolution: Chapter 7 and appendices C/D checked against the supplied v4 PDF; new context uses
+        the pinned local bibliography entry. Later chapter-9 reconciliation remains.
       chapter_5_resolution: Chapter 5 and appendix B pinned to taleb2025scoftv4, printed pp. 91-105 and 127-133,
         with checked section locators. Later chapter assignments remain.
       chapter_4_resolution: Chapter-4 context pinned to taleb2025scoftv4 with checked section/page locators; later chapter assignments remain.
@@ -442,6 +452,8 @@ chunks:
       chapters:
       - scft-v4-ch09
     - id: M05-ISSUE-009
+      chapter_7_resolution: Confirmed separate growing-sample max/sum, fixed-size rare-event and moment-order
+        statements. Linked the existing alpha-one Pareto proof. Already resolved.
       chapter_5_resolution: 'Confirmed: growing-sample Pareto regimes remain unchanged; fixed-size rare events,
         positive finite sums and independent products are distinguished.'
       chapter_2_resolution: Retained reviewed growing-sample Pareto regimes and proofs; guide explicitly separates fixed-n rare events from growing-n ratios and moment orders.
@@ -455,6 +467,8 @@ chunks:
       - scft-v4-ch05
       - scft-v4-ch07
     - id: M05-ISSUE-010
+      chapter_7_resolution: Preserved model-based iid reference simulation, resampling limitations and subsampling
+        conditions. No new bootstrap validity claim. Already resolved.
       severity: major
       status: fixed in this PR
       disposition: resolved
@@ -1430,7 +1444,7 @@ chunks:
       - lean
       teaching_pages:
         required: true
-        status: todo
+        status: done
         page_paths:
         - content/incerto-lln-failure.md
         - content/incerto-generalized-central-limit-theorem.md
@@ -1439,9 +1453,10 @@ chunks:
         - content/incerto-ergodicity.md
         - content/incerto-mixture-uncertainty.md
         - content/incerto-cramer-condition.md
+        - content/incerto-scoft-ch7.md
       demos:
         required: true
-        status: todo
+        status: done
         concept_ids:
         - c-lln-failure
         - c-stable-clt
@@ -1450,14 +1465,34 @@ chunks:
         - c-ergodicity
         - c-mixture-uncertainty
         - c-cramer
+        script_paths:
+        - demos/incerto/limit_distributions.py
+        - demos/incerto/visualization_p2.py
+        - demos/incerto/max_to_sum.py
+        helper_paths:
+        - src/math/incerto/limits.py
+        - src/math/incerto/estimators.py
+        - src/math/incerto/lecture_risk.py
+        test_paths:
+        - tests/test_incerto_limits.py
+        - tests/test_incerto_viz_p2.py
+        - tests/test_incerto_page_snippets.py
+        figure_paths:
+        - assets/figures/incerto/cauchy-running.svg
+        - assets/figures/incerto/lln-failure-paths.svg
+        - assets/figures/incerto/lln-capped-means.svg
+        - assets/figures/incerto/generalized-clt.svg
+        - assets/figures/incerto/ergodicity-growth.svg
+        - assets/figures/incerto/max-to-sum.svg
       optional_lean:
         required: false
-        status: optional
+        status: skipped-for-now
         policy: After teaching and demos; record exact checked claims or a skip reason. No chapter gate.
+        reason: No Lean toolchain is available; skipped as requested, with no new checked declaration.
     dependencies:
     - scft-v4-ch06
-    assigned_role: astra-max
-    status: todo
+    assigned_role: astra-xhigh
+    status: done
     milestone: M1
     source_unit_ids:
     - scft-v4-ch07
@@ -1478,22 +1513,77 @@ chunks:
     - content/incerto-ruin.md
     - content/incerto-mixture-uncertainty.md
     acceptance:
-    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations
-      and original explanations for teaching.
+    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
+      original explanations for teaching.
     - Resolve relevant M0.5 issues before reusing claims. Reuse canonical pages and reviewed prerequisite statements;
       do not reorder chapter chunks for a later full treatment.
     - Deliver chapter-scoped teaching pages, then bounded reproducible Python demos or visualizations; distinguish
       model calculations from observed-data studies.
-    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
-      closure or the following chapter.
+    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
+      or the following chapter.
     - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
       live pages as a reader.
-    - Use fixed seeds, repeated paths, bounded runtime and uncertainty summaries; bounded refers to computation,
-      not truncating the Cauchy law.
+    - Use fixed seeds, repeated paths, bounded runtime and uncertainty summaries; bounded refers to computation, not
+      truncating the Cauchy law.
     queue_items:
     - Bounded Cauchy running-statistics simulation
     scope_locators:
-    - SCoFT v4 sections 7.2.1 and 7.6, printed pp. 139 and 148
+    - SCoFT v4 §§7.1–7.7, printed pp. 137–152 (PDF 151–166)
+    - Appendix C §§C.1–C.2, printed pp. 183–186 (PDF 197–200)
+    - Appendix D, printed pp. 187–188 (PDF 201–202)
+    checkpoint:
+      completed_at: '2026-10-28'
+      base_revision: b863314
+      working_branch: scft/v4-ch07-viz-p2
+      scope: Chapter-7/C/D teaching and Python implementation complete; separate max review, locked-environment verification
+        and full site/browser checks remain pending.
+      guide_title: Chapter 7 — Averages and limit laws
+      source_review: Read supplied v4 PDF and TOC at the recorded locators; independent derivations and scoped citations
+        only, with no copied book text or figures.
+      claim_ids:
+      - CH07-C01
+      - CH07-C02
+      - CH07-C03
+      - CH07-C04
+      - CH07-C05
+      - CH07-C06
+      - CH07-C07
+      - CH07-C08
+      - CH07-C09
+      evidence_path: docs/records/incerto-scft-v4-ch07.md
+      deliverable_sequence:
+      - Drafted guide and concept mathematics
+      - Implemented bounded helpers, examples and shared-style figures
+      - Recorded optional Lean skip
+      m0_5_dispositions:
+        M05-ISSUE-002: Confirmed existing zero-prefix convention and eventual positivity; numerical helper still returns
+          NaN for zero totals. Already resolved, not newly closed.
+        M05-ISSUE-006: Verified Durrett Jan-2019 manuscript stable-attraction, SLLN, Berry–Esseen and ergodic theorem
+          locators. Proved symmetric stable MAD and Bernoulli bound locally. Darling original-text access limitation
+          and chapter-9 source work remain open.
+        M05-ISSUE-007: Chapter 7 and appendices C/D checked against the supplied v4 PDF; new context uses the pinned
+          local bibliography entry. Later chapter-9 reconciliation remains.
+        M05-ISSUE-009: Confirmed separate growing-sample max/sum, fixed-size rare-event and moment-order statements.
+          Linked the existing alpha-one Pareto proof. Already resolved.
+        M05-ISSUE-010: Preserved model-based iid reference simulation, resampling limitations and subsampling conditions.
+          No new bootstrap validity claim. Already resolved.
+      checks:
+        pytest: 887 passed and 43 subtests passed; local available environment with UV_NO_SYNC=1, not a locked-sync pass.
+        figures: 15 actual SVGs rendered with librsvg/Cairo and inspected at 390 and 900 px; Chrome launch denied
+          by sandbox.
+        outputs: 122 snippet outputs and one full-demo output regenerated by scripts/regenerate_incerto_outputs.py.
+        site: npm install/build/check attempted; evidence and blockers recorded separately.
+      max_math_review:
+        status: pending
+        assigned_role: astra-max
+        model: gpt-6-astra max
+        scope: CH07-C01–C09, P2 interpretations and numerical boundaries; separately requested owner run.
+      live_reader_review:
+        status: pending-publication
+        assigned_role: math-site-editor
+        note: Review equations, links and navigation after a successful build and authorized publication.
+      next_action: Separate max review and external site checks; next implementation chunk scft-v4-ch08, not executed
+        here.
   scft-v4-ch08:
     id: scft-v4-ch08
     locator: SCoFT v4 ch. 8
@@ -7401,18 +7491,19 @@ chapters:
     - c-stable-clt
     - c-max-sum
     - c-cauchy-running
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     milestone: M1
-    locator_review: local-v4-TOC-verified; exact-claim-locators-pending
+    locator_review: local-v4-exact-section-and-page-context-checked; independent max review pending
     classification:
     - lean-verifiable
     - numeric-demo
     existing_concept_ids:
     - c-lln-failure
-    - c-max-sum
     - c-stable-clt
+    - c-max-sum
+    - c-cauchy-running
     completion_scope: in-scope
     required_concept_ids:
     - c-lln-failure
@@ -7423,6 +7514,7 @@ chapters:
     edition: 2001.10488v4
     printed_page: 137
     chunk_id: scft-v4-ch07
+    evidence_path: docs/records/incerto-scft-v4-ch07.md
   scft-v4-ch08:
     id: scft-v4-ch08
     book_id: scft
@@ -8085,15 +8177,17 @@ chapters:
     concept_ids:
     - c-ergodicity
     - c-mixture-uncertainty
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     milestone: M1
-    locator_review: local-v4-TOC-verified; exact-claim-locators-pending
+    locator_review: local-v4-exact-section-and-page-context-checked; independent max review pending
     classification:
     - lean-verifiable
     - numeric-demo
-    existing_concept_ids: []
+    existing_concept_ids:
+    - c-ergodicity
+    - c-mixture-uncertainty
     completion_scope: in-scope
     required_concept_ids:
     - c-ergodicity
@@ -8102,6 +8196,7 @@ chapters:
     edition: 2001.10488v4
     printed_page: 183
     chunk_id: scft-v4-ch07
+    evidence_path: docs/records/incerto-scft-v4-ch07.md
   scft-v4-appd:
     id: scft-v4-appd
     book_id: scft
@@ -8110,11 +8205,11 @@ chapters:
     topic: Large-deviation conditions
     concept_ids:
     - c-cramer
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     milestone: M1
-    locator_review: local-v4-TOC-verified; exact-claim-locators-pending
+    locator_review: local-v4-exact-section-and-page-context-checked; independent max review pending
     classification:
     - lean-verifiable
     - numeric-demo
@@ -8127,6 +8222,7 @@ chapters:
     edition: 2001.10488v4
     printed_page: 187
     chunk_id: scft-v4-ch07
+    evidence_path: docs/records/incerto-scft-v4-ch07.md
   scft-v4-appe:
     id: scft-v4-appe
     book_id: scft
@@ -10359,7 +10455,7 @@ concepts:
       lean-verifiable: Finite positive-sum bounds are elementary; limit regimes need probability theory.
       numeric-demo: Compare finite-mean, alpha = 1, and alpha < 1 regimes.
     scope: A nondegenerate heavy-tail limit need not equal one; define zero-sum behavior.
-    status: todo
+    status: done
     dependencies:
     - c-pareto-moments
     assigned_role: astra-max
@@ -10368,9 +10464,9 @@ concepts:
     canonical_url: /math/incerto/incerto-max-to-sum-ratio/
     coverage:
       prose: existing
-      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      scope_note: Chapter-7 teaching and bounded Python implemented; separate max review pending; no checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-7-bounded-demo-tested
     source_units:
     - scft-v4-ch07
     completion_scope: in-scope
@@ -10383,16 +10479,25 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: No Lean toolchain is available; skipped as requested, with no new checked declaration.
     chunk_ids:
     - scft-v4-ch07
     first_chunk: scft-v4-ch07
+    completed_chunk_scopes:
+      scft-v4-ch07:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is available; skipped as requested, with no new checked declaration.
+        evidence_path: docs/records/incerto-scft-v4-ch07.md
+        note: Scoped implementation complete; separate max review and site checks remain pending.
   c-double-pareto:
     id: c-double-pareto
     title: Symmetric shifted Pareto construction
@@ -10595,7 +10700,7 @@ concepts:
       lean-verifiable: Markov/Chernoff bounds are formalizable with finite exponential moments.
       numeric-demo: Compare exponential and power-law tail bounds.
     scope: An exponential-moment condition and a Chernoff bound do not prove a full large-deviation principle.
-    status: todo
+    status: done
     dependencies: []
     assigned_role: astra-max
     milestone: M1
@@ -10603,9 +10708,9 @@ concepts:
     canonical_url: /math/incerto/incerto-cramer-condition/
     coverage:
       prose: existing
-      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      scope_note: Chapter-7 teaching and bounded Python implemented; separate max review pending; no checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-7-bounded-demo-tested
     source_units:
     - tbs-ch15
     - scft-v4-appd
@@ -10619,16 +10724,25 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: No Lean toolchain is available; skipped as requested, with no new checked declaration.
     chunk_ids:
     - scft-v4-ch07
     first_chunk: scft-v4-ch07
+    completed_chunk_scopes:
+      scft-v4-ch07:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is available; skipped as requested, with no new checked declaration.
+        evidence_path: docs/records/incerto-scft-v4-ch07.md
+        note: Scoped implementation complete; separate max review and site checks remain pending.
   c-stable-clt:
     id: c-stable-clt
     title: Stable limits for sums
@@ -10636,7 +10750,7 @@ concepts:
       lean-verifiable: Stable attraction is an advanced formalization with explicit centering and scaling.
       numeric-demo: Simulations compare Gaussian and stable scaling.
     scope: Handle alpha = 1 centering and slowly varying factors explicitly.
-    status: todo
+    status: done
     dependencies:
     - c-regular-variation
     assigned_role: astra-max
@@ -10645,9 +10759,9 @@ concepts:
     canonical_url: /math/incerto/incerto-generalized-central-limit-theorem/
     coverage:
       prose: existing
-      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      scope_note: Chapter-7 teaching and bounded Python implemented; separate max review pending; no checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-7-bounded-demo-tested
     source_units:
     - tbs-ch16
     - scft-v4-ch07
@@ -10661,16 +10775,25 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: No Lean toolchain is available; skipped as requested, with no new checked declaration.
     chunk_ids:
     - scft-v4-ch07
     first_chunk: scft-v4-ch07
+    completed_chunk_scopes:
+      scft-v4-ch07:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is available; skipped as requested, with no new checked declaration.
+        evidence_path: docs/records/incerto-scft-v4-ch07.md
+        note: Scoped implementation complete; separate max review and site checks remain pending.
   c-lln-failure:
     id: c-lln-failure
     title: Failure of finite-mean averaging assumptions
@@ -10678,7 +10801,7 @@ concepts:
       lean-verifiable: Nonnegative iid infinite-mean divergence has a precise theorem statement.
       numeric-demo: Compare with a two-sided Cauchy example without conflating the arguments.
     scope: The existing nonnegative divergence result does not apply to symmetric Cauchy sums.
-    status: todo
+    status: done
     dependencies: []
     assigned_role: astra-max
     milestone: M1
@@ -10686,9 +10809,9 @@ concepts:
     canonical_url: /math/incerto/incerto-lln-failure/
     coverage:
       prose: existing
-      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      scope_note: Chapter-7 teaching and bounded Python implemented; separate max review pending; no checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-7-bounded-demo-tested
     source_units:
     - scft-v4-ch07
     completion_scope: in-scope
@@ -10701,16 +10824,25 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: No Lean toolchain is available; skipped as requested, with no new checked declaration.
     chunk_ids:
     - scft-v4-ch07
     first_chunk: scft-v4-ch07
+    completed_chunk_scopes:
+      scft-v4-ch07:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is available; skipped as requested, with no new checked declaration.
+        evidence_path: docs/records/incerto-scft-v4-ch07.md
+        note: Scoped implementation complete; separate max review and site checks remain pending.
   c-tail-catalog:
     id: c-tail-catalog
     title: Tail classes and implication boundaries
@@ -12373,7 +12505,7 @@ concepts:
       lean-verifiable: Finite multiplicative examples and scoped log-growth results are formalizable.
       numeric-demo: Compare cross-sectional wealth with one path through time.
     scope: Separate ergodic theorems, absorbing ruin, and a chosen growth objective.
-    status: todo
+    status: done
     dependencies:
     - c-ruin
     assigned_role: astra-max
@@ -12381,16 +12513,17 @@ concepts:
     page_path: content/incerto-ergodicity.md
     canonical_url: /math/incerto/incerto-ergodicity/
     coverage:
-      prose: absent
-      scope_note: Proposed original note; path is reserved in this plan only.
+      prose: existing
+      scope_note: Chapter-7 teaching and bounded Python implemented; separate max review pending; no checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-7-bounded-demo-tested
+      created_in_chunk: scft-v4-ch07
     source_units:
     - sitg-ch18
     - sitg-ch19
     - scft-v4-appc
     completion_scope: in-scope
-    page_status: proposed
+    page_status: existing
     source_priority: 1
     deliverables:
       order:
@@ -12399,16 +12532,25 @@ concepts:
       - lean
       website_math:
         required: true
-        status: todo
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: No Lean toolchain is available; skipped as requested, with no new checked declaration.
     chunk_ids:
     - scft-v4-ch07
     first_chunk: scft-v4-ch07
+    completed_chunk_scopes:
+      scft-v4-ch07:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is available; skipped as requested, with no new checked declaration.
+        evidence_path: docs/records/incerto-scft-v4-ch07.md
+        note: Scoped implementation complete; separate max review and site checks remain pending.
   c-moment-estimation:
     id: c-moment-estimation
     title: Moment-estimation failure
@@ -12536,7 +12678,7 @@ concepts:
       lean-verifiable: Distributional stability is a separate later theorem candidate.
     scope: Bounded-runtime synthetic experiment with repeated Cauchy paths; attach to v4 chapter 7 (sections 7.2.1
       and 7.6). The legacy Chapter 4 label was incorrect; no population-moment inference from finite machine outputs.
-    status: todo
+    status: done
     dependencies:
     - c-stable-clt
     - c-lln-failure
@@ -12545,14 +12687,15 @@ concepts:
     page_path: content/incerto-cauchy-running.md
     canonical_url: /math/incerto/incerto-cauchy-running/
     coverage:
-      prose: absent
-      scope_note: Proposed original note; path is reserved in this plan only.
+      prose: existing
+      scope_note: Chapter-7 teaching and bounded Python implemented; separate max review pending; no checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-7-bounded-demo-tested
+      created_in_chunk: scft-v4-ch07
     source_units:
     - scft-v4-ch07
     completion_scope: in-scope
-    page_status: proposed
+    page_status: existing
     source_priority: 1
     deliverables:
       order:
@@ -12561,16 +12704,25 @@ concepts:
       - lean
       website_math:
         required: true
-        status: todo
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: No Lean toolchain is available; skipped as requested, with no new checked declaration.
     chunk_ids:
     - scft-v4-ch07
     first_chunk: scft-v4-ch07
+    completed_chunk_scopes:
+      scft-v4-ch07:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is available; skipped as requested, with no new checked declaration.
+        evidence_path: docs/records/incerto-scft-v4-ch07.md
+        note: Scoped implementation complete; separate max review and site checks remain pending.
   c-mixture-uncertainty:
     id: c-mixture-uncertainty
     title: Parameter mixtures and recursive uncertainty
@@ -12587,10 +12739,10 @@ concepts:
     canonical_url: /math/incerto/incerto-mixture-uncertainty/
     coverage:
       prose: existing
-      scope_note: Chapter-4 original teaching, numerical cases and separate max review done. Later chapter
-        extensions remain.
+      scope_note: Chapter-7 teaching and bounded Python implemented; separate max review pending; no checked Lean.
+        Chapter-20 extension remains.
       lean: absent
-      python: bounded-model-demo-tested
+      python: chapter-7-bounded-demo-tested
       related_foundations:
       - content/normix-normal-mixtures.md
       - content/normix-generalized-hyperbolic.md
@@ -12620,6 +12772,9 @@ concepts:
         - scope: scft-v4-ch04
           status: skipped-for-now
           reason: No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
+        - scope: scft-v4-ch07
+          status: skipped-for-now
+          reason: No Lean toolchain is available; skipped as requested, with no new checked declaration.
     chunk_ids:
     - scft-v4-ch04
     - scft-v4-ch07
@@ -12633,6 +12788,13 @@ concepts:
         lean_reason: No Lean toolchain is installed and sandbox network is unavailable; no new checked declaration.
         evidence_path: docs/records/incerto-scft-v4-ch04.md
         note: Chapter implementation and independent max review complete; site verification remains separate.
+      scft-v4-ch07:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: No Lean toolchain is available; skipped as requested, with no new checked declaration.
+        evidence_path: docs/records/incerto-scft-v4-ch07.md
+        note: Scoped implementation complete; separate max review and site checks remain pending.
   c-multivariate-tails:
     id: c-multivariate-tails
     title: Multivariate tails and dependence summaries
@@ -14420,7 +14582,7 @@ counts:
   concepts_total: 103
   concepts_in_scope: 75
   concepts_out_of_scope: 28
-  existing_concept_pages: 32
+  existing_concept_pages: 34
   checked_lean_concepts: 0
   scft_v4_chapters: 30
   scft_v4_appendices: 9

@@ -174,15 +174,15 @@ These are formula evaluations, with no numerical fitting or simulation.
 ## References
 
 - Balkema and de Haan, "Residual Life Time at Great Age"
-  [1974](https://doi.org/10.1214/aop/1176996548).
+  @balkema1974residual.
 - Pickands, "Statistical Inference Using Extreme Order Statistics"
-  [1975](https://doi.org/10.1214/aos/1176343003).
+  @pickands1975statistical.
 - Davison and Smith, "Models for Exceedances over High Thresholds"
-  [1990](https://doi.org/10.1111/j.2517-6161.1990.tb01796.x).
+  @davison1990models.
 - Coles, *An Introduction to Statistical Modeling of Extreme Values*
-  [2001](https://doi.org/10.1007/978-1-4471-3675-0).
+  @coles2001introduction.
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [1997](https://doi.org/10.1007/978-3-642-33483-2).
+  @embrechts1997modelling.
 
 ## Backlinks
 

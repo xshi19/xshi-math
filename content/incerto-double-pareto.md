@@ -325,7 +325,7 @@ panel. All values are dimensionless, exact-model evaluations.
 
 - @taleb2025scoftv4, §5.3, p. 101: comparison context. The normalization,
   tail constants and matching formulas above are derived for our explicit convention.
-- Resnick, *Heavy-Tail Phenomena* [2007](https://doi.org/10.1007/978-0-387-45024-7).
+- Resnick, *Heavy-Tail Phenomena* @resnick2007heavy.
 
 ## Backlinks
 

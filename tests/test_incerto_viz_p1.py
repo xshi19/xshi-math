@@ -279,7 +279,7 @@ def test_card_layout_support_markers_and_no_log_zero():
 
 @pytest.mark.parametrize("producer,names", [
     ("distribution_cards", ["pareto-card", "gpd-card", "gev-card", "frechet-card", "double-pareto-card", "frechet-maxima"]),
-    ("tail_estimation", ["hill-stability", "mean-excess", "threshold-diagnostics", "threshold-pp"]),
+    ("tail_estimation", ["hill-stability", "mean-excess", "threshold-diagnostics", "threshold-gpd", "threshold-pp"]),
     ("max_to_sum", ["max-to-sum"]),
     ("glossary_worked_cases", ["glossary-slow-variation"]),
 ])

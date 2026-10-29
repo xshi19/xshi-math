@@ -208,7 +208,7 @@ No random sampling or empirical fitting is involved.
 - Feller, *An Introduction to Probability Theory and Its Applications, Vol. II*
   (2nd ed., Wiley, 1971).
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [1997](https://doi.org/10.1007/978-3-642-33483-2).
+  @embrechts1997modelling.
 
 ## Backlinks
 

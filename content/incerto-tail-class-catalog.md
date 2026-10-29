@@ -25,7 +25,7 @@ The positive classifications are cited, not proved here: Foss, Korshunov,
 and Zachary, second edition (2013), §3.5, Theorem 3.29 and its following
 paragraph, p. 57 (regular variation, including Pareto); Theorem 3.30 and
 its following examples, p. 58 (lognormal and Weibull with shape below one).
-See the [book](https://doi.org/10.1007/978-1-4614-7101-1).
+See @foss2013heavy.
 We derive the elementary tail ratios and moment contrasts below; the
 appendix proves the convolution decomposition.
 
@@ -546,9 +546,9 @@ no numerical integration or executable package helper is needed for it.
   proved here; earlier positive classifications retain the references below.
 - @bingham1987regular, *Regular Variation*.
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [1997](https://doi.org/10.1007/978-3-642-33483-2).
+  @embrechts1997modelling.
 - Foss, Korshunov, and Zachary, *An Introduction to Heavy-Tailed and
-  Subexponential Distributions* [2013, 2nd ed.](https://doi.org/10.1007/978-1-4614-7101-1),
+  Subexponential Distributions* @foss2013heavy,
   §3.5, Theorem 3.29 and following paragraph, p. 57; Theorem 3.30 and
   following examples, p. 58. These support the cited positive classifications.
 - Taleb, *Statistical Consequences of Fat Tails*, third edition (2025),

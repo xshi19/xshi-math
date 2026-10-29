@@ -52,9 +52,10 @@ factors [@tongStatisticalPhysics, §2.3]. Integrating the positions and the
 other particles leaves the single-particle density
 
 $$
-\phi_d(\mathbf u)
-=(2\pi\sigma^2)^{-d/2}
-  \exp\!\left(-\frac{\|\mathbf u\|^2}{2\sigma^2}\right).
+\begin{aligned}
+\phi_d(\mathbf u)&=(2\pi\sigma^2)^{-d/2}\\
+&\quad\times\exp\!\left(-\frac{\|\mathbf u\|^2}{2\sigma^2}\right).
+\end{aligned}
 $$
 
 The factorization proves that the $d$ components are independent
@@ -70,7 +71,10 @@ factor $S_{d-1}v^{d-1}$, giving
 
 $$
 \boxed{
-f_d(v)=\frac{2c^{d/2}}{\Gamma(d/2)}v^{d-1}e^{-cv^2},\quad v>0.
+\begin{gathered}
+f_d(v)=\frac{2c^{d/2}}{\Gamma(d/2)}v^{d-1}e^{-cv^2},\\
+v>0.
+\end{gathered}
 }
 $$
 
@@ -78,15 +82,20 @@ The density is zero for $v<0$, and $V/\sigma\sim\chi_d$.
 Substitution $t=cv^2$ gives
 
 $$
-\int_0^\infty v^{d+r-1}e^{-cv^2}\,dv
-=\frac{\Gamma((d+r)/2)}{2c^{(d+r)/2}},\qquad r>-d.
+\begin{gathered}
+\int_0^\infty v^{d+r-1}e^{-cv^2}\,dv\\
+=\frac{\Gamma((d+r)/2)}{2c^{(d+r)/2}},\\
+r>-d.
+\end{gathered}
 $$
 
 Taking $r=0$ proves normalization. For every real $r>-d$,
 
 $$
-\mathbb E[V^r]
-=(2\sigma^2)^{r/2}\frac{\Gamma((d+r)/2)}{\Gamma(d/2)}.
+\begin{aligned}
+&\mathbb E[V^r]\\
+&\quad=(2\sigma^2)^{r/2}\frac{\Gamma((d+r)/2)}{\Gamma(d/2)}.
+\end{aligned}
 $$
 
 For $r\le-d$ the integral diverges at zero. Every positive moment exists.
@@ -111,7 +120,10 @@ side of the [tail-class catalog](incerto-tail-class-catalog.md).
 For a local shape $s>0$, define
 
 $$
-h_s(v)=\frac{2c^s}{\Gamma(s)}v^{2s-1}e^{-cv^2},\qquad v>0.
+\begin{gathered}
+h_s(v)=\frac{2c^s}{\Gamma(s)}v^{2s-1}e^{-cv^2},\\
+v>0.
+\end{gathered}
 $$
 
 This is a generalized Gamma density with power $2$; the chamber law has
@@ -135,9 +147,10 @@ After taking logarithms, each candidate has only constant, logarithmic,
 linear, and reciprocal terms. Consequently, for each such density $q$,
 
 $$
-\lim_{v\to\infty}\frac{\log q(v)}{v^2}=0,
-\qquad
+\begin{gathered}
+\lim_{v\to\infty}\frac{\log q(v)}{v^2}=0,\\
 \lim_{v\to\infty}\frac{\log h_s(v)}{v^2}=-c<0.
+\end{gathered}
 $$
 
 The unequal limits prove that none of these fixed-parameter laws equals
@@ -159,15 +172,22 @@ Let $Q=V^2$ and let $\varepsilon=mV^2/2$ be kinetic energy. The change
 of variable from $v$ to $q$ has Jacobian $1/(2\sqrt q)$, so under $h_s$,
 
 $$
-p_Q(q)=\frac{h_s(\sqrt q)}{2\sqrt q}
-=\frac{c^s}{\Gamma(s)}q^{s-1}e^{-cq},\qquad q>0.
+\begin{gathered}
+\begin{aligned}
+p_Q(q)&=\frac{h_s(\sqrt q)}{2\sqrt q}\\
+&=\frac{c^s}{\Gamma(s)}q^{s-1}e^{-cq},
+\end{aligned}\\
+q>0.
+\end{gathered}
 $$
 
 Using Gamma's **shape, scale** convention, this proves
 
 $$
-V^2\sim\operatorname{Gamma}(s,2\sigma^2),\qquad
+\begin{gathered}
+V^2\sim\operatorname{Gamma}(s,2\sigma^2),\\
 \varepsilon\sim\operatorname{Gamma}(s,kT).
+\end{gathered}
 $$
 
 For the 2D chamber, $s=1$: squared speed is exponential with mean
@@ -175,7 +195,10 @@ $2kT/m$, and kinetic energy is exponential with mean $kT$.
 For $R=1/Q$, a second Jacobian gives
 
 $$
-p_R(r)=\frac{c^s}{\Gamma(s)}r^{-s-1}e^{-c/r},\qquad r>0.
+\begin{gathered}
+p_R(r)=\frac{c^s}{\Gamma(s)}r^{-s-1}e^{-c/r},\\
+r>0.
+\end{gathered}
 $$
 
 Thus $1/V^2\sim\operatorname{InvGamma}(s,c)$.
@@ -203,8 +226,11 @@ Multiplying the equilibrium velocity measure by this factor and integrating
 over outward directions leaves one extra factor $v$. Normalizing proves
 
 $$
-g_d(v)=\frac{vf_d(v)}{\mathbb E_f V}
-=\frac{2c^{(d+1)/2}}{\Gamma((d+1)/2)}v^d e^{-cv^2},\qquad v>0.
+\begin{gathered}
+g_d(v)=\frac{vf_d(v)}{\mathbb E_f V}\\
+=\frac{2c^{(d+1)/2}}{\Gamma((d+1)/2)}v^d e^{-cv^2},\\
+v>0.
+\end{gathered}
 $$
 
 The effusing speed divided by $\sigma$ therefore has law $\chi_{d+1}$.
@@ -238,8 +264,10 @@ in reflecting hard walls, with total kinetic energy $E>0$ and no imposed
 total-momentum constraint. The velocity measure is uniform on the sphere
 
 $$
-\sum_{i=1}^N\|\mathbf u_i\|^2=\frac{2E}{m}
-\quad\text{in }\mathbb R^{dN}.
+\begin{gathered}
+\sum_{i=1}^N\|\mathbf u_i\|^2=\frac{2E}{m}\\
+\text{in }\mathbb R^{dN}.
+\end{gathered}
 $$
 
 We derive its one-particle marginal. Integrating the remaining $d(N-1)$
@@ -250,10 +278,14 @@ $B(x,y)=\Gamma(x)\Gamma(y)/\Gamma(x+y)$. Substitution
 $z=v^2/v_{\max}^2$ normalizes the density to
 
 $$
-f_{N,d}(v)=
-\frac{2v^{d-1}}{v_{\max}^{d}B(d/2,d(N-1)/2)}
-\left(1-\frac{v^2}{v_{\max}^2}\right)^{d(N-1)/2-1},
-\quad 0<v<v_{\max}.
+\begin{gathered}
+\begin{aligned}
+&f_{N,d}(v)\\
+&\quad=\frac{2v^{d-1}}{v_{\max}^{d}B(d/2,d(N-1)/2)}\\
+&\qquad\times\left(1-\frac{v^2}{v_{\max}^2}\right)^{d(N-1)/2-1},
+\end{aligned}\\
+0<v<v_{\max}.
+\end{gathered}
 $$
 
 Equivalently,
@@ -291,10 +323,11 @@ between losses, treat $N$ as continuous and use dots for time derivatives.
 Energy balance gives
 
 $$
-\frac d2 k(N\dot T+T\dot N)
-=\frac{d+1}{2}kT\dot N,
-\qquad
+\begin{gathered}
+\frac d2 k(N\dot T+T\dot N)\\
+=\frac{d+1}{2}kT\dot N,\\
 N\dot T=\frac{T\dot N}{d}.
+\end{gathered}
 $$
 
 Since $\dot N<0$, temperature falls. Starting at $N_0,T_0$, integration gives
@@ -395,10 +428,11 @@ $(p,a,b)=(\hat s,2/\hat\vartheta,0)$, the inward derivative of log
 likelihood per observation is
 
 $$
-\left.\frac1n\frac{\partial\ell}{\partial b}\right|_{b=0+}
-=\frac12\left(
-\frac1{(\hat s-1)\hat\vartheta}
--\frac1n\sum_{i=1}^n\frac1{v_i}\right)<0.
+\begin{aligned}
+&\left.\frac1n\frac{\partial\ell}{\partial b}\right|_{b=0+}\\
+&\quad=\frac12\Bigl(\frac1{(\hat s-1)\hat\vartheta}\\
+&\qquad-\frac1n\sum_{i=1}^n\frac1{v_i}\Bigr)<0.
+\end{aligned}
 $$
 
 This expression is finite because $\hat s>1$. Differentiating the
@@ -418,14 +452,21 @@ this boundary; the score here is a stated comparison convention.
 ### Quantiles and the squared-speed check
 
 ```{figure} ../assets/figures/incerto/rayleigh-speed-qq.svg
-:alt: Five vertically stacked QQ panels group Rayleigh and Weibull, Gaussian with Gamma and GIG, the inverse Gaussian, the inverse Gamma, and squared speeds against an exponential law. The first and last panels follow the equality line closely.
+:alt: Two QQ panels compare five fitted speed laws with sample quantiles, then squared speeds with the specified exponential law. Rayleigh, Weibull and the squared-speed comparison follow the equality line closely.
 
 Theoretical quantiles are horizontal and empirical quantiles vertical, at
-199 equally spaced probabilities from $0.005$ to $0.995$. The inverse-family
-panels need different horizontal ranges because their predicted upper
-quantiles are much larger. All displayed quantiles are retained. These QQ
+199 equally spaced probabilities from $0.005$ to $0.995$. All displayed
+quantiles are retained. These QQ
 plots use the same observations as the fit table; they are not independent
 validation data.
+```
+
+```{figure} ../assets/figures/incerto/rayleigh-speed-qq-tail.svg
+:alt: Separate inverse-Gaussian and inverse-Gamma QQ panels retain their larger theoretical quantile ranges and show departures from the equality line.
+
+The same probabilities and observations, with one panel per inverse family.
+Their much larger fitted upper quantiles need separate horizontal ranges;
+no quantiles are clipped to make the central fits look closer.
 ```
 
 The squared-speed test compares against the **specified** exponential mean
@@ -437,7 +478,7 @@ p-value in the table uses a fitted scale.
 
 [`chi_speed`](incerto-api-reference.md#api-chi-speed) provides the model
 density and CDF; [`speed_qq`](incerto-api-reference.md#api-speed-qq) constructs
-quantile pairs. The two figures come from
+quantile pairs. The three figures come from
 [`speed_fit_figure`](incerto-api-reference.md#api-speed-fit-figure), using the
 shared [`set_theme`](incerto-api-reference.md#api-set-theme),
 [`vertical_figure`](incerto-api-reference.md#api-vertical-figure), and
@@ -446,7 +487,7 @@ Regenerate them with `uv run python demos/incerto/rayleigh_speed.py`.
 The page's text output is regenerated by
 `uv run python scripts/regenerate_incerto_outputs.py`.
 
-## References
+## Sources and context
 
 - @taleb2026speed and @matharium2026speed: the challenge and animation.
 - @tongStatisticalPhysics, §2.3: canonical velocity and Maxwell speed laws.

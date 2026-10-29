@@ -73,8 +73,10 @@ $\bar F(u)=P(X>u)$, even when $X$ has atoms. For the empirical law that
 assigns mass $1/n$ to each observation,
 
 $$
-\widehat F_n(u)=\frac1n\sum_{i=1}^n\mathbf1_{\{x_i\le u\}},
-\qquad \widehat S_n(u)=1-\widehat F_n(u).
+\begin{gathered}
+\widehat F_n(u)=\frac1n\sum_{i=1}^n\mathbf1_{\{x_i\le u\}},\\
+\widehat S_n(u)=1-\widehat F_n(u).
+\end{gathered}
 $$
 
 We prove this identity by partitioning the observations into $x_i\le u$
@@ -101,8 +103,10 @@ $\mathbb E I_i=q$ and $\operatorname{Var}(I_i)=q(1-q)$ because $I_i^2=I_i$.
 Independence makes the cross-covariances zero. Consequently,
 
 $$
-\mathbb E\widehat S_n(u)=q,\qquad
+\begin{gathered}
+\mathbb E\widehat S_n(u)=q,\\
 \operatorname{Var}(\widehat S_n(u))=\frac{q(1-q)}n.
+\end{gathered}
 $$
 
 These are exact finite-sample identities, proved by summing the indicators.
@@ -111,6 +115,24 @@ $P(|\widehat S_n(u)-q|>\varepsilon)\le q(1-q)/(n\varepsilon^2)$,
 which tends to zero. No moment assumption on $X$ is needed: the indicators
 are bounded. This argument is pointwise in a fixed $u$; it proves neither a
 uniform-in-threshold theorem nor consistency of an unbounded payoff average.
+
+(counting-exceedances-ties)=
+## A survival step and its CDF complement
+
+```{figure} ../assets/figures/incerto/exceedances-ties.svg
+:alt: Strict empirical survival is one quarter at threshold two, and its CDF complement is three quarters. Open and closed endpoints mark the two-observation jump at the tie.
+
+The fixed list $(1,2,2,4)$. Filled dots give each function's value at a
+sample value; open dots give its left limit. At $u=2$, the strict
+survival counts only the observation $4$, while the CDF counts $1,2,2$.
+Both functions are right-continuous and sum to one at every threshold,
+including ties. These are exact counts, not fitted tail probabilities.
+```
+
+The existing [`empirical_survival_function`](incerto-api-reference.md#api-empirical-survival-function)
+example supplies the same support and survival values; subtracting from one
+gives the CDF. Regenerate with
+`uv run python demos/incerto/visualization_p2.py`.
 
 ## Source context
 

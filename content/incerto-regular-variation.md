@@ -248,7 +248,7 @@ threshold differences are explained by the
 ## References
 
 - Foss, Korshunov, and Zachary, *An Introduction to Heavy-Tailed and
-  Subexponential Distributions*, [2013, 2nd ed.](https://doi.org/10.1007/978-1-4614-7101-1),
+  Subexponential Distributions*, @foss2013heavy,
   §3.5, Theorem 3.29, p. 57: cited subexponential classification.
 - @bingham1987regular, *Regular Variation*, Theorem 1.3.1, p. 12:
   the cited representation theorem; the elementary power-times-$L$
@@ -256,8 +256,8 @@ threshold differences are explained by the
 - @taleb2025scoftv4, §5.1.1, pp. 95–97, and §5.2.3, p. 100:
   scaling and transformation context.
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [1997](https://doi.org/10.1007/978-3-642-33483-2).
-- Resnick, *Heavy-Tail Phenomena* [2007](https://doi.org/10.1007/978-0-387-45024-7).
+  @embrechts1997modelling.
+- Resnick, *Heavy-Tail Phenomena* @resnick2007heavy.
 
 ## Backlinks
 

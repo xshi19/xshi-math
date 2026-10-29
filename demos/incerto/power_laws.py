@@ -39,6 +39,24 @@ def export(fig, output, name):
     plt.close(fig)
 
 
+def plot_convolution_ratio(ax):
+    """Shared chapter-5/P2 panel; stops on unsuccessful quadrature."""
+    models = ((pareto(1.5), "Pareto 1.5", "-"),
+              (weibull_min(.5), "Weibull 0.5", "--"),
+              (expon(), "Exponential", "-."))
+    u = np.geomspace(3, 1e4, 81)
+    for rv, label, style in models:
+        result = iid_two_sum_tail(rv, u, rtol=1e-9, maxlevel=12)
+        if not np.all(result["success"]) or not np.all(np.isfinite(result["log_ratio"])):
+            raise FloatingPointError(f"convolution failed: {label}")
+        ax.plot(u, result["ratio"], style, label=label)
+        print(f"{label} two-sum ratio at 3/1e4: {result['ratio'][0]:.9g}, "
+              f"{result['ratio'][-1]:.9g}; max quadrature evaluations {max(result['nfev']):.0f}")
+    ax.axhline(1, color=COLORS["muted"], linewidth=1, label="Subexponential limit")
+    ax.set(xscale="log", yscale="log", xlabel="Threshold u", ylabel="Two-sum ratio R(u)",
+                title="A separate convolution question")
+
+
 def main():
     output = Path(__file__).resolve().parents[2] / "assets/figures/incerto"
     output.mkdir(parents=True, exist_ok=True)
@@ -60,17 +78,7 @@ def main():
                       labels=["-4", "-2", "-1", "0", "1", "2", "10", "100"])
     axes[1].set(xlabel="Threshold u", ylabel="Log squared-survival ratio",
                 ylim=(-.55, .05), title="Linear detail: exponential and logistic")
-    u = np.geomspace(3, 1e4, 81)
-    for rv, label, style in models[:3]:
-        result = iid_two_sum_tail(rv, u, rtol=1e-9, maxlevel=12)
-        if not np.all(result["success"]) or not np.all(np.isfinite(result["log_ratio"])):
-            raise FloatingPointError(f"convolution failed: {label}")
-        axes[2].plot(u, result["ratio"], style, label=label)
-        print(f"{label} two-sum ratio at 3/1e4: {result['ratio'][0]:.9g}, "
-              f"{result['ratio'][-1]:.9g}; max quadrature evaluations {max(result['nfev']):.0f}")
-    axes[2].axhline(1, color=COLORS["muted"], linewidth=1, label="Subexponential limit")
-    axes[2].set(xscale="log", yscale="log", xlabel="Threshold u", ylabel="Two-sum ratio R(u)",
-                title="A separate convolution question")
+    plot_convolution_ratio(axes[2])
     export(fig, output, "power-law-diagnostics.svg")
 
     fig, axes = plt.subplots(3, 1, figsize=(5, 13), layout="constrained")

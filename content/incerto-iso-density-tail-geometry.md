@@ -246,7 +246,7 @@ the sector integral and the earlier constrained-density ratios. The chapter
   Cauchy context. The constrained extrema, sector integral, switching example
   and stable-vector counterexample above are proved here.
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [1997](https://doi.org/10.1007/978-3-642-33483-2).
+  @embrechts1997modelling.
 
 ## Backlinks
 

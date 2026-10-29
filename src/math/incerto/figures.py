@@ -254,7 +254,7 @@ def distribution_card(models, x, tail_x, *, title: str, support_note: str,
             for endpoint in law.support():
                 if np.isfinite(endpoint) and grid[0] <= endpoint <= grid[-1]:
                     ax.axvline(endpoint, color=color, linestyle=":", linewidth=.9, alpha=.7)
-    axes[0].set(title=title + "\n" + support_note, ylabel="Density", ylim=(0, None))
+    axes[0].set(title=title + ("\n" + support_note if support_note else ""), ylabel="Density", ylim=(0, None))
     axes[0].legend(loc="upper center", bbox_to_anchor=(.5, -.28),
                    ncol=3, handlelength=2.4, columnspacing=.8)
     axes[1].set(title="Cumulative probability", ylabel="CDF", ylim=(-.02, 1.02))

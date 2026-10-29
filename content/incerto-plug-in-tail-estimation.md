@@ -48,8 +48,10 @@ population and sample means.
 Assume $X_1,\ldots,X_n$ are independent and identically distributed (iid), with
 
 $$
-\mathbb P(X_i>x)=\left(\frac{x_m}{x}\right)^\alpha,
-\qquad x\ge x_m>0,
+\begin{gathered}
+\mathbb P(X_i>x)=\left(\frac{x_m}{x}\right)^\alpha,\\
+x\ge x_m>0,
+\end{gathered}
 $$
 
 where $x_m$ is known and fixed, and the true exponent satisfies $\alpha>1$.
@@ -63,9 +65,10 @@ $$
 The maximum-likelihood estimate of the exponent and its reciprocal are
 
 $$
-\widehat\xi_n=\frac1n\sum_{i=1}^n\log(X_i/x_m),
-\qquad
+\begin{gathered}
+\widehat\xi_n=\frac1n\sum_{i=1}^n\log(X_i/x_m),\\
 \widehat\alpha_n=\frac1{\widehat\xi_n}.
+\end{gathered}
 $$
 
 They use all observations above a known cutoff. Hill instead averages the top
@@ -76,9 +79,13 @@ assumptions differ.
 The plug-in mean is
 
 $$
-\widehat\mu_n=\frac{x_m}{1-\widehat\xi_n}
-=\frac{\widehat\alpha_n x_m}{\widehat\alpha_n-1},
-\qquad \widehat\xi_n<1.
+\begin{gathered}
+\begin{aligned}
+\widehat\mu_n&=\frac{x_m}{1-\widehat\xi_n}\\
+&=\frac{\widehat\alpha_n x_m}{\widehat\alpha_n-1},
+\end{aligned}\\
+\widehat\xi_n<1.
+\end{gathered}
 $$
 
 Use [`pareto_mean_plugin`](incerto-api-reference.md#api-pareto-mean-plugin).
@@ -107,11 +114,12 @@ $\widehat\xi_n\ge1$ has no finite mean.
 For each fixed $\alpha>1$, the finite plug-in estimates have the asymptotic law
 
 $$
+\begin{gathered}
 \mathcal L\!\left(\sqrt n(\widehat\mu_n-\mu)
-\mid \widehat\xi_n<1\right)
-\Rightarrow
-\mathcal N\!\left(0,\frac{x_m^2\alpha^2}{(\alpha-1)^4}\right),
-\qquad n\to\infty.
+\mid \widehat\xi_n<1\right)\\
+\Rightarrow\mathcal N\!\left(0,\frac{x_m^2\alpha^2}{(\alpha-1)^4}\right),\\
+n\to\infty.
+\end{gathered}
 $$
 
 Here $\mathcal L(\cdot\mid\cdot)$ denotes a conditional sampling law,
@@ -126,7 +134,7 @@ $n^{1/\alpha-1}$. More precisely, the
 [generalized central limit theorem](./incerto-generalized-central-limit-theorem.md)
 gives a nondegenerate, non-Gaussian $\alpha$-stable limit for
 $n^{1-1/\alpha}(\bar X_n-\mu)$ in this exact Pareto model
-[2007](https://doi.org/10.1007/978-0-387-45024-7). That scale decays more slowly than $n^{-1/2}$.
+@resnick2007heavy. That scale decays more slowly than $n^{-1/2}$.
 Large observations can continue to move sample means in this regime;
 [pre-asymptotic LLN behavior](./incerto-lln-preasymptotic.md) illustrates this effect.
 
@@ -141,7 +149,10 @@ the stable limit for the sample mean is cited above.
 Set $Y_i=\log(X_i/x_m)$. For $y\ge0$,
 
 $$
-\mathbb P(Y_i>y)=\mathbb P(X_i>x_m e^y)=e^{-\alpha y}.
+\begin{aligned}
+\mathbb P(Y_i>y)&=\mathbb P(X_i>x_m e^y)\\
+&=e^{-\alpha y}.
+\end{aligned}
 $$
 
 Thus $Y_i$ is exponential with mean $1/\alpha$ and variance $1/\alpha^2$,
@@ -163,9 +174,10 @@ For the locally smooth function $h(t)=x_m/(1-t)$,
 $h'(\xi)=x_m/(1-\xi)^2$. The delta method therefore gives limiting variance
 
 $$
-[h'(\xi)]^2\xi^2
-=\frac{x_m^2\xi^2}{(1-\xi)^4}
-=\frac{x_m^2\alpha^2}{(\alpha-1)^4}.
+\begin{aligned}
+[h'(\xi)]^2\xi^2&=\frac{x_m^2\xi^2}{(1-\xi)^4}\\
+&=\frac{x_m^2\alpha^2}{(\alpha-1)^4}.
+\end{aligned}
 $$
 
 Because $\mathbb P(\widehat\xi_n<1)\to1$, conditioning on finite fits does
@@ -184,9 +196,60 @@ The sample mean's stable-limit scale is proportional to $n^{-1/3}$.
 The unknown comparison constants and finite-sample behavior are not supplied
 by comparing these powers of $n$.
 
-If a repeated-sample experiment is performed, non-finite fits must count as
-infinite errors, including when summarizing quantiles and exceedance
-probabilities. No repeated-sample performance table is reported here.
+In a repeated-sample experiment with a finite true mean, non-finite fits count
+as infinite errors. Removing them changes the sampling law. Below we report
+fit frequencies, not an unconditional MSE or a finite-only error comparison.
+
+(plugin-singularity-figure)=
+## The singularity and the frequency of infinite fits
+
+```{figure} ../assets/figures/incerto/plugin-mean-singularity.svg
+:alt: The fitted Pareto mean diverges as the fitted exponent approaches one from above. A companion panel counts infinite fits at true exponents 0.8, 1 and 1.5.
+
+Top: the population functional $\widehat\alpha/(\widehat\alpha-1)$
+on $\widehat\alpha>1$, with the infinite-mean region shaded. No negative
+algebraic values are interpreted as means below one. Bottom: exact
+infinite-fit probabilities (lines) and frequencies from 600 iid samples per
+size and law (dots), $n=10,30,100,300$, true $\alpha=0.8,1,1.5$ and
+$x_m=1$. PCG64 seeds 20261090–20261092. Finite-fit frequencies are the
+complements; every sample is counted. Only the true $\alpha=1.5$ law has
+a finite target mean. These are fit-status frequencies, not error bars.
+```
+
+For any true $\alpha>0$, the earlier logarithmic transformation gives
+$T_n=\sum_i\log(X_i/x_m)\sim\mathrm{Gamma}(n,\text{rate }\alpha)$.
+The fit is infinite exactly when $T_n\ge n$. Thus
+
+$$
+P(\widehat\mu_n=\infty)=P(T_n\ge n).
+$$
+
+The Gamma law follows by multiplying the exponential MGFs
+$(\alpha/(\alpha-t))^n$; the boundary event has probability zero.
+This derives the exact probability used in the figure. A finite estimate
+can occur even when the true mean is infinite. At the boundary $\alpha=1$,
+the ordinary CLT for the log-excesses gives an infinite-fit probability
+tending to $1/2$.
+
+Use [`pareto_plugin_nonfinite_probability`](incerto-api-reference.md#api-pareto-plugin-nonfinite-probability).
+
+```python
+from xmath.incerto.limits import pareto_plugin_nonfinite_probability
+
+for alpha in (.8, 1, 1.5):
+    p = pareto_plugin_nonfinite_probability(alpha, 30)
+    print(f"alpha={alpha:g}: finite={1-p:.4g}, infinite={p:.4g}")
+```
+
+**Output**
+
+```text
+alpha=0.8: finite=0.1321, infinite=0.8679
+alpha=1: finite=0.5243, infinite=0.4757
+alpha=1.5: finite=0.9927, infinite=0.007337
+```
+
+Regenerate with `uv run python demos/incerto/visualization_p2.py`.
 
 Neither the normal limit nor a finite simulation establishes MSE dominance or
 tests whether an empirical dataset is Pareto.
@@ -198,8 +261,10 @@ Let $X\ge0$ and fix a threshold $u>0$ with tail probability
 $q_u=\mathbb P(X>u)>0$. Suppose the conditional tail is exactly Pareto:
 
 $$
-\mathbb P(X>x\mid X>u)=(u/x)^\alpha,
-\qquad x\ge u,\quad \alpha>1.
+\begin{gathered}
+\mathbb P(X>x\mid X>u)=(u/x)^\alpha,\\
+x\ge u,\quad \alpha>1.
+\end{gathered}
 $$
 
 The [mean-excess formula](./incerto-mean-excess-function.md) gives
@@ -207,8 +272,10 @@ $\mathbb E[X\mid X>u]=u+e(u)=u\alpha/(\alpha-1)$, where
 $e(u)=\mathbb E[X-u\mid X>u]$. Splitting the expectation at $u$ yields
 
 $$
-\mu=\mathbb E[X\mathbf1_{\{X\le u\}}]
-+q_u\frac{u\alpha}{\alpha-1}.
+\begin{aligned}
+\mu&=\mathbb E[X\mathbf1_{\{X\le u\}}]\\
+&\quad+q_u\frac{u\alpha}{\alpha-1}.
+\end{aligned}
 $$
 
 For an iid sample, let $k=\sum_i\mathbf1_{\{X_i>u\}}$ be the exceedance count.
@@ -216,9 +283,10 @@ Estimate $q_u$ by $k/n$ and fit $\widehat\alpha_u$ from those exceedances.
 When $k>0$ and $\widehat\alpha_u>1$, a body-plus-tail estimate is
 
 $$
-\widehat\mu_u
-=\frac1n\sum_{i=1}^n X_i\mathbf1_{\{X_i\le u\}}
-+\frac{k}{n}\frac{u\widehat\alpha_u}{\widehat\alpha_u-1}.
+\begin{aligned}
+\widehat\mu_u&=\frac1n\sum_{i=1}^n X_i\mathbf1_{\{X_i\le u\}}\\
+&\quad+\frac{k}{n}\frac{u\widehat\alpha_u}{\widehat\alpha_u-1}.
+\end{aligned}
 $$
 
 The first term is the body's contribution per original observation, not the
@@ -297,7 +365,7 @@ mean to recover by this method.
   continuous mapping, and delta method
   [1998](https://www.cambridge.org/core/books/asymptotic-statistics/A3C7DAD3F7E66A1FA60E9C8FE132EE1D).
 - Resnick, *Heavy-Tail Phenomena*: regularly varying tails and stable limits
-  [2007](https://doi.org/10.1007/978-0-387-45024-7).
+  @resnick2007heavy.
 - Taleb, *Statistical Consequences of Fat Tails*: motivation for estimating
   functionals through fitted tail parameters [2020](https://arxiv.org/abs/2001.10488). See the [SCoFT reading guide](./incerto-scoft-intro.md).
 

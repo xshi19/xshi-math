@@ -208,11 +208,11 @@ adds the shared mixture sample, whose body changes the population curve below $3
 ## References
 
 - Davison and Smith, "Models for Exceedances over High Thresholds"
-  [1990](https://doi.org/10.1111/j.2517-6161.1990.tb01796.x).
+  @davison1990models.
 - Coles, *An Introduction to Statistical Modeling of Extreme Values*
-  [2001](https://doi.org/10.1007/978-1-4471-3675-0).
+  @coles2001introduction.
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [1997](https://doi.org/10.1007/978-3-642-33483-2).
+  @embrechts1997modelling.
 
 ## Backlinks
 

@@ -16,9 +16,11 @@ options:
 For realized nonnegative observations $x_1,\dots,x_n$ with $s_n>0$, define
 
 $$
-s_n=\sum_{i=1}^n x_i,\qquad
-m_n=\max_{1\le i\le n}x_i,\qquad
+\begin{gathered}
+s_n=\sum_{i=1}^n x_i,\\
+m_n=\max_{1\le i\le n}x_i,\\
 r_n=\frac{m_n}{s_n}.
+\end{gathered}
 $$
 
 The realized max-to-sum ratio $r_n$ is the share of the total produced by the
@@ -62,7 +64,8 @@ complements the path view in
 
 We prove the finite-mean theorem: if the iid nonnegative observations have a
 positive finite mean, then the maximum becomes a negligible share of the sum.
-The proof uses the strong law and Borel--Cantelli.  The infinite-mean Pareto
+The proof uses the strong law and Borel--Cantelli
+(@durrett2019probability, Theorem 2.4.1, p. 76, and Theorem 2.3.1, p. 68).  The infinite-mean Pareto
 regimes are cited or described heuristically, because their exact limits need
 heavier regular-variation machinery.
 
@@ -96,7 +99,8 @@ different:
 - $\alpha>1$: $M_n/S_n\to0$ almost surely by the finite-mean theorem.
 - Exact Pareto $\alpha=1$: $M_n/S_n\to0$ in probability, but slowly;
   $M_n/(x_m n)$ is bounded in probability, while
-  $S_n/(x_m n\log n)\to1$ in probability (a cited limit).
+  $S_n/(x_m n\log n)\to1$ in probability; the
+  [Pareto note](incerto-pareto.md#sums-and-moment-orders) proves both normalizations.
   This is not almost-sure convergence of the ratio.
 - $0<\alpha<1$: under standard regular-variation assumptions, $M_n/S_n$ has
   a nondegenerate limiting distribution
@@ -254,23 +258,25 @@ The finite-mean theorem for $R_n$ proves no resampling validity statement.
 
 ## References
 
+- @taleb2025scoftv4, §7.6, pp. 148–150: higher-moment diagnostic context.
+
 - Darling, "The influence of the maximum term in the addition of independent
   random variables," *Transactions of the American Mathematical Society*
   **73** (1952), 95–107
-  [DOI](https://doi.org/10.1090/S0002-9947-1952-0048726-0).
+  @darling1952influence.
 - O'Brien, "A limit theorem for sample maxima and heavy branches in
   Galton–Watson trees," *Journal of Applied Probability* **17** (1980),
-  539–545 [DOI](https://doi.org/10.2307/3213043).
+  539–545 @obrien1980limit.
 - Politis and Romano, "Large Sample Confidence Regions Based on Subsamples
   under Minimal Assumptions," *The Annals of Statistics* **22** (1994),
-  2031–2050 [DOI](https://doi.org/10.1214/aos/1176325770).
+  2031–2050 @politis1994subsampling.
 - Bickel, Götze, and van Zwet, "Resampling Fewer than $n$ Observations:
   Gains, Losses, and Remedies for Losses," *Statistica Sinica* **7** (1997),
   1–31; §2.3, Example 4, and §3, Theorem 1
   [PDF](https://www3.stat.sinica.edu.tw/statistica/oldpdf/a7n11.pdf).
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [1997](https://doi.org/10.1007/978-3-642-33483-2).
-- Resnick, *Heavy-Tail Phenomena* [2007](https://doi.org/10.1007/978-0-387-45024-7).
+  @embrechts1997modelling.
+- Resnick, *Heavy-Tail Phenomena* @resnick2007heavy.
 
 ## Backlinks
 

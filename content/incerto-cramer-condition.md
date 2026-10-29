@@ -73,11 +73,10 @@ The Chernoff bound follows from Markov's inequality applied to the nonnegative
 random variable $e^{\theta X}$:
 
 $$
-\mathbb P(X>x)
-=
-\mathbb P(e^{\theta X}>e^{\theta x})
-\le
-e^{-\theta x}\mathbb E[e^{\theta X}].
+\begin{aligned}
+\mathbb P(X>x)&=\mathbb P(e^{\theta X}>e^{\theta x})\\
+&\le e^{-\theta x}\mathbb E[e^{\theta X}].
+\end{aligned}
 $$
 
 A standard normal random variable satisfies the two-sided version because
@@ -90,9 +89,10 @@ exactly for $0<\theta<\lambda$.
 For a [Pareto Type I](./incerto-pareto.md) random variable,
 
 $$
-\mathbb E[e^{\theta X}]
-=
-\int_{x_m}^{\infty} e^{\theta x}\alpha x_m^\alpha x^{-(\alpha+1)}\,dx.
+\begin{aligned}
+&\mathbb E[e^{\theta X}]\\
+&\quad=\int_{x_m}^{\infty} e^{\theta x}\alpha x_m^\alpha x^{-(\alpha+1)}\,dx.
+\end{aligned}
 $$
 
 For every $\theta>0$, the exponential factor dominates the polynomial decay,
@@ -105,10 +105,12 @@ condition for every positive $\theta$.
 For an exponential variable of rate $\lambda$ and $c\ge0$,
 
 $$
-\mathbb E[e^{\theta X}\mathbf 1_{\{X\le c\}}]
+\begin{gathered}
+\mathbb E[e^{\theta X}\mathbf 1_{\{X\le c\}}]\\
 =\frac{\lambda}{\lambda-\theta}
-  \left(1-e^{-(\lambda-\theta)c}\right),
-\qquad 0<\theta<\lambda.
+  \left(1-e^{-(\lambda-\theta)c}\right),\\
+0<\theta<\lambda.
+\end{gathered}
 $$
 
 For example, $\lambda=1$ and $\theta=0.12$ give a finite limit
@@ -119,16 +121,81 @@ lower bound that diverges. For $c\ge2x_m$, retain only the interval $(c/2,c]$:
 
 $$
 \begin{aligned}
-\mathbb E[e^{\theta X}\mathbf 1_{\{X\le c\}}]
-&\ge e^{\theta c/2}\mathbb P(c/2<X\le c)\\
-&=(2^\alpha-1)\left(\frac{x_m}{c}\right)^\alpha
-  e^{\theta c/2}\longrightarrow\infty.
+&\mathbb E[e^{\theta X}\mathbf 1_{\{X\le c\}}]\\
+&\quad\ge e^{\theta c/2}\mathbb P(c/2<X\le c)\\
+&\quad=(2^\alpha-1)\left(\frac{x_m}{c}\right)^\alpha e^{\theta c/2}\\
+&\quad\longrightarrow\infty.
 \end{aligned}
 $$
 
 These are population calculations, independent of simulation. Even a Pareto
 law with $\alpha=2.5$, finite mean, and finite variance has no positive
 exponential moment.
+
+(cramer-bernoulli)=
+## An optimized bound for Bernoulli averages
+
+For iid $X_i\sim\mathrm{Bernoulli}(p)$, $0<p<1$, independence gives
+$\mathbb Ee^{tS_n}=(1-p+pe^t)^n$. Markov therefore proves, for $p<q<1$,
+
+$$
+\begin{aligned}
+&P(S_n\ge nq)\\
+&\quad\le\inf_{t>0}\exp\Bigl\{-n\bigl[tq\\
+&\qquad-\log(1-p+pe^t)\bigr]\Bigr\}\\
+&\quad=e^{-nD(q\Vert p)},
+\end{aligned}
+$$
+
+where
+
+$$
+\begin{aligned}
+D(q\Vert p)&=q\log(q/p)\\
+&\quad+(1-q)\log\frac{1-q}{1-p}.
+\end{aligned}
+$$
+
+To verify the optimum, differentiate the bracket: its derivative vanishes
+at $e^t=q(1-p)/(p(1-q))>1$, and its second derivative is negative.
+Substitution yields the displayed expression. At $q=1$ the bound is
+$p^n$, exactly the all-success probability. At $q\le p$ we use the trivial
+upper bound one. If $nq$ is not an integer, the event is
+$S_n\ge\lceil nq\rceil$; the bound at the unrounded $q$ is still valid.
+
+For $p=1/2$, $q=3/4$, $D(q\Vert p)\approx0.130812$.
+This is an upper bound, not a finite-$n$ equality or a tail-probability
+approximation with a proved relative error. Appendix D, pp. 187–188 of
+@taleb2025scoftv4 is the context; the optimization here is proved directly.
+It also avoids identifying a two-sided Chernoff bound with a one-sided
+probability or dropping its prefactor.
+
+[`bernoulli_chernoff_log_bound`](incerto-api-reference.md#api-bernoulli-chernoff-log-bound)
+returns the log upper bound, which remains useful when probabilities underflow.
+
+```python
+import numpy as np
+from scipy.stats import binom
+from xmath.incerto.limits import bernoulli_chernoff_log_bound
+
+for n in (20, 100, 1000):
+    exact = binom.sf(int(np.ceil(.75*n))-1, n, .5)
+    bound = np.exp(bernoulli_chernoff_log_bound(.5, .75, n))
+    print(f"n={n}: exact={exact:.4g}, bound={bound:.4g}")
+```
+
+**Output**
+
+```text
+n=20: exact=0.02069, bound=0.07308
+n=100: exact=2.818e-07, bound=2.084e-06
+n=1000: exact=6.738e-59, bound=1.545e-57
+```
+
+The general large-deviation principle instead gives logarithmic upper bounds
+on closed sets and lower bounds on open sets. It does not generally assert
+$P(\bar X_n>x)/e^{-nI(x)}\to1$. Our Bernoulli calculation needs only
+Markov, independence, and elementary optimization, not that general theorem.
 
 ## Caveats
 
@@ -148,7 +215,7 @@ exponential moment.
 - Feller, *An Introduction to Probability Theory and Its Applications, Vol. II*
   [1971, 2nd ed., Wiley](https://www.wiley-vch.de/de/fachgebiete/mathematik-und-statistik/an-introduction-to-probability-theory-and-its-applications-volume-2-978-0-471-25709-7).
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [1997](https://doi.org/10.1007/978-3-642-33483-2).
+  @embrechts1997modelling.
 - Taleb, *Statistical Consequences of Fat Tails*, third edition (2025),
   [arXiv:2001.10488v4](https://arxiv.org/abs/2001.10488v4), ch. 1,
   pp. 3–5: motivation for distinguishing tail assumptions. The elementary
