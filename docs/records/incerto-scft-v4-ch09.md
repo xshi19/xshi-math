@@ -496,3 +496,281 @@ are recorded here so the conclusions do not depend on those temporary files.
 - Not rerun: the full repository pytest suite, dependency synchronization,
   fresh site/HTML/browser checks, wheel packaging, Lean or publication.
   The available-dependency tests are not a locked-environment verification.
+
+## Follow-up after Xiang's decisions
+
+2026-10-29. Xiang selected **gpt-6-astra xhigh** for this writing run on
+`scft/v4-ch09`, starting from clean head `cb55e69` (PR #42). This section
+supersedes the pending decisions above for the approved follow-up only.
+No commit, staging, push, publication, or repository file deletion.
+
+### Mean-excess corollary for max review
+
+[PBdH: mean-excess corollary](../../content/incerto-pickands-balkema-de-haan.md#pbdh-mean-excess-corollary)
+now states: for a fixed distribution `F in MDA(H_xi)` with `xi < 1`,
+right endpoint `x_F = sup{x : F(x) < 1}`, and
+`E[(X-u_0)^+] < infinity` for some finite `u_0 < x_F`, the population
+mean excess satisfies `e(u)/beta(u) -> 1/(1-xi)` as `u` increases to `x_F`.
+Here `u_0 <= u < x_F`, `bar F(u) > 0`, and `beta(u) > 0` is any scale
+giving the PBdH limit of the stated shape. Only the right-tail integral
+must be finite; a two-sided mean is not assumed.
+
+No continuity, density or differentiability assumption on `F` is added.
+The MDA assumption excludes an atom at the endpoint. The endpoint is
+infinite for `0 < xi < 1`, finite for `xi < 0`, and either is allowed for
+`xi = 0`. The respective scale equivalents are `xi*u`,
+`-xi*(x_F-u)`, and a Gumbel auxiliary function. The zero-shape limit is 1.
+
+**Support: proved from cited prerequisites.** The original proof uses
+Karamata integration for the positive and negative shapes. For zero shape,
+the cited Gumbel representation provides an equivalent smooth survival `g`
+and a locally absolutely continuous auxiliary `a`, with `a' -> 0` and
+`a ~ beta`. Integrating `(a*g)' = (a'-1)*g`, with its endpoint term proved
+to vanish, gives the tail-integral asymptotic. Smoothness of this equivalent
+tail is not silently imposed on `F`. The standard reference is the existing
+`embrechts1997modelling` entry in `content/bibliography.bib`; no new entry or
+inline DOI link was needed. The general representation theorems are cited,
+not claimed as locally proved.
+
+The broad “additional tail-integrability conditions” wording is replaced.
+The warning about bare CDF proximity and finite-threshold fitted means remains
+qualified. A new runnable snippet integrates normal scaled excess survivals
+and two exact GPD survivals using `xmath.incerto`: the normal ratios are
+0.7464, 0.9024 and 0.9709 at thresholds 2, 4 and 8; the exact GPD ratios
+are 2 and 0.5 for shapes 0.5 and -1. This is numerical illustration, not
+proof or an extreme-parameter accuracy test.
+
+### Deferred locators and numerical contracts
+
+**Xiang's decision, 2026-10-29:** defer remaining primary-source theorem
+locators. [M05-ISSUE-006](../plan/incerto-program/m0.5-review.md#m05-issue-006)
+remains open with its assigned/deferred disposition. This corollary does
+not close the original-source audit.
+
+[API precision policy](../../content/incerto-api-reference.md#api-extremes-precision),
+the Hill API entries, and docstrings in `src/math/incerto/extremes.py` and
+`src/math/incerto/estimators.py` distinguish validation, mathematical finite
+moment domains, float representability, and tested numerical comparisons.
+The documented limits include extreme parameters, subnormal outputs,
+reciprocal overflow, large-count beta evaluation, quadrature error estimates,
+and callbacks or other methods of returned SciPy laws. No algorithm or test
+tolerance was changed.
+
+In particular, the near-tie Hill comparison requests relative tolerance
+`1e-14` against a 70-digit Decimal reference, but `pytest.approx`'s default
+absolute tolerance `1e-12` dominates those tiny results. Neither the API nor
+the docstring claims that this test establishes relative accuracy near ties.
+The separate full-float-range test checks finiteness/positivity only.
+The tested rescaling and scalar/vector tolerances retain their scoped claims.
+
+### Figures and verification
+
+`demos/incerto/extreme_values.py` adds constrained-layout spacing to the
+two requested figures through the existing shared figure/export helpers.
+Regenerated `hidden-tail-pareto.svg` and `hill-sampling-law.svg`; the other
+two chapter-9 SVGs remain byte-identical to the starting head. Both changed
+figures were rendered and inspected at 390 and 900 px. Panel titles and
+legends have clear vertical separation.
+
+- Ran `scripts/regenerate_incerto_outputs.py` through a `runpy` wrapper
+  whose audit hook prohibits writes to either protected power-law page:
+  **173 snippet outputs and one full-demo output** executed.
+- `UV_NO_SYNC=1 UV_CACHE_DIR=/tmp/ch09-followup-uv
+  MPLCONFIGDIR=/tmp/ch09-followup-mpl OPENBLAS_NUM_THREADS=1 uv run pytest`:
+  **1,246 passed in 176.67 seconds**. This includes all page-output checks
+  and fresh-process deterministic exports matching all four chapter-9 SVGs
+  byte for byte. These are available-environment results, not a fresh
+  locked-dependency verification.
+- All **13 display equations** on the PBdH page parse with KaTeX 0.16.25.
+  A local estimate from KaTeX glyph metrics and span layout, at the site's
+  17 px base size, gives a maximum width of about **300 px**. This supports
+  the short-line layout at a 390 px viewport but is not a browser measurement.
+  The API additions contain no display equations.
+- A fresh Chromium render was attempted but the sandbox rejected a browser
+  `setsockopt` call (`Operation not permitted`). Actual page equation widths
+  therefore remain unverified in this environment. Full site build/HTML
+  checks, dependency synchronization, wheel packaging, Lean, and live
+  publication were not run in this follow-up.
+
+- State/human-view validation passed, including **1,172** local file/fragment
+  links. The final changed-file audit checked **398** relative link
+  destinations, bibliography keys, and whitespace. `git diff --check` passed.
+- Reviewed the full diff and settled prose. Stripping docstrings from the two
+  helper modules leaves ASTs identical to `cb55e69`; numerical algorithms
+  and test tolerances are unchanged. There are no new files to inspect.
+- Both protected power-law pages are byte-identical to `cb55e69`.
+  No files deleted or staged; head remains `cb55e69` on `scft/v4-ch09`.
+  Nine files are modified: the PBdH and API pages, two helper modules,
+  `demos/incerto/extreme_values.py`, two SVGs, `m0.5-review.md`, and this
+  record. No commit was made.
+
+## Max check of follow-up
+
+2026-10-29. Xiang selected **gpt-6-astra, max reasoning**. Reviewed the
+uncommitted follow-up on `scft/v4-ch09`, head `cb55e69`, limited to the new
+PBdH mean-excess corollary, its prerequisites and numerical example, and
+the new API/helper precision statements. Existing unrelated changes were
+preserved.
+
+**Verdict:** the corollary and its proof are correct as stated. The extra
+right-tail integrability hypothesis is sufficient but redundant for every
+`xi < 1`. No correction to the corollary, its outputs, or the helper
+docstrings was needed. One API sentence overstated the numerical range of
+the expected hidden fraction; it now distinguishes the mathematical range
+from floating-point values above one near the moment boundary.
+
+### Mathematical audit
+
+- **Integrability.** For `0 < xi < 1`, regular variation with exponent
+  `-1/xi < -1` gives a finite right-tail integral by Karamata. For `xi < 0`,
+  the finite endpoint bounds `(X-u_0)^+` by `x_F-u_0`. This also covers
+  `xi = 0` with finite endpoint. In the infinite-endpoint Gumbel case,
+  the representation's `a' -> 0` gives `a(t)=o(t)`. For any `r > 1`,
+  eventually `a(t) <= t/r`, hence `g(t) <= C*t^(-r)` and the right-tail
+  integral is finite. The same argument gives every positive right-tail
+  moment. None of these facts imposes integrability on the left tail.
+  The redundant hypothesis is harmless and was retained under the request
+  to fix only clear errors.
+- **Positive and negative shapes.** The two Karamata calculations have
+  the correct exponents and constants. The zero-endpoint version follows
+  from the linked infinity version by substituting `s=1/t` in
+  `integral_0^v R(s) ds`: the resulting integrand has index `1/xi-2`,
+  giving `v*R(v)/(1-1/xi)`. Dividing by `-xi*v` yields `1/(1-xi)`.
+- **Zero shape.** The equivalent tail may be chosen with a positive,
+  locally absolutely continuous auxiliary function and `a' -> 0`.
+  Differentiating `a*g` is legitimate almost everywhere; its derivative
+  is `(a'-1)*g`. The proof correctly proves the vanishing endpoint term
+  at both finite and infinite endpoints before integrating. The sign in
+  `I=a*g+integral a'*g` is correct. Tail equivalence controls the entire
+  remaining integration interval. Smoothness is required only of the
+  equivalent tail and auxiliary, not of `F`, `e`, or an arbitrary PBdH
+  scale.
+- **Any positive PBdH scale.** Let `s(u)` be a canonical scale and choose
+  a fixed positive `q` in the interior of the unit GPD support. Comparing
+  the two PBdH approximations at excess `q*s(u)` gives
+  `G_xi,1(q*s(u)/beta(u)) -> G_xi,1(q)`. Strict increase and continuity
+  of the GPD there imply `beta(u)/s(u) -> 1`. At a finite endpoint the
+  comparison is within the excess support for all sufficiently high
+  thresholds. Thus the stated equivalents `xi*u`, `-xi*(x_F-u)`, and
+  the Gumbel auxiliary apply to every admissible scale.
+- **Uniform integrability.** For the conditional variable
+  `Z_u=(X-u)/beta(u) | X>u`, a uniform moment bound of some order `q>1`
+  holds for all sufficiently high thresholds. With positive shape,
+  choose `1<q<1/xi` and apply Potter bounds. With negative shape,
+  the support endpoint `(x_F-u)/beta(u)` stays bounded. For zero shape,
+  `|a'|<=epsilon` gives
+  `g(u+a(u)*z)/g(u) <= (1+epsilon*z)^(-1/epsilon)` for `z>=0`
+  within the support. Tail equivalence and `beta/a -> 1` preserve such
+  a bound; choose `epsilon<1/q`. Beyond a finite endpoint the survival
+  is zero. This proves uniform integrability near the endpoint directly,
+  without assuming that weak convergence alone preserves expectations.
+- **Atoms.** Survival integration uses `P(X>u)` and remains valid at
+  threshold atoms. Atoms below `x_F`, including sequences accumulating
+  there, are allowed when MDA holds. An atom of mass `p>0` at a finite
+  endpoint would give `P(M_n=x_F)=1-(1-p)^n -> 1`, preventing any
+  nondegenerate GEV limit under affine normalization. No continuity
+  assumption was omitted.
+
+The cited representation and scale facts were checked against independent
+research sources. [Ghosh and Resnick, *A Discussion on Mean Excess Plots*,
+Theorems 3.1, 3.6 and 3.9](https://arxiv.org/pdf/0907.5236) restate the
+three MDA characterizations and identify the relevant Embrechts et al.
+results as Theorems 3.3.7, 3.3.12, 3.3.26 and 3.4.13(b).
+[Seifert, *Characterization of valid auxiliary functions*, §2.2 and
+Theorems 2–3](https://onlinelibrary.wiley.com/doi/10.1111/sjos.12701)
+independently confirms the equivalent smooth tail and asymptotic
+equivalence of all excess-limit auxiliaries. The proof correctly uses a
+smooth equivalent auxiliary; it does not assert that the original mean
+excess itself is absolutely continuous. The Embrechts book's full theorem
+pages were not directly inspected, so the previously deferred
+original-source locator audit remains open.
+
+### Independent numerical checks and precision audit
+
+Used Python 3.13.5, NumPy 2.4.6, SciPy 1.18.1 and mpmath 1.4.1 with
+80 decimal digits. The standalone script `/tmp/ch09_max_check.py` ran
+without repository writes. Its reference formulas and principal results
+are recorded here so the evidence does not depend on that temporary file.
+
+- **Normal.** Compared scaled-survival quadrature with the independent
+  identity `e(u)/beta(u)=u*(phi(u)/barPhi(u)-u)`, evaluating `barPhi`
+  through mpmath `erfc`. At `u=2,4,8,16,32`, the ratios were
+  `0.74643106564568`, `0.90242857795788`, `0.97094489788890`,
+  `0.99233583447210`, and `0.99805634346024`. The largest absolute
+  discrepancy was below `4.5e-14`. The page's three rounded outputs
+  are correct. Its two GPD quadratures also give the algebraic means
+  `2` and `0.5` for shapes `0.5` and `-1`.
+- **Finite-endpoint Gumbel.** Used `bar F(t)=exp(-1/(1-t))` on
+  `0<=t<1`, with the remaining probability at zero. Write `v=1-u`
+  and `beta=v^2`. Compared the integral of
+  `exp(-z/(1-v*z))` on `0<=z<1/v` with
+  `(v-exp(1/v)*E1(1/v))/v^2`. At `v=.5,.1,.01,.001`, the ratios
+  were `0.55468553244711`, `0.84366660602119`, `0.98057713266982`,
+  and `0.99800597611929`; all discrepancies were below `1e-12`.
+  Also evaluated the different, asymptotically equivalent scale
+  `beta*(1+sqrt(v))`, whose mean ratios and fixed-point survivals
+  approach the same limits more slowly.
+- **Infinite-endpoint Gumbel.** For `bar F(t)=exp(-sqrt(t))`,
+  `beta(u)=2*sqrt(u)` and direct integration gives
+  `e(u)/beta(u)=1+1/sqrt(u)`. Separate survival quadrature gave
+  `1.5`, `1.1`, and `1.01` at `u=4,100,10000`, within `1e-12`.
+- **Discrete parents.** Let `P(N>=j)=j^(-2)` for integers `j>=1`.
+  For `X=N`, `xi=1/2`, `u=n`, and `beta=n/2`, the exact survival
+  sum gives `e=1+(n+1)^2*zeta(2,n+2)`. For `X=1-1/N`, `xi=-1/2`,
+  `u=1-1/n`, and `beta=1/(2*n)`, it gives
+  `e=(n+1)^2*(1/n-zeta(2,n+1)-zeta(3,n+1))`.
+  Here `zeta(s,q)` is Hurwitz zeta. At `n=10,100,1000`, the positive
+  shape ratios were `2.3030253234968`, `2.0300330026533`,
+  `2.0030003330003`; the negative shape ratios were
+  `0.74716733564999`, `0.67497313684731`, `0.66749973313369`.
+  They approach `2` and `2/3`. Thresholds just below the bounded
+  parent's atoms, at `u=1-1/n-1/(4*n*(n-1))`, gave
+  `0.65485870188519`, `0.66504459900468`, `0.66650044209803`.
+  A partial-fraction sum with an exact zeta remainder independently
+  checked the bounded-parent integral to absolute error below `1e-70`.
+
+All named test grids and tolerances in the new docstrings/API prose match
+the tests. The near-tie `pytest.approx` caveat is correct: its default
+`abs=1e-12` dominates those results. Separate 80-digit Decimal checks
+without an absolute-error allowance gave relative errors below `1e-16`
+for the two near-tie samples; this does not justify a general precision
+guarantee. The statements about inverse-gamma moments, constructor scale
+validation, normal norming/CDF ranges, quadrature stopping criteria, and
+unvalidated SciPy method arguments/callbacks are conservative.
+
+**Minimal fix:** the API previously said hidden fractions lie between zero
+and one without distinguishing mathematical and returned values. For
+`alpha=1`, `p=np.nextafter(1.,0.)`, and `n=100000`,
+`expected_pareto_hidden_fraction` returned `1.0000000000774687`;
+the 80-digit reference `n*beta(n,2-p)` is
+`0.99999999999999865772414`. At `n=9` the return is already
+`1.0000000000000004`. The API now states the mathematical bound and
+allows floating-point values above one near `p=alpha`. The corresponding
+docstring already specifies a mathematical range and disclaims a uniform
+numerical accuracy bound, so it required no change. No algorithm or test
+tolerance was changed.
+
+### Verification and state
+
+Both pytest commands used `UV_NO_SYNC=1`, `UV_CACHE_DIR=/tmp/ch09-max-uv`,
+`MPLCONFIGDIR=/tmp/ch09-max-mpl`, and `OPENBLAS_NUM_THREADS=1`:
+
+- `uv run pytest -q tests/test_incerto_page_snippets.py`:
+  **360 passed in 106.80 seconds**; includes exact checks of all new
+  corollary output lines.
+- `uv run pytest -q tests/test_incerto_extremes.py
+  tests/test_incerto_estimators.py tests/test_incerto_numerical_reliability.py`:
+  **106 passed in 8.82 seconds**. The third file was included because
+  the new Hill precision statements cite its scalar/vector comparison.
+- The independent script passed. The final API correction changes only
+  prose; tested code and executable snippets are unchanged.
+- `git diff --check` and the final scope/whitespace/link checks passed.
+  This review changed only `content/incerto-api-reference.md` and this
+  appended record. The PBdH page, both helper modules, all tests, and
+  all other pre-existing changes retain their starting bytes. Both
+  protected power-law pages remain identical to `cb55e69`.
+- No files deleted, staged, committed or pushed. No new repository files.
+  Head remains `cb55e69` on `scft/v4-ch09`.
+- Not run: full repository pytest, dependency synchronization, site build,
+  HTML/browser checks, packaging, Lean or publication. These results use
+  the available environment, not a fresh locked-dependency installation.

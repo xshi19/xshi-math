@@ -49,6 +49,8 @@ def plot_gaussian():
 def plot_hidden_pareto():
     ns = np.unique(np.geomspace(10, 10**6, 101).astype(int))
     fig, axes = vertical_figure(2, panel_height=3.6)
+    # Keep the outside legend clear of the next title at 390 px.
+    fig.get_layout_engine().set(hspace=.16)
     for alpha in (1.1, 1.5, 2):
         expected = [expected_pareto_hidden_fraction(int(n), alpha) for n in ns]
         axes[0].plot(ns, expected, label=fr'$\alpha={alpha:g}$')
@@ -93,6 +95,7 @@ def plot_hill():
     grid = np.linspace(.2, 4.5, 401)
     ms = np.arange(3, 101)
     fig, axes = vertical_figure(3, panel_height=3.5)
+    fig.get_layout_engine().set(hspace=.12)
     for k in (5, 30):
         law = pareto_exponent_sampling(1.5, k)
         axes[0].plot(grid, law.pdf(grid), label=f'm = {k}')

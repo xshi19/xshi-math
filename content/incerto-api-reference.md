@@ -450,6 +450,24 @@ Module: `xmath.incerto.estimators`.
 
 `hill_estimator(x, k)`
 
+Requires a one-dimensional sample of at least two finite positive float64
+values and an integer $1\le k<n$. Exact ties contribute zero adjacent
+log spacing; identical largest $k+1$ observations give exactly zero.
+Nearby distinct floats use `log1p`, and widely separated values use log
+differences to avoid overflowing their ratio. No positive spacing is
+deliberately clamped to zero.
+
+In `tests/test_incerto_extremes.py`, `test_hill_ties_and_rescaling` checks
+four scales from `1e-200` through `1e200` at relative tolerance `1e-13`.
+`test_hill_near_ties_and_full_float_range` compares adjacent floats near
+1 and `1e200` with 70-digit Decimal calculations, but its `pytest.approx`
+absolute tolerance of `1e-12` dominates the requested relative tolerance
+`1e-14` for those tiny results. It does not establish relative accuracy
+there. Its separate subnormal-to-maximum-float case checks finiteness and
+positivity only. The tested rescaling tolerances are not uniform relative-error
+bounds for arbitrary samples, subnormal gaps, or long cumulative sums.
+Input rounding can erase distinctions before the estimator receives them.
+
 ```python
 from xmath.incerto.estimators import hill_estimator
 
@@ -467,6 +485,11 @@ xi: 1.04
 #### [`hill_alpha_estimator`](incerto-api-reference.md#api-hill-alpha-estimator)
 
 `hill_alpha_estimator(x, k)`
+
+Uses the same validation and spacing calculation as `hill_estimator`.
+Zero spacing returns `inf`; a positive finite `xi` has a finite reciprocal
+only when that reciprocal is representable. No separate relative-accuracy
+guarantee is made for reciprocals near overflow.
 
 ```python
 from xmath.incerto.estimators import hill_alpha_estimator
@@ -510,6 +533,12 @@ The cutoff is known; statistical calibration assumes an exact iid Pareto model.
 #### [`hill_stability`](incerto-api-reference.md#api-hill-stability)
 
 `hill_stability(x, k_values=None, *, num=100)`
+
+Uses cumulative sums of the same nonnegative spacings as `hill_estimator`,
+with the same tie behavior and numerical limits. Scalar and vector estimates
+are compared at `1e-14` in the rescaling test above and at `1e-12` in
+`tests/test_incerto_numerical_reliability.py::test_hill_scalar_vector_consistency`;
+their different summation orders need not give bit-identical values.
 
 ```python
 from xmath.incerto.estimators import hill_stability
@@ -2515,15 +2544,66 @@ Counts are integers from 1 through $10^9$ (normal norming requires at least
 scalars unless an array argument is explicitly stated. No helper fits a
 threshold or certifies an empirical tail law.
 
+(api-extremes-precision)=
+### Numerical domains and tested precision
+
+“Exact” describes a population formula or distribution, not exact arithmetic.
+The implementation uses float64 and SciPy. Domain checks reject invalid
+numeric inputs as documented below; successful validation does not promise
+relative accuracy for every finite floating-point parameter.
+
+- Pareto hidden moments are mathematically finite for `p < alpha`;
+  otherwise they return `inf`. On the finite-moment branch, detected numerical
+  overflow raises `FloatingPointError`, and underflow may return zero.
+  Mathematical hidden fractions lie between zero and one for `p < alpha`;
+  floating-point evaluation can return values above one near `p = alpha`.
+  The undefined fraction for `p >= alpha` returns `nan`.
+- Normal norming has positive finite scale and finite center on the allowed
+  count range; normal maximum CDF values are finite in $[0,1]$, with values
+  0 and 1 at the infinite endpoints. Very small probabilities may round to
+  zero and probabilities near one may round to one.
+- The frozen Beta law has bounded support. The inverse-gamma constructor
+  checks that its scale is positive and finite, but its mean exists only
+  for `count > 1` and variance only for `count > 2`; its upper-end quantile
+  is infinite. Subsequent SciPy method calls can overflow or return `nan`
+  for their own arguments even after construction succeeds.
+- Gaussian hidden-mean quadrature returns a finite value on success or
+  raises `RuntimeError` when its convergence checks fail. `abs_error` is an
+  estimate. The requested absolute/relative tolerances are `1e-14` and
+  `2e-9`; these are stopping criteria, not rigorous error bounds.
+
+The numerical comparisons below live in `tests/test_incerto_extremes.py`.
+Each relative tolerance applies only to that test's parameter grid and
+reference calculation; `pytest.approx` comparisons also allow its default
+absolute tolerance `1e-12`. Agreement with numerical quadrature is not
+certification.
+
+| Test name | Checked comparison |
+| --- | --- |
+| `test_hidden_moment_against_direct_density_integral` | Four moderate parameter triples and a rescaling; relative tolerance `1e-8` |
+| `test_expected_fraction_against_maximum_quantile_integral` | Counts 1, 2, 10, 1000 and four exponent/order pairs; `2e-8` |
+| `test_exponent_cdf_against_gamma_pivot` | Counts 1, 2, 5, 30; exponents 0.8, 1.5, 3; CDF comparison `1e-12` |
+| `test_normal_norming_and_exact_cdf` | Counts 3, 10, 1000, $10^9$; Mills survival/density identities `2e-13` |
+| `test_gaussian_hidden_mean_against_density_integral` | Counts 1, 2, 10, 100, 10000; `1e-8` against a different integral |
+
+The same file tests invalid counts/parameters, exact missing-mass identities,
+specified overflow/underflow outcomes, and selected huge-parameter power
+cancellations. Those regressions do not establish a global relative-error
+bound: extreme exponents, nearly cancelling powers, large-count beta
+evaluations, and subnormal results remain outside such a guarantee.
+The seven helpers accept no user callbacks. Callbacks passed to methods of
+returned SciPy distributions, such as `law.expect(func)`, and their numerical
+integration errors are not validated or covered by these tests.
+
 (api-pareto-hidden-moment)=
 ### `pareto_hidden_moment(threshold, alpha, *, x_m=1, p=1)`
 
 Exact $\mathbb E[X^p\mathbf1_{\{X>t\}}]$ for Pareto Type I. The threshold
 $t$ may be an array; every entry must be finite and at least the positive
 finite cutoff `x_m`. The exponent is positive finite and `p` is finite
-and nonnegative. Returns `inf` for `p >= alpha`. A finite mathematical
-answer overflowing float64 raises `FloatingPointError`; underflow returns
-zero. Scalar input produces a Python float. See the
+and nonnegative. Returns `inf` for `p >= alpha`. Detected overflow on the
+finite-moment branch raises `FloatingPointError`; underflow may return zero.
+Scalar input produces a Python float. See the
 [derivation](incerto-hidden-tail.md#hidden-tail-pareto).
 
 ```python

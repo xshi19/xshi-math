@@ -61,6 +61,18 @@ def hill_estimator(x: ArrayLike, k: int) -> float:
         ``k`` is outside the valid order-statistic range.
     TypeError
         If ``k`` is not an integer.
+
+    Notes
+    -----
+    Exact ties contribute zero; identical largest k+1 values give zero xi.
+    log1p retains nearby float spacings, while log differences avoid ratio
+    overflow for widely separated values. Input conversion can erase gaps.
+    tests/test_incerto_extremes.py checks four rescalings at rtol=1e-13 and
+    adjacent floats near 1 and 1e200 against 70-digit Decimal. That latter
+    comparison requests rtol=1e-14 but allows pytest.approx's atol=1e-12,
+    which dominates these tiny values; it does not establish relative accuracy.
+    Its subnormal-to-maximum-float test checks finiteness/positivity only.
+    No uniform relative accuracy is promised for arbitrary samples or gaps.
     """
 
     sample = _positive_1d_sample(x)
@@ -102,6 +114,12 @@ def hill_alpha_estimator(x: ArrayLike, k: int) -> float:
         Tail-exponent estimate ``alpha_hat = 1 / xi_hat``.  If the selected
         upper order statistics have zero log spacing, the result is
         ``numpy.inf``.
+
+    Notes
+    -----
+    Validation and spacing accuracy are those of hill_estimator. A positive
+    xi has a finite reciprocal only if representable; reciprocal overflow
+    and extreme-parameter relative accuracy are not separately controlled.
     """
 
     xi_hat = hill_estimator(x, k)
@@ -209,6 +227,14 @@ def hill_stability(
         Dictionary with ``"k"``, ``"xi"``, and ``"alpha"`` arrays.  ``"k"`` is
         stored as floating point so the result can be passed directly to NumPy
         and plotting functions with the other arrays.
+
+    Notes
+    -----
+    Shares hill_estimator's validation, tie behavior and accuracy limits.
+    Cumulative sums can round differently from scalar summation. Scalar/vector
+    agreement is tested at rtol=1e-14 for the rescaled samples in
+    tests/test_incerto_extremes.py and rtol=1e-12 in
+    tests/test_incerto_numerical_reliability.py, not for arbitrary long sums.
     """
 
     sample = _positive_1d_sample(x)
