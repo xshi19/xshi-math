@@ -5,9 +5,11 @@ Copyright (c) 2023 xshi19; MIT (see THIRD_PARTY_NOTICES.md).
 No network access or notebook execution is required.
 """
 from pathlib import Path
+import os
 import matplotlib
 matplotlib.use("Agg")
-OUTPUT = Path(__file__).resolve().parents[2] / "assets/incerto/figures"
+OUTPUT = Path(os.environ.get("INCERTO_FIGURE_DIR",
+    Path(__file__).resolve().parents[2] / "assets/incerto/figures"))
 OUTPUT.mkdir(parents=True, exist_ok=True)
 
 
@@ -18,15 +20,15 @@ from scipy.stats import genpareto, linregress, lognorm
 
 from xmath.incerto.datasets import load_nyc_dog_name_frequencies
 from xmath.incerto.estimators import hill_stability
-from xmath.incerto.figures import COLORS, FIGURE_SIZES, savefig, set_theme, style_axes
+from xmath.incerto.figures import COLORS, savefig, set_theme, style_axes, vertical_figure
 
-set_theme()
+set_theme(scale=1.1)
 
 data = load_nyc_dog_name_frequencies()
 frequencies = data.frequency.astype(float)
 ordered = np.sort(frequencies)
 n = ordered.size
-empirical_survival = 1 - np.arange(1, n + 1) / (n + 1)
+rank_positions = 1 - np.arange(1, n + 1) / (n + 1)
 
 # Rank-frequency view, from the most common name down to the one-offs.
 ranked_frequency = ordered[::-1]
@@ -35,7 +37,8 @@ slope, intercept, r_value, _, _ = linregress(
     np.log(name_rank), np.log(ranked_frequency)
 )
 
-fig, ax = plt.subplots(figsize=FIGURE_SIZES["single"], layout="constrained")
+fig, axes = vertical_figure(1, panel_height=3.6)
+ax = axes[0]
 ax.scatter(
     name_rank,
     ranked_frequency,
@@ -98,12 +101,13 @@ for threshold in gpd_thresholds:
 gpd_xi = np.array(gpd_xi)
 gpd_exceedances = np.array(gpd_exceedances)
 
-fig, ax = plt.subplots(figsize=FIGURE_SIZES["single"], layout="constrained")
+fig, axes = vertical_figure(1, panel_height=3.6)
+ax = axes[0]
 ax.loglog(
     ordered,
-    empirical_survival,
+    rank_positions,
     color=COLORS["accent"],
-    label="empirical",
+    label="rank plotting positions",
 )
 ax.loglog(
     ordered,
@@ -113,14 +117,15 @@ ax.loglog(
     label="whole-sample lognormal",
 )
 ax.set_xlabel("license-period frequency")
-ax.set_ylabel("survival across names")
-ax.set_title("Global frequency fit")
+ax.set_ylabel("tail probability / rank position")
+ax.set_title("Frequency tail and lognormal fit")
 ax.legend()
 style_axes(ax, grid_axis="both")
 savefig(fig, OUTPUT / "nyc-dog-name-tail-2.svg", metadata={"Date": None})
 plt.close()
 
-fig, axes = plt.subplots(1, 2, figsize=FIGURE_SIZES["two_panel"], layout="constrained")
+fig, axes = vertical_figure(3, panel_height=3.1)
+fig.get_layout_engine().set(hspace=.13)
 
 axes[0].semilogx(
     hill_threshold[hill_order],
@@ -138,7 +143,7 @@ xi_line = axes[1].semilogx(
     color=COLORS["teal"],
     label=r"GPD $\widehat\xi$",
 )
-count_axis = axes[1].twinx()
+count_axis = axes[2]
 count_line = count_axis.semilogx(
     gpd_thresholds,
     gpd_exceedances,
@@ -151,14 +156,16 @@ axes[1].xaxis.set_major_formatter(ScalarFormatter())
 axes[1].xaxis.set_minor_formatter(NullFormatter())
 axes[1].set_xlabel("fixed threshold")
 axes[1].set_ylabel(r"GPD $\widehat\xi$")
-count_axis.set_ylabel("exceedances")
+count_axis.xaxis.set_major_locator(FixedLocator([20, 50, 100, 200, 500]))
+count_axis.xaxis.set_major_formatter(ScalarFormatter())
+count_axis.xaxis.set_minor_formatter(NullFormatter())
+count_axis.set_ylabel("strict exceedances")
+count_axis.set_xlabel("fixed threshold")
+count_axis.set_title("Observations above each threshold")
 axes[1].set_title("GPD threshold sensitivity")
-axes[1].legend(
-    xi_line + count_line,
-    [line.get_label() for line in xi_line + count_line],
-)
 
-style_axes([*axes, count_axis], grid_axis="both")
+
+style_axes(axes, grid_axis="both")
 savefig(fig, OUTPUT / "nyc-dog-name-tail-3.svg", metadata={"Date": None})
 plt.close()
 

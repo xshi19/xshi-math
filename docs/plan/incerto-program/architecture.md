@@ -273,3 +273,13 @@ MyST's initial theme/DOI fetches may need network even after `npm ci` succeeds.
 Record blocked checks honestly and rerun them outside the restricted sandbox
 before accepting publication. A workflow file is a contract until a real run
 has passed.
+
+## Chapter-10 implementation note (2026-10-29)
+
+`content/incerto-sp500.md` is the diagnostics home; `incerto-sp500-tail.md`
+continues to own data access and tail fitting. `incerto-ml-econometrics.md`
+owns the F/G estimator and hinge arguments. Both reuse the existing installed
+package, shared figure exporter and cache loader. No financial data are
+distributed or fetched by builds/tests. The empirical gate remains open;
+[the checkpoint](../../records/incerto-scft-v4-ch10.md) separates it from
+completed teaching and deterministic tests. Appendix I remains chapter 22.

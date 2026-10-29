@@ -217,3 +217,30 @@ data acquisition or publication was performed. M0.5 remains unstarted.
 Mathematical claim review, precise source hypotheses and empirical provenance
 remain chapter work. No program-scope questions remain open; legacy rights,
 retention and publishing actions remain with their existing owners.
+
+## Chapter 10 and Appendices F/G (2026-10-29)
+
+[Chapter-10 checkpoint](../../records/incerto-scft-v4-ch10.md) records original
+teaching, ten helpers, five new figures and four Amazon/NYC repairs.
+`next_chunk` is `scft-v4-ch11`. The chapter chunk is done at teaching/Python
+implementation scope; observed S&P evaluation, separate max review and site
+gates remain open. The two concepts and attached source units remain
+in-progress; synthetic evidence does not close empirical requirements.
+
+- `UV_NO_SYNC=1 uv run pytest`: **1,396 passed, 1 skipped in 216.10 s**.
+  Available dependencies; locked installation failed on an uncached wheel.
+  The skip is the existing local-data layoffs example. Exact snippet outputs,
+  both S&P data branches and fresh-process SVG bytes pass.
+- Regenerated 120 snippet outputs and the NYC full demo with the existing
+  script. All nine new/changed SVGs inspected as 390/900 px PNGs.
+- All 19 affected teaching-page display blocks parse; estimated widths stay
+  below 266 px. Browser measurement remains unavailable.
+- State/human-view validation and 1,181 plan file/fragment links passed;
+  current program bodies 37, frozen M0.5 bodies 24, total concepts 103.
+- M05-ISSUE-003 remains resolved. M05-ISSUE-014's rank-position labels and
+  captions are fixed and regenerated; two other source-review assignments
+  remain open. Snapshot data and third-party source notes are unchanged.
+- `npm ci --offline` failed on the uncached MyST archive; scratch build failed
+  npm preflight, and the HTML check had no fresh artifact. Chrome launch
+  failed on a sandbox socket restriction. No site/browser/live pass claimed.
+- No commit, deletion, packaging build, Lean, hub transfer or publication.

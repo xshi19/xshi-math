@@ -86,7 +86,7 @@ def run_snippet(page, index, code, tmp_path, *, data_dir=None):
     }
     env.pop("PYTHONPATH", None)
     env["INCERTO_DATA_DIR"] = str(data_dir or ROOT / "data/incerto")
-    if page.stem == "incerto-sp500-tail" and data_dir is None:
+    if page.stem in {"incerto-sp500-tail", "incerto-sp500"} and data_dir is None:
         env["INCERTO_DATA_DIR"] = str(tmp_path / "absent-data")
     result = subprocess.run(
         [sys.executable, "-c", RUNNER, str(ROOT), f"{page.name}:python-{index}"],
@@ -117,6 +117,8 @@ def test_incerto_python_block(page, index, code, expected, tmp_path):
     if expected is not None:
         assert strip_trailing_whitespace(output) == strip_trailing_whitespace(expected)
     if page.stem == "incerto-sp500-tail":
+        assert "No local S&P cache" in output
+    if page.stem == "incerto-sp500" and "load_sp500_prices(" in code:
         assert "No local S&P cache" in output
 
 
@@ -188,6 +190,24 @@ def test_financial_snippet_with_local_synthetic_prices(tmp_path):
     assert "Window / loss days: 2020-01-01 2021-05-15 500" in output
     assert "25 " in output and "400 " in output
     assert "mean_excess" in output and "exceedances" in output
+
+
+def test_chapter10_financial_snippet_with_local_synthetic_prices(tmp_path):
+    page = ROOT / "content/incerto-sp500.md"
+    code = next(code for _, code, _ in page_snippets(page.read_text())
+                if "load_sp500_prices(" in code)
+    cache = tmp_path / "synthetic-data/cache"
+    cache.mkdir(parents=True)
+    returns = .01 * np.sin(np.arange(300)) + .001
+    prices = 100 * np.exp(np.r_[0, np.cumsum(returns)])
+    dates = np.datetime64("2020-01-01") + np.arange(len(prices))
+    (cache / "sp500_daily.csv").write_text(
+        "date,close\n" + "".join(f"{d},{p:.16g}\n" for d, p in zip(dates, prices)))
+    output = run_snippet(page, 7, code, tmp_path, data_dir=cache.parent)
+    assert_plain_numbers(output)
+    assert "returns=300" in output and "h=21:" in output
+    assert "gain:" in output and "loss:" in output and "alpha=" in output
+    assert "Maximum drawdown:" in output and "No local" not in output
 
 
 def test_demo_pages_have_visible_examples():

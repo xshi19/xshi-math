@@ -77,11 +77,11 @@ Lean omissions require a reason and never block the next chapter.
 | [Validation](validation.md) | Schema, executable checks and resume procedure |
 | [Verification](verification.md) | Historical evidence, this revision's checks and pending operator rerun |
 
-`next_chunk` is `#/chunks/scft-v4-ch10`. Chapters 1–9 teaching,
+`next_chunk` is `#/chunks/scft-v4-ch11`. Chapters 1–10 teaching,
 bounded Python examples and optional Lean skips are recorded in state.
-There are now 35 implemented program concept bodies; the frozen M0.5
+There are now 37 implemented program concept bodies; the frozen M0.5
 review denominator remains 24. Chapters 1–7 passed separate max review;
-chapter 8's later max-review record is retained. Chapter 9 awaits its separate max run. Moment estimation remains
+chapter 8's later max-review record is retained. Chapter 9 has its separate max reviews recorded, including the later corollary check. Chapter 10 awaits its separate max run. Moment estimation remains
 in progress for its chapter-28 scope.
 
 The chapter-8 record contains that chunk's tests, dependency versions and site
@@ -233,3 +233,18 @@ within chapter chunks, rather than unresolved scope choices.
 The repository's older publishing and rights actions remain in the
 [planning index](../index.md#decision-queue) and cutover runbook; this program
 does not close them. Counts measure planned coverage, not verified mathematics.
+
+## Chapter 10 implementation
+
+[Chapter 10 — Diagnosing returns](../../records/incerto-scft-v4-ch10.md) adds
+original diagnostic and statistical-pipeline pages, the F/G reading map, ten
+tested helpers, and five synthetic/model figures. The existing S&P tail page
+remains the data-access home. Amazon/NYC rank plots are relabeled and reflowed
+for M05-ISSUE-014; 003 retains its earlier resolved status.
+
+The chunk is `done` at teaching/Python implementation scope, as requested.
+Both concepts and the chapter/appendix source units remain `in-progress`:
+no authorized S&P cache was available, and the documented FRED fetch failed.
+Synthetic tests do not close the empirical study. Separate max review, fresh
+site/browser checks, and post-publication reader review remain distinct gates.
+Lean is skipped for now; the next writing chunk is `scft-v4-ch11`.
