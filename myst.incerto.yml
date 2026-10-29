@@ -45,6 +45,7 @@ project:
             - file: content/incerto-hill-estimator.md
             - file: content/incerto-extreme-value-index.md
             - file: content/incerto-plug-in-tail-estimation.md
+            - file: content/incerto-ml-econometrics.md
             - file: content/incerto-moment-estimation.md
             - file: content/incerto-kappa.md
             - file: content/incerto-tail-threshold-selection.md
@@ -64,6 +65,7 @@ project:
             - file: content/incerto-amazon-bookrank.md
             - file: content/incerto-nyc-dog-name-tail.md
             - file: content/incerto-layoffs-tails.md
+            - file: content/incerto-sp500.md
             - file: content/incerto-sp500-tail.md
             - file: content/incerto-dispersion-ratio.md
             - file: content/incerto-lln-preasymptotic.md
@@ -90,6 +92,8 @@ project:
               title: Chapter 8 — How much averaging helps
             - file: content/incerto-scoft-ch9.md
               title: Chapter 9 — Maxima and hidden tails
+            - file: content/incerto-scoft-ch10.md
+              title: Chapter 10 — Diagnosing returns
         - file: content/incerto-external-reading.md
           children:
             - file: content/incerto-reading-embrechts.md

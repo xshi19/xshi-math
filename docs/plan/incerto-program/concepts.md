@@ -1503,7 +1503,7 @@ Chapter chunks: `scft-v4-ch08`.
 
 ## Equity-return tail study (`c-sp500`)
 
-Home: `content/incerto-sp500.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-xhigh`.
+Home: [content/incerto-sp500.md](../../../content/incerto-sp500.md). Status: **in-progress**. Milestone: **M1**. Lead: `astra-xhigh`.
 
 Record price adjustments, sampling interval, nonstationarity, dependence, and data rights.
 
@@ -1513,7 +1513,9 @@ Lean limit: No exact declaration selected for this numerical or empirical treatm
 
 - **empirical:** An actual return series permits a reproducible, dated model comparison.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Chapter-10 teaching and Python implemented; empirical evaluation awaits an authorized S&P cache. Separate max review remains pending.
+
+[Chapter-10 checkpoint](../../records/incerto-scft-v4-ch10.md).
 
 Prerequisites: [c-threshold](#c-threshold), [c-moment-estimation](#c-moment-estimation).
 
@@ -1760,7 +1762,7 @@ Chapter chunks: `scft-v4-ch11`, `scft-v4-ch12`.
 
 ## Tail assumptions in statistical pipelines (`c-ml-econometrics`)
 
-Home: `content/incerto-ml-econometrics.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-xhigh`.
+Home: [content/incerto-ml-econometrics.md](../../../content/incerto-ml-econometrics.md). Status: **in-progress**. Milestone: **M1**. Lead: `astra-xhigh`.
 
 No blanket rejection of econometrics, machine learning, or behavioral economics.
 
@@ -1771,7 +1773,9 @@ Lean limit: No exact declaration selected for this numerical or empirical treatm
 - **numeric-demo:** Stress a specified estimator under controlled contamination.
 - **empirical:** Evaluate one documented pipeline on data with leakage and dependence checks.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Chapter-10 teaching and Python implemented; empirical evaluation awaits an authorized S&P cache. Separate max review remains pending.
+
+[Chapter-10 checkpoint](../../records/incerto-scft-v4-ch10.md). Appendix I remains chapter-22 work.
 
 Prerequisites: [c-moment-estimation](#c-moment-estimation), [c-multiple-testing](#c-multiple-testing).
 

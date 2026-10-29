@@ -312,3 +312,13 @@ justify fetching S&P inputs or moving financial-data decisions into the browser.
 - Proposed new evaluators, diagnostics, simulations, and widgets still need
   implementation and relevant numerical/render checks. The source review is
   not a fresh mathematical proof review or an empirical tail-model validation.
+
+## Chapter-10 follow-up (2026-10-29)
+
+Five original diagnostic/pipeline figures use `vertical_figure` and the shared
+SVG exporter. They contain synthetic paths, controlled contamination, fixed
+prices or exact curves; none represents an observed S&P study. Amazon's three
+panels and NYC's Hill/GPD/count panels now stack vertically. Both rank-position
+curves are explicitly labeled; underlying data and fit rules are unchanged.
+Nine new/changed figures have 390/900 px PNG previews. Inspection and final
+reproducibility evidence are in the [chapter-10 record](../../records/incerto-scft-v4-ch10.md).

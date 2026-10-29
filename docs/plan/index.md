@@ -1,8 +1,8 @@
 # Planning Index
 
-Chapter 9 and Appendix E teaching/Python: [checkpoint](../records/incerto-scft-v4-ch09.md).
-Next implementation chunk is `scft-v4-ch10`; separate max review and external
-source/site follow-ups remain pending.
+Chapter 10 and Appendices F/G teaching/Python: [checkpoint](../records/incerto-scft-v4-ch10.md).
+Next implementation chunk is `scft-v4-ch11`; observed S&P evaluation, separate
+max review and site/live checks remain pending.
 
 Status: Phase 0 light inventory, Phase 1 local HTML gate, Phase 2 eligible
 scope, and Phase 3 local rehearsal complete; IG outline and first entry batch

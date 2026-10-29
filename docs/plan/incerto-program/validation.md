@@ -26,9 +26,9 @@ validation-environment dependency, not a new runtime dependency of `xmath`.
 | `supplement_policy` | All nine SCoFT appendices and eight DH supporting units attach to chapters; none creates a separate chunk. |
 | `dependencies` | Concepts encode reading prerequisites; chunks/milestones encode execution gates. Use reviewed pages or bounded cited prerequisites without reordering chapters. |
 | `milestone` | M0 design; M0.5 review; M1 SCoFT; M2 DH; M3 closeout. A concept takes its first chapter's milestone. |
-| `next_chunk` | `#/chunks/scft-v4-ch10`, following chapter-9 implementation; separate chapter-9 max review and external site/browser checks remain recorded follow-ups. |
+| `next_chunk` | `#/chunks/scft-v4-ch11`, following chapter-10 implementation; separate chapter-10 max review and external site/browser checks remain recorded follow-ups. |
 | `owner_decisions` / `open_questions` | Prior program scope decisions remain approved. M0.5 findings and pending Xiang decisions are in the review chunk's `issues`, distinct from those earlier scope questions. |
-| `scope` / `authorized_chunks` | Current authorization covers M0.5 closure, chapters 1–9 implementation and the requested earlier-chapter reader fixes; it does not authorize all later chapters. |
+| `scope` / `authorized_chunks` | Current authorization covers M0.5 closure, chapters 1–10 implementation and the requested earlier-chapter reader fixes; it does not authorize all later chapters. |
 | M0.5 `review_workstreams` / `issues` | Mathematics and live reader review are done; owner reports 24/24 live coverage after PR #27. Exact viewport details were not supplied. Shared issues retain other chapters’ assignments. |
 | `assigned_role` | Owner-assigned lead; role labels neither guarantee availability nor authorize delegation. |
 | `data_policy` / `site_review_policy` | Data via the assigned bots with provenance; live reader review after every site update. Build evidence cannot replace reader review. |
@@ -46,7 +46,7 @@ exceedance claims remains valid.
 
 1. Read `next_chunk`, its dependencies and acceptance criteria. Confirm the
    current task authorizes the selected work; M0.5 authorization does not
-   authorize a later chapter. Chapter-1/2/3/4/5/6/7/8/9 authorization and the M0.5 live closure are explicitly recorded.
+   authorize a later chapter. Chapter-1/2/3/4/5/6/7/8/9/10 authorization and the M0.5 live closure are explicitly recorded.
 2. Recheck guidance and sources. For SCoFT use v4 locators, consulting the v2
    correspondence only for historical references. Resolve exact claim
    locators without copying book text.
@@ -95,8 +95,8 @@ assert not any(isinstance(event, yaml.events.AliasEvent)
                for event in yaml.parse(raw)), 'YAML aliases are not allowed'
 s = yaml.load(raw, Loader=UniqueLoader)
 assert s['schema_version'] == 3
-assert s['scope'] == 'scft-v4-ch09' and s['implementation_authorized']
-assert s['authorized_chunks'] == ['m0.5-review', 'scft-v4-ch01', 'scft-v4-ch02', 'scft-v4-ch03', 'scft-v4-ch04', 'scft-v4-ch05', 'scft-v4-ch06', 'scft-v4-ch07', 'scft-v4-ch08', 'scft-v4-ch09']
+assert s['scope'] == 'scft-v4-ch10' and s['implementation_authorized']
+assert s['authorized_chunks'] == ['m0.5-review', 'scft-v4-ch01', 'scft-v4-ch02', 'scft-v4-ch03', 'scft-v4-ch04', 'scft-v4-ch05', 'scft-v4-ch06', 'scft-v4-ch07', 'scft-v4-ch08', 'scft-v4-ch09', 'scft-v4-ch10']
 statuses = {'todo', 'in-progress', 'done', 'out-of-scope'}
 classes = {'lean-verifiable', 'numeric-demo', 'empirical', 'prose-only'}
 roles, milestones = s['roles'], s['milestones']
@@ -228,8 +228,8 @@ for chunk in s['chunks'].values():
     assert set(chunk['concept_ids']) <= active and chunk['acceptance']
 prefix, collection, key = s['next_chunk'].split('/')
 assert prefix == '#' and collection == 'chunks'
-assert key == 'scft-v4-ch10' and s['chunks'][key]['status'] == 'todo'
-assert all(s['chunks'][k]['status'] == 'done' for k in ('scft-v4-ch01', 'scft-v4-ch02', 'scft-v4-ch03', 'scft-v4-ch04', 'scft-v4-ch05', 'scft-v4-ch06', 'scft-v4-ch07', 'scft-v4-ch08', 'scft-v4-ch09'))
+assert key == 'scft-v4-ch11' and s['chunks'][key]['status'] == 'todo'
+assert all(s['chunks'][k]['status'] == 'done' for k in ('scft-v4-ch01', 'scft-v4-ch02', 'scft-v4-ch03', 'scft-v4-ch04', 'scft-v4-ch05', 'scft-v4-ch06', 'scft-v4-ch07', 'scft-v4-ch08', 'scft-v4-ch09', 'scft-v4-ch10'))
 indexes = {f'content/incerto-{name}-concepts.md'
            for name in ('distribution', 'theorem', 'method')}
 existing = {c['page_path'] for c in concepts.values()
@@ -241,7 +241,8 @@ post_review_pages = {'content/incerto-scoft-ch1.md', 'content/incerto-scoft-ch2.
                      'content/incerto-scoft-ch5.md', 'content/incerto-scoft-ch6.md', 'content/incerto-scoft-ch7.md', 'content/incerto-scoft-ch8.md',
                      'content/incerto-rayleigh-speed.md', 'content/incerto-scoft-ch9.md',
                      'content/incerto-hidden-tail.md', 'content/incerto-power-law-fitting.md',
-                     'content/incerto-power-law-goodness-of-fit.md'}
+                     'content/incerto-power-law-goodness-of-fit.md', 'content/incerto-scoft-ch10.md',
+                     'content/incerto-layoffs-tails.md'}
 assert set(review['additional_pages_skimmed']) == flat_pages - existing - post_review_pages
 assert len(review['additional_pages_skimmed']) == 18
 # M0.5 is a frozen review inventory; later original pages do not enlarge it.
@@ -251,7 +252,8 @@ assert set(review['concept_ids']) == {
 assert {cid for cid, c in concepts.items() if c['coverage'].get('created_in_chunk')} == {
     'c-inference-asymmetry', 'c-asymmetric-payoffs', 'c-ruin', 'c-decentralization',
     'c-mixture-uncertainty', 'c-moment-estimation', 'c-maximum-entropy',
-    'c-multivariate-tails', 'c-cauchy-running', 'c-ergodicity', 'c-kappa'}
+    'c-multivariate-tails', 'c-cauchy-running', 'c-ergodicity', 'c-kappa',
+    'c-sp500', 'c-ml-econometrics'}
 assert len(review['concept_ids']) == 24 and Path(review['output_path']).is_file()
 assert review['review_workstreams']['mathematics']['assigned_role'] == 'astra-max'
 assert review['review_workstreams']['reader']['assigned_role'] == 'math-site-editor'
@@ -279,6 +281,8 @@ assert s['site_review_policy']['trigger'] == 'after every site update'
 assert s['site_review_policy']['assigned_role'] == 'math-site-editor'
 assert s['data_policy']['financial']['assigned_role'] == 'portfolio-manager'
 assert s['data_policy']['other']['assigned_role'] == 'data-scientist'
+assert s['chunks']['scft-v4-ch10']['checkpoint']['empirical_evaluation']['status'] == 'pending-authorized-data'
+assert all(concepts[c]['status'] == 'in-progress' for c in ('c-sp500', 'c-ml-econometrics'))
 assert s['open_questions'] == {}
 for decision in ('m1-pilot', 'lean-claim-scope', 'data-routing', 'paper-inclusion',
                  'shadow-mean', 'stochastic-calculus-depth', 'technical-incerto-2025',
@@ -316,7 +320,7 @@ assert expected == dict(
     numbered_chapters_out_of_scope=77, book_source_units_total=193,
     book_source_units_in_scope=70, book_source_units_out_of_scope=123,
     papers=16, concepts_total=103, concepts_in_scope=75, concepts_out_of_scope=28,
-    existing_concept_pages=35, checked_lean_concepts=0,
+    existing_concept_pages=37, checked_lean_concepts=0,
     scft_v4_chapters=30, scft_v4_appendices=9, chunks_total=55, chapter_chunks=53)
 
 # Chapter order, explicit gates, source coverage and optional Lean.

@@ -5,9 +5,11 @@ Copyright (c) 2023 xshi19; MIT (see THIRD_PARTY_NOTICES.md).
 No network access or notebook execution is required.
 """
 from pathlib import Path
+import os
 import matplotlib
 matplotlib.use("Agg")
-OUTPUT = Path(__file__).resolve().parents[2] / "assets/incerto/figures"
+OUTPUT = Path(os.environ.get("INCERTO_FIGURE_DIR",
+    Path(__file__).resolve().parents[2] / "assets/incerto/figures"))
 OUTPUT.mkdir(parents=True, exist_ok=True)
 
 import numpy as np
@@ -16,9 +18,9 @@ from scipy.stats import linregress
 
 from xmath.incerto.datasets import load_amazon_bookrank
 from xmath.incerto.estimators import hill_alpha_estimator, hill_stability
-from xmath.incerto.figures import COLORS, FIGURE_SIZES, savefig, set_theme, style_axes
+from xmath.incerto.figures import COLORS, savefig, set_theme, style_axes, vertical_figure
 
-set_theme()
+set_theme(scale=1.1)
 
 data = load_amazon_bookrank()
 sales = data.weekly_sales
@@ -30,14 +32,15 @@ log_sales = np.log(sales[mask])
 slope, intercept, r_value, _, _ = linregress(log_rank, log_sales)
 
 positive_sales = np.sort(sales[sales > 0])
-sales_survival = 1 - np.arange(1, positive_sales.size + 1) / (positive_sales.size + 1)
+sales_positions = 1 - np.arange(1, positive_sales.size + 1) / (positive_sales.size + 1)
 
 tail_sample = sales[sales > 10]
 k_max = max(6, min(140, tail_sample.size - 1))
 ks = np.unique(np.geomspace(5, k_max, 60).astype(int))
 stability = hill_stability(tail_sample, ks)
 
-fig, axes = plt.subplots(1, 3, figsize=FIGURE_SIZES["three_panel"], layout="constrained")
+fig, axes = vertical_figure(3, panel_height=3.2)
+fig.get_layout_engine().set(hspace=.13)
 
 axes[0].scatter(ranks, sales, s=14, alpha=0.65, color=COLORS["accent"])
 rank_grid = np.geomspace(ranks.min(), ranks.max(), 150)
@@ -55,10 +58,10 @@ axes[0].set_ylabel("weekly sales")
 axes[0].set_title("Sales-rank relation")
 axes[0].legend()
 
-axes[1].loglog(positive_sales, sales_survival, color=COLORS["teal"])
+axes[1].loglog(positive_sales, sales_positions, color=COLORS["teal"])
 axes[1].set_xlabel("weekly sales")
-axes[1].set_ylabel("empirical survival")
-axes[1].set_title("Sales survival")
+axes[1].set_ylabel("rank plotting position")
+axes[1].set_title("Sales tail: rank positions")
 
 axes[2].semilogx(stability["k"], stability["alpha"], color=COLORS["green"])
 axes[2].set_xlabel("upper order statistics k")
