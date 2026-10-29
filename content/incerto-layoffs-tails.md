@@ -314,12 +314,17 @@ a resample across all $k$ within each plotted curve. No infinite bootstrap
 estimates occurred on the plotted grid.
 
 The recorded [aggregate output](../assets/incerto/outputs/layoffs-tails.txt)
-and [plot coordinates](../assets/incerto/outputs/layoffs-tails.json) permit
-inspection without the CSV. To redraw the SVGs from those coordinates:
+and [summary JSON](../assets/incerto/outputs/layoffs-tails.json) retain sample
+sizes, exclusions, the four reported Hill estimates and intervals, and the
+CSN and GOF summaries. Full Hill curves and order statistics are not stored
+in the JSON. To print the saved summary without the CSV:
 
 ```sh
 UV_NO_SYNC=1 uv run python demos/incerto/layoffs_tails.py --recorded assets/incerto/outputs/layoffs-tails.json
 ```
+
+Regenerating the SVGs requires the local CSV and the `--data` command above.
+The demo keeps the plotting curves in memory and writes only the summaries.
 
 ## References and related examples
 

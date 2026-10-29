@@ -2,6 +2,8 @@
 import csv
 import json
 from pathlib import Path
+import runpy
+import sys
 import warnings
 
 import numpy as np
@@ -147,16 +149,114 @@ def test_bootstrap_invalid_controls(kwargs):
         hill_stability_bootstrap([1, 2, 4], [1], **kwargs)
 
 
+def assert_summary_only(result):
+    # An explicit allowlist prevents accidentally publishing dense curves,
+    # thresholds, spacings, resamples, or event-level data through another key.
+    assert set(result) == {
+        'source', 'retrieved', 'input_sha256', 'input_rows', 'events',
+        'first_date', 'last_date', 'missing_counts', 'zero_counts',
+        'missing_fractions', 'full_workforce_cuts', 'zero_fractions',
+        'replicates', 'confidence', 'min_tail', 'samples',
+    }
+    assert all(not isinstance(value, (list, dict)) for key, value in result.items() if key != 'samples')
+    assert set(result['samples']) == {'counts', 'pct_logloss_reported'}
+    for sample in result['samples'].values():
+        assert set(sample) == {'n', 'seed', 'csn', 'hill_reported'}
+        assert set(sample['csn']) == {
+            'xmin', 'alpha', 'n_tail', 'ks', 'standard_error', 'gof_p', 'gof_hits',
+        }
+        assert all(isinstance(value, (int, float)) for value in sample['csn'].values())
+        points = sample['hill_reported']
+        assert [point['k'] for point in points] == [round(f*sample['n']) for f in (.1, .2)]
+        for point in points:
+            assert set(point) == {'k', 'alpha', 'lower', 'upper', 'finite_replicates'}
+            assert all(isinstance(value, (int, float)) for value in point.values())
+            assert 0 < point['finite_replicates'] <= result['replicates']
+
+
 def test_recorded_summary_matches_generated_report():
     # Aggregate outputs ship without the underlying observations.
-    import runpy
     root = Path(__file__).resolve().parents[1]
     demo = runpy.run_path(str(root/'demos/incerto/layoffs_tails.py'))
     outputs = root/'assets/incerto/outputs'
     result = json.loads((outputs/'layoffs-tails.json').read_text())
+    assert_summary_only(result)
     assert demo['summary'](result) == (outputs/'layoffs-tails.txt').read_text()
     for sample in result['samples'].values():
-        assert all(n == result['replicates'] for n in sample['hill']['finite_replicates'])
+        assert all(p['finite_replicates'] == result['replicates'] for p in sample['hill_reported'])
+
+
+def test_demo_writes_only_summaries_and_recorded_mode_does_not_render(tmp_path, monkeypatch, capsys):
+    root = Path(__file__).resolve().parents[1]
+    demo = runpy.run_path(str(root/'demos/incerto/layoffs_tails.py'))
+    source = tmp_path/'synthetic.csv'
+    source.write_text('company,date,n,frac\n' + ''.join(
+        f'Synthetic {i},2020-03-11,{10+i*i},{(i % 80 + 1)/100}\n' for i in range(180))
+        + 'Zero,2020-03-11,0,0\nMissing,2020-03-11,,\nFull,2020-03-11,,1\n')
+    figures, outputs = tmp_path/'figures', tmp_path/'outputs'
+    monkeypatch.setattr(sys, 'argv', ['layoffs_tails.py', '--data', str(source),
+                                    '--replicates', '10', '--figure-dir', str(figures),
+                                    '--output-dir', str(outputs)])
+    demo['main']()
+    report_path = outputs/'layoffs-tails.json'
+    result = json.loads(report_path.read_text())
+    assert_summary_only(result)
+    assert result['zero_counts'] == 1 and result['missing_counts'] == 2
+    assert result['zero_fractions'] == result['missing_fractions'] == result['full_workforce_cuts'] == 1
+    assert result['samples']['counts']['n'] == result['samples']['pct_logloss_reported']['n'] == 180
+    data = load_layoffs(source)
+    samples = {'counts': data.count[data.count > 0],
+               'pct_logloss_reported': workforce_log_loss(data.fraction[(data.fraction > 0)
+                                                                       & (data.fraction < 1)])}
+    for name, values in samples.items():
+        sample = result['samples'][name]
+        points = sample['hill_reported']
+        # Keeping only selected k must preserve the original bootstrap draws.
+        expected = hill_stability_bootstrap(values, [p['k'] for p in points],
+                                            replicates=10, random_state=sample['seed'])
+        for key in ('alpha', 'lower', 'upper', 'finite_replicates'):
+            assert_allclose([p[key] for p in points], expected[key], rtol=0, atol=0)
+    assert (outputs/'layoffs-tails.txt').read_text() == demo['summary'](result)
+    assert {p.name for p in figures.iterdir()} == {'layoffs-counts-hill.svg', 'layoffs-logloss-hill.svg'}
+    before = {p: (p.read_bytes(), p.stat().st_mtime_ns) for p in figures.iterdir()}
+    capsys.readouterr()
+
+    def unexpected(*args, **kwargs):
+        pytest.fail('--recorded must neither calculate from data nor render figures')
+
+    monkeypatch.setitem(demo['main'].__globals__, 'calculate', unexpected)
+    monkeypatch.setitem(demo['main'].__globals__, 'render', unexpected)
+    unused_outputs = tmp_path/'unused-outputs'
+    monkeypatch.setattr(sys, 'argv', ['layoffs_tails.py', '--recorded', str(report_path),
+                                    '--figure-dir', str(figures), '--output-dir', str(unused_outputs)])
+    demo['main']()
+    assert capsys.readouterr().out.strip() == demo['summary'](result).strip()
+    assert not unused_outputs.exists()
+    assert before == {p: (p.read_bytes(), p.stat().st_mtime_ns) for p in figures.iterdir()}
+
+
+def test_output_regenerator_rebuilds_layoffs_from_summary_without_csv(tmp_path, monkeypatch, capsys):
+    root = Path(__file__).resolve().parents[1]
+    script = runpy.run_path(str(root/'scripts/regenerate_incerto_outputs.py'))
+    for relative in ('content/incerto-layoffs-tails.md', 'content/incerto-api-reference.md',
+                     'content/incerto/index.md',
+                     'tests/test_incerto_page_snippets.py', 'demos/incerto/layoffs_tails.py',
+                     'assets/incerto/outputs/layoffs-tails.json'):
+        destination = tmp_path/relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_bytes((root/relative).read_bytes())
+    page = tmp_path/'content/incerto-layoffs-tails.md'
+    original = page.read_text()
+    page.write_text(original.replace('Hill k=301: 1.04', 'Hill k=301: 9.99'))
+    monkeypatch.setenv('INCERTO_LAYOFFS_PATH', str(tmp_path/'absent.csv'))
+    monkeypatch.setitem(script['main'].__globals__, 'ROOT', tmp_path)
+    monkeypatch.setattr(sys, 'argv', ['regenerate_incerto_outputs.py', '--pages', 'incerto-layoffs-tails'])
+    script['main']()
+    assert page.read_text() == original
+    output = capsys.readouterr().out
+    assert 'Rebuilt from summary JSON' in output
+    assert '1 executed snippet outputs, 1 summary-derived outputs' in output
+    assert not (tmp_path/'assets/incerto/figures').exists()
 
 
 def test_download_script_uses_cli_and_retains_archive(tmp_path, monkeypatch):

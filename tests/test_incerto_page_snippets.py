@@ -243,10 +243,8 @@ def test_layoffs_recorded_snippet_matches_aggregate_output():
     for title, key in (("Counts", "counts"), ("Log loss", "pct_logloss_reported")):
         sample = record['samples'][key]
         lines.append(f"{title}: {sample['n']} observations")
-        for fraction in (.1, .2):
-            k = round(fraction * sample['n'])
-            i = sample['hill']['k'].index(k)
-            lines.append(f"  Hill k={k}: {sample['hill']['alpha'][i]:.2f}")
+        for point in sample['hill_reported']:
+            lines.append(f"  Hill k={point['k']}: {point['alpha']:.2f}")
         fit = sample['csn']
         lines.append(f"  CSN cutoff={fit['xmin']:.3f}, tail={fit['n_tail']}, alpha={fit['alpha']:.2f}")
     assert "\n".join(lines) == expected

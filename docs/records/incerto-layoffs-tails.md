@@ -19,7 +19,9 @@ ch09 record, or program-state field was edited.
 - [Demo](../../demos/incerto/layoffs_tails.py) generates both SVGs and
   [aggregate JSON](../../assets/incerto/outputs/layoffs-tails.json) /
   [readable output](../../assets/incerto/outputs/layoffs-tails.txt).
-  The JSON contains summary statistics and plot coordinates, no event rows.
+  The JSON now contains summary statistics only, including the four reported
+  Hill estimates and intervals. Plot curves stay in memory during a local-data
+  run; they are not serialized.
 - [Dataset helpers](../../src/math/incerto/datasets.py): `LayoffData`,
   `clean_layoffs`, `load_layoffs`, `workforce_log_loss`.
   [Estimator helper](../../src/math/incerto/estimators.py):
@@ -41,7 +43,8 @@ ch09 record, or program-state field was edited.
   its recorded output against aggregate JSON and execute its data branch
   against synthetic rows. API-link, dropdown, and plain-number checks remain.
   [Output regeneration](../../scripts/regenerate_incerto_outputs.py) now
-  accepts `--pages` and preserves the recorded data block if its CSV is absent.
+  accepts `--pages` and rebuilds the recorded data block from summary JSON if
+  its CSV is absent. This fallback does not execute the data-dependent snippet.
 - [Synthetic unit tests](../../tests/test_incerto_layoffs.py) cover grouping,
   raw/clean schema equivalence, missingness, invalid values, log-loss
   inversion/endpoints, bootstrap percentiles/ties, and mocked CLI download.
@@ -142,13 +145,14 @@ replicates are excluded at any k. Synthetic tied cases exercise that warning.
 
 ```sh
 UV_NO_SYNC=1 UV_CACHE_DIR=/tmp/layoffs-uv MPLCONFIGDIR=/tmp/layoffs-mpl OPENBLAS_NUM_THREADS=1 uv run python demos/incerto/layoffs_tails.py --data /workspace/layoffs-research/data/clean/layoffs_clean.csv --retrieved 2026-10-26
-UV_NO_SYNC=1 UV_CACHE_DIR=/tmp/layoffs-uv MPLCONFIGDIR=/tmp/layoffs-mpl uv run python demos/incerto/layoffs_tails.py --recorded assets/incerto/outputs/layoffs-tails.json --figure-dir /tmp/layoffs-figures-repeat
+UV_NO_SYNC=1 UV_CACHE_DIR=/tmp/layoffs-uv MPLCONFIGDIR=/tmp/layoffs-mpl uv run python demos/incerto/layoffs_tails.py --recorded assets/incerto/outputs/layoffs-tails.json
 ```
 
-Two full-data runs and a fresh-process redraw from aggregate coordinates give
-byte-identical SVGs. The final aggregate JSON is from the final helper
-implementation, including its direct log-spacing `xi` calculation. No event
-identifiers or individual measurements appear in the outputs.
+At initial verification, two full-data runs and a fresh-process redraw from
+the then-recorded plot coordinates gave byte-identical SVGs. The compact JSON
+now omits those curves and their `xi` arrays. `--recorded` prints the summary;
+regenerating figures requires `--data`. No event identifiers or individual
+measurements are written to the JSON.
 
 SVG SHA-256:
 
@@ -263,11 +267,48 @@ and this record. Existing worktree changes were preserved.
   Nothing was staged, committed, or published. No dependency, wheel, or
   locked-environment build was run.
 
+## 2026-10-29 compact recorded output
+
+- Reduced `layoffs-tails.json` from **56,688 to 1,951 bytes** (**96.56%**).
+  Replaced the 198-point count curve and 165-point log-loss curve with the
+  two reported Hill estimates per sample, their interval endpoints, and
+  finite replicate counts. Removed the `xi` arrays and all other curve
+  coordinates. Retained sample sizes, exclusions, provenance, seeds, CSN
+  cutoff/alpha/tail size/KS/SE, and GOF counts and estimates.
+- All retained numerical values match the prior report exactly. The text
+  summary now also shows count exclusions and selected finite replicate
+  counts. The demo returns plotting curves separately from the serializable
+  report; `--recorded` prints only the summary. Figure regeneration requires
+  the local CSV. The page and output regenerator follow that contract.
+- Regression checks restrict both the stored and newly generated JSON to
+  summary fields, verify selected bootstrap estimates and intervals, prevent
+  figure writes in recorded mode, and repair stale page output from the
+  compact report when no CSV is available.
+- Both committed SVGs remain byte-identical to HEAD, with the SHA-256 values
+  recorded above. A full 1,000-replicate rerun from the read-only research
+  CSV into `/tmp/layoffs-compact-verification-8vtqntuq` also reproduced both
+  SVGs and the compact JSON/text byte-for-byte. The input hash is unchanged.
+- Ran `UV_NO_SYNC=1 UV_CACHE_DIR=/tmp/layoffs-uv
+  MPLCONFIGDIR=/tmp/layoffs-mpl OPENBLAS_NUM_THREADS=1 uv run pytest`:
+  **1193 passed, 1 skipped in 161.52 s**. The skip is the real-data page snippet
+  without a CSV in the default location. The focused layoffs checks passed
+  **45 tests, 1 skipped**. Relative link paths and `git diff --check` pass.
+- No LR/Vuong analysis, ch09/state edit, staging, or commit. No site/browser,
+  wheel, or locked-environment build was run for this output-format change.
+
+## Future work
+
+- Check robustness to rounded headcounts with an explicit rounding model or
+  discrete tail model, including its effect on threshold selection and GOF.
+- Check robustness to repeated layoffs by the same employer with resampling
+  clustered by employer and sensitivity to the event aggregation rule.
+
+Neither analysis is implemented here. The current intervals and GOF retain
+their stated iid approximation and continuous-tail model.
+
 ## Open questions
 
 No owner decision is needed to use the delivered example. Separate max review
-remains to be done. A rounding-aware null and employer/period sensitivity
-would be useful additional empirical work, but are outside this focused page.
-The historical Kaggle version number, a locked-environment rerun, and an
-unblocked HTML/mobile-browser check remain verification limitations. No
-publication or commit was requested or performed.
+remains to be done. The historical Kaggle version number, a locked-environment
+rerun, and an unblocked HTML/mobile-browser check remain verification
+limitations. No publication or commit was requested or performed.

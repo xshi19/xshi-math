@@ -3,9 +3,12 @@
 Reuse the snippet tests' isolated runner, including its no-network/no-repository-
 writes policy. The NYC full demo runs from a temporary copy so its figure writes
 stay outside the repository. Only captured text replaces the recorded outputs.
+When the local layoffs CSV is absent, rebuild its selected-estimate output
+from the summary JSON without regenerating figures.
 """
 
 import argparse
+import json
 from pathlib import Path
 import re
 import runpy
@@ -13,6 +16,12 @@ from tempfile import mkdtemp
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def recorded_layoffs_output():
+    demo = runpy.run_path(str(ROOT / 'demos/incerto/layoffs_tails.py'))
+    result = json.loads((ROOT / 'assets/incerto/outputs/layoffs-tails.json').read_text())
+    return demo['page_summary'](result)
 
 
 def main():
@@ -23,6 +32,7 @@ def main():
     scratch = Path(mkdtemp(prefix="incerto-outputs-"))
     updates = {}
     count = 0
+    recorded_count = 0
     pages = [p for p in harness["PAGES"] if args.pages is None or p.stem in args.pages]
     unknown = set(args.pages or []) - {p.stem for p in pages}
     if unknown:
@@ -36,14 +46,16 @@ def main():
                 raise ValueError(f"Missing Output block: {page.name}:{index}")
             if (harness["requires_layoffs_data"](page, block.group(1))
                     and not harness["layoffs_data_available"]()):
-                print(f"Preserved recorded output: {page.name}:{index} (local CSV absent)")
-                continue
-            output = harness["run_snippet"](page, index, block.group(1), scratch)
+                output = recorded_layoffs_output()
+                recorded_count += 1
+                print(f"Rebuilt from summary JSON: {page.name}:{index} (local CSV absent)")
+            else:
+                output = harness["run_snippet"](page, index, block.group(1), scratch)
+                count += 1
+                if count % 15 == 0:
+                    print(f"Executed {count} snippets", flush=True)
             harness["assert_plain_numbers"](output)
             replacements.append((*expected.span(1), output.rstrip("\n")))
-            count += 1
-            if count % 15 == 0:
-                print(f"Executed {count} snippets", flush=True)
         for start, end, output in reversed(replacements):
             text = text[:start] + output + text[end:]
         if replacements:
@@ -77,7 +89,8 @@ def main():
         if page.read_text() != text:
             page.write_text(text)
             changed += 1
-    print(f"Regenerated {count} snippet outputs and {demo_count} full-demo output; changed {changed} pages.")
+    print(f"Regenerated {count} executed snippet outputs, {recorded_count} summary-derived outputs, "
+          f"and {demo_count} full-demo output; changed {changed} pages.")
     print(f"Temporary execution files: {scratch}")
 
 
