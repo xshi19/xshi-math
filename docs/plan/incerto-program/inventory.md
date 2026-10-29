@@ -1,5 +1,9 @@
 # Book and chapter inventory
 
+Chapter 9 and Appendix E are implemented at the scope in the
+[chapter-9 checkpoint](../../records/incerto-scft-v4-ch09.md). General theorem
+source checks and separate max review remain follow-ups; chapter 10 is next.
+
 `state.yaml` owns the records. Technical rows reproduce **titles and locators
 only**, with original editorial concept associations. Those associations do
 not certify a mathematical claim. An asterisk marks an existing concept body.

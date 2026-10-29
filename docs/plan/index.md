@@ -1,5 +1,9 @@
 # Planning Index
 
+Chapter 9 and Appendix E teaching/Python: [checkpoint](../records/incerto-scft-v4-ch09.md).
+Next implementation chunk is `scft-v4-ch10`; separate max review and external
+source/site follow-ups remain pending.
+
 Status: Phase 0 light inventory, Phase 1 local HTML gate, Phase 2 eligible
 scope, and Phase 3 local rehearsal complete; IG outline and first entry batch
 implemented. Phase 4 cutover is live as of 2026-10-10; see the
@@ -27,7 +31,7 @@ personal hub. Normix remains an independent JAX package and API project.
 | [Agent framework](../design/AGENT_FRAMEWORK.md) | Guidance sources of truth, Codex/Cursor discovery, shared skills, adapters, verification contracts, maintenance |
 | [License advice](../design/LICENSE_ADVICE.md) | Adopted MIT scope, deferred alternative, Incerto import decision, private-to-public review |
 | [IG entry outline](ig-entry-outline.md) | Implemented Basics / early IG pages, prerequisites, and the later GH/Normix research sequence |
-| [Incerto program](incerto-program/README.md) | SCoFT v4: 30 chapters + 9 appendices, then Dynamic Hedging; 75 active concepts, 28 retained out of scope; chapters 1–8 implemented, 1–7 max reviewed; chapter-8 max and external build/live follow-ups recorded; chapter 9 next; teaching → Python → optional Lean |
+| [Incerto program](incerto-program/README.md) | SCoFT v4: 30 chapters + 9 appendices, then Dynamic Hedging; 75 active concepts, 28 retained out of scope; chapters 1–9 implemented, 1–8 max reviewed; chapter-9 max and external source/build/live follow-ups recorded; chapter 10 next; teaching → Python → optional Lean |
 | [Incerto Batch 1](phase-2-incerto-batch-1.md) | Executed nine-page import scope, adaptations, and deferred material |
 | [Incerto Batch 2](phase-2-incerto-batch-2.md) | Executed nine-page EVT and diagnostics import, adaptations, and deferred material |
 | [Incerto Batch 3](phase-2-incerto-batch-3.md) | Executed eight-page sums, geometry, catalog, and concept-index import |
