@@ -58,6 +58,7 @@ def main(output=None):
     finish(fig, output, "subexponential-convolution.svg")
 
     fig, axes = vertical_figure(2, panel_height=3.7)
+    fig.get_layout_engine().set(hspace=.14)
     alpha_grid = np.geomspace(1.01, 4, 401)
     axes[0].plot(alpha_grid, alpha_grid/(alpha_grid-1), color=COLORS["accent"])
     axes[0].axvspan(.6, 1, color=COLORS["sand"])

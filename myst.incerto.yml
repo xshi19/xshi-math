@@ -45,6 +45,7 @@ project:
             - file: content/incerto-extreme-value-index.md
             - file: content/incerto-plug-in-tail-estimation.md
             - file: content/incerto-moment-estimation.md
+            - file: content/incerto-kappa.md
             - file: content/incerto-tail-threshold-selection.md
             - file: content/incerto-power-law-fitting.md
             - file: content/incerto-power-law-goodness-of-fit.md
@@ -83,6 +84,8 @@ project:
               title: Chapter 6 — Thick tails in higher dimensions
             - file: content/incerto-scoft-ch7.md
               title: Chapter 7 — Averages and limit laws
+            - file: content/incerto-scoft-ch8.md
+              title: Chapter 8 — How much averaging helps
         - file: content/incerto-external-reading.md
           children:
             - file: content/incerto-reading-embrechts.md

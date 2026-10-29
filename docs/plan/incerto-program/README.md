@@ -26,9 +26,15 @@ with a numerical input-domain fix and a caption clarification.
 
 Chapter 7 and appendices C/D are implemented on `scft/v4-ch07-viz-p2`.
 [The checkpoint](../../records/incerto-scft-v4-ch07.md) records the original
-LLN/stable/growth examples and pending separate max review;
+LLN/stable/growth examples and completed separate max review;
 [visualization P2](../../records/incerto-viz-p2.md) covers ranks 11–15 and the
 requested mobile repairs.
+
+Chapter 8 is implemented on `scft/v4-ch08`. Its
+[checkpoint](../../records/incerto-scft-v4-ch08.md) records kappa, exact
+Student/Gamma formulas, lognormal limits and numerical estimates, absolute-error
+sample sufficiency, four new figures and the two requested figure repairs.
+It identifies source corrections for the separate max review.
 
 The selected SCoFT baseline is the **2025 third edition,
 arXiv:2001.10488v4: 30 chapters and nine appendices (A–I)**. Direct comparison
@@ -71,16 +77,18 @@ Lean omissions require a reason and never block the next chapter.
 | [Validation](validation.md) | Schema, executable checks and resume procedure |
 | [Verification](verification.md) | Historical evidence, this revision's checks and pending operator rerun |
 
-`next_chunk` is `#/chunks/scft-v4-ch08`. Chapters 1–7 teaching,
+`next_chunk` is `#/chunks/scft-v4-ch09`. Chapters 1–8 teaching,
 bounded Python examples and optional Lean skips are recorded in state.
-There are now 34 implemented program concept bodies; the frozen M0.5
-review denominator remains 24. Chapters 1–6 passed separate max review;
-chapter 7 awaits its owner-requested max run.
+There are now 35 implemented program concept bodies; the frozen M0.5
+review denominator remains 24. Chapters 1–7 passed separate max review;
+chapter 8 awaits its owner-requested max run. Moment estimation remains
+in progress for its chapter-28 scope.
 
-The chapter-7 record contains current tests, dependency versions and site
-check results. All 15 new/changed figures were inspected at 390 and 900 px.
-Locked dependency installation and MyST installation are blocked by missing
-cached packages and sandbox DNS. Full HTML/browser checks remain pending.
+The chapter-8 record contains current tests, dependency versions and site
+check results. All six new/changed figures were inspected at 390 and 900 px.
+Locked dependency installation is blocked by missing cached packages.
+The available MyST build fails its npm preflight, and Chrome launch is
+blocked by sandbox sockets. Full HTML/browser checks remain pending.
 The source and PNG checks do not replace a post-publication reader review.
 
 Chapter 7 adds verified stable/LLN theorem locators and v4 C/D context for
@@ -125,8 +133,8 @@ checked declaration is added.
 | `portfolio-manager` | Portfolio Manager bot | Financial data and requested additions |
 | `data-scientist` | Data Scientist bot | Other data requests |
 
-The owner chose Astra xhigh for chapter-1/2/3/4/5/6 writing/code and separate Astra max
-runs for hard-math review (chapters 1–6 passed). Future role assignments do not
+The owner chose Astra xhigh for chapter-1/2/3/4/5/6/7/8 writing/code and separate Astra max
+runs for hard-math review (chapters 1–7 passed). Future role assignments do not
 assert availability or authorize automatic delegation. No Cursor third-party
 models are selected.
 

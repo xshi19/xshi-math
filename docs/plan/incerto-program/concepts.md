@@ -1335,7 +1335,11 @@ Chapter-4 Lean: `skipped-for-now`. No Lean toolchain is installed and sandbox ne
 - **numeric-demo:** Run bounded, reproducible repeated-sample comparisons.
 - **lean-verifiable:** Separate moment existence from estimator integrability and consistency.
 
-Coverage: Chapter-4 original teaching, numerical cases and separate max review done. Later chapter extensions remain. See [chapter 4 evidence](../../records/incerto-scft-v4-ch04.md).
+Coverage: Chapters 4 and 8 implemented; chapter-4 max review complete,
+chapter-8 max review pending. Chapter 28 remains. See
+[chapter 4 evidence](../../records/incerto-scft-v4-ch04.md) and
+[chapter 8 evidence](../../records/incerto-scft-v4-ch08.md).
+Chapter-8 Lean is `skipped-for-now` as requested; no new checked declaration.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments), [c-plugin](#c-plugin).
 
@@ -1435,16 +1439,19 @@ Chapter chunks: `scft-v4-ch06`, `scft-v4-ch29`.
 
 ## Finite-sum concentration metric (`c-kappa`)
 
-Home: `content/incerto-kappa.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-kappa.md](../../../content/incerto-kappa.md) (existing). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Do not extend the metric to undefined moments or claim a universal sample-size guarantee.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required, done) → Python (required, done) → Lean
+(optional; `skipped-for-now` as requested, no new checked declaration).
 
 - **numeric-demo:** Estimate it over declared finite aggregation sizes.
 - **lean-verifiable:** Re-derive the selected paper metric under its finite-first-moment assumptions.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Chapter-8 teaching, exact formulas and bounded numerical examples
+implemented; separate max review pending; no checked Lean. See
+[chapter 8 evidence](../../records/incerto-scft-v4-ch08.md).
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments), [c-stable-clt](#c-stable-clt).
 
