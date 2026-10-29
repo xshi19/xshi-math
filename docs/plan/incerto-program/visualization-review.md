@@ -16,6 +16,11 @@ the original 2026-10-20 review, not a current figure count. Other P2/P3
 recommendations are unstarted. See [P1 evidence](../../records/incerto-viz-p1.md)
 for ranks 1–10.
 
+Chapter-8 follow-up (2026-10-29): [evidence](../../records/incerto-scft-v4-ch08.md)
+adds four concentration/sample-size figures, increases the plug-in panel gap,
+and raises the contrast of the growth figure's four secondary paths.
+All six SVGs have 390/900 px previews. This does not start other backlog items.
+
 ## Scope and priorities
 
 - The [Incerto TOC](../../../myst.incerto.yml) matches **55 public pages**:

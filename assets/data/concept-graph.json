@@ -55,6 +55,12 @@
       "target": "cauchy-running"
     },
     {
+      "id": "dependency:generalized-central-limit-theorem->kappa",
+      "kind": "dependency",
+      "source": "generalized-central-limit-theorem",
+      "target": "kappa"
+    },
+    {
       "id": "dependency:generalized-extreme-value->frechet",
       "kind": "dependency",
       "source": "generalized-extreme-value",
@@ -251,6 +257,12 @@
       "kind": "dependency",
       "source": "pareto-moment-existence",
       "target": "generalized-central-limit-theorem"
+    },
+    {
+      "id": "dependency:pareto-moment-existence->kappa",
+      "kind": "dependency",
+      "source": "pareto-moment-existence",
+      "target": "kappa"
     },
     {
       "id": "dependency:pareto-moment-existence->lln-failure",
@@ -487,6 +499,18 @@
       "target": "ergodicity"
     },
     {
+      "id": "reference:cauchy-running->kappa",
+      "kind": "reference",
+      "source": "cauchy-running",
+      "target": "kappa"
+    },
+    {
+      "id": "reference:cramer-condition->kappa",
+      "kind": "reference",
+      "source": "cramer-condition",
+      "target": "kappa"
+    },
+    {
       "id": "reference:cramer-condition->mixture-uncertainty",
       "kind": "reference",
       "source": "cramer-condition",
@@ -509,6 +533,18 @@
       "kind": "reference",
       "source": "cramer-condition",
       "target": "tail-class-catalog"
+    },
+    {
+      "id": "reference:decentralization->moment-estimation",
+      "kind": "reference",
+      "source": "decentralization",
+      "target": "moment-estimation"
+    },
+    {
+      "id": "reference:dispersion-ratio->kappa",
+      "kind": "reference",
+      "source": "dispersion-ratio",
+      "target": "kappa"
     },
     {
       "id": "reference:dispersion-ratio->moment-estimation",
@@ -635,6 +671,12 @@
       "kind": "reference",
       "source": "iso-density-tail-geometry",
       "target": "max-to-sum-ratio"
+    },
+    {
+      "id": "reference:kappa->moment-estimation",
+      "kind": "reference",
+      "source": "kappa",
+      "target": "moment-estimation"
     },
     {
       "id": "reference:karamata->lln-failure",
@@ -901,6 +943,12 @@
       "target": "ruin"
     },
     {
+      "id": "related:dispersion-ratio->kappa",
+      "kind": "related",
+      "source": "dispersion-ratio",
+      "target": "kappa"
+    },
+    {
       "id": "related:dispersion-ratio->moment-estimation",
       "kind": "related",
       "source": "dispersion-ratio",
@@ -923,6 +971,18 @@
       "kind": "related",
       "source": "iso-density-tail-geometry",
       "target": "multivariate-tails"
+    },
+    {
+      "id": "related:kappa->mixture-uncertainty",
+      "kind": "related",
+      "source": "kappa",
+      "target": "mixture-uncertainty"
+    },
+    {
+      "id": "related:kappa->moment-estimation",
+      "kind": "related",
+      "source": "kappa",
+      "target": "moment-estimation"
     },
     {
       "id": "related:karamata->pareto-moment-existence",
@@ -1009,7 +1069,7 @@
         },
         "cauchy-running": {
           "x": 540.0,
-          "y": 113.75
+          "y": 101.11111111111111
         },
         "cramer-condition": {
           "x": 390.0,
@@ -1045,15 +1105,15 @@
         },
         "generalized-extreme-value": {
           "x": 540.0,
-          "y": 227.5
+          "y": 202.22222222222223
         },
         "generalized-pareto": {
           "x": 540.0,
-          "y": 341.25
+          "y": 303.33333333333337
         },
         "hill-estimator": {
           "x": 540.0,
-          "y": 455.0
+          "y": 404.44444444444446
         },
         "inference-asymmetry": {
           "x": 240.0,
@@ -1062,6 +1122,10 @@
         "iso-density-tail-geometry": {
           "x": 690.0,
           "y": 455.0
+        },
+        "kappa": {
+          "x": 540.0,
+          "y": 505.55555555555554
         },
         "karamata": {
           "x": 390.0,
@@ -1073,7 +1137,7 @@
         },
         "lln-preasymptotic": {
           "x": 540.0,
-          "y": 568.75
+          "y": 606.6666666666667
         },
         "max-to-sum-ratio": {
           "x": 240.0,
@@ -1141,11 +1205,11 @@
         },
         "survival-tail-ratio": {
           "x": 540.0,
-          "y": 682.5
+          "y": 707.7777777777778
         },
         "tail-class-catalog": {
           "x": 540.0,
-          "y": 796.25
+          "y": 808.8888888888889
         },
         "tail-threshold-selection": {
           "x": 840.0,
@@ -1158,160 +1222,164 @@
       "height": 680,
       "nodes": {
         "amazon-bookrank": {
-          "x": 103.27544326696086,
-          "y": 223.68564619611712
-        },
-        "asymmetric-payoffs": {
-          "x": 649.1316195713702,
-          "y": 313.2551268684096
-        },
-        "body-shoulder-tail": {
-          "x": 273.18352740880187,
-          "y": 444.30626983381126
-        },
-        "cauchy-running": {
-          "x": 754.6984514236907,
-          "y": 229.8853839893181
-        },
-        "cramer-condition": {
-          "x": 454.0030687978984,
-          "y": 489.4896406059651
-        },
-        "decentralization": {
-          "x": 675.1664361468739,
-          "y": 244.92927768585466
-        },
-        "dispersion-ratio": {
-          "x": 172.1373394594305,
-          "y": 571.3924347248953
-        },
-        "double-pareto": {
-          "x": 542.3304650987968,
-          "y": 379.0981760632177
-        },
-        "ergodicity": {
-          "x": 830.0,
-          "y": 396.83996744330625
-        },
-        "extreme-value-index": {
-          "x": 281.110745504541,
-          "y": 183.6043627941034
-        },
-        "frechet": {
-          "x": 373.3734052649686,
-          "y": 116.06339692411174
-        },
-        "generalized-central-limit-theorem": {
-          "x": 526.9181429270998,
-          "y": 214.01291427909143
-        },
-        "generalized-extreme-value": {
-          "x": 265.4993891934303,
+          "x": 666.5320123843306,
           "y": 90.0
         },
+        "asymmetric-payoffs": {
+          "x": 523.993329623466,
+          "y": 541.8900180770935
+        },
+        "body-shoulder-tail": {
+          "x": 396.6521554513843,
+          "y": 255.1088454816422
+        },
+        "cauchy-running": {
+          "x": 90.0,
+          "y": 323.0339006653472
+        },
+        "cramer-condition": {
+          "x": 323.75353506817794,
+          "y": 359.3500541772728
+        },
+        "decentralization": {
+          "x": 456.4066876902792,
+          "y": 497.6442817878724
+        },
+        "dispersion-ratio": {
+          "x": 179.8114348611835,
+          "y": 170.54455105832244
+        },
+        "double-pareto": {
+          "x": 496.5623136951645,
+          "y": 428.2115900488332
+        },
+        "ergodicity": {
+          "x": 108.8756631733908,
+          "y": 516.1880077550068
+        },
+        "extreme-value-index": {
+          "x": 690.0654463198211,
+          "y": 273.24605495248557
+        },
+        "frechet": {
+          "x": 748.5772967493572,
+          "y": 379.9949394478178
+        },
+        "generalized-central-limit-theorem": {
+          "x": 345.46784340910745,
+          "y": 244.73861430862505
+        },
+        "generalized-extreme-value": {
+          "x": 824.7061251546862,
+          "y": 307.94415285998576
+        },
         "generalized-pareto": {
-          "x": 166.3545457370278,
-          "y": 209.55636666459412
+          "x": 737.1744596351841,
+          "y": 190.06172477839067
         },
         "hill-estimator": {
-          "x": 217.27599946171057,
-          "y": 258.2759235018633
+          "x": 639.0434282610358,
+          "y": 191.66149532534516
         },
         "inference-asymmetry": {
-          "x": 638.6511275217166,
-          "y": 385.3020886161546
+          "x": 569.021710785737,
+          "y": 505.179913223038
         },
         "iso-density-tail-geometry": {
-          "x": 324.7052389456237,
-          "y": 590.0
+          "x": 207.60462710261396,
+          "y": 399.71284924377534
+        },
+        "kappa": {
+          "x": 195.72618587105876,
+          "y": 280.7877448257749
         },
         "karamata": {
-          "x": 409.09163088212546,
-          "y": 228.31569233024513
+          "x": 488.7664316890732,
+          "y": 247.5920241870253
         },
         "lln-failure": {
-          "x": 528.089636869336,
-          "y": 303.7451303948885
+          "x": 302.0388247531234,
+          "y": 268.26908584140574
         },
         "lln-preasymptotic": {
-          "x": 464.2395238851914,
-          "y": 269.74599923517394
+          "x": 399.2738433454124,
+          "y": 206.88895888772004
         },
         "max-to-sum-ratio": {
-          "x": 423.4396849349792,
-          "y": 402.6409675770983
+          "x": 385.767768218743,
+          "y": 344.16477146164004
         },
         "maximum-entropy": {
-          "x": 564.0781145884708,
-          "y": 508.5400053605673
+          "x": 310.8938218758565,
+          "y": 464.6293505459311
         },
         "mean-excess-function": {
-          "x": 200.4974784221743,
-          "y": 150.99274989934065
+          "x": 746.3884917858363,
+          "y": 227.04051169836328
         },
         "mixture-uncertainty": {
-          "x": 557.6015248142928,
-          "y": 472.5049602896145
+          "x": 268.0964091282229,
+          "y": 414.6939709014734
         },
         "moment-estimation": {
-          "x": 371.85620923091,
-          "y": 424.25195771461176
+          "x": 322.00127892529963,
+          "y": 308.64086766702053
         },
         "multivariate-tails": {
-          "x": 444.1348428772924,
-          "y": 554.4687913366039
+          "x": 225.65068736675258,
+          "y": 355.4132446961231
         },
         "nyc-dog-name-tail": {
-          "x": 91.39496027284504,
-          "y": 331.9409361487501
+          "x": 589.1520021095446,
+          "y": 111.40521188211882
         },
         "pareto": {
-          "x": 386.8069668488173,
-          "y": 301.47656158525547
+          "x": 530.060046417346,
+          "y": 313.88857531363806
         },
         "pareto-moment-existence": {
-          "x": 480.84528329142364,
-          "y": 344.03745528569476
+          "x": 437.17482639624365,
+          "y": 351.4291548087952
         },
         "pickands-balkema-de-haan": {
-          "x": 230.02341067891814,
-          "y": 194.30598473411186
+          "x": 752.7058770023422,
+          "y": 286.47562586118886
         },
         "plug-in-tail-estimation": {
-          "x": 343.27623352654047,
-          "y": 248.04324272134141
+          "x": 537.4534318356713,
+          "y": 236.75236316456073
         },
         "rayleigh-speed": {
-          "x": 683.0401739565955,
-          "y": 557.9291060001904
+          "x": 228.85642701416597,
+          "y": 562.8475748366557
         },
         "regular-variation": {
-          "x": 392.4887813290696,
-          "y": 327.66987599288257
+          "x": 533.4975501836734,
+          "y": 352.85203961432495
         },
         "ruin": {
-          "x": 742.603870678319,
-          "y": 389.90052157586837
+          "x": 374.4212616451689,
+          "y": 590.0
         },
         "sp500-tail": {
-          "x": 90.0,
-          "y": 170.4750890824286
+          "x": 830.0,
+          "y": 191.50532270614553
         },
         "subexponentiality": {
-          "x": 394.1567409658169,
-          "y": 464.861470908966
+          "x": 363.0689873681648,
+          "y": 396.94424792617406
         },
         "survival-tail-ratio": {
-          "x": 351.6322827532432,
-          "y": 526.9593605390068
+          "x": 363.0296129235393,
+          "y": 484.69765766855346
         },
         "tail-class-catalog": {
-          "x": 491.19394909513574,
-          "y": 434.9033945463913
+          "x": 411.41715802609315,
+          "y": 427.17491872104233
         },
         "tail-threshold-selection": {
-          "x": 249.2490768434164,
-          "y": 299.41926349721166
+          "x": 617.1616714818664,
+          "y": 252.66853292382905
         }
       },
       "width": 920
@@ -1506,6 +1574,19 @@
       "title": "Iso-Density Tail Geometry",
       "type": "method",
       "url": "/math/incerto/incerto-iso-density-tail-geometry/"
+    },
+    {
+      "id": "kappa",
+      "path": "content/incerto-kappa.md",
+      "status": "active",
+      "tags": [
+        "concentration",
+        "finite-samples",
+        "sums"
+      ],
+      "title": "Kappa and finite-sample concentration",
+      "type": "method",
+      "url": "/math/incerto/incerto-kappa/"
     },
     {
       "id": "karamata",
@@ -1808,14 +1889,14 @@
   ],
   "schema_version": 2,
   "stats": {
-    "dependency_edge_count": 65,
-    "node_count": 39,
-    "reference_edge_count": 74,
-    "related_edge_count": 22,
+    "dependency_edge_count": 67,
+    "node_count": 40,
+    "reference_edge_count": 79,
+    "related_edge_count": 25,
     "type_counts": {
       "distribution": 9,
       "empirical-example": 6,
-      "method": 12,
+      "method": 13,
       "theorem": 12
     }
   },
@@ -1846,6 +1927,7 @@
     "generalized-pareto",
     "hill-estimator",
     "cauchy-running",
+    "kappa",
     "survival-tail-ratio",
     "tail-class-catalog",
     "frechet",
