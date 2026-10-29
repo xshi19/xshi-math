@@ -42,6 +42,7 @@ for implementations and use local `help()` for the installed version.
 | `xmath.incerto.lecture_risk` | [`repeated_event_probability`](incerto-api-reference.md#api-repeated-event-probability), [`survival_from_hazards`](incerto-api-reference.md#api-survival-from-hazards), [`finite_payoff_mean`](incerto-api-reference.md#api-finite-payoff-mean), [`absorbing_resource_path`](incerto-api-reference.md#api-absorbing-resource-path), [`split_power_damage_logsf`](incerto-api-reference.md#api-split-power-damage-logsf), [`block_failure_summary`](incerto-api-reference.md#api-block-failure-summary); [chapter 3 worked models](incerto-scoft-ch3.md#scoft-ch3-demo) |
 | `xmath.incerto.finite_moments` | [`normal_mixture_log_density`](incerto-api-reference.md#api-normal-mixture-log-density), [`normal_mixture_log_abs_survival`](incerto-api-reference.md#api-normal-mixture-log-abs-survival), [`normal_mixture_absolute_moment`](incerto-api-reference.md#api-normal-mixture-absolute-moment), [`pareto_moment_estimator_summary`](incerto-api-reference.md#api-pareto-moment-estimator-summary), [`power_mean`](incerto-api-reference.md#api-power-mean); [finite-moment worked cases](incerto-scoft-ch4.md#worked-cases) |
 | `xmath.incerto.multivariate` | [`student_entropy`](incerto-api-reference.md#api-student-entropy), [`student_mutual_information`](incerto-api-reference.md#api-student-mutual-information), [`bivariate_student`](incerto-api-reference.md#api-bivariate-student), [`sample_correlation`](incerto-api-reference.md#api-sample-correlation), [`symmetric_spectrum`](incerto-api-reference.md#api-symmetric-spectrum), [`regression_population_r2`](incerto-api-reference.md#api-regression-population-r2), [`normal_location_mixture_kurtosis`](incerto-api-reference.md#api-normal-location-mixture-kurtosis); [chapter 6 worked cases](incerto-scoft-ch6.md#scoft-ch6-demo). Student helpers deliberately restrict degrees of freedom to [0.5, 1000]. |
+| `xmath.incerto.limits` | [`pareto_capped_mean`](incerto-api-reference.md#api-pareto-capped-mean), [`symmetric_stable_mean_abs`](incerto-api-reference.md#api-symmetric-stable-mean-abs), [`repeated_centered_sums`](incerto-api-reference.md#api-repeated-centered-sums), [`pareto_plugin_nonfinite_probability`](incerto-api-reference.md#api-pareto-plugin-nonfinite-probability), [`bernoulli_chernoff_log_bound`](incerto-api-reference.md#api-bernoulli-chernoff-log-bound); [chapter 7 averaging and limit laws](incerto-scoft-ch7.md) |
 | `xmath.incerto.figures` | [`set_theme`](incerto-api-reference.md#api-set-theme), [`style_axes`](incerto-api-reference.md#api-style-axes), [`savefig`](incerto-api-reference.md#api-savefig), [`vertical_figure`](incerto-api-reference.md#api-vertical-figure), [`distribution_card`](incerto-api-reference.md#api-distribution-card); shared figure style and deterministic export helpers |
 | `xmath.incerto.power_laws` | [`pareto_product_logsf`](incerto-api-reference.md#api-pareto-product-logsf), [`pareto_truncated_moment`](incerto-api-reference.md#api-pareto-truncated-moment), [`student_double_pareto_scales`](incerto-api-reference.md#api-student-double-pareto-scales), [`q_exponential_logsf`](incerto-api-reference.md#api-q-exponential-logsf), [`entropy_log_constraint_example`](incerto-api-reference.md#api-entropy-log-constraint-example); [chapter 5 worked cases](incerto-scoft-ch5.md#scoft-ch5-demo) |
 
@@ -337,14 +338,14 @@ Variance–gamma law requiring `alpha > abs(beta)` and `lam > 0`; this `alpha` i
 ```python
 from xmath.incerto.distributions import hypsecant2
 
-values = hypsecant2.chf([0, 1, 2])
+values = hypsecant2.chf([0, 1, 2]).real
 print("[" + ", ".join(f"{v:.4g}" for v in values) + "]")
 ```
 
 **Output**
 
 ```text
-[1+0j, 0.6826+0j, 0.272+0j]
+[1, 0.6826, 0.272]
 ```
 
 
@@ -1672,12 +1673,163 @@ variance finite and positive. Arithmetic overflow raises.
 Return a Matplotlib figure, applying the shared DejaVu Serif theme at scale
 1.1 and five-inch single-column layout. Supply the sample used to produce
 the seven fits. `kind="density"` draws two panels with 80-bin histograms
-and 401-point fitted curves on linear and log axes. `kind="qq"` draws five
-panels, grouping families by quantile range and ending with squared speeds
-against the fixed exponential law. It uses `speed_qq`'s default grid and
+and 401-point fitted curves on linear and log axes. `kind="qq"` draws two
+panels: five fitted families, then squared speeds against the fixed exponential
+law. `kind="qq-tail"` gives the inverse Gaussian and inverse Gamma fits their
+own two-panel figure. Both use `speed_qq`'s default grid and
 does not clip the displayed quantiles. `thermal_variance` supplies the
 exponential null and the density viewport scale, not a new fit.
 The caller closes or saves the figure; the helper writes no files.
+
+### Averaging and limit laws
+
+Module: `xmath.incerto.limits`.
+
+(api-pareto-capped-mean)=
+#### [`pareto_capped_mean`](incerto-api-reference.md#api-pareto-capped-mean)
+
+`pareto_capped_mean(cap, alpha, *, x_m=1.0)`
+
+Return $E[\min(X,c)]$ for exact Pareto exponent `alpha > 0` and cutoff
+`x_m > 0`. Accept finite nonnegative scalar or array caps; return a float or
+matching array. A cap at or below the cutoff returns the cap. The boundary
+`alpha=1` uses logarithmic growth. This differs from the indicator-truncated
+moment: observations above the cap contribute the cap. Invalid inputs raise
+`ValueError`; nonrepresentable finite answers raise `FloatingPointError`.
+
+```python
+from xmath.incerto.limits import pareto_capped_mean
+
+for alpha in [.8, 1., 1.3]:
+    print(f"alpha={alpha:g}: " + ", ".join(f"{v:.3f}" for v in pareto_capped_mean([1, 10, 1000], alpha)))
+```
+
+**Output**
+
+```text
+alpha=0.8: 1.000, 3.924, 15.905
+alpha=1: 1.000, 3.303, 7.908
+alpha=1.3: 1.000, 2.663, 3.914
+```
+
+(api-symmetric-stable-mean-abs)=
+#### [`symmetric_stable_mean_abs`](incerto-api-reference.md#api-symmetric-stable-mean-abs)
+
+`symmetric_stable_mean_abs(alpha, *, scale=1.0, n=1)`
+
+Return the mean absolute deviation of an iid sample mean from its location,
+for the symmetric stable characteristic function
+$\exp(i\mu t-|\mathtt{scale}\,t|^\alpha)$, `0 < alpha <= 2`.
+The scale is positive and finite; `n` is an integer in $[1,2^{53}]$.
+At exponent 2, the parent variance is twice the squared scale. Invalid
+arguments raise `ValueError`; finite-result overflow raises `FloatingPointError`.
+The [derivation](incerto-generalized-central-limit-theorem.md#stable-mean-deviation)
+fixes the parameterization and the moment boundary.
+
+```python
+from xmath.incerto.limits import symmetric_stable_mean_abs
+
+for alpha in [.8, 1., 1.5, 2.]:
+    print(f"alpha={alpha:g}: {symmetric_stable_mean_abs(alpha, n=100):.4g}")
+```
+
+**Output**
+
+```text
+alpha=0.8: inf
+alpha=1: inf
+alpha=1.5: 0.3674
+alpha=2: 0.1128
+```
+
+(api-repeated-centered-sums)=
+#### [`repeated_centered_sums`](incerto-api-reference.md#api-repeated-centered-sums)
+
+`repeated_centered_sums(rv, sizes, *, center=0.0, repetitions=600, random_state=0, batch=32)`
+
+Draw independent samples at each size from a frozen law with an `rvs` method.
+Return an array of shape `(len(sizes), repetitions)` containing sums of
+`X - center`. The finite center is specified per observation; the function
+does not estimate it or normalize sums. `sizes` is a nonempty positive integer
+vector. Repetitions and batch are positive integers. A seed creates a PCG64
+stream; a passed NumPy Generator is used as supplied. Each size is at most one million and the experiment
+at most 50 million observations. Invalid settings raise `ValueError`;
+nonfinite draws or arithmetic raise `FloatingPointError`, without removing
+observations. Batching limits temporary memory, not the parent law's support.
+
+```python
+from scipy.stats import norm
+from xmath.incerto.limits import repeated_centered_sums
+
+sums = repeated_centered_sums(norm(loc=2), [10, 100], center=2, repetitions=400, random_state=17)
+print("Shape:", sums.shape)
+for n, row in zip([10, 100], sums):
+    print(f"n={n}: normalized SD={row.std(ddof=1)/n**.5:.3f}")
+```
+
+**Output**
+
+```text
+Shape: (2, 400)
+n=10: normalized SD=1.047
+n=100: normalized SD=1.042
+```
+
+(api-pareto-plugin-nonfinite-probability)=
+#### [`pareto_plugin_nonfinite_probability`](incerto-api-reference.md#api-pareto-plugin-nonfinite-probability)
+
+`pareto_plugin_nonfinite_probability(alpha, n)`
+
+Return the exact probability that the known-cutoff Pareto mean fit is infinite,
+for iid data with true `alpha > 0`. The log-excess sum is Gamma with shape `n`
+and rate `alpha`; its survival at `n` gives the answer. The cutoff cancels.
+This describes the continuous mathematical model, including when finite
+estimates are common although the population mean is infinite.
+`n` is an integer in $[1,2^{53}]$. Invalid arguments raise `ValueError`;
+very small tail probabilities can underflow to zero.
+
+```python
+from xmath.incerto.limits import pareto_plugin_nonfinite_probability
+
+for alpha in [.8, 1., 1.5]:
+    print(f"alpha={alpha:g}: {pareto_plugin_nonfinite_probability(alpha, 100):.4f}")
+```
+
+**Output**
+
+```text
+alpha=0.8: 0.9829
+alpha=1: 0.4867
+alpha=1.5: 0.0000
+```
+
+(api-bernoulli-chernoff-log-bound)=
+#### [`bernoulli_chernoff_log_bound`](incerto-api-reference.md#api-bernoulli-chernoff-log-bound)
+
+`bernoulli_chernoff_log_bound(p, q, n)`
+
+Return the logarithm of the Chernoff upper bound on $P(S_n\ge nq)$ for
+an iid Bernoulli(`p`) sum. Require `0 < p < 1`, `0 <= q <= 1` and integer
+`n` in $[1,2^{53}]$. At `q <= p` return zero (bound one); at `q=1` the
+all-success probability is exact. This is a bound, not a tail-probability
+approximation. Invalid inputs raise `ValueError`.
+
+```python
+import math
+from xmath.incerto.limits import bernoulli_chernoff_log_bound
+
+for q in [.2, .5, 1.]:
+    log_bound = bernoulli_chernoff_log_bound(.2, q, 20)
+    print(f"q={q:g}: log bound={log_bound:.4f}, bound={math.exp(log_bound):.4g}")
+```
+
+**Output**
+
+```text
+q=0.2: log bound=0.0000, bound=1
+q=0.5: log bound=-4.4629, bound=0.01153
+q=1: log bound=-32.1888, bound=1.049e-14
+```
 
 ### Figures
 

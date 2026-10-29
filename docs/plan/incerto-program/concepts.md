@@ -344,16 +344,16 @@ Chapter chunks: `scft-v4-ch05`.
 
 ## Maximum-to-sum ratio (`c-max-sum`)
 
-Home: [content/incerto-max-to-sum-ratio.md](../../../content/incerto-max-to-sum-ratio.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-max-to-sum-ratio.md](../../../content/incerto-max-to-sum-ratio.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 A nondegenerate heavy-tail limit need not equal one; define zero-sum behavior.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`: no toolchain).
 
 - **numeric-demo:** Compare finite-mean, alpha = 1, and alpha < 1 regimes.
 - **lean-verifiable:** Finite positive-sum bounds are elementary; limit regimes need probability theory.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-7 teaching and bounded Python implemented; separate max review pending; no checked Lean. See [chapter-7 evidence](../../records/incerto-scft-v4-ch07.md).
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments).
 
@@ -452,16 +452,16 @@ Chapter chunks: `scft-v4-ch06`.
 
 ## Exponential-moment gate (`c-cramer`)
 
-Home: [content/incerto-cramer-condition.md](../../../content/incerto-cramer-condition.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-cramer-condition.md](../../../content/incerto-cramer-condition.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 An exponential-moment condition and a Chernoff bound do not prove a full large-deviation principle.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`: no toolchain).
 
 - **numeric-demo:** Compare exponential and power-law tail bounds.
 - **lean-verifiable:** Markov/Chernoff bounds are formalizable with finite exponential moments.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-7 teaching and bounded Python implemented; separate max review pending; no checked Lean. See [chapter-7 evidence](../../records/incerto-scft-v4-ch07.md).
 
 Prerequisites: none within this inventory.
 
@@ -473,16 +473,16 @@ Chapter chunks: `scft-v4-ch07`.
 
 ## Stable limits for sums (`c-stable-clt`)
 
-Home: [content/incerto-generalized-central-limit-theorem.md](../../../content/incerto-generalized-central-limit-theorem.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-generalized-central-limit-theorem.md](../../../content/incerto-generalized-central-limit-theorem.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Handle alpha = 1 centering and slowly varying factors explicitly.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`: no toolchain).
 
 - **numeric-demo:** Simulations compare Gaussian and stable scaling.
 - **lean-verifiable:** Stable attraction is an advanced formalization with explicit centering and scaling.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-7 teaching and bounded Python implemented; separate max review pending; no checked Lean. See [chapter-7 evidence](../../records/incerto-scft-v4-ch07.md).
 
 Prerequisites: [c-regular-variation](#c-regular-variation).
 
@@ -494,16 +494,16 @@ Chapter chunks: `scft-v4-ch07`.
 
 ## Failure of finite-mean averaging assumptions (`c-lln-failure`)
 
-Home: [content/incerto-lln-failure.md](../../../content/incerto-lln-failure.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-lln-failure.md](../../../content/incerto-lln-failure.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 The existing nonnegative divergence result does not apply to symmetric Cauchy sums.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`: no toolchain).
 
 - **numeric-demo:** Compare with a two-sided Cauchy example without conflating the arguments.
 - **lean-verifiable:** Nonnegative iid infinite-mean divergence has a precise theorem statement.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-7 teaching and bounded Python implemented; separate max review pending; no checked Lean. See [chapter-7 evidence](../../records/incerto-scft-v4-ch07.md).
 
 Prerequisites: none within this inventory.
 
@@ -1303,16 +1303,16 @@ Chapter chunks: `scft-v4-ch03`.
 
 ## Time averages and ensemble averages (`c-ergodicity`)
 
-Home: `content/incerto-ergodicity.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-ergodicity.md](../../../content/incerto-ergodicity.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Separate ergodic theorems, absorbing ruin, and a chosen growth objective.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`: no toolchain).
 
 - **numeric-demo:** Compare cross-sectional wealth with one path through time.
 - **lean-verifiable:** Finite multiplicative examples and scoped log-growth results are formalizable.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Chapter-7 teaching and bounded Python implemented; separate max review pending; no checked Lean. See [chapter-7 evidence](../../records/incerto-scft-v4-ch07.md).
 
 Prerequisites: [c-ruin](#c-ruin).
 
@@ -1370,16 +1370,16 @@ Chapter chunks: `scft-v4-ch03`.
 
 ## Cauchy running statistics (`c-cauchy-running`)
 
-Home: `content/incerto-cauchy-running.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-cauchy-running.md](../../../content/incerto-cauchy-running.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Bounded-runtime synthetic experiment with repeated Cauchy paths; attach to v4 chapter 7 (sections 7.2.1 and 7.6). The legacy Chapter 4 label was incorrect; no population-moment inference from finite machine outputs.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`: no toolchain).
 
 - **numeric-demo:** Fixed-seed repeated paths expose unstable averages and Monte Carlo uncertainty.
 - **lean-verifiable:** Distributional stability is a separate later theorem candidate.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Chapter-7 teaching and bounded Python implemented; separate max review pending; no checked Lean. See [chapter-7 evidence](../../records/incerto-scft-v4-ch07.md).
 
 Prerequisites: [c-stable-clt](#c-stable-clt), [c-lln-failure](#c-lln-failure).
 
@@ -1391,7 +1391,7 @@ Chapter chunks: `scft-v4-ch07`.
 
 ## Parameter mixtures and recursive uncertainty (`c-mixture-uncertainty`)
 
-Home: [content/incerto-mixture-uncertainty.md](../../../content/incerto-mixture-uncertainty.md) (existing). Status: **in-progress**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-mixture-uncertainty.md](../../../content/incerto-mixture-uncertainty.md). Status: **in-progress**. Milestone: **M1**. Lead: `astra-max`.
 
 Reuse Normix mixture definitions; a recursive construction needs an explicit limiting model.
 
@@ -1402,7 +1402,7 @@ Chapter-4 Lean: `skipped-for-now`. No Lean toolchain is installed and sandbox ne
 - **numeric-demo:** Simulate a declared finite hierarchy of parameter uncertainty.
 - **lean-verifiable:** Specified mixtures permit moment and tail calculations.
 
-Coverage: Chapter-4 original teaching, numerical cases and separate max review done. Later chapter extensions remain. See [chapter 4 evidence](../../records/incerto-scft-v4-ch04.md).
+Coverage: Chapter-7 teaching and bounded Python implemented; separate max review pending; no checked Lean. Chapter-20 extension remains. See [chapter-7 evidence](../../records/incerto-scft-v4-ch07.md).
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments).
 

@@ -233,12 +233,13 @@ def squared_speed_ks(sample: ArrayLike, thermal_variance: float = 1.0):
 
 
 def speed_fit_figure(sample: ArrayLike, fits, *, kind="density", thermal_variance=1.0):
-    """Return a single-column density (two panels) or QQ (five panels) figure.
+    """Return a single-column density or QQ figure with two panels.
 
     Use the same positive sample that generated the supplied SpeedFit records.
     Density: 80-bin histogram and 401-point fitted curves on linear/log axes.
-    QQ: 199 probabilities in [0.005, 0.995], grouped by quantile range, then
-    squared speed against the specified Exp(mean=2*kT/m) null. Every panel
+    QQ: 199 probabilities in [0.005, 0.995]; qq shows five central fits and
+    squared speed against the specified Exp(mean=2*kT/m) null; qq-tail shows
+    the inverse Gaussian and inverse Gamma on their own ranges. Every panel
     retains its full plotted quantile range. This helper applies the shared
     DejaVu Serif theme and draws, but neither saves nor closes the figure.
     """
@@ -246,15 +247,15 @@ def speed_fit_figure(sample: ArrayLike, fits, *, kind="density", thermal_varianc
 
     x = _sample(sample)
     variance = _positive_scalar(thermal_variance, "thermal_variance")
-    if kind not in {"density", "qq"}:
-        raise ValueError("kind must be density or qq")
+    if kind not in {"density", "qq", "qq-tail"}:
+        raise ValueError("kind must be density, qq, or qq-tail")
     fits = tuple(fits)
     by_name = {fit.name: fit for fit in fits}
     required = {"Rayleigh", "Weibull", "Gamma", "GIG", "Gaussian", "inverse Gaussian", "inverse Gamma"}
     if set(by_name) != required or len(fits) != len(required):
         raise ValueError("one fit for each of the seven candidate families is required")
     set_theme(scale=1.1)
-    fig, axes = vertical_figure(2 if kind == "density" else 5, panel_height=3.9)
+    fig, axes = vertical_figure(2, panel_height=3.5)
     styles = ("-", "--", "-.", ":", "-", "--", "-.")
     appearance = {fit.name: (COLOR_CYCLE[i], styles[i]) for i, fit in enumerate(fits)}
     if kind == "density":
@@ -270,8 +271,8 @@ def speed_fit_figure(sample: ArrayLike, fits, *, kind="density", thermal_varianc
         axes[1].set(yscale="log", ylim=(1e-5 / np.sqrt(variance), 2 / np.sqrt(variance)),
                     title="The same densities on a log scale")
     else:
-        groups = (("Rayleigh", "Weibull"), ("Gaussian", "Gamma", "GIG"),
-                  ("inverse Gaussian",), ("inverse Gamma",))
+        groups = ((("Rayleigh", "Weibull", "Gaussian", "Gamma", "GIG"),) if kind == "qq"
+                  else (("inverse Gaussian",), ("inverse Gamma",)))
         for ax, names in zip(axes, groups):
             limits = [0.0]
             for name in names:
@@ -284,12 +285,13 @@ def speed_fit_figure(sample: ArrayLike, fits, *, kind="density", thermal_varianc
             ax.set(xlabel="Fitted speed quantile", ylabel="Sample speed quantile",
                    ylim=(0, max(empirical) * 1.05))
             ax.legend(ncol=2, loc="upper center", bbox_to_anchor=(0.5, -0.23))
-        with np.errstate(over="raise"):
-            theoretical, empirical = speed_qq(x**2, stats.expon(scale=2 * variance))
-        axes[-1].plot(theoretical, empirical, color=COLORS["accent"], label="Squared speed")
-        axes[-1].plot([0, max(theoretical)], [0, max(theoretical)],
-                       color=COLORS["muted"], ls=":", label="Equality")
-        axes[-1].set(xlabel="Exp(mean 2 kT/m) quantile", ylabel="Sample squared-speed quantile")
-        axes[-1].legend(loc="upper left")
-        axes[0].set_title("Quantile comparisons")
+        if kind == "qq":
+            with np.errstate(over="raise"):
+                theoretical, empirical = speed_qq(x**2, stats.expon(scale=2 * variance))
+            axes[-1].plot(theoretical, empirical, color=COLORS["accent"], label="Squared speed")
+            axes[-1].plot([0, max(theoretical)], [0, max(theoretical)],
+                           color=COLORS["muted"], ls=":", label="Equality")
+            axes[-1].set(xlabel="Exp(mean 2 kT/m) quantile", ylabel="Sample squared-speed quantile")
+            axes[-1].legend(loc="upper left")
+        axes[0].set_title("Quantile comparisons" if kind == "qq" else "Inverse-family quantiles")
     return fig

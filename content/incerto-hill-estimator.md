@@ -122,8 +122,8 @@ $$
 Under these assumptions, $\widehat\xi_{k_n,n}$ converges in probability to
 $\xi$.  The proof of that full theorem belongs to extreme-value asymptotics;
 we use the exact Pareto calibration and cite the general result in Resnick
-[2007](https://doi.org/10.1007/978-0-387-45024-7). Hill's original estimator is
-described in his [1975 paper](https://doi.org/10.1214/aos/1176343247),
+@resnick2007heavy. Hill's original estimator is
+described in @hill1975simple,
 pp. 1163–1174.
 
 ## Stability diagnostics
@@ -212,10 +212,10 @@ The same mixture sample supplies the coordinated threshold diagnostics.
 ## References
 
 - Hill, "A Simple General Approach to Inference About the Tail of a
-  Distribution" [1975](https://doi.org/10.1214/aos/1176343247).
+  Distribution" @hill1975simple.
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [1997](https://doi.org/10.1007/978-3-642-33483-2).
-- Resnick, *Heavy-Tail Phenomena* [2007](https://doi.org/10.1007/978-0-387-45024-7).
+  @embrechts1997modelling.
+- Resnick, *Heavy-Tail Phenomena* @resnick2007heavy.
 
 ## Backlinks
 

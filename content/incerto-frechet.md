@@ -194,10 +194,10 @@ Regenerate both figures with `uv run python demos/incerto/distribution_cards.py`
 ## References
 
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [1997](https://doi.org/10.1007/978-3-642-33483-2).
-- Resnick, *Heavy-Tail Phenomena* [2007](https://doi.org/10.1007/978-0-387-45024-7).
+  @embrechts1997modelling.
+- Resnick, *Heavy-Tail Phenomena* @resnick2007heavy.
 - Coles, *An Introduction to Statistical Modeling of Extreme Values*
-  [2001](https://doi.org/10.1007/978-1-4471-3675-0).
+  @coles2001introduction.
 
 ## Backlinks
 

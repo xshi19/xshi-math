@@ -9,6 +9,13 @@ Pareto, GPD, GEV, and Fréchet have no embedded figures; Double Pareto's only
 figure is an advanced matching comparison. Later chapter work already supplies
 substantial figures, often reached through links from the reading guides.
 
+Implementation follow-up (2026-10-28): ranks **11–15** are delivered in
+[visualization P2](../../records/incerto-viz-p2.md), alongside chapter 7 and
+requested threshold/GEV/Rayleigh mobile repairs. The inventory below remains
+the original 2026-10-20 review, not a current figure count. Other P2/P3
+recommendations are unstarted. See [P1 evidence](../../records/incerto-viz-p1.md)
+for ranks 1–10.
+
 ## Scope and priorities
 
 - The [Incerto TOC](../../../myst.incerto.yml) matches **55 public pages**:

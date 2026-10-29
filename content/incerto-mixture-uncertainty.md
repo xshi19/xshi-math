@@ -19,7 +19,10 @@ A Gaussian conditional model need not give a Gaussian marginal law. Let
 $Z\sim N(0,1)$ and let $Y>0$ be independent of $Z$. We study
 
 $$
-X=\sqrt Y Z,\qquad X\mid Y=y\sim N(0,y).
+\begin{gathered}
+X=\sqrt Y Z,\\
+X\mid Y=y\sim N(0,y).
+\end{gathered}
 $$
 
 Here $Y$ is **variance**, so $\sqrt Y$ is conditional standard deviation.
@@ -36,8 +39,10 @@ clustering requires a model for a sequence of mixing variables.
 For every real $q>0$, the absolute moment factors, including infinite values:
 
 $$
-\mathbb E|X|^q=c_q\mathbb E[Y^{q/2}],\qquad
+\begin{gathered}
+\mathbb E|X|^q=c_q\mathbb E[Y^{q/2}],\\
 c_q=\frac{2^{q/2}\Gamma((q+1)/2)}{\sqrt\pi}.
+\end{gathered}
 $$
 
 We prove this identity by independence and Tonelli's theorem applied to the
@@ -51,9 +56,11 @@ $\operatorname{Var}(X)=\mathbb EY$. If also $\mathbb EY^2<\infty$, its
 Pearson kurtosis is
 
 $$
+\begin{aligned}
 \frac{\mathbb EX^4}{(\mathbb EX^2)^2}
-=3\frac{\mathbb EY^2}{(\mathbb EY)^2}
-=3\left(1+\frac{\operatorname{Var}(Y)}{(\mathbb EY)^2}\right).
+&=3\frac{\mathbb EY^2}{(\mathbb EY)^2}\\
+&=3\left(1+\frac{\operatorname{Var}(Y)}{(\mathbb EY)^2}\right).
+\end{aligned}
 $$
 
 The Gaussian reference is 3. For fixed mean variance, nonconstant $Y$
@@ -69,8 +76,12 @@ these are 1 and 4.08. The density is the average of two Gaussian densities.
 Its moment generating function (MGF) and characteristic function are
 
 $$
-M_X(t)=\tfrac12e^{(1-a)t^2/2}+\tfrac12e^{(1+a)t^2/2},\qquad
-\varphi_X(t)=\tfrac12e^{-(1-a)t^2/2}+\tfrac12e^{-(1+a)t^2/2}.
+\begin{aligned}
+M_X(t)&=\tfrac12e^{(1-a)t^2/2}\\
+&\quad+\tfrac12e^{(1+a)t^2/2},\\
+\varphi_X(t)&=\tfrac12e^{-(1-a)t^2/2}\\
+&\quad+\tfrac12e^{-(1+a)t^2/2}.
+\end{aligned}
 $$
 
 They follow from the two conditional Gaussian transforms. They are different
@@ -78,9 +89,12 @@ functions, even though the mean is zero. For $a>0$, division by the unit-normal
 density $\phi(x)$ gives
 
 $$
+\begin{gathered}
 \frac{f_a(x)}{\phi(x)}
 \sim \frac{1}{2\sqrt{1+a}}
-\exp\left(\frac{ax^2}{2(1+a)}\right),\qquad |x|\to\infty.
+\exp\left(\frac{ax^2}{2(1+a)}\right),\\
+|x|\to\infty.
+\end{gathered}
 $$
 
 The narrower component's ratio tends to zero; the wider component's ratio
@@ -94,7 +108,10 @@ Unequal probabilities remove the equal-weight example's kurtosis ceiling.
 For a different worked case, take
 
 $$
-P(Y=0.5)=0.99,\qquad P(Y=50.5)=0.01.
+\begin{gathered}
+P(Y=0.5)=0.99,\\
+P(Y=50.5)=0.01.
+\end{gathered}
 $$
 
 Then $\mathbb EY=1$, $\mathbb EY^2=25.75$ and kurtosis is $77.25$.
@@ -123,9 +140,12 @@ variable matters. All parameters below are local to this section.
 $\mathbb EY=1$. Integrating its density gives
 
 $$
-\mathbb EY^r=k^{-r}\frac{\Gamma(k+r)}{\Gamma(k)},\quad r>-k,
-\qquad
-M_X(t)=\left(1-\frac{t^2}{2k}\right)^{-k},\quad |t|<\sqrt{2k}.
+\begin{gathered}
+\mathbb EY^r=k^{-r}\frac{\Gamma(k+r)}{\Gamma(k)},\\
+r>-k,\\
+M_X(t)=\left(1-\frac{t^2}{2k}\right)^{-k},\\
+|t|<\sqrt{2k}.
+\end{gathered}
 $$
 
 For the MGF, condition on $Y$ and integrate $e^{t^2Y/2}$ against the gamma
@@ -138,8 +158,10 @@ tails. The density calculation below gives the general gamma-mixture decay.
 normal, independent of $Z$, and $\tau>0$. Completing the square gives
 
 $$
-\mathbb EY^r=e^{(r^2-r)\tau^2/2},\qquad
+\begin{gathered}
+\mathbb EY^r=e^{(r^2-r)\tau^2/2},\\
 \mathbb E|X|^q=c_q e^{q(q-2)\tau^2/8}.
+\end{gathered}
 $$
 
 Every positive power moment exists, yet $M_X(t)=\mathbb E e^{t^2Y/2}=\infty$
@@ -154,8 +176,10 @@ positive exponent would force sufficiently high moments to diverge.
 with $\nu>0$. Integrating the conditional density gives
 
 $$
-f_X(x)=\frac{\Gamma((\nu+1)/2)}{\sqrt{\nu\pi}\Gamma(\nu/2)}
-\left(1+\frac{x^2}{\nu}\right)^{-(\nu+1)/2}.
+\begin{aligned}
+f_X(x)&=\frac{\Gamma((\nu+1)/2)}{\sqrt{\nu\pi}\Gamma(\nu/2)}\\
+&\quad\times\left(1+\frac{x^2}{\nu}\right)^{-(\nu+1)/2}.
+\end{aligned}
 $$
 
 Indeed the integrand is proportional to
@@ -218,13 +242,18 @@ The helper [`univariate_variance_gamma(alpha, beta, lam)`](incerto-api-reference
 is not the Pareto exponent. Conditioning and the gamma MGF give
 
 $$
-M_X(t)=\left(1-\vartheta\gamma t-\tfrac12\vartheta t^2\right)^{-\lambda},
-\qquad -A-\gamma<t<A-\gamma,
+\begin{gathered}
+M_X(t)\\
+=\left(1-\vartheta\gamma t-\tfrac12\vartheta t^2\right)^{-\lambda},\\
+-A-\gamma<t<A-\gamma,
+\end{gathered}
 $$
 
 $$
-\mathbb E[X]=\gamma\lambda\vartheta,\qquad
+\begin{gathered}
+\mathbb E[X]=\gamma\lambda\vartheta,\\
 \operatorname{Var}(X)=\lambda\vartheta(1+\gamma^2\vartheta).
+\end{gathered}
 $$
 
 The interval follows by solving the positive-quadratic-base inequality.
@@ -233,9 +262,11 @@ conditional mean. For $x\ne0$, integrating the conditional Gaussian density
 against the gamma density gives
 
 $$
-f(x)=\frac{(A^2-\gamma^2)^\lambda |x|^{\lambda-1/2}
-K_{\lambda-1/2}(A|x|)}{\sqrt\pi\,\Gamma(\lambda)(2A)^{\lambda-1/2}}
-e^{\gamma x}.
+\begin{aligned}
+f(x)&=\frac{(A^2-\gamma^2)^\lambda |x|^{\lambda-1/2}}
+{\sqrt\pi\,\Gamma(\lambda)(2A)^{\lambda-1/2}}\\
+&\quad\times K_{\lambda-1/2}(A|x|)e^{\gamma x}.
+\end{aligned}
 $$
 
 To obtain this expression, substitute $\nu=\lambda-1/2$,
@@ -264,6 +295,59 @@ Here the small-argument Bessel limits are cited from
 [DLMF 10.30.2–3](https://dlmf.nist.gov/10.30). The symmetric case $\gamma=0$, $\lambda=1$ reduces to the Laplace density
 $(A/2)e^{-A|x|}$. The general family relationships remain in the
 [Normix family tour](https://xshi19.github.io/math/normix-theory/normix-gh-family-tour/).
+
+(mixture-growth-rate)=
+## Random rates before exponentiation
+
+Appendix C of @taleb2025scoftv4, §C.1, pp. 183–185, concerns transforming
+a growth rate. The [fixed-horizon calculation](incerto-ergodicity.md#ergodicity-growth-transform)
+shows that $X=x_m e^{TR}$ with $R\sim\mathrm{Exp}(\lambda)$ has Pareto
+exponent $\lambda/T$. A distribution over rates must be specified before
+claims about the outcome tail follow.
+
+Here is a finite uncertainty extension, proved by conditioning. First choose
+a state $J$ with $P(J=j)=w_j>0$, $\sum_jw_j=1$. Conditional on $J=j$,
+draw $R\sim\mathrm{Exp}(\lambda_j)$, with $\lambda_j>0$. For fixed
+$T>0$ and $x\ge x_m>0$,
+
+$$
+P(X>x)=\sum_jw_j(x_m/x)^{\lambda_j/T}.
+$$
+
+Factoring the smallest power shows that the tail exponent is
+$\min_j\lambda_j/T$, with coefficient equal to the combined weight of
+the states attaining that minimum. Tonelli and the conditional moment
+formula give, for $p>0$,
+
+$$
+\begin{gathered}
+\mathbb EX^p=x_m^p\sum_jw_j\frac{\lambda_j}{\lambda_j-pT}\\
+\text{if }pT<\min_j\lambda_j;
+\end{gathered}
+$$
+
+otherwise the moment is infinite. For rates $1$ and $3$ with equal weights
+and $T=1$, the outcome mean is infinite, although the rate has finite mean
+$2/3$. This is a finite mixture, not an unspecified infinite hierarchy of
+uncertainty. A continuous rate mixture near zero needs a separate analysis.
+
+Use [`pareto_type1`](incerto-api-reference.md#api-pareto-type1) to evaluate
+the conditional outcome laws.
+
+```python
+from xmath.incerto.distributions import pareto_type1
+
+for horizon in (.5, 1):
+    means = [pareto_type1(rate/horizon).mean() for rate in (1, 3)]
+    print(f"T={horizon:g}: mixture mean={sum(means)/2:.4g}")
+```
+
+**Output**
+
+```text
+T=0.5: mixture mean=1.6
+T=1: mixture mean=inf
+```
 
 ## References
 

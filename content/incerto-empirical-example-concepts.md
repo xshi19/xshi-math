@@ -10,3 +10,6 @@ back to the concept pages that carry the mathematical claims.
 - [NYC Dog-Name Frequency Tail Diagnostics](incerto-nyc-dog-name-tail.md)
 - [Pre-Asymptotic LLN Behavior](incerto-lln-preasymptotic.md)
 - [Dispersion Ratio Under Fat Tails](incerto-dispersion-ratio.md)
+
+The [Cauchy running-statistics experiment](incerto-cauchy-running.md) uses
+synthetic iid samples to compare mean and median behavior.

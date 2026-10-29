@@ -259,8 +259,8 @@ boundary example in logarithmic coordinates, integrating to infinity.
 - Feller, *An Introduction to Probability Theory and Its Applications, Vol. II*
   (1971, 2nd ed., Wiley).
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [1997](https://doi.org/10.1007/978-3-642-33483-2).
-- Resnick, *Heavy-Tail Phenomena* [2007](https://doi.org/10.1007/978-0-387-45024-7).
+  @embrechts1997modelling.
+- Resnick, *Heavy-Tail Phenomena* @resnick2007heavy.
 
 ## Backlinks
 

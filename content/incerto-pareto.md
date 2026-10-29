@@ -524,14 +524,14 @@ The chapter-6 demo prints this example without sampling or clipping it.
 - Darling, "The Influence of the Maximum Term in the Addition of Independent
   Random Variables," *Transactions of the American Mathematical Society*
   **73** (1952), 95–107, Theorem 5.1
-  [DOI](https://doi.org/10.1090/S0002-9947-1952-0048726-0).
+  @darling1952influence.
 - Kevei and Mason, "The limit distribution of ratios of jumps and sums of
   jumps of subordinators," *ALEA* **11** (2014), 631–642;
   p. 632, Theorem 1.1 and the discussion of the iid result
   [PDF](https://alea.impa.br/articles/v11/11-30.pdf#page=2).
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [1997](https://doi.org/10.1007/978-3-642-33483-2).
-- Resnick, *Heavy-Tail Phenomena* [2007](https://doi.org/10.1007/978-0-387-45024-7).
+  @embrechts1997modelling.
+- Resnick, *Heavy-Tail Phenomena* @resnick2007heavy.
 
 ## Backlinks
 

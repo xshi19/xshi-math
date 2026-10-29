@@ -2,7 +2,7 @@
 
 Run: uv run python demos/incerto/tail_estimation.py
 PCG64 seeds 20261020..20261023, n=30000 per law. One mixture sample is reused
-for Hill, the six-panel threshold figure and PP checks. Body U[1,3] (82%),
+for Hill, the two threshold figures and PP checks. Body U[1,3] (82%),
 tail Pareto(alpha=1.7, minimum=3) (18%). No clipping or external data. At most
 40 GPD fits, each capped at 2000 iterations / 4000 evaluations. Finite-sample
 plots are diagnostics, not threshold-selection rules. Runtime: seconds.
@@ -116,7 +116,9 @@ def main(output=None):
     valid = counts >= MIN_COUNT
     shape = np.array([f["xi"] for f in fits])
     modified = np.array([f["modified_scale"] for f in fits])
-    fig, axes = vertical_figure(6, panel_height=3.4)
+    first, top = vertical_figure(3, panel_height=3.0)
+    second, bottom = vertical_figure(3, panel_height=3.0)
+    axes = np.r_[top, bottom]
     support, survival = empirical_survival_function(mixture)
     positive = survival > 0  # the sample maximum's strict survival is exactly zero
     axes[0].step(support[positive], survival[positive], where="post", label="Strict empirical survival")
@@ -141,14 +143,17 @@ def main(output=None):
     failed = np.array([not f["success"] and f["count"] >= MIN_COUNT for f in fits])
     if np.any(failed):
         axes[5].scatter(u[failed], counts[failed], marker="x", color=COLORS["brick"], label="Failed GPD fit")
-    axes[5].set(ylabel="Count", yscale="log", title=f"{int(failed.sum())} fit failures · counts remain visible")
+    status = (f"{int(failed.sum())} eligible GPD fits failed" if failed.any()
+              else "All eligible GPD fits succeeded")
+    axes[5].set(ylabel="Count", yscale="log", title="Exceedance counts\n" + status)
     for ax in axes:
         ax.axvline(3, color=COLORS["muted"], linestyle=":")
         ax.set(xscale="log", xlim=(u[0], u[-1]), xlabel="Observed threshold u (log scale)")
         ax.set_xticks([2, 3, 6, 12, 24, 48], labels=["2", "3", "6", "12", "24", "48"])
         ax.xaxis.set_minor_formatter(NullFormatter())
         ax.fill_between(u, 0, 1, where=~valid, transform=ax.get_xaxis_transform(), color=COLORS["sand"], alpha=.5)
-    finish(fig, output, "threshold-diagnostics.svg")
+    finish(first, output, "threshold-diagnostics.svg")
+    finish(second, output, "threshold-gpd.svg")
 
     fig, axes = vertical_figure(3, panel_height=3.6)
     for ax, threshold in zip(axes, (2, 3, 12)):

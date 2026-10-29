@@ -249,16 +249,16 @@ finite-sample estimates would be a diagnostic, not proof of the tail model.
 ## References
 
 - Hill, "A Simple General Approach to Inference About the Tail of a
-  Distribution" [1975](https://doi.org/10.1214/aos/1176343247).
+  Distribution" @hill1975simple.
 - Pickands, "Statistical Inference Using Extreme Order Statistics"
-  [1975](https://doi.org/10.1214/aos/1176343003).
+  @pickands1975statistical.
 - Balkema and de Haan, "Residual Life Time at Great Age"
-  [1974](https://doi.org/10.1214/aop/1176996548).
+  @balkema1974residual.
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [1997](https://doi.org/10.1007/978-3-642-33483-2).
-- Resnick, *Heavy-Tail Phenomena* [2007](https://doi.org/10.1007/978-0-387-45024-7).
+  @embrechts1997modelling.
+- Resnick, *Heavy-Tail Phenomena* @resnick2007heavy.
 - Coles, *An Introduction to Statistical Modeling of Extreme Values*
-  [2001](https://doi.org/10.1007/978-1-4471-3675-0).
+  @coles2001introduction.
 
 ## Backlinks
 

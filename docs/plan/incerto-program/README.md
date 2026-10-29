@@ -24,6 +24,12 @@ Chapter 6 and appendix A are implemented on `scft/v4-ch06`;
 five new figures and the chapter-5 reader fixes. Separate max review passed
 with a numerical input-domain fix and a caption clarification.
 
+Chapter 7 and appendices C/D are implemented on `scft/v4-ch07-viz-p2`.
+[The checkpoint](../../records/incerto-scft-v4-ch07.md) records the original
+LLN/stable/growth examples and pending separate max review;
+[visualization P2](../../records/incerto-viz-p2.md) covers ranks 11–15 and the
+requested mobile repairs.
+
 The selected SCoFT baseline is the **2025 third edition,
 arXiv:2001.10488v4: 30 chapters and nine appendices (A–I)**. Direct comparison
 with the supplied v2 and v4 PDF tables of contents closes the 2025 locator
@@ -65,23 +71,22 @@ Lean omissions require a reason and never block the next chapter.
 | [Validation](validation.md) | Schema, executable checks and resume procedure |
 | [Verification](verification.md) | Historical evidence, this revision's checks and pending operator rerun |
 
-`next_chunk` is `#/chunks/scft-v4-ch07`. Chapters 1–6 teaching,
+`next_chunk` is `#/chunks/scft-v4-ch08`. Chapters 1–7 teaching,
 bounded Python examples and optional Lean skips are recorded in state.
-There are now 32 implemented concept bodies; the M0.5 review denominator
-remains its original 24 pages. Chapters 1–6 passed separate max review.
-The current suite has 452 passing tests, including 60 chapter-6 cases.
-The fresh site build remains
-blocked by MyST's npm preflight (`spawnSync /bin/sh EPERM`); the HTML
-check has no fresh artifact. External site checks and a post-publication
-reader review remain required.
+There are now 34 implemented program concept bodies; the frozen M0.5
+review denominator remains 24. Chapters 1–6 passed separate max review;
+chapter 7 awaits its owner-requested max run.
 
-Chapter 6 closes its v4-locator slice of M05-ISSUE-007, including appendix A;
-other assigned chapters remain open. Five new and four regenerated SVGs
-use the shared style/export and were inspected at 390px and 900px.
-The chapter-5 follow-up moves legends outside curves, separates the
-near-zero diagnostic curves and removes a symlog moment-axis artifact.
-These artifact checks do not close the live reader gate. Lean remains
-skipped with no new declarations.
+The chapter-7 record contains current tests, dependency versions and site
+check results. All 15 new/changed figures were inspected at 390 and 900 px.
+Locked dependency installation and MyST installation are blocked by missing
+cached packages and sandbox DNS. Full HTML/browser checks remain pending.
+The source and PNG checks do not replace a post-publication reader review.
+
+Chapter 7 adds verified stable/LLN theorem locators and v4 C/D context for
+M05-ISSUE-006/007, while preserving resolved 002/009/010. Darling original-text
+access and later chapter-9 source work remain open. Lean is skipped; no
+checked declaration is added.
 
 ## Decisions fixed by this design
 

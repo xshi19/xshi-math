@@ -20,8 +20,10 @@ finite $x$. The distribution is
 subexponential when, for two independent copies,
 
 $$
-\frac{\mathbb P(X_1+X_2>x)}{2\mathbb P(X>x)} \to 1,
-\qquad x\to\infty.
+\begin{gathered}
+\frac{\mathbb P(X_1+X_2>x)}{2\mathbb P(X>x)} \to 1,\\
+x\to\infty.
+\end{gathered}
 $$
 
 Equivalently, for every fixed integer $n\ge2$ (and trivially for $n=1$), with
@@ -63,6 +65,19 @@ denotes a term negligible after division by $b(x)$.
 
 ## One-big-jump intuition
 
+(subexponential-event-geometry)=
+```{figure} ../assets/figures/incerto/subexponential-geometry.svg
+:alt: A square in two nonnegative summands separates the region where their sum exceeds the threshold but neither summand does from the region where the maximum exceeds it.
+
+Coordinates are $X_1/u$ and $X_2/u$, for a fixed positive threshold $u$.
+Green marks $\max(X_1,X_2)>u$; gold marks
+$X_1+X_2>u$ with both summands at most $u$. Their union is the sum event.
+The diagonal itself is excluded by the strict inequality. Colored area
+is geometry, not probability: the parent joint law supplies probability mass.
+For a subexponential law the gold region has negligible probability relative
+to $\bar F(u)$ as $u\to\infty$, with two summands fixed.
+```
+
 Subexponential does not mean "lighter than exponential," and it is unrelated
 to the concentration-theory phrase "sub-exponential random variable" for a
 light-tailed $\psi_1$ condition.  In this context it means the opposite: the
@@ -95,11 +110,11 @@ fixed-size Pareto proof for arbitrary $n$ is already on the
 
 The theorem that regularly varying tails are subexponential goes back to
 Chistyakov's convolution-tail criterion for sums of independent positive random
-variables [1964](https://doi.org/10.1137/1109088).  Standard modern references with proofs are
+variables @chistyakov1964sums.  Standard modern references with proofs are
 Embrechts, Klueppelberg, and Mikosch, Appendix A3
-[1997](https://doi.org/10.1007/978-3-642-33483-2), and Foss, Korshunov, and
+@embrechts1997modelling, and Foss, Korshunov, and
 Zachary, second edition, §3.5, Theorem 3.29 and its following paragraph,
-p. 57 [2013](https://doi.org/10.1007/978-1-4614-7101-1) for the
+p. 57 @foss2013heavy for the
 regular-variation implication.
 We do not reprove the full theorem, but the exact [Pareto](./incerto-pareto.md)
 case gives the right calibration.
@@ -110,10 +125,12 @@ For any distribution with unbounded right tail, $\bar F(x)\to0$ as
 $x\to\infty$.  For fixed $n$, iid independence gives
 
 $$
-\mathbb P(M_n\le x)
-=\mathbb P(X_1\le x,\dots,X_n\le x)
-=F(x)^n
-=\left(1-\bar F(x)\right)^n.
+\begin{aligned}
+&\mathbb P(M_n\le x)\\
+&\quad=\mathbb P(X_1\le x,\dots,X_n\le x)\\
+&\quad=F(x)^n\\
+&\quad=\left(1-\bar F(x)\right)^n.
+\end{aligned}
 $$
 
 Therefore
@@ -127,16 +144,20 @@ Set $u=\bar F(x)$.  Since $u\to0$ and $n$ is fixed, the binomial expansion
 gives
 
 $$
-1-(1-u)^n
-=nu-\binom{n}{2}u^2+O(u^3),
+\begin{aligned}
+&1-(1-u)^n\\
+&\quad=nu-\binom{n}{2}u^2+O(u^3),
+\end{aligned}
 $$
 
 and therefore
 
 $$
-\frac{1-(1-u)^n}{nu}
-=1-\frac{n-1}{2}u+O(u^2)
-\to1.
+\begin{aligned}
+&\frac{1-(1-u)^n}{nu}\\
+&\quad=1-\frac{n-1}{2}u+O(u^2)\\
+&\quad\to1.
+\end{aligned}
 $$
 
 Substituting back,
@@ -189,32 +210,32 @@ in the cover: either one summand lies in $(x-h,x]$, or both summands
 exceed $h$.  Hence
 
 $$
-\mathbb P(A_x)
-\le
-2\mathbb P(x-h<X\le x)
-+\mathbb P(X_1>h,\;X_2>h).
+\begin{aligned}
+\mathbb P(A_x)&\le 2\mathbb P(x-h<X\le x)\\
+&\quad+\mathbb P(X_1>h,\;X_2>h).
+\end{aligned}
 $$
 
 For the first term,
 
 $$
-\frac{\mathbb P(x-h<X\le x)}{\bar F(x)}
-=
-\frac{\bar F(x-h)-\bar F(x)}{\bar F(x)}
-=
-\left(\frac{x}{x-h}\right)^\alpha-1
-\to0,
+\begin{aligned}
+&\frac{\mathbb P(x-h<X\le x)}{\bar F(x)}\\
+&\quad=\frac{\bar F(x-h)-\bar F(x)}{\bar F(x)}\\
+&\quad=\left(\frac{x}{x-h}\right)^\alpha-1\\
+&\quad\to0,
+\end{aligned}
 $$
 
 because $h/x\to0$.  For the second term, independence gives
 
 $$
-\frac{\mathbb P(X_1>h,\;X_2>h)}{\bar F(x)}
-=
-\frac{\bar F(h)^2}{\bar F(x)}
-=
-(x/x_m)^{\alpha(1-2\gamma)}
-\to0,
+\begin{aligned}
+&\frac{\mathbb P(X_1>h,\;X_2>h)}{\bar F(x)}\\
+&\quad=\frac{\bar F(h)^2}{\bar F(x)}\\
+&\quad=(x/x_m)^{\alpha(1-2\gamma)}\\
+&\quad\to0,
+\end{aligned}
 $$
 
 because $\gamma>1/2$.  Thus $\mathbb P(A_x)=o(\bar F(x))$.  Since
@@ -245,8 +266,10 @@ $X_i\sim\operatorname{Exp}(\lambda)$, then the universal maximum formula still
 holds:
 
 $$
-\mathbb P(M_2>x)=2e^{-\lambda x}-e^{-2\lambda x}
-\sim2e^{-\lambda x}.
+\begin{aligned}
+\mathbb P(M_2>x)&=2e^{-\lambda x}-e^{-2\lambda x}\\
+&\sim2e^{-\lambda x}.
+\end{aligned}
 $$
 
 But the sum tail is much larger:
@@ -274,8 +297,11 @@ The proof supplies a finite-threshold bound. Put $t=x/x_m$ and take
 $\alpha=1.5$, $\gamma=0.75$. For sufficiently large $t$ with $x-h\ge x_m$,
 
 $$
-0\le\frac{\mathbb P(A_x)}{\bar F(x)}
-\le 2\left[(1-t^{-1/4})^{-3/2}-1\right]+t^{-3/4}.
+\begin{aligned}
+&0\le\frac{\mathbb P(A_x)}{\bar F(x)}\\
+&\quad\le 2\left[(1-t^{-1/4})^{-3/2}-1\right]\\
+&\qquad+t^{-3/4}.
+\end{aligned}
 $$
 
 | $t=x/x_m$ | Upper bound (rounded upward) |
@@ -311,6 +337,45 @@ explicit error tolerance and cannot prove a limiting statement.
 - A simulation ratio near one is only a diagnostic.  A durable mathematical
   claim needs a theorem, a checked distributional assumption, or a citation.
 
+(subexponential-convolution-figure)=
+## The convolution ratio on its own axes
+
+```{figure} ../assets/figures/incerto/subexponential-convolution.svg
+:alt: The sum-tail to twice-single-tail ratio approaches one for Pareto and stretched Weibull on log axes, while the exponential ratio grows.
+
+The existing chapter-5 convolution calculation, extracted onto one panel:
+Pareto exponent 1.5 and minimum 1, Weibull shape 0.5 and scale 1, and
+exponential mean 1. The ordinate is $P(X_1+X_2>u)/(2\bar F(u))$ on
+81 thresholds from 3 to $10^4$. Both axes are logarithmic. The
+exponential curve is exactly $(1+u)/2$; the other two approach one.
+Quadrature must report success with relative tolerance $10^{-9}$ and
+maximum refinement level 12. This is not the squared-survival ratio on
+the [survival-ratio page](incerto-survival-tail-ratio.md).
+```
+
+[`iid_two_sum_tail`](incerto-api-reference.md#api-iid-two-sum-tail)
+retains integration diagnostics.
+
+```python
+from xmath.incerto.distributions import pareto_type1
+from xmath.incerto.tail_diagnostics import iid_two_sum_tail
+
+result = iid_two_sum_tail(pareto_type1(1.5), [10, 100, 1000])
+print("Ratios: " + ", ".join(f"{v:.4g}" for v in result["ratio"]))
+print("All integrations succeeded:", bool(result["success"].all()))
+```
+
+**Output**
+
+```text
+Ratios: 1.391, 1.044, 1.004
+All integrations succeeded: True
+```
+
+Use [`pareto_type1`](incerto-api-reference.md#api-pareto-type1) for the
+specified parent. Regenerate both figures with
+`uv run python demos/incerto/visualization_p2.py`.
+
 ## References
 
 - @taleb2025scoftv4, §5.0.1, pp. 91–93: fixed-size iid tail context.
@@ -320,9 +385,9 @@ explicit error tolerance and cannot prove a limiting statement.
   pp. 57–58. General fixed-size extension and positive classifications
   are cited, not proved by the numerical illustration.
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [1997](https://doi.org/10.1007/978-3-642-33483-2).
+  @embrechts1997modelling.
 - @bingham1987regular, *Regular Variation*.
-- Resnick, *Heavy-Tail Phenomena* [2007](https://doi.org/10.1007/978-0-387-45024-7).
+- Resnick, *Heavy-Tail Phenomena* @resnick2007heavy.
 - Taleb, *Statistical Consequences of Fat Tails*, third edition (2025),
   [arXiv:2001.10488v4](https://arxiv.org/abs/2001.10488v4), ch. 1,
   pp. 4–5: terminology context only. The subexponential classification

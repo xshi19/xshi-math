@@ -19,10 +19,11 @@ normalized block maxima.  With location $\mu$, scale $\sigma>0$, shape
 $\xi$, and standardized variable $z=(x-\mu)/\sigma$, its CDF is
 
 $$
-H_{\xi,\mu,\sigma}(x)
-=
-\exp\left[-\left(1+\xi z\right)^{-1/\xi}\right],
-\qquad \xi\ne0,
+\begin{gathered}
+H_{\xi,\mu,\sigma}(x)\\
+=\exp\left[-\left(1+\xi z\right)^{-1/\xi}\right],\\
+\xi\ne0,
+\end{gathered}
 $$
 
 where $1+\xi z>0$. For $\xi>0$, extend the CDF by zero at and
@@ -111,19 +112,23 @@ If $X_1,\dots,X_n$ are iid [Pareto Type I](./incerto-pareto.md) with lower cutof
 $\alpha$, then for $x\ge x_m$,
 
 $$
-\mathbb P(M_n\le x)
-=
-\left(1-\left(\frac{x_m}{x}\right)^\alpha\right)^n.
+\begin{aligned}
+&\mathbb P(M_n\le x)\\
+&\quad=\left(1-\left(\frac{x_m}{x}\right)^\alpha\right)^n.
+\end{aligned}
 $$
 
 With $a_n=x_m n^{1/\alpha}$, for fixed $y>0$ and sufficiently large $n$,
 
 $$
-\mathbb P(M_n/a_n\le y)
-=
-\left(1-\frac{1}{ny^\alpha}\right)^n
-\to
-\exp(-y^{-\alpha}),\qquad y>0.
+\begin{gathered}
+\begin{aligned}
+&\mathbb P(M_n/a_n\le y)\\
+&\quad=\left(1-\frac{1}{ny^\alpha}\right)^n\\
+&\quad\to\exp(-y^{-\alpha}),
+\end{aligned}\\
+y>0.
+\end{gathered}
 $$
 
 This is the [Frechet member](./incerto-frechet.md) of the GEV family with
@@ -137,9 +142,13 @@ $\xi=5/9$. At block size $n=250$, the normalizing scale is
 $a_n=x_m250^{5/9}$. At the normalized threshold $y=1$,
 
 $$
-\mathbb P(M_{250}/a_{250}\le1)
-=(249/250)^{250}\approx0.367142,
-\qquad \Phi_{1.8}(1)=e^{-1}\approx0.367879.
+\begin{gathered}
+\begin{aligned}
+&\mathbb P(M_{250}/a_{250}\le1)\\
+&\quad=(249/250)^{250}\approx0.367142,
+\end{aligned}\\
+\Phi_{1.8}(1)=e^{-1}\approx0.367879.
+\end{gathered}
 $$
 
 This compares an exact finite-block CDF with its limit; it is not a GEV fit
@@ -159,10 +168,10 @@ parameters $(\xi,\mu,\sigma)=(5/9,1,5/9)$ on the normalized scale.
 ## References
 
 - Embrechts, Klueppelberg, and Mikosch, *Modelling Extremal Events*
-  [1997](https://doi.org/10.1007/978-3-642-33483-2).
-- Resnick, *Heavy-Tail Phenomena* [2007](https://doi.org/10.1007/978-0-387-45024-7).
+  @embrechts1997modelling.
+- Resnick, *Heavy-Tail Phenomena* @resnick2007heavy.
 - Coles, *An Introduction to Statistical Modeling of Extreme Values*
-  [2001](https://doi.org/10.1007/978-1-4471-3675-0).
+  @coles2001introduction.
 - Feller, *An Introduction to Probability Theory and Its Applications, Vol. II*
   (2nd ed., Wiley, 1971).
 

@@ -37,6 +37,7 @@ project:
             - file: content/incerto-lln-failure.md
             - file: content/incerto-inference-asymmetry.md
             - file: content/incerto-ruin.md
+            - file: content/incerto-ergodicity.md
         - file: content/incerto-method-concepts.md
           title: Methods
           children:
@@ -61,6 +62,7 @@ project:
             - file: content/incerto-sp500-tail.md
             - file: content/incerto-dispersion-ratio.md
             - file: content/incerto-lln-preasymptotic.md
+            - file: content/incerto-cauchy-running.md
     - title: Reading and reference
       children:
         - file: content/incerto-scoft-intro.md
@@ -77,6 +79,8 @@ project:
               title: Chapter 5 — Subexponentials and power laws
             - file: content/incerto-scoft-ch6.md
               title: Chapter 6 — Thick tails in higher dimensions
+            - file: content/incerto-scoft-ch7.md
+              title: Chapter 7 — Averages and limit laws
         - file: content/incerto-external-reading.md
           children:
             - file: content/incerto-reading-embrechts.md
