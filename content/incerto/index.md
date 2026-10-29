@@ -168,7 +168,8 @@ compares identical marginals under different joint laws.
   [Chapter 5 — Subexponentials and power laws](../incerto-scoft-ch5.md),
   [Chapter 6 — Thick tails in higher dimensions](../incerto-scoft-ch6.md),
   [Chapter 7 — Averages and limit laws](../incerto-scoft-ch7.md), and
-  [Chapter 8 — How much averaging helps](../incerto-scoft-ch8.md).
+  [Chapter 8 — How much averaging helps](../incerto-scoft-ch8.md), and
+  [Chapter 9 — Maxima and hidden tails](../incerto-scoft-ch9.md).
 - [External guides](../incerto-external-reading.md), including
   [Embrechts, Klüppelberg, and Mikosch](../incerto-reading-embrechts.md).
 - [Concept graph](../incerto-dependency-dag.md), with a plain linked fallback.
@@ -183,3 +184,6 @@ the site build; neither notebooks nor data fetches execute during publication.
 The [mixture sample](https://xshi19.github.io/math/normix-theory/normix-conditioning-a-mixture/) introduces a
 complementary question: how conditioning specifies a model rather than counts
 observations.
+
+[The tail beyond the sample maximum](../incerto-hidden-tail.md) separates
+missing probability, hidden moment contributions, and empirical CDF accuracy.

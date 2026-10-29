@@ -66,8 +66,24 @@ def hill_estimator(x: ArrayLike, k: int) -> float:
     sample = _positive_1d_sample(x)
     k_int = _validate_k(k, sample.size)
 
-    descending_logs = np.log(np.sort(sample)[::-1])
-    return float(np.mean(descending_logs[:k_int] - descending_logs[k_int]))
+    weighted = _weighted_log_spacings(sample)
+    return float(np.sum(weighted[:k_int]) / k_int)
+
+
+def _weighted_log_spacings(sample):
+    """j*log(x_j/x_{j+1}) in descending order, with nonnegative gaps.
+
+    log1p preserves near ties; the log difference avoids overflowing a ratio
+    of widely separated values. Sum through k to recover k times Hill xi.
+    """
+    ordered = np.sort(sample)[::-1]
+    high, low = ordered[:-1], ordered[1:]
+    delta = high-low
+    near = delta <= low
+    gaps = np.empty_like(delta)
+    gaps[near] = np.log1p(delta[near]/low[near])
+    gaps[~near] = np.log(high[~near])-np.log(low[~near])
+    return np.arange(1, sample.size)*gaps
 
 
 def hill_alpha_estimator(x: ArrayLike, k: int) -> float:
@@ -210,9 +226,8 @@ def hill_stability(
     for k in ks:
         _validate_k(int(k), n)
 
-    descending_logs = np.log(np.sort(sample)[::-1])
-    prefix = np.r_[0.0, np.cumsum(descending_logs)]
-    xi = (prefix[ks] - ks * descending_logs[ks]) / ks
+    prefix = np.cumsum(_weighted_log_spacings(sample))
+    xi = prefix[ks-1] / ks
     alpha = np.divide(
         1.0,
         xi,

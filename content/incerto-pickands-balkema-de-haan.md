@@ -21,9 +21,11 @@ $x_F=\sup\{x:F(x)<1\}$.  For a high threshold $u<x_F$, define the conditional
 excess distribution
 
 $$
-F_u(y)=\mathbb P(X-u\le y\mid X>u)
-=\frac{F(u+y)-F(u)}{1-F(u)},
-\qquad 0\le y<x_F-u.
+\begin{gathered}
+F_u(y)=P(X-u\le y\mid X>u)\\
+=\frac{F(u+y)-F(u)}{1-F(u)},\\
+0\le y<x_F-u.
+\end{gathered}
 $$
 
 If $F$ is in the maximum domain of attraction of an extreme-value law with
@@ -31,10 +33,11 @@ extreme-value index $\xi$, then there is a positive scale function $\beta(u)$
 such that
 
 $$
+\begin{gathered}
 \sup_{0\le y<x_F-u}
-\left|F_u(y)-G_{\xi,\beta(u)}(y)\right|
-\to 0,
-\qquad u\uparrow x_F.
+\left|F_u(y)-G_{\xi,\beta(u)}(y)\right|\to0,\\
+u\uparrow x_F.
+\end{gathered}
 $$
 
 The comparison is over the excess support, using the full GPD CDF: for
@@ -42,10 +45,11 @@ $\xi<0$, set $G_{\xi,\beta}(y)=1$ at and beyond $-\beta/\xi$.  The generalized P
 has scale $\beta>0$ and is
 
 $$
+\begin{gathered}
 G_{\xi,\beta}(y)
-=
-1-\left(1+\frac{\xi y}{\beta}\right)^{-1/\xi},
-\qquad \xi\ne0,
+=1-\left(1+\frac{\xi y}{\beta}\right)^{-1/\xi},\\
+\xi\ne0,
+\end{gathered}
 $$
 
 on the support where $1+\xi y/\beta>0$, and
@@ -99,11 +103,11 @@ If $X$ is Pareto Type I with lower cutoff $x_m$ and tail exponent $\alpha$,
 then for $u\ge x_m$,
 
 $$
-\mathbb P(X-u>y\mid X>u)
-=
-\frac{\mathbb P(X>u+y)}{\mathbb P(X>u)}
-=
-\left(1+\frac{y}{u}\right)^{-\alpha}.
+\begin{gathered}
+P(X-u>y\mid X>u)\\
+=\frac{P(X>u+y)}{P(X>u)}\\
+=\left(1+\frac{y}{u}\right)^{-\alpha}.
+\end{gathered}
 $$
 
 This is exactly a generalized Pareto survival function with
@@ -134,6 +138,66 @@ These are exact population identities, not fitted estimates. In finite data,
 estimated shape and scale fluctuate, and real tails may approach the GPD
 family slowly. [Threshold selection](./incerto-tail-threshold-selection.md)
 examines that modeling choice; the theorem supplies no finite-sample cutoff.
+
+(pbdh-chapter-nine)=
+## What the limit permits
+
+SCoFT v4 §9.1.3, pp. 176–177, introduces conditional excesses
+[@taleb2025scoftv4]. In the theorem above, membership in a maximum domain
+of attraction and an **absolute** CDF difference are essential. Approaching
+the endpoint of an arbitrary CDF does not by itself establish a GPD limit.
+The full theorem is cited from @balkema1974residual and
+@pickands1975statistical; this page proves only special cases and consequences.
+
+For a standard normal parent, excesses also have a limit, but on a shrinking
+scale. For $u\to\infty$ and fixed $y\ge0$, the normal-tail bounds in the
+[Gaussian maxima proof](incerto-generalized-extreme-value.md#gev-gaussian-maxima)
+give
+
+$$
+\begin{gathered}
+P(u(X-u)>y\mid X>u)\\
+=\frac{\bar\Phi(u+y/u)}{\bar\Phi(u)}\longrightarrow e^{-y}.
+\end{gathered}
+$$
+
+Thus $\xi=0$ with asymptotic excess scale $1/u$, whereas exact Pareto
+has $\xi=1/\alpha$ and scale $u/\alpha$. A bounded example is uniform
+on $[0,b]$: above $0\le u<b$ its excess is exactly uniform on $[0,b-u]$,
+a GPD with $\xi=-1$ and $\beta(u)=b-u$.
+
+These three cases can be compared with
+[`generalized_pareto`](incerto-api-reference.md#api-generalized-pareto).
+The normal row is a limit comparison; the other two are exact.
+
+```python
+from scipy.stats import norm
+from xmath.incerto.distributions import generalized_pareto
+
+for u in (2, 4, 8):
+    probability = norm.sf(u+1/u)/norm.sf(u)
+    print(f"normal u={u}: scaled excess survival={probability:.4g}")
+for xi, scale in ((0, 1), (.5, .5), (-1, 1)):
+    print(f"GPD xi={xi:g}: sf(1)={generalized_pareto(xi, beta=scale).sf(1):.4g}")
+```
+
+**Output**
+
+```text
+normal u=2: scaled excess survival=0.273
+normal u=4: scaled excess survival=0.3375
+normal u=8: scaled excess survival=0.3596
+GPD xi=0: sf(1)=0.3679
+GPD xi=0.5: sf(1)=0.25
+GPD xi=-1: sf(1)=0
+```
+
+Uniform closeness of CDFs does not control unbounded moments: the
+[contamination counterexample](incerto-hidden-tail.md#hidden-tail-empirical)
+shows why. Computing a fitted mean from $\xi<1$ is a statement about that
+GPD model. Transferring a moment limit to the true excess distribution
+requires additional tail-integrability conditions. The theorem alone gives
+no finite-sample threshold, rate, or mean-error bound.
 
 ## Caveats
 

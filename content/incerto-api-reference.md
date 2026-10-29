@@ -31,6 +31,7 @@ for implementations and use local `help()` for the installed version.
 
 | Module | Entry points and purpose |
 | --- | --- |
+| `xmath.incerto.extremes` | [`pareto_hidden_moment`](incerto-api-reference.md#api-pareto-hidden-moment), [`expected_pareto_hidden_fraction`](incerto-api-reference.md#api-expected-pareto-hidden-fraction), [`maximum_missing_mass`](incerto-api-reference.md#api-maximum-missing-mass), [`pareto_exponent_sampling`](incerto-api-reference.md#api-pareto-exponent-sampling), [`gaussian_maximum_norming`](incerto-api-reference.md#api-gaussian-maximum-norming), [`gaussian_maximum_cdf`](incerto-api-reference.md#api-gaussian-maximum-cdf), [`expected_gaussian_hidden_mean`](incerto-api-reference.md#api-expected-gaussian-hidden-mean); [chapter 9 maxima and hidden tails](incerto-scoft-ch9.md) |
 | `xmath.incerto.concentration` | [`kappa_from_mads`](incerto-api-reference.md#api-kappa-from-mads), [`stable_kappa`](incerto-api-reference.md#api-stable-kappa), [`gaussian_sum_mad`](incerto-api-reference.md#api-gaussian-sum-mad), [`gamma_sum_mad`](incerto-api-reference.md#api-gamma-sum-mad), [`student_sum_mad`](incerto-api-reference.md#api-student-sum-mad), [`estimate_sum_mad`](incerto-api-reference.md#api-estimate-sum-mad), [`lognormal_sum_mad`](incerto-api-reference.md#api-lognormal-sum-mad), [`normal_location_mixture_sum_mad`](incerto-api-reference.md#api-normal-location-mixture-sum-mad), [`gaussian_equivalent_n`](incerto-api-reference.md#api-gaussian-equivalent-n); [finite-sample concentration](incerto-kappa.md) and [sample sufficiency](incerto-moment-estimation.md#moment-estimation-sufficiency) |
 | `xmath.incerto.gas_speeds` | [`chi_speed`](incerto-api-reference.md#api-chi-speed), [`sample_chi_speed`](incerto-api-reference.md#api-sample-chi-speed), [`fit_speed_models`](incerto-api-reference.md#api-fit-speed-models), [`speed_fit_table`](incerto-api-reference.md#api-speed-fit-table), [`speed_qq`](incerto-api-reference.md#api-speed-qq), [`squared_speed_ks`](incerto-api-reference.md#api-squared-speed-ks), [`speed_fit_figure`](incerto-api-reference.md#api-speed-fit-figure); [Rayleigh chamber speeds](incerto-rayleigh-speed.md) and fitted comparisons |
 | `xmath.incerto.datasets` | [`load_amazon_bookrank`](incerto-api-reference.md#api-load-amazon-bookrank), [`load_nyc_dog_name_frequencies`](incerto-api-reference.md#api-load-nyc-dog-name-frequencies), [`load_sp500_prices`](incerto-api-reference.md#api-load-sp500-prices); explicit local-cache and refresh helpers |
@@ -2503,4 +2504,218 @@ print(f"Two-sided p: {lr['p_value']:.3f}")
 ```text
 R=5.000; normalized R=1.400
 Two-sided p: 0.161
+```
+
+
+## Maxima and hidden tails
+
+These helpers implement the exact models in [chapter 9](incerto-scoft-ch9.md).
+Counts are integers from 1 through $10^9$ (normal norming requires at least
+3); booleans and fractional counts raise `ValueError`. Parameters are
+scalars unless an array argument is explicitly stated. No helper fits a
+threshold or certifies an empirical tail law.
+
+(api-pareto-hidden-moment)=
+### `pareto_hidden_moment(threshold, alpha, *, x_m=1, p=1)`
+
+Exact $\mathbb E[X^p\mathbf1_{\{X>t\}}]$ for Pareto Type I. The threshold
+$t$ may be an array; every entry must be finite and at least the positive
+finite cutoff `x_m`. The exponent is positive finite and `p` is finite
+and nonnegative. Returns `inf` for `p >= alpha`. A finite mathematical
+answer overflowing float64 raises `FloatingPointError`; underflow returns
+zero. Scalar input produces a Python float. See the
+[derivation](incerto-hidden-tail.md#hidden-tail-pareto).
+
+```python
+from xmath.incerto.extremes import pareto_hidden_moment
+
+for p in (0, 1, 2):
+    value = pareto_hidden_moment(4, 1.5, p=p)
+    print(f"p={p}: tail contribution={value:.4g}")
+```
+
+**Output**
+
+```text
+p=0: tail contribution=0.125
+p=1: tail contribution=1.5
+p=2: tail contribution=inf
+```
+
+Invalid thresholds and unrepresentable finite results raise distinct errors:
+
+```python
+from xmath.incerto.extremes import pareto_hidden_moment
+
+for name, call in (
+    ("below cutoff", lambda: pareto_hidden_moment(.5, 2)),
+    ("overflow", lambda: pareto_hidden_moment(1e200, 4, x_m=1e200, p=2)),
+):
+    try:
+        call()
+    except (ValueError, FloatingPointError) as error:
+        print(f"{name}: {type(error).__name__}")
+```
+
+**Output**
+
+```text
+below cutoff: ValueError
+overflow: FloatingPointError
+```
+
+(api-expected-pareto-hidden-fraction)=
+### `expected_pareto_hidden_fraction(n, alpha, *, p=1)`
+
+Expected fraction of the population moment beyond the maximum of `n` iid
+exact Pareto draws. Positive finite `alpha`, finite nonnegative `p`.
+The cutoff cancels. Returns `nan` for `p >= alpha`, where a fraction of
+the infinite moment is not defined. For `p=0`, returns exactly `1/(n+1)`
+up to floating-point rounding. It is not an estimate of sample-mean bias.
+
+```python
+from xmath.incerto.extremes import expected_pareto_hidden_fraction
+
+for p in (0, 1, 2):
+    print(f"p={p}: fraction={expected_pareto_hidden_fraction(1000, 1.5, p=p):.4g}")
+```
+
+**Output**
+
+```text
+p=0: fraction=0.000999
+p=1: fraction=0.08928
+p=2: fraction=nan
+```
+
+(api-maximum-missing-mass)=
+### `maximum_missing_mass(n)`
+
+Frozen SciPy Beta(1,n) law of $\bar F(M_n)$ under iid sampling from a
+continuous CDF. Methods include `cdf`, `sf`, `ppf`, `mean`, and `rvs`.
+The law concerns probabilities, not missing moment contributions. Atoms,
+dependence and substituting a fitted CDF need separate analysis.
+
+```python
+from xmath.incerto.extremes import maximum_missing_mass
+
+law = maximum_missing_mass(20)
+for q in (0, .1, 1):
+    print(f"q={q:g}: cdf={law.cdf(q):.4g}, sf={law.sf(q):.4g}")
+```
+
+**Output**
+
+```text
+q=0: cdf=0, sf=1
+q=0.1: cdf=0.8784, sf=0.1216
+q=1: cdf=1, sf=0
+```
+
+(api-pareto-exponent-sampling)=
+### `pareto_exponent_sampling(alpha, count, *, debiased=False)`
+
+Frozen inverse-gamma sampling law for a true exponent `alpha > 0` and
+`count` log-excesses. Known fixed cutoff: `count` is sample size.
+Fixed-$k$ Hill in an iid exact Pareto sample: `count=k`, with $k<n$.
+The caller must enforce this sampling interpretation. Original estimates
+have shape `count`, scale `count*alpha`; debiasing retains the shape and
+uses `(count-1)*alpha`, requiring `count>=2`. Nonrepresentable scale
+raises `FloatingPointError`. General Pareto-type tails and selected
+thresholds are outside the exact law. [Proof](incerto-hill-estimator.md#hill-sampling-law).
+
+```python
+from xmath.incerto.extremes import pareto_exponent_sampling
+
+for corrected in (False, True):
+    law = pareto_exponent_sampling(1.5, 10, debiased=corrected)
+    print(f"corrected={corrected}: mean={law.mean():.4g}, P(estimate<=1)={law.cdf(1):.4g}")
+```
+
+**Output**
+
+```text
+corrected=False: mean=1.667, P(estimate<=1)=0.06985
+corrected=True: mean=1.5, P(estimate<=1)=0.1353
+```
+
+(api-gaussian-maximum-norming)=
+### `gaussian_maximum_norming(n, *, method="mills")`
+
+Returns Python floats `(a_n, b_n)` for the standard-normal maximum
+normalized as $(M_n-b_n)/a_n$. Requires integer $n\ge3$.
+`mills` uses the exact normal quantile at survival $1/n$ and the
+survival/density ratio there. `asymptotic` uses the explicit square-root
+logarithmic scale and log-log centering correction. Other methods raise
+`ValueError`. [Both choices and the proof](incerto-generalized-extreme-value.md#gev-gaussian-maxima).
+
+```python
+from xmath.incerto.extremes import gaussian_maximum_norming
+
+for n in (2, 100):
+    try:
+        a, b = gaussian_maximum_norming(n)
+        print(f"n={n}: scale={a:.4g}, center={b:.4g}")
+    except ValueError as error:
+        print(f"n={n}: {error}")
+```
+
+**Output**
+
+```text
+n=2: count must lie between 3 and 1000000000
+n=100: scale=0.3752, center=2.326
+```
+
+(api-gaussian-maximum-cdf)=
+### `gaussian_maximum_cdf(x, n)`
+
+Exact CDF $\Phi(x)^n$ for iid standard-normal draws, evaluated through
+log-CDFs. Scalar or array `x` can include infinities; `nan` raises
+`ValueError`. Returns a float or matching NumPy array. Underflow returns
+zero. It evaluates the raw maximum; apply norming constants separately.
+
+```python
+from xmath.incerto.extremes import gaussian_maximum_cdf
+
+for x in (-float("inf"), 0, 3, float("inf"), float("nan")):
+    try:
+        print(f"x={x:g}: cdf={gaussian_maximum_cdf(x, 100):.4g}")
+    except ValueError as error:
+        print(f"x={x:g}: {error}")
+```
+
+**Output**
+
+```text
+x=-inf: cdf=0
+x=0: cdf=7.889e-31
+x=3: cdf=0.8736
+x=inf: cdf=1
+x=nan: x must not contain nan
+```
+
+(api-expected-gaussian-hidden-mean)=
+### `expected_gaussian_hidden_mean(n)`
+
+Numerical integration of the exact $\mathbb E[\phi(M_n)]$ normal-model
+formula, in standard-deviation units. Returns `value` and `abs_error`;
+the latter is QUADPACK's estimate, not a certified error bound. All maxima,
+including negative ones, enter the integral. An exponential-variable
+transformation avoids integrating a narrow density at large `n`.
+Nonconvergence raises `RuntimeError`. No simulation or Gumbel approximation.
+
+```python
+from xmath.incerto.extremes import expected_gaussian_hidden_mean
+
+result = expected_gaussian_hidden_mean(1)
+for name, value in result.items():
+    print(f"{name}: {value:.4g}")
+```
+
+**Output**
+
+```text
+value: 0.2821
+abs_error: 3.768e-10
 ```

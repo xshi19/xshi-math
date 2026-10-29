@@ -3,8 +3,8 @@ schema_version: 3
 updated: '2026-10-29'
 repository: xshi19/xshi-math
 baseline_revision: 998a4a11a17b7ae7ba4c306005a4c8e3109f4392
-branch: scft/v4-ch08
-scope: scft-v4-ch08
+branch: scft/v4-ch09
+scope: scft-v4-ch09
 implementation_authorized: true
 authorized_chunks:
 - m0.5-review
@@ -16,8 +16,10 @@ authorized_chunks:
 - scft-v4-ch06
 - scft-v4-ch07
 - scft-v4-ch08
-authorization_note: Owner selected gpt-6-astra xhigh for chapter-8 writing/code, with a separate
-  gpt-6-astra max review afterwards; includes the two specified figure fixes. No commit or file deletion.
+- scft-v4-ch09
+authorization_note: Owner selected gpt-6-astra xhigh for chapter-9 writing/code, with separate gpt-6-astra
+  max review afterwards. No commit or file deletion; protect concurrent power-law pages and keep Hill-page
+  changes additive.
 status_semantics:
   todo: Program work has not satisfied its evidence gates; existing prose is recorded separately.
   in-progress: A named chunk is active and has a recorded checkpoint.
@@ -209,9 +211,9 @@ milestones:
     dependencies:
     - M2
     assigned_role: math-site-editor
-next_chunk: '#/chunks/scft-v4-ch09'
-next_chunk_note: Chapter-8 teaching/Python and two figure repairs implemented. Separate chapter-8 max
-  review, locked-environment and external site/browser checks remain pending; chapter 9 not executed.
+next_chunk: '#/chunks/scft-v4-ch10'
+next_chunk_note: Chapter-9 teaching/Python implemented; separate max review, unresolved general theorem locators
+  and external site checks remain explicit follow-ups. Chapter 10 not executed.
 chunks:
   m0.5-review:
     id: m0.5-review
@@ -248,7 +250,8 @@ chunks:
     review_workstreams:
       mathematics:
         assigned_role: astra-max
-        method: claim-by-claim source review, with hypotheses, proof/citation status and numerical-evidence limits
+        method: claim-by-claim source review, with hypotheses, proof/citation status and numerical-evidence
+          limits
         status: done
         reviewer: astra-max
         reviewed_at: '2026-10-17'
@@ -256,8 +259,8 @@ chunks:
         pages_reviewed: 24
         claim_records: 448
         claim_log_path: docs/plan/incerto-program/m0.5-claims.md
-        limitations: All claims evaluated; unresolved source precision and helper defects are recorded
-          issues, not certified fixes.
+        limitations: All claims evaluated; unresolved source precision and helper defects are recorded issues,
+          not certified fixes.
       reader:
         assigned_role: math-site-editor
         method: read every corresponding live page; review explanation, equations, figures, links and desktop/mobile
@@ -269,7 +272,8 @@ chunks:
         evidence: Owner reports Math Site Editor live reader review passed after PR 27 publication.
         viewports_reviewed: []
         viewport_note: Exact devices and viewport dimensions not supplied in the owner handoff.
-        follow_up: Possible mixed-weight rendering when Charter is missing (fallback serif stack), pending Xiang's check.
+        follow_up: Possible mixed-weight rendering when Charter is missing (fallback serif stack), pending Xiang's
+          check.
         owner_reported_issues:
         - M05-ISSUE-004
         - M05-ISSUE-005
@@ -277,12 +281,12 @@ chunks:
         limitations: Closure uses the owner's Math Site Editor handoff, not a new browser review in this run.
     output_path: docs/plan/incerto-program/m0.5-review.md
     acceptance:
-    - Record source revision, live deployment/date and a coverage row for every one of the 24 bodies; exclude the
-      hub and three indexes from this denominator.
+    - Record source revision, live deployment/date and a coverage row for every one of the 24 bodies; exclude
+      the hub and three indexes from this denominator.
     - Astra max records each mathematical claim and its review result; any unchecked claim remains explicit.
     - Math Site Editor records live reader findings for all 24 corresponding URLs; inaccessible pages stay unreviewed.
-    - Provide Xiang one issues list with stable IDs, severity, source/live locator, evidence, proposed action, reviewer
-      and disposition.
+    - Provide Xiang one issues list with stable IDs, severity, source/live locator, evidence, proposed action,
+      reviewer and disposition.
     - Record Xiang decisions and unresolved findings; assign each issue to a chapter and resolve findings affecting
       that chapter before its claims are reused. The next execution chunk is SCoFT v4 chapter 1.
     - Apply the standing live reader review after every later site update.
@@ -359,18 +363,21 @@ chunks:
         blocker: 0
         major: 7
         minor: 8
-      fixed_in_this_pr: 11
+      fixed_in_this_pr: 12
       needs_xiang_decision: 0
-      assigned_to_chapter_chunk: 4
+      assigned_to_chapter_chunk: 3
     issues:
     - id: M05-ISSUE-001
-      chapter_2_resolution: Retained iid/known-cutoff/positive-denominator conditions; added the likelihood derivative proof and all-cutoff boundary.
+      chapter_2_resolution: Retained iid/known-cutoff/positive-denominator conditions; added the likelihood
+        derivative proof and all-cutoff boundary.
       severity: major
       status: fixed in this PR
       disposition: resolved
       chapters:
       - scft-v4-ch02
       - scft-v4-ch09
+      chapter_9_resolution: Known-cutoff iid and positive-denominator assumptions retained; exact inverse-gamma
+        and fixed-k Hill laws derived separately.
     - id: M05-ISSUE-002
       chapter_7_resolution: Confirmed existing zero-prefix convention and eventual positivity; numerical helper
         still returns NaN for zero totals. Already resolved, not newly closed.
@@ -386,16 +393,21 @@ chunks:
       chapters:
       - scft-v4-ch09
       - scft-v4-ch10
+      chapter_9_resolution: Preserved corrected S&P plotting-position wording; new note distinguishes fixed
+        thresholds, random maxima and ties. No financial data added.
     - id: M05-ISSUE-004
-      chapter_1_resolution: Published fix confirmed; possible mixed-weight serif fallback without Charter pending Xiang's check.
+      chapter_1_resolution: Published fix confirmed; possible mixed-weight serif fallback without Charter pending
+        Xiang's check.
       severity: minor
       status: fixed in this PR
       disposition: resolved
       chapters:
       - scft-v4-ch01
     - id: M05-ISSUE-005
-      chapter_4_resolution: Chapter-4 reader wording and concept links updated; fresh live review pending. Historical M0.5 live pass retained.
-      chapter_3_resolution: Chapter-3 reader wording and new concept links updated; fresh live review pending publication. Earlier M0.5 live pass remains historical.
+      chapter_4_resolution: Chapter-4 reader wording and concept links updated; fresh live review pending. Historical
+        M0.5 live pass retained.
+      chapter_3_resolution: Chapter-3 reader wording and new concept links updated; fresh live review pending
+        publication. Earlier M0.5 live pass remains historical.
       chapter_1_resolution: Published reader wording confirmed by Math Site Editor on 2026-10-17.
       severity: minor
       status: fixed in this PR
@@ -405,6 +417,8 @@ chunks:
       - scft-v4-ch03
       - scft-v4-ch04
       - scft-v4-ch09
+      chapter_9_resolution: Reader-facing guide and canonical links; technical workflow status remains in records.
+        Fresh live review pending publication.
     - id: M05-ISSUE-006
       chapter_7_resolution: Verified Durrett Jan-2019 manuscript stable-attraction, SLLN, Berry–Esseen and ergodic
         theorem locators. Proved symmetric stable MAD and Bernoulli bound locally. Darling original-text access
@@ -412,8 +426,11 @@ chunks:
       chapter_5_resolution: Chapter-5 cited claims checked against BGT Theorem 1.3.1 p. 12 and Theorem 1.5.11
         p. 28, and FKZ Corollary 3.20/Theorem 3.21 p. 52 and Theorems 3.29-3.30 pp. 57-58. Other chapters remain
         assigned.
-      chapter_2_resolution: Chapter-2 claims use explicit local proofs for exact Pareto calibration, conditional quantities, counts and counterexamples; verified v4 section/page locators for cited LLN/CLT and glossary context. Retained chapter-1 FKZ sources. General EVT/PBDH and other later-chapter locators remain open.
-      chapter_1_resolution: Resolved for chapter-1 reused claims; FKZ Theorems 3.29-3.30 and DLMF locators verified. Other chapters remain assigned.
+      chapter_2_resolution: Chapter-2 claims use explicit local proofs for exact Pareto calibration, conditional
+        quantities, counts and counterexamples; verified v4 section/page locators for cited LLN/CLT and glossary
+        context. Retained chapter-1 FKZ sources. General EVT/PBDH and other later-chapter locators remain open.
+      chapter_1_resolution: Resolved for chapter-1 reused claims; FKZ Theorems 3.29-3.30 and DLMF locators verified.
+        Other chapters remain assigned.
       severity: major
       status: assigned to chapter chunk
       disposition: deferred-with-reason
@@ -423,15 +440,23 @@ chunks:
       - scft-v4-ch05
       - scft-v4-ch07
       - scft-v4-ch09
+      chapter_9_resolution: Verified Gasull et al. v1 section 2 pp. 3-4 and Durrett Jan-2019 Theorem 3.4.1 p.
+        144; exact-model and regular-variation sufficient-direction proofs supplied. Original full-theorem locators
+        for general PBDH/GEV/Hill consistency and Frechet converse remain unverified after access failures;
+        not closed.
     - id: M05-ISSUE-007
       chapter_7_resolution: Chapter 7 and appendices C/D checked against the supplied v4 PDF; new context uses
         the pinned local bibliography entry. Later chapter-9 reconciliation remains.
       chapter_5_resolution: Chapter 5 and appendix B pinned to taleb2025scoftv4, printed pp. 91-105 and 127-133,
         with checked section locators. Later chapter assignments remain.
-      chapter_4_resolution: Chapter-4 context pinned to taleb2025scoftv4 with checked section/page locators; later chapter assignments remain.
-      chapter_3_resolution: Chapter-3 guide/concepts now use taleb2025scoftv4 with checked locators; appendix E.1 restriction checked at p. 191. Other chapters remain assigned.
-      chapter_2_resolution: Chapter-2 guide and new context use taleb2025scoftv4 with verified section/page locators. Chapter-3/4 title edits do not certify their source claims.
-      chapter_1_resolution: Resolved for chapter-1 source context with taleb2025scoftv4 and printed locators. Other chapters remain assigned.
+      chapter_4_resolution: Chapter-4 context pinned to taleb2025scoftv4 with checked section/page locators;
+        later chapter assignments remain.
+      chapter_3_resolution: Chapter-3 guide/concepts now use taleb2025scoftv4 with checked locators; appendix
+        E.1 restriction checked at p. 191. Other chapters remain assigned.
+      chapter_2_resolution: Chapter-2 guide and new context use taleb2025scoftv4 with verified section/page
+        locators. Chapter-3/4 title edits do not certify their source claims.
+      chapter_1_resolution: Resolved for chapter-1 source context with taleb2025scoftv4 and printed locators.
+        Other chapters remain assigned.
       severity: minor
       status: assigned to chapter chunk
       disposition: deferred-with-reason
@@ -444,25 +469,30 @@ chunks:
       - scft-v4-ch06
       - scft-v4-ch07
       - scft-v4-ch09
+      chapter_9_resolution: Chapter 9 and Appendix E checked against supplied v4 pp. 171-181/189-191; new citations
+        pinned. Broader unversioned-reference audit remains open.
     - id: M05-ISSUE-008
       severity: major
       status: fixed in this PR
       disposition: resolved
-      owner_decision: 'Xiang decision 2026-10-17: general bounded-endpoint bound and counterexample;
-        distinguish population curvature from empirical noise.'
+      owner_decision: 'Xiang decision 2026-10-17: general bounded-endpoint bound and counterexample; distinguish
+        population curvature from empirical noise.'
       chapters:
       - scft-v4-ch09
+      chapter_9_resolution: Preserved finite-endpoint nonmonotonicity counterexample and population-versus-estimate
+        distinction; added mean-excess/hidden-contribution identity.
     - id: M05-ISSUE-009
       chapter_7_resolution: Confirmed separate growing-sample max/sum, fixed-size rare-event and moment-order
         statements. Linked the existing alpha-one Pareto proof. Already resolved.
       chapter_5_resolution: 'Confirmed: growing-sample Pareto regimes remain unchanged; fixed-size rare events,
         positive finite sums and independent products are distinguished.'
-      chapter_2_resolution: Retained reviewed growing-sample Pareto regimes and proofs; guide explicitly separates fixed-n rare events from growing-n ratios and moment orders.
+      chapter_2_resolution: Retained reviewed growing-sample Pareto regimes and proofs; guide explicitly separates
+        fixed-n rare events from growing-n ratios and moment orders.
       severity: major
       status: fixed in this PR
       disposition: resolved
-      owner_decision: 'Xiang decision 2026-10-17: explicit iid Pareto regimes, fixed-n subexponential
-        rare events and p-th moment thresholds, with proofs or scoped citations.'
+      owner_decision: 'Xiang decision 2026-10-17: explicit iid Pareto regimes, fixed-n subexponential rare events
+        and p-th moment thresholds, with proofs or scoped citations.'
       chapters:
       - scft-v4-ch02
       - scft-v4-ch05
@@ -473,17 +503,21 @@ chunks:
       severity: major
       status: fixed in this PR
       disposition: resolved
-      owner_decision: 'Xiang decision 2026-10-17: model-based iid simulation is primary; m-out-of-n
-        subsampling without replacement complements it under stated limit and normalization conditions.'
+      owner_decision: 'Xiang decision 2026-10-17: model-based iid simulation is primary; m-out-of-n subsampling
+        without replacement complements it under stated limit and normalization conditions.'
       chapters:
       - scft-v4-ch07
       - scft-v4-ch09
+      chapter_9_resolution: Preserved fitted-parent/subsampling caveats; ordinary empirical maximum cannot exceed
+        observed maximum. No new bootstrap-validity guarantee.
     - id: M05-ISSUE-011
       severity: major
-      status: assigned to chapter chunk
-      disposition: deferred-with-reason
+      status: fixed in this PR
+      disposition: resolved
       chapters:
       - scft-v4-ch09
+      chapter_9_resolution: Replaced cancellation-prone Hill prefix sums with weighted nonnegative adjacent
+        log spacings; constant, near-tied, extreme-range and rescaling regression tests.
     - id: M05-ISSUE-012
       chapter_5_resolution: 'Confirmed: normalized symmetric shifted double Pareto retains factor 1/2 and the
         documented NaN mean / +inf variance reporting convention for alpha <= 1. Student matching uses alpha
@@ -491,12 +525,13 @@ chunks:
       severity: major
       status: fixed in this PR
       disposition: resolved
-      owner_decision: 'Xiang decision 2026-10-17: retain +inf variance for alpha <= 1 by convention;
-        document the undefined ordinary mean and add tests at alpha = 0.8, 1.0, 1.5 and 3.'
+      owner_decision: 'Xiang decision 2026-10-17: retain +inf variance for alpha <= 1 by convention; document
+        the undefined ordinary mean and add tests at alpha = 0.8, 1.0, 1.5 and 3.'
       chapters:
       - scft-v4-ch05
     - id: M05-ISSUE-013
-      chapter_4_resolution: Resolved; constant-sample ratios return NaN for 0/0; infinity only for positive numerator over zero. Regression tests cover constants and nonconstant tied samples.
+      chapter_4_resolution: Resolved; constant-sample ratios return NaN for 0/0; infinity only for positive
+        numerator over zero. Regression tests cover constants and nonconstant tied samples.
       severity: minor
       status: fixed in this PR
       disposition: resolved
@@ -509,6 +544,8 @@ chunks:
       chapters:
       - scft-v4-ch09
       - scft-v4-ch10
+      chapter_9_resolution: Amazon/NYC rank-plot labels remain assigned to chapter 10; source checked, no empirical
+        figures relabeled or regenerated by chapter 9. New theoretical note explicitly distinguishes rank positions.
     - id: M05-ISSUE-015
       chapter_5_resolution: Confirmed corrected integral-theorem cross-reference; the distinct representation
         theorem now has its own cited section.
@@ -529,10 +566,11 @@ chunks:
         build: 'blocked: MyST npm preflight; spawnSync /bin/sh EPERM'
         html: 'not run for decision fixes: fresh build blocked; initial-review results are retained in m0.5-review.md'
         live_reader: Passed per owner handoff, Math Site Editor, 2026-10-17, published PR 27 (fbf2c6a).
-        state_and_links: passed; 986 plan links and 39 links across four changed notes; issue counts, unchanged next_chunk
-          and unchanged other issue records/bodies verified
+        state_and_links: passed; 986 plan links and 39 links across four changed notes; issue counts, unchanged
+          next_chunk and unchanged other issue records/bodies verified
         whitespace: passed; git diff --check; no new files
-      next_action: Chapter-1 follow-up is recorded below; Xiang checks possible mixed-weight serif fallback without Charter.
+      next_action: Chapter-1 follow-up is recorded below; Xiang checks possible mixed-weight serif fallback
+        without Charter.
   scft-v4-ch01:
     id: scft-v4-ch01
     m0_5_issue_ids:
@@ -1739,7 +1777,7 @@ chunks:
       - lean
       teaching_pages:
         required: true
-        status: todo
+        status: done
         page_paths:
         - content/incerto-generalized-extreme-value.md
         - content/incerto-frechet.md
@@ -1750,9 +1788,11 @@ chunks:
         - content/incerto-mean-excess-function.md
         - content/incerto-tail-threshold-selection.md
         - content/incerto-plug-in-tail-estimation.md
+        - content/incerto-hidden-tail.md
+        - content/incerto-scoft-ch9.md
       demos:
         required: true
-        status: todo
+        status: done
         concept_ids:
         - c-gev
         - c-frechet
@@ -1763,14 +1803,29 @@ chunks:
         - c-mean-excess
         - c-threshold
         - c-plugin
+        script_paths:
+        - demos/incerto/extreme_values.py
+        helper_paths:
+        - src/math/incerto/extremes.py
+        - src/math/incerto/estimators.py
+        test_paths:
+        - tests/test_incerto_extremes.py
+        - tests/test_incerto_page_snippets.py
+        figure_paths:
+        - assets/figures/incerto/gaussian-maxima.svg
+        - assets/figures/incerto/hidden-tail-pareto.svg
+        - assets/figures/incerto/hidden-tail-normal.svg
+        - assets/figures/incerto/hill-sampling-law.svg
       optional_lean:
         required: false
-        status: optional
+        status: skipped-for-now
         policy: After teaching and demos; record exact checked claims or a skip reason. No chapter gate.
+        reason: Owner requested a skip. General EVT and sampling-law formalization need a separate scoped development;
+          no checked declarations added.
     dependencies:
     - scft-v4-ch08
-    assigned_role: astra-max
-    status: todo
+    assigned_role: astra-xhigh
+    status: done
     milestone: M1
     source_unit_ids:
     - scft-v4-ch09
@@ -1794,16 +1849,80 @@ chunks:
     - content/incerto-regular-variation.md
     - content/incerto-tail-threshold-selection.md
     acceptance:
-    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
-      original explanations for teaching.
+    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations
+      and original explanations for teaching.
     - Resolve relevant M0.5 issues before reusing claims. Reuse canonical pages and reviewed prerequisite statements;
       do not reorder chapter chunks for a later full treatment.
     - Deliver chapter-scoped teaching pages, then bounded reproducible Python demos or visualizations; distinguish
       model calculations from observed-data studies.
-    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
-      or the following chapter.
+    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
+      closure or the following chapter.
     - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
       live pages as a reader.
+    checkpoint:
+      completed_at: '2026-10-29'
+      base_revision: 0306b19
+      working_branch: scft/v4-ch09
+      scope: Teaching and Python implementation complete at the selected chapter scope; separate max review
+        and external source/site follow-ups remain pending.
+      guide_title: Chapter 9 — Maxima and hidden tails
+      source_review: Read supplied read-only v4 chapter 9 and Appendix E, including E.1. Exact-model derivations
+        distinguish missing moments, Beta versus exponential missing mass, empirical versus population laws,
+        and fixed-count inverse-gamma calibration. No book text or figures copied.
+      claim_ids:
+      - CH09-C01
+      - CH09-C02
+      - CH09-C03
+      - CH09-C04
+      - CH09-C05
+      - CH09-C06
+      - CH09-C07
+      - CH09-C08
+      - CH09-C09
+      - CH09-C10
+      evidence_path: docs/records/incerto-scft-v4-ch09.md
+      supporting_pages:
+        content/incerto-hidden-tail.md: Supplementary mathematical treatment for c-plugin/c-gev; graph node
+          hidden-tail, no new program concept ID.
+      m0_5_resolutions:
+        M05-ISSUE-001: Known-cutoff iid and positive-denominator assumptions retained; exact inverse-gamma and
+          fixed-k Hill laws derived separately.
+        M05-ISSUE-003: Preserved corrected S&P plotting-position wording; new note distinguishes fixed thresholds,
+          random maxima and ties. No financial data added.
+        M05-ISSUE-005: Reader-facing guide and canonical links; technical workflow status remains in records.
+          Fresh live review pending publication.
+        M05-ISSUE-006: Verified Gasull et al. v1 section 2 pp. 3-4 and Durrett Jan-2019 Theorem 3.4.1 p. 144;
+          exact-model and regular-variation sufficient-direction proofs supplied. Original full-theorem locators
+          for general PBDH/GEV/Hill consistency and Frechet converse remain unverified after access failures;
+          not closed.
+        M05-ISSUE-007: Chapter 9 and Appendix E checked against supplied v4 pp. 171-181/189-191; new citations
+          pinned. Broader unversioned-reference audit remains open.
+        M05-ISSUE-008: Preserved finite-endpoint nonmonotonicity counterexample and population-versus-estimate
+          distinction; added mean-excess/hidden-contribution identity.
+        M05-ISSUE-010: Preserved fitted-parent/subsampling caveats; ordinary empirical maximum cannot exceed
+          observed maximum. No new bootstrap-validity guarantee.
+        M05-ISSUE-011: Replaced cancellation-prone Hill prefix sums with weighted nonnegative adjacent log spacings;
+          constant, near-tied, extreme-range and rescaling regression tests.
+        M05-ISSUE-014: Amazon/NYC rank-plot labels remain assigned to chapter 10; source checked, no empirical
+          figures relabeled or regenerated by chapter 9. New theoretical note explicitly distinguishes rank
+          positions.
+      checks:
+        pytest: 1239 passed in 189.82 seconds with UV_NO_SYNC=1; available dependencies, not a locked-environment pass.
+        figures: Four new SVGs rendered and inspected at 390/900 px; two fresh-process byte-reproduction checks passed.
+        outputs: Final regeneration executed 172 snippets and one full NYC-demo output with no further changes; initial run changed seven pages; exact-output tests passed.
+        state: Structural and human-view validation passed, including 1171 local file/fragment links.
+        equations: 100 changed-page display blocks parsed with KaTeX 0.16.25; long rows split; browser widths unverified.
+        site: Scratch npm install lacked cached MyST archive; cached MyST build failed npm preflight; fresh HTML check failed for absent build. Chrome launch blocked by sandbox sockets.
+      max_math_review:
+        status: pending
+        assigned_role: astra-max
+        model: gpt-6-astra max
+        scope: CH09-C01–C10, numerical domains, source corrections; separate owner-requested run.
+      live_reader_review:
+        status: pending-publication
+        assigned_role: math-site-editor
+        note: No publication; source/PNG checks do not replace live equation/navigation review.
+      next_action: Separate max review and source/site follow-ups; next implementation chunk scft-v4-ch10.
   scft-v4-ch10:
     id: scft-v4-ch10
     m0_5_issue_ids:
@@ -7623,11 +7742,12 @@ chapters:
     - c-hill
     - c-mean-excess
     - c-threshold
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     milestone: M1
-    locator_review: local-v4-TOC-verified; exact-claim-locators-pending
+    locator_review: supplied-v4-chapter/appendix-read; exact section/page context checked; corrected exact-model
+      claims derived locally
     classification:
     - empirical
     - lean-verifiable
@@ -7655,6 +7775,7 @@ chapters:
     edition: 2001.10488v4
     printed_page: 171
     chunk_id: scft-v4-ch09
+    implementation_evidence: docs/records/incerto-scft-v4-ch09.md
   scft-v4-ch10:
     id: scft-v4-ch10
     book_id: scft
@@ -8302,11 +8423,12 @@ chapters:
     - c-plugin
     - c-hill
     - c-threshold
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     milestone: M1
-    locator_review: local-v4-TOC-verified; exact-claim-locators-pending
+    locator_review: supplied-v4-chapter/appendix-read; exact section/page context checked; corrected exact-model
+      claims derived locally
     classification:
     - empirical
     - lean-verifiable
@@ -8324,6 +8446,7 @@ chapters:
     edition: 2001.10488v4
     printed_page: 189
     chunk_id: scft-v4-ch09
+    implementation_evidence: docs/records/incerto-scft-v4-ch09.md
   scft-v4-appf:
     id: scft-v4-appf
     book_id: scft
@@ -10080,7 +10203,7 @@ concepts:
       lean-verifiable: Conditional expectation formulas require positive exceedance probability and integrability.
       numeric-demo: Threshold curves compare exact models with finite samples.
     scope: Separate a population conditional mean from its sample diagnostic.
-    status: todo
+    status: done
     dependencies:
     - c-pareto-moments
     assigned_role: astra-max
@@ -10089,9 +10212,10 @@ concepts:
     canonical_url: /math/incerto/incerto-mean-excess-function/
     coverage:
       prose: existing
-      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      scope_note: M0.5 reviewed; chapter-9 scoped teaching and numerical implementation recorded. Separate max
+        review and general theorem-locator follow-ups remain explicit; no checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-9-runnable-examples-and-tests
     source_units:
     - scft-v4-ch09
     completion_scope: in-scope
@@ -10104,16 +10228,21 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: Chapter-9 owner-requested skip; no checked formalization added.
     chunk_ids:
     - scft-v4-ch09
     first_chunk: scft-v4-ch09
+    chapter_9_checkpoint:
+      status: done
+      evidence_path: docs/records/incerto-scft-v4-ch09.md
+      review_status: separate-max-pending
   c-hill:
     id: c-hill
     title: Hill tail-index estimation
@@ -10121,7 +10250,7 @@ concepts:
       lean-verifiable: Exact Pareto log-transform identities can precede asymptotic theory.
       numeric-demo: Vary the number of upper order statistics to expose bias and noise.
     scope: Do not claim general consistency without intermediate-sequence and tail conditions.
-    status: todo
+    status: done
     dependencies:
     - c-regular-variation
     assigned_role: astra-max
@@ -10130,9 +10259,10 @@ concepts:
     canonical_url: /math/incerto/incerto-hill-estimator/
     coverage:
       prose: existing
-      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      scope_note: M0.5 reviewed; chapter-9 scoped teaching and numerical implementation recorded. Separate max
+        review and general theorem-locator follow-ups remain explicit; no checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-9-runnable-examples-and-tests
     source_units:
     - scft-v4-ch09
     - scft-v4-appe
@@ -10146,16 +10276,21 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: Chapter-9 owner-requested skip; no checked formalization added.
     chunk_ids:
     - scft-v4-ch09
     first_chunk: scft-v4-ch09
+    chapter_9_checkpoint:
+      status: done
+      evidence_path: docs/records/incerto-scft-v4-ch09.md
+      review_status: separate-max-pending
   c-evi:
     id: c-evi
     title: Extreme-value index
@@ -10163,7 +10298,7 @@ concepts:
       lean-verifiable: Domain-specific parameter relations are precise statements.
       numeric-demo: Work through positive, zero and negative index examples with explicit support.
     scope: xi = 1/alpha only in the positive regularly varying regime; other signs need separate domains.
-    status: in-progress
+    status: done
     dependencies: []
     assigned_role: astra-max
     milestone: M1
@@ -10171,10 +10306,10 @@ concepts:
     canonical_url: /math/incerto/incerto-extreme-value-index/
     coverage:
       prose: existing
-      scope_note: M0.5 reviewed; chapter-2 teaching and deterministic examples implemented at the recorded scope.
-        Separate max review complete; no checked Lean. Later chapter scopes remain open.
+      scope_note: M0.5 reviewed; chapter-9 scoped teaching and numerical implementation recorded. Separate max
+        review and general theorem-locator follow-ups remain explicit; no checked Lean.
       lean: absent
-      python: chapter-2-deterministic-demo-verified
+      python: chapter-9-runnable-examples-and-tests
     source_units:
     - scft-v4-ch02
     - scft-v4-ch09
@@ -10188,13 +10323,14 @@ concepts:
       - lean
       website_math:
         required: true
-        status: in-progress
+        status: done
       python:
         required: true
-        status: in-progress
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: Chapter-9 owner-requested skip; no checked formalization added.
     chunk_ids:
     - scft-v4-ch02
     - scft-v4-ch09
@@ -10209,6 +10345,10 @@ concepts:
           checked declaration added.
         evidence_path: docs/records/incerto-scft-v4-ch02.md
         note: Implementation and max review complete; build and live review remain separate.
+    chapter_9_checkpoint:
+      status: done
+      evidence_path: docs/records/incerto-scft-v4-ch09.md
+      review_status: separate-max-pending
   c-gpd:
     id: c-gpd
     title: Generalized Pareto excess models
@@ -10216,7 +10356,7 @@ concepts:
       lean-verifiable: Support, survival, and exact threshold stability have explicit parameter cases.
       numeric-demo: Check support and exponential limit numerically.
     scope: Distinguish xi = 0, xi > 0, and finite-endpoint xi < 0.
-    status: todo
+    status: done
     dependencies:
     - c-evi
     assigned_role: astra-max
@@ -10225,9 +10365,10 @@ concepts:
     canonical_url: /math/incerto/incerto-generalized-pareto/
     coverage:
       prose: existing
-      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      scope_note: M0.5 reviewed; chapter-9 scoped teaching and numerical implementation recorded. Separate max
+        review and general theorem-locator follow-ups remain explicit; no checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-9-runnable-examples-and-tests
     source_units:
     - scft-v4-ch09
     completion_scope: in-scope
@@ -10240,16 +10381,21 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: Chapter-9 owner-requested skip; no checked formalization added.
     chunk_ids:
     - scft-v4-ch09
     first_chunk: scft-v4-ch09
+    chapter_9_checkpoint:
+      status: done
+      evidence_path: docs/records/incerto-scft-v4-ch09.md
+      review_status: separate-max-pending
   c-plugin:
     id: c-plugin
     title: Plug-in tail estimation
@@ -10257,7 +10403,7 @@ concepts:
       lean-verifiable: A specified Pareto estimator permits exact transforms and singularity analysis.
       numeric-demo: Compare sample and plug-in estimators on identical simulated samples.
     scope: The unregularized mean estimator has a pole at estimated xi = 1; no uniform MSE superiority.
-    status: todo
+    status: done
     dependencies:
     - c-pareto-moments
     - c-hill
@@ -10267,9 +10413,10 @@ concepts:
     canonical_url: /math/incerto/incerto-plug-in-tail-estimation/
     coverage:
       prose: existing
-      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      scope_note: M0.5 reviewed; chapter-9 scoped teaching and numerical implementation recorded. Separate max
+        review and general theorem-locator follow-ups remain explicit; no checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-9-runnable-examples-and-tests
     source_units:
     - scft-v4-appe
     completion_scope: in-scope
@@ -10282,25 +10429,32 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: Chapter-9 owner-requested skip; no checked formalization added.
     chunk_ids:
     - scft-v4-ch09
     first_chunk: scft-v4-ch09
+    chapter_9_checkpoint:
+      status: done
+      evidence_path: docs/records/incerto-scft-v4-ch09.md
+      review_status: separate-max-pending
   c-pbdh:
     id: c-pbdh
     title: Threshold-limit theorem
     classification:
-      lean-verifiable: The general theorem is a substantial probability formalization; the exact Pareto case is
-        smaller.
-      numeric-demo: Illustrate threshold excess convergence and finite-threshold discrepancies in specified models.
-    scope: Record the existing general result as cited; formalizing one excess identity does not certify the theorem.
-    status: todo
+      lean-verifiable: The general theorem is a substantial probability formalization; the exact Pareto case
+        is smaller.
+      numeric-demo: Illustrate threshold excess convergence and finite-threshold discrepancies in specified
+        models.
+    scope: Record the existing general result as cited; formalizing one excess identity does not certify the
+      theorem.
+    status: done
     dependencies:
     - c-gpd
     - c-regular-variation
@@ -10310,9 +10464,10 @@ concepts:
     canonical_url: /math/incerto/incerto-pickands-balkema-de-haan/
     coverage:
       prose: existing
-      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      scope_note: M0.5 reviewed; chapter-9 scoped teaching and numerical implementation recorded. Separate max
+        review and general theorem-locator follow-ups remain explicit; no checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-9-runnable-examples-and-tests
     source_units:
     - scft-v4-ch09
     completion_scope: in-scope
@@ -10325,16 +10480,21 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: Chapter-9 owner-requested skip; no checked formalization added.
     chunk_ids:
     - scft-v4-ch09
     first_chunk: scft-v4-ch09
+    chapter_9_checkpoint:
+      status: done
+      evidence_path: docs/records/incerto-scft-v4-ch09.md
+      review_status: separate-max-pending
   c-gev:
     id: c-gev
     title: Generalized extreme-value laws
@@ -10342,7 +10502,7 @@ concepts:
       lean-verifiable: Distribution formulas and maxima limits have separate proof obligations.
       numeric-demo: Block-maxima experiments illustrate normalization sensitivity.
     scope: Specify the domain of attraction, centering, scaling, and convergence mode.
-    status: todo
+    status: done
     dependencies:
     - c-evi
     assigned_role: astra-max
@@ -10351,9 +10511,10 @@ concepts:
     canonical_url: /math/incerto/incerto-generalized-extreme-value/
     coverage:
       prose: existing
-      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      scope_note: M0.5 reviewed; chapter-9 scoped teaching and numerical implementation recorded. Separate max
+        review and general theorem-locator follow-ups remain explicit; no checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-9-runnable-examples-and-tests
     source_units:
     - scft-v4-ch09
     completion_scope: in-scope
@@ -10366,16 +10527,21 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: Chapter-9 owner-requested skip; no checked formalization added.
     chunk_ids:
     - scft-v4-ch09
     first_chunk: scft-v4-ch09
+    chapter_9_checkpoint:
+      status: done
+      evidence_path: docs/records/incerto-scft-v4-ch09.md
+      review_status: separate-max-pending
   c-frechet:
     id: c-frechet
     title: Frechet maxima
@@ -10383,7 +10549,7 @@ concepts:
       lean-verifiable: The Pareto maximum limit provides a bounded first EVT target.
       numeric-demo: Compare normalized maxima with the limiting distribution.
     scope: Positive tail exponent and explicit normalization; finite-n errors remain numerical.
-    status: todo
+    status: done
     dependencies:
     - c-pareto
     - c-gev
@@ -10393,9 +10559,10 @@ concepts:
     canonical_url: /math/incerto/incerto-frechet/
     coverage:
       prose: existing
-      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      scope_note: M0.5 reviewed; chapter-9 scoped teaching and numerical implementation recorded. Separate max
+        review and general theorem-locator follow-ups remain explicit; no checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-9-runnable-examples-and-tests
     source_units:
     - scft-v4-ch09
     completion_scope: in-scope
@@ -10408,16 +10575,21 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: Chapter-9 owner-requested skip; no checked formalization added.
     chunk_ids:
     - scft-v4-ch09
     first_chunk: scft-v4-ch09
+    chapter_9_checkpoint:
+      status: done
+      evidence_path: docs/records/incerto-scft-v4-ch09.md
+      review_status: separate-max-pending
   c-subexponential:
     id: c-subexponential
     title: Subexponential sums
@@ -10630,7 +10802,7 @@ concepts:
       numeric-demo: Sensitivity curves show the bias and variance tradeoff.
       empirical: Real-data threshold choice requires dependence and model-fit diagnostics.
     scope: No universal optimal threshold from a visually straight tail plot.
-    status: todo
+    status: done
     dependencies:
     - c-hill
     - c-mean-excess
@@ -10640,9 +10812,10 @@ concepts:
     canonical_url: /math/incerto/incerto-tail-threshold-selection/
     coverage:
       prose: existing
-      scope_note: Existing prose needs claim-by-claim review; no checked Lean.
+      scope_note: M0.5 reviewed; chapter-9 scoped teaching and numerical implementation recorded. Separate max
+        review and general theorem-locator follow-ups remain explicit; no checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: chapter-9-runnable-examples-and-tests
     source_units:
     - scft-v4-ch09
     - scft-v4-appe
@@ -10656,16 +10829,21 @@ concepts:
       - lean
       website_math:
         required: true
-        status: review-required
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: Chapter-9 owner-requested skip; no checked formalization added.
     chunk_ids:
     - scft-v4-ch09
     first_chunk: scft-v4-ch09
+    chapter_9_checkpoint:
+      status: done
+      evidence_path: docs/records/incerto-scft-v4-ch09.md
+      review_status: separate-max-pending
   c-body-shoulder:
     id: c-body-shoulder
     title: Body, shoulder, and tail under perturbation
