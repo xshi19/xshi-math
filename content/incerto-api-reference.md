@@ -31,6 +31,7 @@ for implementations and use local `help()` for the installed version.
 
 | Module | Entry points and purpose |
 | --- | --- |
+| `xmath.incerto.concentration` | [`kappa_from_mads`](incerto-api-reference.md#api-kappa-from-mads), [`stable_kappa`](incerto-api-reference.md#api-stable-kappa), [`gaussian_sum_mad`](incerto-api-reference.md#api-gaussian-sum-mad), [`gamma_sum_mad`](incerto-api-reference.md#api-gamma-sum-mad), [`student_sum_mad`](incerto-api-reference.md#api-student-sum-mad), [`estimate_sum_mad`](incerto-api-reference.md#api-estimate-sum-mad), [`lognormal_sum_mad`](incerto-api-reference.md#api-lognormal-sum-mad), [`normal_location_mixture_sum_mad`](incerto-api-reference.md#api-normal-location-mixture-sum-mad), [`gaussian_equivalent_n`](incerto-api-reference.md#api-gaussian-equivalent-n); [finite-sample concentration](incerto-kappa.md) and [sample sufficiency](incerto-moment-estimation.md#moment-estimation-sufficiency) |
 | `xmath.incerto.gas_speeds` | [`chi_speed`](incerto-api-reference.md#api-chi-speed), [`sample_chi_speed`](incerto-api-reference.md#api-sample-chi-speed), [`fit_speed_models`](incerto-api-reference.md#api-fit-speed-models), [`speed_fit_table`](incerto-api-reference.md#api-speed-fit-table), [`speed_qq`](incerto-api-reference.md#api-speed-qq), [`squared_speed_ks`](incerto-api-reference.md#api-squared-speed-ks), [`speed_fit_figure`](incerto-api-reference.md#api-speed-fit-figure); [Rayleigh chamber speeds](incerto-rayleigh-speed.md) and fitted comparisons |
 | `xmath.incerto.datasets` | [`load_amazon_bookrank`](incerto-api-reference.md#api-load-amazon-bookrank), [`load_nyc_dog_name_frequencies`](incerto-api-reference.md#api-load-nyc-dog-name-frequencies), [`load_sp500_prices`](incerto-api-reference.md#api-load-sp500-prices); explicit local-cache and refresh helpers |
 | `xmath.incerto.distributions` | [`pareto_type1`](incerto-api-reference.md#api-pareto-type1), [`double_pareto`](incerto-api-reference.md#api-double-pareto), [`hypsecant2`](incerto-api-reference.md#api-hypsecant2), [`simple_normal_mixture`](incerto-api-reference.md#api-simple-normal-mixture), [`univariate_variance_gamma`](incerto-api-reference.md#api-univariate-variance-gamma), [`generalized_pareto`](incerto-api-reference.md#api-generalized-pareto), [`generalized_extreme_value`](incerto-api-reference.md#api-generalized-extreme-value), [`frechet`](incerto-api-reference.md#api-frechet); SciPy-style distribution objects |
@@ -1923,6 +1924,254 @@ plt.close(fig)
 Card panels: 3
 ```
 :::
+
+### Finite-sample concentration
+
+(api-kappa-from-mads)=
+#### [`kappa_from_mads`](incerto-api-reference.md#api-kappa-from-mads)
+
+`concentration.kappa_from_mads(mad_n0, mad_n, n, *, n0=1)` evaluates the
+two-size population metric. Counts are integers with
+`1 <= n0 < n <= 10000000`; MADs must be nonnegative real scalars and
+positive finite sum MADs must not decrease. No clipping to [0,1] occurs.
+
+```python
+from xmath.incerto.concentration import kappa_from_mads
+
+for pair in ((1, 1.5), (2/3, 14/15), (1, 1), (0, 0), (float("inf"), float("inf"))):
+    print(f"kappa: {kappa_from_mads(*pair, 2):.4g}")
+try:
+    kappa_from_mads(1, 0.9, 2)
+except ValueError as error:
+    print(type(error).__name__ + ": " + str(error))
+```
+
+**Output**
+
+```text
+kappa: 0.2905
+kappa: -0.06004
+kappa: -inf
+kappa: nan
+kappa: nan
+ValueError: population sum MAD must not decrease
+```
+
+(api-stable-kappa)=
+#### [`stable_kappa`](incerto-api-reference.md#api-stable-kappa)
+
+`concentration.stable_kappa(alpha)` requires `0 < alpha <= 2`.
+For an integrable stable law it evaluates `2-alpha`; the sum growth
+exponent is `1/alpha`.
+
+```python
+from xmath.incerto.concentration import stable_kappa
+
+for alpha in (0.8, 1, 1.5, 2):
+    print(f"alpha={alpha:g}: {stable_kappa(alpha):.3f}")
+```
+
+**Output**
+
+```text
+alpha=0.8: nan
+alpha=1: nan
+alpha=1.5: 0.500
+alpha=2: 0.000
+```
+
+(api-gaussian-sum-mad)=
+#### [`gaussian_sum_mad`](incerto-api-reference.md#api-gaussian-sum-mad)
+
+`concentration.gaussian_sum_mad(n, *, sigma=1)` uses the parent standard
+deviation, not the stable CF scale. Requires positive finite sigma and
+integer `1 <= n <= 10000000`.
+
+```python
+from xmath.incerto.concentration import gaussian_sum_mad
+
+for n in (1, 2, 100):
+    print(f"n={n}: sum MAD={gaussian_sum_mad(n):.4f}")
+```
+
+**Output**
+
+```text
+n=1: sum MAD=0.7979
+n=2: sum MAD=1.1284
+n=100: sum MAD=7.9788
+```
+
+(api-gamma-sum-mad)=
+#### [`gamma_sum_mad`](incerto-api-reference.md#api-gamma-sum-mad)
+
+`concentration.gamma_sum_mad(n, *, shape=1, scale=1)` is the closed form
+for sums of independent Gamma(shape, scale) variables. Shape one gives
+exponential summands. Shape is in `[0.000001, 1000000]`; scale is positive
+and finite, and counts have the same domain as the Gaussian helper.
+Log-domain evaluation and a Stirling remainder avoid large-shape cancellation.
+
+```python
+from xmath.incerto.concentration import gamma_sum_mad
+
+for n in (1, 2, 100):
+    print(f"n={n}: sum MAD={gamma_sum_mad(n):.4f}")
+try:
+    gamma_sum_mad(10, scale=1e308)
+except FloatingPointError:
+    print("FloatingPointError: finite MAD exceeds floating-point range")
+```
+
+**Output**
+
+```text
+n=1: sum MAD=0.7358
+n=2: sum MAD=1.0827
+n=100: sum MAD=7.9722
+FloatingPointError: finite MAD exceeds floating-point range
+```
+
+(api-student-sum-mad)=
+#### [`student_sum_mad`](incerto-api-reference.md#api-student-sum-mad)
+
+`concentration.student_sum_mad(n, *, nu=3, scale=1)` uses ordinary
+Student degrees of freedom `nu` in `[0.5, 1000]` and positive finite scale.
+It evaluates closed forms at sizes one and two for all admitted degrees of
+freedom, and at every integer size up to ten million for the cubic law.
+
+```python
+from xmath.incerto.concentration import student_sum_mad
+
+for nu in (1, 1.5, 3, 5):
+    print(f"nu={nu:g}: two-sum MAD={student_sum_mad(2, nu=nu):.4f}")
+print(f"Cubic at n=30: {student_sum_mad(30):.4f}")
+try:
+    student_sum_mad(3, nu=5)
+except ValueError as error:
+    print(type(error).__name__ + ": " + str(error))
+```
+
+**Output**
+
+```text
+nu=1: two-sum MAD=inf
+nu=1.5: two-sum MAD=3.4126
+nu=3: two-sum MAD=1.6540
+nu=5: two-sum MAD=1.3840
+Cubic at n=30: 7.2218
+ValueError: closed form requires n <= 2 or nu=3
+```
+
+(api-estimate-sum-mad)=
+#### [`estimate_sum_mad`](incerto-api-reference.md#api-estimate-sum-mad)
+
+`concentration.estimate_sum_mad(rv, n, *, mean, repetitions=20000, random_state=0)`
+uses a frozen SciPy-style law and the **known population mean**. The returned
+dictionary contains `mad` and `mc_se`. Replications are independent and
+all draws are retained; nonfinite observations raise. It requires at least
+two replications, at most a million summands, and at most 50 million draws.
+The estimated SE has its usual interpretation only if the absolute centered
+sum has finite variance; it is not a model-validity or coverage guarantee.
+
+```python
+from scipy.stats import t
+from xmath.incerto.concentration import estimate_sum_mad, student_sum_mad
+
+result = estimate_sum_mad(t(3), 8, mean=0, random_state=20261089)
+print(f"Estimate: {result['mad']:.3f}, MC SE: {result['mc_se']:.3f}")
+print(f"Exact: {student_sum_mad(8):.3f}")
+```
+
+**Output**
+
+```text
+Estimate: 3.564, MC SE: 0.025
+Exact: 3.578
+```
+
+(api-lognormal-sum-mad)=
+#### [`lognormal_sum_mad`](incerto-api-reference.md#api-lognormal-sum-mad)
+
+`concentration.lognormal_sum_mad(n, sigma, *, mu=0, repetitions=20000, random_state=0)`
+uses log-location `mu` and log-scale `sigma`, with sigma in `[0.0001, 10]`.
+The single-summand result is exact. Larger sizes use a bounded conditional
+Monte Carlo payoff and return `mad` and `mc_se`. With at least two
+replications, `(n-1)*repetitions` must not exceed 50 million and n must not
+exceed a million.
+The underlying normal generator is PCG64; no samples are discarded.
+
+```python
+from xmath.incerto.concentration import lognormal_sum_mad
+
+for n in (1, 2, 16):
+    result = lognormal_sum_mad(n, 1, random_state=20261088)
+    print(f"n={n}: MAD={result['mad']:.3f}, MC SE={result['mc_se']:.3f}")
+try:
+    lognormal_sum_mad(1, 1, mu=1000)
+except FloatingPointError:
+    print("FloatingPointError: finite MAD exceeds floating-point range")
+```
+
+**Output**
+
+```text
+n=1: MAD=1.263, MC SE=0.000
+n=2: MAD=1.973, MC SE=0.009
+n=16: MAD=6.422, MC SE=0.052
+FloatingPointError: finite MAD exceeds floating-point range
+```
+
+(api-normal-location-mixture-sum-mad)=
+#### [`normal_location_mixture_sum_mad`](incerto-api-reference.md#api-normal-location-mixture-sum-mad)
+
+`concentration.normal_location_mixture_sum_mad(n, separation, *, sigma=1)`
+evaluates the binomial mixture for independent copies of
+`separation*R + sigma*Z`, with equiprobable signs R and independent standard
+normal Z. Separation is nonnegative, sigma positive, both finite;
+integer n is at most 10,000. The exact formula has n+1 terms.
+
+```python
+from xmath.incerto.concentration import normal_location_mixture_sum_mad
+
+for n in (1, 2, 8):
+    print(f"n={n}: sum MAD={normal_location_mixture_sum_mad(n, 3):.4f}")
+```
+
+**Output**
+
+```text
+n=1: sum MAD=3.0008
+n=2: sum MAD=3.5642
+n=8: sum MAD=7.1947
+```
+
+(api-gaussian-equivalent-n)=
+#### [`gaussian_equivalent_n`](incerto-api-reference.md#api-gaussian-equivalent-n)
+
+`concentration.gaussian_equivalent_n(sum_mad, n_g, *, max_n=1000000)`
+returns the smallest matching integer, using doubling then binary search.
+Both counts are integers in `[1, 10000000]`. The callable must be a
+deterministic population sum-MAD curve for an iid integrable law with
+positive MAD; noisy estimates cannot support the search. The criterion is
+relative mean absolute error with equal one-observation MADs.
+An eight-machine-epsilon tolerance, scaled by the absolute log target
+or one, handles rounded equalities; closer crossings cannot be distinguished.
+
+```python
+from xmath.incerto.concentration import gaussian_equivalent_n, student_sum_mad
+
+print("Gaussian reference 30:", gaussian_equivalent_n(student_sum_mad, 30))
+print("Insufficient search cap:", gaussian_equivalent_n(student_sum_mad, 30, max_n=10))
+print("Reference size one:", gaussian_equivalent_n(student_sum_mad, 1))
+```
+
+**Output**
+
+```text
+Gaussian reference 30: 44
+Insufficient search cap: None
+Reference size one: 1
+```
 
 ### Base package
 

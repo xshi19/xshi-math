@@ -1,12 +1,13 @@
 # Design verification
 
-Current chapter-7 evidence is in the [implementation record](../../records/incerto-scft-v4-ch07.md)
-and [P2 record](../../records/incerto-viz-p2.md): teaching/Python and 15 SVGs
-implemented, with 390/900 px inspection. The separate max review is pending.
-Current local tests use available dependency versions; locked installation
-and MyST are unavailable in the sandbox. Full HTML/browser and live reader
-checks remain pending. The historical evidence below retains its original
-scope, including prior chapter-6 max review.
+Current chapter-8 evidence is in the [implementation record](../../records/incerto-scft-v4-ch08.md):
+teaching/Python, four new SVGs and two figure repairs, with 390/900 px inspection.
+The separate chapter-8 max review is pending. Chapter 7's
+[max review](../../records/incerto-scft-v4-ch07.md#max-review) is already complete;
+its earlier pending flag is reconciled in state. Local tests use available
+dependency versions. Locked installation, a fresh MyST build and browser
+review remain blocked as recorded in the current checkpoint. No publication
+or live reader review is claimed. Historical evidence below retains its scope.
 
 Baseline: 2026-10-16, revision `998a4a11a17b7ae7ba4c306005a4c8e3109f4392`.
 Owner revisions: 2026-10-17, branch `plan/incerto-program`, PR #24.

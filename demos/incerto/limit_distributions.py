@@ -123,7 +123,7 @@ def main(output=None):
     fig, axes = vertical_figure(1, panel_height=4.3)
     ax = axes[0]
     for i in range(4):
-        ax.plot(n, log_wealth[i], color=COLORS["muted"], lw=.7, alpha=.6,
+        ax.plot(n, log_wealth[i], color=COLORS["muted"], lw=1.1, alpha=.95,
                  label="Four paths" if i == 0 else None)
     band(ax, n, log_wealth.T, "Median and 10–90%", COLORS["accent"])
     ax.plot(n, n*np.log(1.05), "--", color=COLORS["green"], label="log E[wealth]")
