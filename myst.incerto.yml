@@ -46,6 +46,8 @@ project:
             - file: content/incerto-plug-in-tail-estimation.md
             - file: content/incerto-moment-estimation.md
             - file: content/incerto-tail-threshold-selection.md
+            - file: content/incerto-power-law-fitting.md
+            - file: content/incerto-power-law-goodness-of-fit.md
             - file: content/incerto-survival-tail-ratio.md
             - file: content/incerto-maximum-entropy.md
             - file: content/incerto-max-to-sum-ratio.md

@@ -194,3 +194,13 @@ def test_long_code_blocks_use_dropdowns():
             if len(block.group(1).splitlines()) > 12:
                 assert any(d.start() < block.start() < block.end() < d.end()
                            for d in dropdowns), page
+
+
+def test_powerlaw_theory_examples_are_registered_for_exact_output_checks():
+    # The discovery rule is automatic; retain explicit coverage of this pair.
+    for name in ("incerto-power-law-fitting", "incerto-power-law-goodness-of-fit"):
+        page = ROOT / "content" / f"{name}.md"
+        assert page in PAGES
+        snippets = list(page_snippets(page.read_text()))
+        assert len(snippets) == 4
+        assert all(expected is not None for _, _, expected in snippets)

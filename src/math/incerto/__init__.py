@@ -43,7 +43,31 @@ from xmath.incerto.tail_diagnostics import (
     subexponential_sum_ratio,
 )
 
+from xmath.incerto.powerlaw import (
+    powerlaw_mle_continuous,
+    powerlaw_mle_discrete,
+    ks_distance_powerlaw,
+    select_xmin,
+    powerlaw_standard_error,
+    sample_powerlaw,
+    powerlaw_bootstrap_se,
+    powerlaw_gof_bootstrap,
+    fit_tail_model,
+    likelihood_ratio_test,
+)
+
 __all__ = [
+    "powerlaw_mle_continuous",
+    "powerlaw_mle_discrete",
+    "ks_distance_powerlaw",
+    "select_xmin",
+    "powerlaw_standard_error",
+    "sample_powerlaw",
+    "powerlaw_bootstrap_se",
+    "powerlaw_gof_bootstrap",
+    "fit_tail_model",
+    "likelihood_ratio_test",
+
     "frechet",
     "generalized_extreme_value",
     "generalized_pareto",

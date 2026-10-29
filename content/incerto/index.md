@@ -32,6 +32,11 @@ to estimates of tail quantities:
    a fitted tail model enters a mean estimate, including its moment-boundary
    singularity and the contribution of the distribution body.
 
+[Power-law fitting](../incerto-power-law-fitting.md) develops the continuous
+and discrete likelihoods and a KS threshold search. Continue with
+[goodness of fit and alternatives](../incerto-power-law-goodness-of-fit.md)
+for bootstrap calibration and comparisons on a common tail.
+
 The second reading path connects extreme-value limits to diagnostics.
 
 ## Peaks over threshold & maxima

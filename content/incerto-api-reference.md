@@ -44,6 +44,7 @@ for implementations and use local `help()` for the installed version.
 | `xmath.incerto.multivariate` | [`student_entropy`](incerto-api-reference.md#api-student-entropy), [`student_mutual_information`](incerto-api-reference.md#api-student-mutual-information), [`bivariate_student`](incerto-api-reference.md#api-bivariate-student), [`sample_correlation`](incerto-api-reference.md#api-sample-correlation), [`symmetric_spectrum`](incerto-api-reference.md#api-symmetric-spectrum), [`regression_population_r2`](incerto-api-reference.md#api-regression-population-r2), [`normal_location_mixture_kurtosis`](incerto-api-reference.md#api-normal-location-mixture-kurtosis); [chapter 6 worked cases](incerto-scoft-ch6.md#scoft-ch6-demo). Student helpers deliberately restrict degrees of freedom to [0.5, 1000]. |
 | `xmath.incerto.limits` | [`pareto_capped_mean`](incerto-api-reference.md#api-pareto-capped-mean), [`symmetric_stable_mean_abs`](incerto-api-reference.md#api-symmetric-stable-mean-abs), [`repeated_centered_sums`](incerto-api-reference.md#api-repeated-centered-sums), [`pareto_plugin_nonfinite_probability`](incerto-api-reference.md#api-pareto-plugin-nonfinite-probability), [`bernoulli_chernoff_log_bound`](incerto-api-reference.md#api-bernoulli-chernoff-log-bound); [chapter 7 averaging and limit laws](incerto-scoft-ch7.md) |
 | `xmath.incerto.figures` | [`set_theme`](incerto-api-reference.md#api-set-theme), [`style_axes`](incerto-api-reference.md#api-style-axes), [`savefig`](incerto-api-reference.md#api-savefig), [`vertical_figure`](incerto-api-reference.md#api-vertical-figure), [`distribution_card`](incerto-api-reference.md#api-distribution-card); shared figure style and deterministic export helpers |
+| `xmath.incerto.powerlaw` | [`powerlaw_mle_continuous`](incerto-api-reference.md#api-powerlaw-mle-continuous), [`powerlaw_mle_discrete`](incerto-api-reference.md#api-powerlaw-mle-discrete), [`ks_distance_powerlaw`](incerto-api-reference.md#api-ks-distance-powerlaw), [`select_xmin`](incerto-api-reference.md#api-select-xmin), [`powerlaw_standard_error`](incerto-api-reference.md#api-powerlaw-standard-error), [`sample_powerlaw`](incerto-api-reference.md#api-sample-powerlaw), [`powerlaw_bootstrap_se`](incerto-api-reference.md#api-powerlaw-bootstrap-se), [`powerlaw_gof_bootstrap`](incerto-api-reference.md#api-powerlaw-gof-bootstrap), [`fit_tail_model`](incerto-api-reference.md#api-fit-tail-model), [`likelihood_ratio_test`](incerto-api-reference.md#api-likelihood-ratio-test); power-tail fitting, bootstrap checks, and conditional model comparison |
 | `xmath.incerto.power_laws` | [`pareto_product_logsf`](incerto-api-reference.md#api-pareto-product-logsf), [`pareto_truncated_moment`](incerto-api-reference.md#api-pareto-truncated-moment), [`student_double_pareto_scales`](incerto-api-reference.md#api-student-double-pareto-scales), [`q_exponential_logsf`](incerto-api-reference.md#api-q-exponential-logsf), [`entropy_log_constraint_example`](incerto-api-reference.md#api-entropy-log-constraint-example); [chapter 5 worked cases](incerto-scoft-ch5.md#scoft-ch5-demo) |
 
 Use [`pareto_type1`](incerto-api-reference.md#api-pareto-type1) and
@@ -1947,3 +1948,310 @@ for threshold in (0, 2, 4):
 ```
 
 Exceedances are strict; the sample must be nonempty and finite.
+
+## Power-law fitting and model checks
+
+The functions in `xmath.incerto.powerlaw` are also re-exported from
+`xmath.incerto`. Their `alpha` is the survival exponent; the CSN density/mass
+exponent is `alpha + 1`. Inputs are positive finite real one-dimensional
+samples of at least two observations, with integer values in discrete mode.
+Every observation is validated before the inclusive `x >= xmin` tail is
+selected. No nonfinite observations are silently dropped. See
+[fitting](incerto-power-law-fitting.md) and
+[goodness of fit](incerto-power-law-goodness-of-fit.md) for statistical assumptions.
+
+(api-powerlaw-mle-continuous)=
+### [`powerlaw_mle_continuous`](incerto-api-reference.md#api-powerlaw-mle-continuous)
+
+`powerlaw_mle_continuous(x, xmin) -> float` fits a fixed positive threshold,
+using `n_tail / sum(log(x/xmin))`. It needs at least two retained observations
+and a positive log-excess sum. An all-cutoff tail raises `ValueError` because
+there is no finite MLE. Logarithmic arithmetic avoids forming extreme ratios.
+
+```python
+from xmath.incerto.powerlaw import powerlaw_mle_continuous
+
+print(f"alpha: {powerlaw_mle_continuous([2, 3, 5, 9], 2):.3f}")
+```
+
+**Output**
+
+```text
+alpha: 1.416
+```
+
+(api-powerlaw-mle-discrete)=
+### [`powerlaw_mle_discrete`](incerto-api-reference.md#api-powerlaw-mle-discrete)
+
+`powerlaw_mle_discrete(x, xmin, *, approximate=False) -> float` fits the
+normalized integer mass `k**(-(alpha+1))/zeta(alpha+1,xmin)`. Thresholds and
+observations must be positive integers represented exactly, at most
+`2**53-1`. The default maximizes the zeta likelihood numerically.
+`approximate=True` instead uses the half-integer correction, which can be
+poor at small cutoffs or large exponents. The exact fit expands its upper
+exponent bracket at most 12 times, with 300 iterations per scalar search;
+exponents below about `exp(-16)` and zeta underflow fail explicitly.
+
+```python
+from xmath.incerto.powerlaw import powerlaw_mle_discrete
+
+x = [1, 1, 1, 2, 2, 3, 5, 9, 12]
+print(f"Exact alpha: {powerlaw_mle_discrete(x, 1):.3f}")
+print(f"Approximate alpha: {powerlaw_mle_discrete(x, 1, approximate=True):.3f}")
+```
+
+**Output**
+
+```text
+Exact alpha: 0.693
+Approximate alpha: 0.599
+```
+
+(api-ks-distance-powerlaw)=
+### [`ks_distance_powerlaw`](incerto-api-reference.md#api-ks-distance-powerlaw)
+
+`ks_distance_powerlaw(x, alpha, xmin, *, discrete=False) -> float` returns
+the supremum CDF distance on the retained tail. It checks both sides of
+empirical jumps; integer mode also accounts for gaps in the support. It
+returns a statistic only, with no fitted-model KS p-value.
+
+```python
+from xmath.incerto.powerlaw import ks_distance_powerlaw
+
+for discrete in (False, True):
+    d = ks_distance_powerlaw([1, 1, 2, 5], 2, 1, discrete=discrete)
+    print(f"discrete={discrete}: KS={d:.3f}")
+```
+
+**Output**
+
+```text
+discrete=False: KS=0.500
+discrete=True: KS=0.332
+```
+
+(api-select-xmin)=
+### [`select_xmin`](incerto-api-reference.md#api-select-xmin)
+
+`select_xmin(x, *, discrete=False, min_tail=50, candidates=None) -> dict`
+refits the exponent and minimizes KS over distinct observed values by default.
+An explicit nonempty candidate vector replaces that rule with a fixed grid.
+`min_tail` must be an integer at least two. Equal minima choose the lowest
+threshold. Results contain `xmin`, `alpha`, `n_tail`, `ks`, `discrete`, and
+candidate arrays `xmins`, `alphas`, `counts`, `distances`. Ineligible or
+all-cutoff tails have `nan` estimates/distances; an entirely ineligible grid
+raises `ValueError`. Numerical failures abort. The default search has
+quadratic sample-size cost; declare a smaller grid for large samples.
+
+```python
+from xmath.incerto.powerlaw import select_xmin
+
+fit = select_xmin([1, 1, 2, 3, 6], min_tail=2)
+print(f"xmin={fit['xmin']:.1f}; alpha={fit['alpha']:.3f}; n={fit['n_tail']}")
+print("Counts:", [int(v) for v in fit["counts"]])
+```
+
+**Output**
+
+```text
+xmin=2.0; alpha=1.995; n=3
+Counts: [5, 3, 2, 1]
+```
+
+(api-powerlaw-standard-error)=
+### [`powerlaw_standard_error`](incerto-api-reference.md#api-powerlaw-standard-error)
+
+`powerlaw_standard_error(alpha, n_tail, *, xmin=1, discrete=False) -> float`
+returns the fixed-threshold asymptotic error: `alpha/sqrt(n_tail)` for
+continuous data, inverse square-root total Fisher information for integer
+data. Discrete information is the variance of log observations, computed
+from scaled log-moment sums with an Euler–Maclaurin tail correction.
+Refining the sum checks convergence, and a roundoff check rejects unresolved
+information with `FloatingPointError`. This error excludes threshold selection,
+dependence, and model misspecification. Adding one to the exponent leaves its SE unchanged.
+
+```python
+from xmath.incerto.powerlaw import powerlaw_standard_error
+
+for discrete in (False, True):
+    se = powerlaw_standard_error(2, 400, xmin=1, discrete=discrete)
+    print(f"discrete={discrete}: SE={se:.3f}")
+```
+
+**Output**
+
+```text
+discrete=False: SE=0.100
+discrete=True: SE=0.120
+```
+
+(api-sample-powerlaw)=
+### [`sample_powerlaw`](incerto-api-reference.md#api-sample-powerlaw)
+
+`sample_powerlaw(alpha, xmin, size, *, discrete=False, random_state=None)`
+returns a vector of continuous Pareto or exact integer zeta draws. `size` is
+a positive integer; `random_state` accepts a seed or NumPy generator. Continuous
+sampling reuses [`pareto_type1`](incerto-api-reference.md#api-pareto-type1).
+Discrete sampling inverts the zeta CDF by bracket expansion and integer
+bisection; it does not round continuous draws. Nonfinite draws or integer
+draws beyond `2**53-1` fail instead of being clipped.
+
+```python
+from xmath.incerto.powerlaw import sample_powerlaw
+
+x = sample_powerlaw(2, 3, 5, random_state=381)
+k = sample_powerlaw(2, 3, 5, discrete=True, random_state=381)
+print("Continuous:", [round(float(v), 3) for v in x])
+print("Discrete:", [int(v) for v in k])
+```
+
+**Output**
+
+```text
+Continuous: [6.84, 12.742, 9.057, 4.72, 7.573]
+Discrete: [6, 11, 8, 4, 6]
+```
+
+(api-powerlaw-bootstrap-se)=
+### [`powerlaw_bootstrap_se`](incerto-api-reference.md#api-powerlaw-bootstrap-se)
+
+`powerlaw_bootstrap_se(x, *, replicates=199, random_state=None,
+discrete=False, min_tail=50, candidates=None) -> dict` resamples the whole
+empirical sample and refits the threshold and exponent in every replicate.
+At least two replicates are required. It returns `fit`, `alpha_se`, `xmin_se`,
+`covariance` in `(alpha,xmin)` order, and paired `alphas`, `xmins` arrays.
+Standard deviations and covariance use divisor `replicates-1`. Failed
+replicates abort with their index. Discontinuous threshold selection can
+invalidate naive confidence-interval interpretations of these summaries.
+
+```python
+from xmath.incerto.powerlaw import sample_powerlaw, powerlaw_bootstrap_se
+
+x = sample_powerlaw(2, 1, 100, random_state=382)
+b = powerlaw_bootstrap_se(x, replicates=8, min_tail=25, random_state=383)
+print(f"SE(alpha)={b['alpha_se']:.3f}; SE(xmin)={b['xmin_se']:.3f}")
+```
+
+**Output**
+
+```text
+SE(alpha)=0.168; SE(xmin)=0.042
+```
+
+(api-powerlaw-gof-bootstrap)=
+### [`powerlaw_gof_bootstrap`](incerto-api-reference.md#api-powerlaw-gof-bootstrap)
+
+`powerlaw_gof_bootstrap(x, *, replicates=499, random_state=None,
+discrete=False, min_tail=50, candidates=None) -> dict` mixes the empirical
+below-cutoff body with the fitted tail, with tail probability `n_tail/len(x)`.
+Each replicate has the original total size, a random generated tail count,
+and its own fitted threshold/exponent. The observed-value candidate rule is
+recomputed from the replicate; an explicit grid is reused. Returns `fit`,
+`p_value`, `mc_se`, `worst_case_mc_se`, `ks_samples`, `alphas`, `xmins`,
+`tail_counts` after refitting, and `generated_tail_counts` before refitting.
+The p-value is the fraction with KS at least the observed KS. At least two
+replicates are required; failures abort, with none discarded. The worst-case
+Monte Carlo SE is `0.5/sqrt(replicates)`; a plug-in `mc_se=0` at an endpoint
+does not imply exact knowledge. The tiny example below illustrates the API.
+
+```python
+from xmath.incerto.powerlaw import sample_powerlaw, powerlaw_gof_bootstrap
+
+x = sample_powerlaw(2, 1, 100, random_state=384)
+b = powerlaw_gof_bootstrap(x, replicates=8, min_tail=25, random_state=385)
+print(f"p={b['p_value']:.3f}; worst-case MC SE={b['worst_case_mc_se']:.3f}")
+```
+
+**Output**
+
+```text
+p=0.375; worst-case MC SE=0.177
+```
+
+(api-fit-tail-model)=
+### [`fit_tail_model`](incerto-api-reference.md#api-fit-tail-model)
+
+`fit_tail_model(x, xmin, model="powerlaw", *, discrete=False) -> dict`
+fits one common conditional tail. Models are `powerlaw`, `lognormal`,
+`exponential`, `stretched_exponential` (the full Weibull family), and
+`truncated_powerlaw` (an exponential cutoff, no finite upper endpoint).
+Discrete mode supports `powerlaw` only and rejects continuous alternatives.
+The result contains `model`, `xmin`, `discrete`, `n_tail`, `parameters`,
+per-observation `loglik` in retained input order, `loglikelihood`, `success`,
+`boundary`, and `status`. Below-cutoff values do not enter the scores.
+
+Parameters are `alpha` for a pure power law; `mu`, `sigma` for the parent
+lognormal; `rate` for exponential; `shape`, `scale` for Weibull; and density
+exponent `a`, `rate` for the cutoff family. The interior cutoff exponent `a`
+can be any real number mathematically. Lognormal/Weibull/cutoff fits use
+multi-start numerical optimization; convergence is not a global-MLE proof.
+
+Numerical search boxes use dimensionless coordinates: lognormal
+`mu-log(xmin)` in `[-100,100]` and `log(sigma)` in `[-6,5]`; Weibull
+`log(shape)` in `[-5,5]`, profiling out scale. The cutoff search starts with
+`a-1` in `[-20,100]` and `log(rate*xmin)` covering both `[-18,8]` and the
+sample's inverse mean excess scale. It expands the bounds over at most eight
+search rounds; log rates stay within `[-700,700]`. Each start permits 2000
+iterations. An unresolved search or artificial bound sets `success=False`.
+These bounds are numerical limits, not definitions of the families.
+The pure-law boundary `rate=0` is accepted only after verifying its inward
+score, returning `boundary=True` with status `pure-power-law boundary`.
+An inferior numerical fit can return the pure law with `success=False` and
+an explicit uncertified-boundary status. Cutoff quadrature is centered and
+scaled around its mode; unresolved integration raises or fails the fit.
+Exponential fitting accepts constant observations above the threshold when
+their mean excess is positive. Lognormal, Weibull, and cutoff fitting reject
+constant tails.
+
+```python
+from xmath.incerto.powerlaw import fit_tail_model
+
+fit = fit_tail_model([0.5, 1, 2, 3, 6], 1, "exponential")
+print(f"Retained: {fit['n_tail']}; rate: {fit['parameters']['rate']:.3f}")
+print(f"Conditional log likelihood: {fit['loglikelihood']:.3f}")
+```
+
+**Output**
+
+```text
+Retained: 4; rate: 0.500
+Conditional log likelihood: -6.773
+```
+
+(api-likelihood-ratio-test)=
+### [`likelihood_ratio_test`](incerto-api-reference.md#api-likelihood-ratio-test)
+
+`likelihood_ratio_test(loglik1, loglik2, *, nested=False,
+calibration=None, df=1) -> dict` accepts paired finite real score vectors of
+length at least two, from the same ordered observations and reference measure.
+Positive `R=sum(loglik1-loglik2)` favors model 1. Non-nested mode returns
+`normalized_R=R/(sqrt(n)*std(d,ddof=0))` and a two-sided normal `p_value`.
+Zero contrast variance gives `nan` statistic/p with an explanatory status.
+Results also contain `n`, `statistic`, and `status`; `statistic` is the nested
+LR statistic and is `nan` for non-nested comparisons.
+
+For `nested=True`, model 1 must be the smaller model. Model 2 fitting worse
+beyond numerical tolerance raises `ValueError`. The statistic is `-2R`, while
+the default p-value is `nan` pending calibration. Explicit `calibration="chi2"`
+uses a chi-square reference with positive integer `df`;
+`calibration="boundary"` requires `df=1` and uses the regular half-point-mass,
+half-chi-square reference, with inclusive p-value one at statistic zero.
+These options assert conditions; they do not diagnose them. See the
+[boundary and infinite-information caveats](incerto-power-law-goodness-of-fit.md#csn-nested-cutoff).
+No automatic AIC/BIC correction, multiple-testing adjustment, dependence
+correction, or selected-threshold calibration is performed.
+
+```python
+from xmath.incerto.powerlaw import likelihood_ratio_test
+
+lr = likelihood_ratio_test([1, 2, 5, 1], [2, 1, 1, 0])
+print(f"R={lr['R']:.3f}; normalized R={lr['normalized_R']:.3f}")
+print(f"Two-sided p: {lr['p_value']:.3f}")
+```
+
+**Output**
+
+```text
+R=5.000; normalized R=1.400
+Two-sided p: 0.161
+```
