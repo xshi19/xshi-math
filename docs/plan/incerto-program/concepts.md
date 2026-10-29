@@ -20,6 +20,10 @@ Lean skips preserve teaching/numerical obligations. M0.5 reviewed its fixed
 and completed separate max reviews. State is the completion authority;
 the chapter-5 entries below reflect its new evidence and later scopes.
 
+Chapter 9 and Appendix E extend nine existing registered concepts. The
+[hidden-tail note](../../../content/incerto-hidden-tail.md) is a supplementary
+treatment of their moment/extrapolation scope, not a new program concept ID.
+
 Source links below use v4 chapter/appendix locators. Chunk lists identify
 chapter-scoped reuse or extension; the first chunk does not promise completion
 of every later claim. Concept prerequisites do not reorder the chapter queue.
@@ -134,16 +138,16 @@ Chapter chunks: `scft-v4-ch05`.
 
 ## Mean excess (`c-mean-excess`)
 
-Home: [content/incerto-mean-excess-function.md](../../../content/incerto-mean-excess-function.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-mean-excess-function.md](../../../content/incerto-mean-excess-function.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Separate a population conditional mean from its sample diagnostic.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now` at chapter-9 scope).
 
 - **numeric-demo:** Threshold curves compare exact models with finite samples.
 - **lean-verifiable:** Conditional expectation formulas require positive exceedance probability and integrability.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-9 teaching and Python complete; separate max review pending; no checked Lean.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments).
 
@@ -151,20 +155,24 @@ Technical source mappings: [SCoFT v4 ch. 9](inventory.md#scft-v4-ch09).
 
 Chapter chunks: `scft-v4-ch09`.
 
+Chapter-9 teaching/Python complete; [checkpoint](../../records/incerto-scft-v4-ch09.md).
+Separate max review and general theorem-source follow-ups remain pending.
+Lean skipped at this scope.
+
 <a id="c-hill"></a>
 
 ## Hill tail-index estimation (`c-hill`)
 
-Home: [content/incerto-hill-estimator.md](../../../content/incerto-hill-estimator.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-hill-estimator.md](../../../content/incerto-hill-estimator.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Do not claim general consistency without intermediate-sequence and tail conditions.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now` at chapter-9 scope).
 
 - **numeric-demo:** Vary the number of upper order statistics to expose bias and noise.
 - **lean-verifiable:** Exact Pareto log-transform identities can precede asymptotic theory.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-9 teaching and Python complete; separate max review pending; no checked Lean.
 
 Prerequisites: [c-regular-variation](#c-regular-variation).
 
@@ -172,20 +180,24 @@ Technical source mappings: [SCoFT v4 ch. 9](inventory.md#scft-v4-ch09), [SCoFT v
 
 Chapter chunks: `scft-v4-ch09`.
 
+Chapter-9 teaching/Python complete; [checkpoint](../../records/incerto-scft-v4-ch09.md).
+Separate max review and general theorem-source follow-ups remain pending.
+Lean skipped at this scope.
+
 <a id="c-evi"></a>
 
 ## Extreme-value index (`c-evi`)
 
-Home: [content/incerto-extreme-value-index.md](../../../content/incerto-extreme-value-index.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-extreme-value-index.md](../../../content/incerto-extreme-value-index.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 xi = 1/alpha only in the positive regularly varying regime; other signs need separate domains.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now` at chapter-9 scope).
 
 - **numeric-demo:** Work through positive, zero and negative index examples with explicit support.
 - **lean-verifiable:** Domain-specific parameter relations are precise statements.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-9 teaching and Python complete; separate max review pending; no checked Lean.
 
 Prerequisites: none within this inventory.
 
@@ -193,20 +205,24 @@ Technical source mappings: [SCoFT v4 ch. 2](inventory.md#scft-v4-ch02), [SCoFT v
 
 Chapter chunks: `scft-v4-ch02`, `scft-v4-ch09`.
 
+Chapter-9 teaching/Python complete; [checkpoint](../../records/incerto-scft-v4-ch09.md).
+Separate max review and general theorem-source follow-ups remain pending.
+Lean skipped at this scope.
+
 <a id="c-gpd"></a>
 
 ## Generalized Pareto excess models (`c-gpd`)
 
-Home: [content/incerto-generalized-pareto.md](../../../content/incerto-generalized-pareto.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-generalized-pareto.md](../../../content/incerto-generalized-pareto.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Distinguish xi = 0, xi > 0, and finite-endpoint xi < 0.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now` at chapter-9 scope).
 
 - **numeric-demo:** Check support and exponential limit numerically.
 - **lean-verifiable:** Support, survival, and exact threshold stability have explicit parameter cases.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-9 teaching and Python complete; separate max review pending; no checked Lean.
 
 Prerequisites: [c-evi](#c-evi).
 
@@ -214,20 +230,24 @@ Technical source mappings: [SCoFT v4 ch. 9](inventory.md#scft-v4-ch09).
 
 Chapter chunks: `scft-v4-ch09`.
 
+Chapter-9 teaching/Python complete; [checkpoint](../../records/incerto-scft-v4-ch09.md).
+Separate max review and general theorem-source follow-ups remain pending.
+Lean skipped at this scope.
+
 <a id="c-plugin"></a>
 
 ## Plug-in tail estimation (`c-plugin`)
 
-Home: [content/incerto-plug-in-tail-estimation.md](../../../content/incerto-plug-in-tail-estimation.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-plug-in-tail-estimation.md](../../../content/incerto-plug-in-tail-estimation.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 The unregularized mean estimator has a pole at estimated xi = 1; no uniform MSE superiority.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now` at chapter-9 scope).
 
 - **numeric-demo:** Compare sample and plug-in estimators on identical simulated samples.
 - **lean-verifiable:** A specified Pareto estimator permits exact transforms and singularity analysis.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-9 teaching and Python complete; separate max review pending; no checked Lean.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments), [c-hill](#c-hill).
 
@@ -235,20 +255,24 @@ Technical source mappings: [SCoFT v4 appendix E](inventory.md#scft-v4-appe).
 
 Chapter chunks: `scft-v4-ch09`.
 
+Chapter-9 teaching/Python complete; [checkpoint](../../records/incerto-scft-v4-ch09.md).
+Separate max review and general theorem-source follow-ups remain pending.
+Lean skipped at this scope.
+
 <a id="c-pbdh"></a>
 
 ## Threshold-limit theorem (`c-pbdh`)
 
-Home: [content/incerto-pickands-balkema-de-haan.md](../../../content/incerto-pickands-balkema-de-haan.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-pickands-balkema-de-haan.md](../../../content/incerto-pickands-balkema-de-haan.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Record the existing general result as cited; formalizing one excess identity does not certify the theorem.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now` at chapter-9 scope).
 
 - **numeric-demo:** Illustrate threshold excess convergence and finite-threshold discrepancies in specified models.
 - **lean-verifiable:** The general theorem is a substantial probability formalization; the exact Pareto case is smaller.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-9 teaching and Python complete; separate max review pending; no checked Lean.
 
 Prerequisites: [c-gpd](#c-gpd), [c-regular-variation](#c-regular-variation).
 
@@ -256,20 +280,24 @@ Technical source mappings: [SCoFT v4 ch. 9](inventory.md#scft-v4-ch09).
 
 Chapter chunks: `scft-v4-ch09`.
 
+Chapter-9 teaching/Python complete; [checkpoint](../../records/incerto-scft-v4-ch09.md).
+Separate max review and general theorem-source follow-ups remain pending.
+Lean skipped at this scope.
+
 <a id="c-gev"></a>
 
 ## Generalized extreme-value laws (`c-gev`)
 
-Home: [content/incerto-generalized-extreme-value.md](../../../content/incerto-generalized-extreme-value.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-generalized-extreme-value.md](../../../content/incerto-generalized-extreme-value.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Specify the domain of attraction, centering, scaling, and convergence mode.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now` at chapter-9 scope).
 
 - **numeric-demo:** Block-maxima experiments illustrate normalization sensitivity.
 - **lean-verifiable:** Distribution formulas and maxima limits have separate proof obligations.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-9 teaching and Python complete; separate max review pending; no checked Lean.
 
 Prerequisites: [c-evi](#c-evi).
 
@@ -277,26 +305,34 @@ Technical source mappings: [SCoFT v4 ch. 9](inventory.md#scft-v4-ch09).
 
 Chapter chunks: `scft-v4-ch09`.
 
+Chapter-9 teaching/Python complete; [checkpoint](../../records/incerto-scft-v4-ch09.md).
+Separate max review and general theorem-source follow-ups remain pending.
+Lean skipped at this scope.
+
 <a id="c-frechet"></a>
 
 ## Frechet maxima (`c-frechet`)
 
-Home: [content/incerto-frechet.md](../../../content/incerto-frechet.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-frechet.md](../../../content/incerto-frechet.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 Positive tail exponent and explicit normalization; finite-n errors remain numerical.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now` at chapter-9 scope).
 
 - **numeric-demo:** Compare normalized maxima with the limiting distribution.
 - **lean-verifiable:** The Pareto maximum limit provides a bounded first EVT target.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-9 teaching and Python complete; separate max review pending; no checked Lean.
 
 Prerequisites: [c-pareto](#c-pareto), [c-gev](#c-gev).
 
 Technical source mappings: [SCoFT v4 ch. 9](inventory.md#scft-v4-ch09).
 
 Chapter chunks: `scft-v4-ch09`.
+
+Chapter-9 teaching/Python complete; [checkpoint](../../records/incerto-scft-v4-ch09.md).
+Separate max review and general theorem-source follow-ups remain pending.
+Lean skipped at this scope.
 
 <a id="c-subexponential"></a>
 
@@ -386,23 +422,27 @@ Chapter chunks: `scft-v4-ch05`.
 
 ## Tail-threshold selection (`c-threshold`)
 
-Home: [content/incerto-tail-threshold-selection.md](../../../content/incerto-tail-threshold-selection.md). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: [content/incerto-tail-threshold-selection.md](../../../content/incerto-tail-threshold-selection.md). Status: **done**. Milestone: **M1**. Lead: `astra-max`.
 
 No universal optimal threshold from a visually straight tail plot.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now` at chapter-9 scope).
 
 - **numeric-demo:** Sensitivity curves show the bias and variance tradeoff.
 - **empirical:** Real-data threshold choice requires dependence and model-fit diagnostics.
 - **lean-verifiable:** The stated body-plus-tail example and threshold-stability identities have exact model-specific claims.
 
-Coverage: Existing prose needs claim-by-claim review; no checked Lean.
+Coverage: Chapter-9 teaching and Python complete; separate max review pending; no checked Lean.
 
 Prerequisites: [c-hill](#c-hill), [c-mean-excess](#c-mean-excess).
 
 Technical source mappings: [SCoFT v4 ch. 9](inventory.md#scft-v4-ch09), [SCoFT v4 appendix E](inventory.md#scft-v4-appe).
 
 Chapter chunks: `scft-v4-ch09`.
+
+Chapter-9 teaching/Python complete; [checkpoint](../../records/incerto-scft-v4-ch09.md).
+Separate max review and general theorem-source follow-ups remain pending.
+Lean skipped at this scope.
 
 <a id="c-body-shoulder"></a>
 

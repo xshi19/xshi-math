@@ -1,5 +1,11 @@
 # Incerto visualization review
 
+Chapter-9 follow-up (2026-10-29): [evidence](../../records/incerto-scft-v4-ch09.md)
+adds `gaussian-maxima.svg`, `hidden-tail-pareto.svg`, `hidden-tail-normal.svg`,
+and `hill-sampling-law.svg`, via `demos/incerto/extreme_values.py` and the
+shared figure helpers. All four have inspected 390/900 px PNG previews.
+The earlier Amazon/NYC rank-label repair remains assigned to chapter 10.
+
 Reviewed 2026-10-20 at `0ff7d93` on `plan/incerto-visualization-review`.
 This is a source-based review and proposed backlog; no figures, teaching pages,
 code, program state, or chapter checkpoints were changed.

@@ -77,23 +77,31 @@ Lean omissions require a reason and never block the next chapter.
 | [Validation](validation.md) | Schema, executable checks and resume procedure |
 | [Verification](verification.md) | Historical evidence, this revision's checks and pending operator rerun |
 
-`next_chunk` is `#/chunks/scft-v4-ch09`. Chapters 1–8 teaching,
+`next_chunk` is `#/chunks/scft-v4-ch10`. Chapters 1–9 teaching,
 bounded Python examples and optional Lean skips are recorded in state.
 There are now 35 implemented program concept bodies; the frozen M0.5
 review denominator remains 24. Chapters 1–7 passed separate max review;
-chapter 8 awaits its owner-requested max run. Moment estimation remains
+chapter 8's later max-review record is retained. Chapter 9 awaits its separate max run. Moment estimation remains
 in progress for its chapter-28 scope.
 
-The chapter-8 record contains current tests, dependency versions and site
-check results. All six new/changed figures were inspected at 390 and 900 px.
+The chapter-8 record contains that chunk's tests, dependency versions and site
+check results. Its six new/changed figures were inspected at 390 and 900 px.
 Locked dependency installation is blocked by missing cached packages.
 The available MyST build fails its npm preflight, and Chrome launch is
 blocked by sandbox sockets. Full HTML/browser checks remain pending.
 The source and PNG checks do not replace a post-publication reader review.
 
+Chapter 9 and Appendix E are implemented on `scft/v4-ch09`. The
+[chapter-9 record](../../records/incerto-scft-v4-ch09.md) covers Gaussian
+maxima, exact hidden-moment calculations, Pareto exponent sampling, the Hill
+tie fix, seven helpers and four new figures. The hidden-tail note supplements
+existing program concepts, so the 103-ID inventory and 35 registered existing
+concept bodies are unchanged. General EVT/Hill theorem-source locators,
+separate max review and site/browser gates remain recorded limitations.
+
 Chapter 7 adds verified stable/LLN theorem locators and v4 C/D context for
 M05-ISSUE-006/007, while preserving resolved 002/009/010. Darling original-text
-access and later chapter-9 source work remain open. Lean is skipped; no
+access and the chapter-9 general theorem-locator follow-ups remain open. Lean is skipped; no
 checked declaration is added.
 
 ## Decisions fixed by this design

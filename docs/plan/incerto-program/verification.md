@@ -1,8 +1,15 @@
 # Design verification
 
-Current chapter-8 evidence is in the [implementation record](../../records/incerto-scft-v4-ch08.md):
+Chapter-9 implementation (2026-10-29) is recorded in the
+[chapter-9 checkpoint](../../records/incerto-scft-v4-ch09.md): nine extended
+concepts, hidden-tail note and guide, seven helpers, the Hill tie fix and four
+figures. This record separates executed numerical/source checks from blocked
+site checks and the pending separate max review.
+
+Earlier chapter-8 evidence is in the [implementation record](../../records/incerto-scft-v4-ch08.md):
 teaching/Python, four new SVGs and two figure repairs, with 390/900 px inspection.
-The separate chapter-8 max review is pending. Chapter 7's
+The completed separate chapter-8 max review and numerical fixes are appended
+to that record; its original checkpoint retains historical pending flags. Chapter 7's
 [max review](../../records/incerto-scft-v4-ch07.md#max-review) is already complete;
 its earlier pending flag is reconciled in state. Local tests use available
 dependency versions. Locked installation, a fresh MyST build and browser

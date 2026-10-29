@@ -36,6 +36,7 @@ project:
             - file: content/incerto-generalized-central-limit-theorem.md
             - file: content/incerto-lln-failure.md
             - file: content/incerto-inference-asymmetry.md
+            - file: content/incerto-hidden-tail.md
             - file: content/incerto-ruin.md
             - file: content/incerto-ergodicity.md
         - file: content/incerto-method-concepts.md
@@ -87,6 +88,8 @@ project:
               title: Chapter 7 — Averages and limit laws
             - file: content/incerto-scoft-ch8.md
               title: Chapter 8 — How much averaging helps
+            - file: content/incerto-scoft-ch9.md
+              title: Chapter 9 — Maxima and hidden tails
         - file: content/incerto-external-reading.md
           children:
             - file: content/incerto-reading-embrechts.md
