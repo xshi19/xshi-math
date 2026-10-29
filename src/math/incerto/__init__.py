@@ -1,6 +1,10 @@
 """Installable Python package for the Incerto."""
 
 from xmath.incerto.datasets import (
+    LayoffData,
+    clean_layoffs,
+    load_layoffs,
+    workforce_log_loss,
     BookRankData,
     DatasetNotAvailable,
     DogNameFrequencyData,
@@ -24,6 +28,7 @@ from xmath.incerto.estimators import (
     hill_alpha_estimator,
     hill_estimator,
     hill_stability,
+    hill_stability_bootstrap,
     max_to_sum_ratio,
     max_to_sum_path,
     mean_excess,
@@ -57,6 +62,8 @@ from xmath.incerto.powerlaw import (
 )
 
 __all__ = [
+    "LayoffData", "clean_layoffs", "load_layoffs", "workforce_log_loss",
+    "hill_stability_bootstrap",
     "powerlaw_mle_continuous",
     "powerlaw_mle_discrete",
     "ks_distance_powerlaw",

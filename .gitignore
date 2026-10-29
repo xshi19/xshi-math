@@ -225,3 +225,7 @@ _build/
 # Local empirical inputs; never redistribute S&P index levels.
 data/incerto/cache/
 data/incerto/raw/
+
+# Layoffs downloads and local cleaned inputs (figures/aggregate outputs only).
+data/incerto/cache/layoffs/
+data/incerto/layoffs/

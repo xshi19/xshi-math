@@ -8,6 +8,7 @@ local or shared cache selected by ``INCERTO_DATA_DIR``.
 from __future__ import annotations
 
 import csv
+from collections.abc import Iterable, Mapping
 import io
 import json
 import os
@@ -124,6 +125,125 @@ class DogNameFrequencyData:
             raise ValueError("name must contain at least one non-whitespace character")
         matches = self.frequency[self.name == normalized]
         return int(matches[0]) if matches.size else 0
+
+
+@dataclass(frozen=True)
+class LayoffData:
+    """Company-date events; missing counts/fractions remain NaN.
+
+    Counts are summed and fractions maximized within each company-date group.
+    ``input_rows`` records the number of source rows, before grouping.
+    """
+
+    company: NDArray[np.str_]
+    date: NDArray[np.datetime64]
+    count: NDArray[np.float64]
+    fraction: NDArray[np.float64]
+    input_rows: int
+    source: str
+
+
+def clean_layoffs(rows: Iterable[Mapping], *, source: str = "") -> LayoffData:
+    """Clean raw Kaggle or research-clean CSV rows into company-date events.
+
+    Required columns: company, date, and either total_laid_off/percentage_laid_off
+    (raw) or n/frac (clean). Raw fractions are already in [0,1], not percent
+    points. Trim company names; parse ISO or month/day/year dates; retain zeros
+    and missing measurements. Reject invalid dates, blank companies, negative
+    or nonintegral counts, fractions outside [0,1], and infinities. Blank,
+    None, or NaN measurements are missing. No imputation or case folding.
+
+    Sort by company/date, sum available counts and take the maximum available
+    fraction per group. All-missing groups stay missing. Exact duplicate rows
+    are included in this aggregation, matching the worked example's rule.
+    Empty input raises ValueError. This function never reads or writes files.
+    """
+    grouped = {}
+    input_rows = 0
+
+    def measurement(value):
+        if value is None or (isinstance(value, str) and not value.strip()):
+            return np.nan
+        number = float(value)
+        if np.isinf(number):
+            raise ValueError("layoff measurements must not be infinite")
+        return number
+
+    for row in rows:
+        input_rows += 1
+        if not {"company", "date"}.issubset(row):
+            raise ValueError("layoff rows require company and date")
+        if {"total_laid_off", "percentage_laid_off"}.issubset(row):
+            count_key, fraction_key = "total_laid_off", "percentage_laid_off"
+        elif {"n", "frac"}.issubset(row):
+            count_key, fraction_key = "n", "frac"
+        else:
+            raise ValueError("expected total_laid_off/percentage_laid_off or n/frac")
+        company = str(row["company"] or "").strip()
+        if not company:
+            raise ValueError("company must not be blank")
+        date_text = str(row["date"]).strip()
+        try:
+            day = datetime.strptime(date_text, "%Y-%m-%d").date()
+        except ValueError:
+            day = datetime.strptime(date_text, "%m/%d/%Y").date()
+        count, fraction = measurement(row[count_key]), measurement(row[fraction_key])
+        if np.isfinite(count) and (count < 0 or count != np.floor(count) or count > 2**53-1):
+            raise ValueError("counts must be exactly represented nonnegative integers")
+        if np.isfinite(fraction) and not 0 <= fraction <= 1:
+            raise ValueError("fractions must lie in [0,1]")
+        key = (company, day)
+        counts, fractions = grouped.setdefault(key, ([], []))
+        if np.isfinite(count):
+            counts.append(count)
+        if np.isfinite(fraction):
+            fractions.append(fraction)
+    if not grouped:
+        raise ValueError("at least one layoff row is required")
+    keys = sorted(grouped)
+    counts = [sum(grouped[key][0]) if grouped[key][0] else np.nan for key in keys]
+    if any(value > 2**53-1 for value in counts):
+        raise ValueError("aggregated count exceeds exact integer range")
+    fractions = [max(grouped[key][1]) if grouped[key][1] else np.nan for key in keys]
+    return LayoffData(
+        company=np.array([key[0] for key in keys], dtype=str),
+        date=np.array([key[1] for key in keys], dtype="datetime64[D]"),
+        count=np.array(counts, dtype=float), fraction=np.array(fractions, dtype=float),
+        input_rows=input_rows, source=source,
+    )
+
+
+def load_layoffs(path: str | os.PathLike[str] | None = None, *, data_dir=None) -> LayoffData:
+    """Read and clean a local CSV; never fetch or write data.
+
+    An explicit path wins; otherwise use cache/layoffs/layoffs.csv beneath
+    data_root(data_dir). Accept the raw Kaggle or research-clean schema
+    documented by clean_layoffs. Missing files raise DatasetNotAvailable.
+    """
+    source = Path(path) if path is not None else cache_path("layoffs/layoffs.csv", data_dir)
+    if not source.is_file():
+        raise DatasetNotAvailable(
+            f"{source} is missing; run python scripts/download_layoffs.py "
+            "with your own Kaggle credentials or supply a local CSV path"
+        )
+    with source.open(newline="", encoding="utf-8-sig") as stream:
+        return clean_layoffs(csv.DictReader(stream), source=str(source))
+
+
+def workforce_log_loss(fractions) -> NDArray[np.float64]:
+    """Return -log(1-p) for a finite real vector with 0 <= p < 1.
+
+    Zeros map to zero. Missing values and p=1 raise ValueError: callers must
+    explicitly separate full-workforce cuts and select the observed sample.
+    No clipping, imputation, or row removal. Uses log1p for small fractions.
+    """
+    if np.iscomplexobj(fractions):
+        raise ValueError("fractions must be real")
+    values = np.asarray(fractions, dtype=float)
+    if (values.ndim != 1 or not np.all(np.isfinite(values))
+            or np.any(values < 0) or np.any(values >= 1)):
+        raise ValueError("fractions must be a finite vector in [0,1); separate p=1 events")
+    return -np.log1p(-values)
 
 
 def data_root(data_dir: str | os.PathLike[str] | None = None) -> Path:
@@ -497,6 +617,7 @@ def _download_bytes(url: str) -> bytes:
 
 
 __all__ = [
+    "LayoffData", "clean_layoffs", "load_layoffs", "workforce_log_loss",
     "BookRankData",
     "DatasetNotAvailable",
     "DogNameFrequencyData",

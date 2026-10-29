@@ -62,6 +62,7 @@ project:
             - file: content/incerto-counting-exceedances.md
             - file: content/incerto-amazon-bookrank.md
             - file: content/incerto-nyc-dog-name-tail.md
+            - file: content/incerto-layoffs-tails.md
             - file: content/incerto-sp500-tail.md
             - file: content/incerto-dispersion-ratio.md
             - file: content/incerto-lln-preasymptotic.md

@@ -35,7 +35,9 @@ to estimates of tail quantities:
 [Power-law fitting](../incerto-power-law-fitting.md) develops the continuous
 and discrete likelihoods and a KS threshold search. Continue with
 [goodness of fit and alternatives](../incerto-power-law-goodness-of-fit.md)
-for bootstrap calibration and comparisons on a common tail.
+for bootstrap calibration and comparisons on a common tail. The
+[tech layoffs example](../incerto-layoffs-tails.md) applies those methods to
+counts and workforce losses, with two Hill plots and explicit endpoint handling.
 
 The second reading path connects extreme-value limits to diagnostics.
 
@@ -159,7 +161,8 @@ compares identical marginals under different joint laws.
 ## Reading and reference
 
 - [Empirical examples](../incerto-empirical-example-concepts.md): two committed
-  datasets, two simulations, and the S&P method with explicit data availability.
+  datasets, simulations, the layoffs study with recorded figures, and the S&P
+  method with explicit data availability.
 - [SCoFT guide](../incerto-scoft-intro.md):
   [Chapter 1 — Prologue](../incerto-scoft-ch1.md),
   [Chapter 2 — Glossary, definitions, and notations](../incerto-scoft-ch2.md),

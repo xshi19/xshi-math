@@ -5,6 +5,7 @@ writes policy. The NYC full demo runs from a temporary copy so its figure writes
 stay outside the repository. Only captured text replaces the recorded outputs.
 """
 
+import argparse
 from pathlib import Path
 import re
 import runpy
@@ -15,17 +16,28 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--pages", nargs="+", help="Only these page stems (without .md)")
+    args = parser.parse_args()
     harness = runpy.run_path(str(ROOT / "tests/test_incerto_page_snippets.py"))
     scratch = Path(mkdtemp(prefix="incerto-outputs-"))
     updates = {}
     count = 0
-    for page in harness["PAGES"]:
+    pages = [p for p in harness["PAGES"] if args.pages is None or p.stem in args.pages]
+    unknown = set(args.pages or []) - {p.stem for p in pages}
+    if unknown:
+        parser.error(f"Unknown page stems: {sorted(unknown)}")
+    for page in pages:
         text = page.read_text()
         replacements = []
         for index, block in enumerate(harness["PYTHON_BLOCK"].finditer(text), 1):
             expected = harness["OUTPUT_BLOCK"].match(text, block.end())
             if expected is None:
                 raise ValueError(f"Missing Output block: {page.name}:{index}")
+            if (harness["requires_layoffs_data"](page, block.group(1))
+                    and not harness["layoffs_data_available"]()):
+                print(f"Preserved recorded output: {page.name}:{index} (local CSV absent)")
+                continue
             output = harness["run_snippet"](page, index, block.group(1), scratch)
             harness["assert_plain_numbers"](output)
             replacements.append((*expected.span(1), output.rstrip("\n")))
@@ -37,23 +49,27 @@ def main():
         if replacements:
             updates[page] = text
 
-    page = ROOT / "content/incerto-nyc-dog-name-tail.md"
-    demo = scratch / "demos/incerto/nyc_dog_name_tail.py"
-    demo.parent.mkdir(parents=True)
-    demo.write_text((ROOT / "demos/incerto/nyc_dog_name_tail.py").read_text())
-    code = f"import runpy\nrunpy.run_path({str(demo)!r}, run_name='__main__')"
-    output = harness["run_snippet"](page, "full-demo", code, scratch)
-    harness["assert_plain_numbers"](output)
-    recorded = re.search(
-        r"^:::\{dropdown\} Output: full demo\n\s*```text\n(.*?)\n```",
-        updates[page], re.M | re.S,
-    )
-    if recorded is None:
-        raise ValueError("Missing NYC full-demo Output block")
-    updates[page] = (
-        updates[page][:recorded.start(1)] + output.rstrip("\n")
-        + updates[page][recorded.end(1):]
-    )
+    demo_count = 0
+    if args.pages is None or "incerto-nyc-dog-name-tail" in args.pages:
+        page = ROOT / "content/incerto-nyc-dog-name-tail.md"
+        demo = scratch / "demos/incerto/nyc_dog_name_tail.py"
+        demo.parent.mkdir(parents=True)
+        demo.write_text((ROOT / "demos/incerto/nyc_dog_name_tail.py").read_text())
+        code = f"import runpy\nrunpy.run_path({str(demo)!r}, run_name='__main__')"
+        output = harness["run_snippet"](page, "full-demo", code, scratch)
+        harness["assert_plain_numbers"](output)
+        recorded = re.search(
+            r"^:::\{dropdown\} Output: full demo\n\s*```text\n(.*?)\n```",
+            updates[page], re.M | re.S,
+        )
+        if recorded is None:
+            raise ValueError("Missing NYC full-demo Output block")
+        updates[page] = (
+            updates[page][:recorded.start(1)] + output.rstrip("\n")
+            + updates[page][recorded.end(1):]
+        )
+
+        demo_count = 1
 
     # Finish every execution and format check before updating any page.
     changed = 0
@@ -61,7 +77,7 @@ def main():
         if page.read_text() != text:
             page.write_text(text)
             changed += 1
-    print(f"Regenerated {count} snippet outputs and 1 full-demo output; changed {changed} pages.")
+    print(f"Regenerated {count} snippet outputs and {demo_count} full-demo output; changed {changed} pages.")
     print(f"Temporary execution files: {scratch}")
 
 
