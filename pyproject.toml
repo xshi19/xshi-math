@@ -15,6 +15,7 @@ dependencies = ["numpy>=2.4,<3"]
 
 [project.optional-dependencies]
 incerto = ["scipy>=1.15,<2", "matplotlib>=3.8,<4"]
+yahoo = ["yfinance>=0.2.66,<2"]
 
 [project.urls]
 Repository = "https://github.com/xshi19/xshi-math"

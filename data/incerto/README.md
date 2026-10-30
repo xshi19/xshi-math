@@ -32,13 +32,30 @@ to `data/incerto/`; wheel installations use `$XDG_CACHE_HOME/xshi-math/incerto`
 
 ## Excluded financial and legacy inputs
 
-Financial data to be provided later via the Portfolio Manager bot.
-S&P Dow Jones Indices/FRED S&P 500 data have redistribution restrictions recorded
-by the source. Supply an authorized local file with
-`python scripts/fetch_incerto_data.py sp500 --source /path/to/file.csv`, or fetch
-for permitted local use with `python scripts/fetch_incerto_data.py sp500`.
-The resulting `cache/sp500_daily.csv` is ignored; no values are needed to build
-the public method page. `raw/` is ignored as well.
+The S&P pages now report derived results from a local Yahoo Finance `^GSPC`
+daily Close snapshot fetched 2026-10-30. It is a price index, not total return.
+The cache spans 1927-12-30–2026-10-29; the 2026-10-30 intraday row was dropped.
+See the [observed-data record](../../docs/records/incerto-sp500-observed.md) for
+the checksum, transformations and results. No raw prices are redistributed
+under Yahoo's source-use terms; FRED also records redistribution restrictions.
+
+```sh
+python scripts/fetch_incerto_data.py sp500 --source /path/to/file.csv --end-date 2026-10-29
+# Optional Yahoo fetch; the extra is not needed for local CSVs or tests:
+uv sync --extra yahoo
+python scripts/fetch_incerto_data.py sp500 --provider yahoo --end-date 2026-10-29
+python scripts/fetch_incerto_data.py sp500 --provider fred --end-date 2026-10-29
+```
+
+FRED remains the default for compatibility. `--source` overrides `--provider`;
+`--end-date` is inclusive for every input. Yahoo uses `period="max"`,
+`interval="1d"`, `auto_adjust=False` and `Close`. Writers skip missing,
+non-finite and nonpositive closes, sort dates, and keep the last usable row
+per date. Fewer than two dates fails before replacing the cache.
+`cache/sp500_daily.csv` and `raw/` remain ignored. Site rendering uses recorded
+statistics and SVGs and does not read or fetch financial data. The empirical
+snippet and observed-figure tests skip explicitly when the local cache is
+absent; when present they require exact recorded output.
 
 | Source path | Decision |
 | --- | --- |

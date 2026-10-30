@@ -78,7 +78,9 @@ assert exceedance_fraction([1, 2, 2, 4], 2) == 0.25
 For the imported numerical helpers, use `uv sync --locked --extra incerto` and
 import `xmath.incerto`. SciPy and Matplotlib are optional for base-package users;
 the development group includes them plus NetworkX/PyYAML for graph generation.
-Dataset downloads use `urllib`. See [data provenance and refresh commands](data/incerto/README.md).
+Dataset downloads use `urllib`; optional Yahoo S&P fetching uses the `yahoo`
+extra (`uv sync --extra yahoo`) and a lazy yfinance import. Local CSVs and tests
+do not require it. See [data provenance and refresh commands](data/incerto/README.md).
 The independent [Lean prototype](formalization/incerto-lean/README.md) was checked
 upstream on 2026-09-05 with Lean/Mathlib v4.19.0; it is not rechecked here.
 

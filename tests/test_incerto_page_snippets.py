@@ -1,7 +1,8 @@
 """Execute every fenced ``python`` block on the public Incerto pages.
 
 Convention: a line containing exactly ```python starts a runnable example;
-the local-data layoffs block is skipped when its CSV is absent. Blocks inside MyST dropdowns count too. Each
+the local-data layoffs and S&P blocks skip when their CSVs are absent.
+Blocks inside MyST dropdowns count too. Each
 block must be self-contained, print a result or create a figure, and finish
 quickly. Processes run with Agg, a temporary cwd/cache, no network, and no
 writes beneath the repository. The financial example also runs against a
@@ -74,6 +75,18 @@ def layoffs_data_available():
     return Path(path or ROOT / "data/incerto/cache/layoffs/layoffs.csv").is_file()
 
 
+def requires_sp500_data(page, code):
+    return page.stem in {"incerto-sp500", "incerto-sp500-tail"} and "load_sp500_prices(" in code
+
+
+def sp500_data_root():
+    return Path(os.environ.get("INCERTO_DATA_DIR", ROOT / "data/incerto"))
+
+
+def sp500_data_available():
+    return (sp500_data_root() / "cache/sp500_daily.csv").is_file()
+
+
 def run_snippet(page, index, code, tmp_path, *, data_dir=None):
     env = {
         **os.environ,
@@ -86,12 +99,12 @@ def run_snippet(page, index, code, tmp_path, *, data_dir=None):
     }
     env.pop("PYTHONPATH", None)
     env["INCERTO_DATA_DIR"] = str(data_dir or ROOT / "data/incerto")
-    if page.stem in {"incerto-sp500-tail", "incerto-sp500"} and data_dir is None:
-        env["INCERTO_DATA_DIR"] = str(tmp_path / "absent-data")
+    if requires_sp500_data(page, code) and data_dir is None:
+        env["INCERTO_DATA_DIR"] = str(sp500_data_root())
     result = subprocess.run(
         [sys.executable, "-c", RUNNER, str(ROOT), f"{page.name}:python-{index}"],
         input=code, text=True, capture_output=True, cwd=tmp_path, env=env,
-        timeout=10,  # generous startup allowance; examples normally take <2 s
+        timeout=30,  # full-history diagnostics take several seconds
     )
     assert result.returncode == 0, result.stdout + result.stderr
     assert result.stdout.strip() or "plt.show(" in code, "Example must expose its result"
@@ -112,14 +125,12 @@ def assert_plain_numbers(output):
 def test_incerto_python_block(page, index, code, expected, tmp_path):
     if requires_layoffs_data(page, code) and not layoffs_data_available():
         pytest.skip("Local layoffs CSV absent; recorded output is checked separately")
+    if requires_sp500_data(page, code) and not sp500_data_available():
+        pytest.skip("Local S&P CSV absent (not redistributed); supply the dated cache to check observed output")
     output = run_snippet(page, index, code, tmp_path)
     assert_plain_numbers(output)
     if expected is not None:
         assert strip_trailing_whitespace(output) == strip_trailing_whitespace(expected)
-    if page.stem == "incerto-sp500-tail":
-        assert "No local S&P cache" in output
-    if page.stem == "incerto-sp500" and "load_sp500_prices(" in code:
-        assert "No local S&P cache" in output
 
 
 @pytest.mark.parametrize("page,index,code,expected", SNIPPETS)
@@ -187,9 +198,10 @@ def test_financial_snippet_with_local_synthetic_prices(tmp_path):
     )
     output = run_snippet(page, 1, code, tmp_path, data_dir=cache.parent)
     assert_plain_numbers(output)
-    assert "Window / loss days: 2020-01-01 2021-05-15 500" in output
-    assert "25 " in output and "400 " in output
-    assert "mean_excess" in output and "exceedances" in output
+    assert "Return window: 2020-01-02 to 2021-05-15" in output
+    assert "loss days: 500" in output
+    assert "Hill k=25:" in output and "Hill k=400:" in output
+    assert "mean excess" in output and "exceedances" in output
 
 
 def test_chapter10_financial_snippet_with_local_synthetic_prices(tmp_path):
@@ -208,6 +220,39 @@ def test_chapter10_financial_snippet_with_local_synthetic_prices(tmp_path):
     assert "returns=300" in output and "h=21:" in output
     assert "gain:" in output and "loss:" in output and "alpha=" in output
     assert "Maximum drawdown:" in output and "No local" not in output
+
+
+@pytest.mark.parametrize("stem", ["incerto-sp500", "incerto-sp500-tail"])
+def test_financial_snippet_skips_when_cache_is_absent(tmp_path, monkeypatch, stem):
+    monkeypatch.setenv("INCERTO_DATA_DIR", str(tmp_path / "absent-data"))
+    page = ROOT / "content" / f"{stem}.md"
+    index, code, expected = next(row for row in page_snippets(page.read_text())
+                                if requires_sp500_data(page, row[1]))
+    with pytest.raises(pytest.skip.Exception, match="Local S&P CSV absent"):
+        test_incerto_python_block(page, index, code, expected, tmp_path)
+
+
+def test_regenerator_preserves_observed_output_without_cache(tmp_path, monkeypatch):
+    """Use temporary page copies; absent data must not overwrite dated output."""
+    import runpy
+    harness = runpy.run_path(str(ROOT / "tests/test_incerto_page_snippets.py"))
+    pages = []
+    for name in ("incerto-sp500", "incerto-sp500-tail"):
+        page = tmp_path / f"{name}.md"
+        # Keep just the empirical block to exercise the missing-input route.
+        code, expected = next((code, expected) for _, code, expected in
+            page_snippets((ROOT / "content" / page.name).read_text())
+            if requires_sp500_data(page, code))
+        page.write_text(f"```python\n{code}\n```\n\n**Output**\n\n```text\n{expected}\n```\n")
+        pages.append(page)
+    originals = [p.read_bytes() for p in pages]
+    harness["PAGES"] = pages
+    harness["sp500_data_available"] = lambda: False
+    regen = runpy.run_path(str(ROOT / "scripts/regenerate_incerto_outputs.py"))
+    monkeypatch.setattr(runpy, "run_path", lambda *a, **kw: harness)
+    monkeypatch.setattr(sys, "argv", ["regenerate", "--pages", *[p.stem for p in pages]])
+    regen["main"]()
+    assert [p.read_bytes() for p in pages] == originals
 
 
 def test_demo_pages_have_visible_examples():
