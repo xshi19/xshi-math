@@ -1,9 +1,10 @@
-"""Chapter-10 synthetic figures and optional local S&P report; never fetch data.
+"""Chapter-10 figures and dated local S&P diagnostics; never fetch data.
 
 Run: uv run python demos/incerto/sp500_diagnostics.py
 Synthetic figures are independent of local financial inputs. All normal/t3
 draws use PCG64, with separate seeds per experiment. The report uses the
 existing cache loader and prints no observed result if the cache is absent.
+Only aggregate/prefix diagnostics are exported from observed returns.
 """
 
 import argparse
@@ -33,26 +34,26 @@ def report_lines(result):
         for kind in ("aggregation", "overlapping"):
             for row in window[kind]:
                 yield (f"  {kind} h={row['horizon']}: blocks={row['blocks']}, "
-                       f"dropped={row['dropped']}, excess kurtosis={row['excess_kurtosis']:.4g}, "
-                       f"MAD={row['mad']:.4g}, kappa={row['kappa']:.4g}")
+                       f"dropped={row['dropped']}, excess kurtosis={row['excess_kurtosis']:.4f}, "
+                       f"MAD={row['mad']:.4f}, kappa={row['kappa']:.4f}")
         rec = window["records"]
         yield (f"  Records upper/lower: {rec['upper']:.0f}/{rec['lower']:.0f}; "
                f"iid mean={rec['iid_mean']:.3f}, variance={rec['iid_variance']:.3f}")
-        yield f"  Return extrema: {rec['minimum']:.4g}, {rec['maximum']:.4g}"
+        yield f"  Return extrema: {rec['minimum']:.4f}, {rec['maximum']:.4f}"
         yield "  MS powers 1/2/3/4: " + ", ".join(f"{v:.4f}" for v in window["moment_shares"].values())
         for side, tail in window["tails"].items():
             yield f"  {side}: positive observations={tail['n']}"
             for point in tail["hill"]:
-                yield f"    Hill k={point['k']}: alpha={point['alpha']:.4g}"
+                yield f"    Hill k={point['k']}: alpha={point['alpha']:.4f}"
             for point in tail["conditional"]:
-                yield (f"    u={point['threshold']:.4g}: count={point['exceedances']:.0f}, "
-                       f"mean excess={point['mean_excess']:.4g}, ratio={point['ratio']:.4g}")
+                yield (f"    u={point['threshold']:.4f}: count={point['exceedances']:.0f}, "
+                       f"mean excess={point['mean_excess']:.4f}, ratio={point['ratio']:.4f}")
     check = result["holdout"]
     yield f"Frozen holdout: train={check['train_size']}, test={check['test_size']}"
     for method in ("gaussian", "empirical"):
         row = check[method]
-        yield (f"  {method}: cutoff={row['threshold']:.4g}, hits={row['exceedances']}, "
-               f"frequency={row['frequency']:.4f}, severity={row['mean_exceedance_loss']:.4g}")
+        yield (f"  {method}: cutoff={row['threshold']:.4f}, hits={row['exceedances']}, "
+               f"frequency={row['frequency']:.4f}, severity={row['mean_exceedance_loss']:.4f}")
 
 
 def _export(fig, axes, output, name):
@@ -61,7 +62,37 @@ def _export(fig, axes, output, name):
     plt.close(fig)
 
 
-def main(output=None, *, local_report=True):
+def observed_figure(prices, result, output):
+    """Export three derived panels; never plot or embed a price/return series."""
+    dates, returns = prices.log_returns()
+    full = result["windows"]["full"]
+    fig, axes = vertical_figure(3, panel_height=3.3)
+    fig.get_layout_engine().set(hspace=.13)
+    for key, label, style in (("aggregation", "disjoint", "-"),
+                               ("overlapping", "overlapping", "--")):
+        rows = full[key]
+        axes[0].plot([r["horizon"] for r in rows], [r["excess_kurtosis"] for r in rows],
+                     marker="o", ls=style, label=label)
+    axes[0].set(xticks=[1, 5, 21], xlabel="returns per block", ylabel="sample excess kurtosis",
+                title="Observed aggregation", ylim=(0, None))
+    axes[0].legend()
+    # Fixed display grid of derived prefix statistics, not individual returns.
+    positions = np.unique(np.linspace(0, len(returns)-1, 300, dtype=int))
+    shares = moment_share_path(returns, 4)
+    axes[1].plot(dates[positions], 100 * shares[positions], color=COLORS["brick"])
+    axes[1].set(xlabel="prefix ending date", ylabel="largest fourth-power share (%)",
+                title="Fourth-power concentration", ylim=(0, 101))
+    records = record_counts(returns)
+    for key, label, style in (("upper", "upper records", "-"),
+                              ("lower", "lower records", "--"),
+                              ("iid_mean", "iid mean", ":")):
+        axes[2].plot(dates[positions], records[key][positions], label=label, ls=style)
+    axes[2].set(xlabel="prefix ending date", ylabel="record count", title="Strict return records")
+    axes[2].legend(loc="lower right", fontsize=9.5)
+    _export(fig, axes, output, "sp500-observed-diagnostics")
+
+
+def main(output=None, *, local_report=True, end_date="2026-10-29"):
     output = Path(output or Path(__file__).resolve().parents[2]/"assets/figures/incerto")
     output.mkdir(parents=True, exist_ok=True)
     set_theme(scale=1.1)
@@ -163,14 +194,19 @@ def main(output=None, *, local_report=True):
     print("Generated five synthetic/model figures; seeds 1010, 1011, 1012.")
     if local_report:
         try:
-            prices=load_sp500_prices(fetch=False)
+            prices=load_sp500_prices(fetch=False, end_date=end_date)
         except DatasetNotAvailable:
             print("No local S&P cache; empirical diagnostics remain uncomputed.")
         else:
-            print("\n".join(report_lines(sp500_diagnostics(prices))))
+            result = sp500_diagnostics(prices)
+            print("\n".join(report_lines(result)))
+            observed_figure(prices, result, output)
+            print("Generated derived observed diagnostics figure; no raw prices or return series exported.")
 
 
 if __name__ == "__main__":
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output",type=Path)
-    main(parser.parse_args().output)
+    parser.add_argument("--end-date", default="2026-10-29")
+    args = parser.parse_args()
+    main(args.output, end_date=args.end_date)
