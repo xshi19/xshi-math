@@ -283,3 +283,12 @@ package, shared figure exporter and cache loader. No financial data are
 distributed or fetched by builds/tests. The empirical gate remains open;
 [the checkpoint](../../records/incerto-scft-v4-ch10.md) separates it from
 completed teaching and deterministic tests. Appendix I remains chapter 22.
+
+## Chapter-11 implementation note (2026-10-30)
+
+`incerto-calibration-payoff.md` owns event/payoff identification, Brier
+calibration and exact score laws. `incerto-point-forecast.md` owns the scoped
+amount-loss comparison and will extend in chapter 12. Both link existing
+payoff, moment and hinge pages. `src/math/incerto/calibration.py` uses the
+existing installed-package mapping; the demo uses the shared figure helpers.
+No dependency, data source, network call, or Lean subtree is added.

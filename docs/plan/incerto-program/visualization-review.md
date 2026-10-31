@@ -322,3 +322,25 @@ panels and NYC's Hill/GPD/count panels now stack vertically. Both rank-position
 curves are explicitly labeled; underlying data and fit rules are unchanged.
 Nine new/changed figures have 390/900 px PNG previews. Inspection and final
 reproducibility evidence are in the [chapter-10 record](../../records/incerto-scft-v4-ch10.md).
+
+## Chapter-11 follow-up (2026-10-30)
+
+Four original figures use the shared `vertical_figure` layout and SVG
+exporter: binary/excess payoffs, synthetic calibration curves with counts,
+exact and simulated Brier laws, and point-forecast losses. The first three
+belong to the calibration/payoff page; the fourth to the point-forecast
+page. The [chapter-11 record](../../records/incerto-scft-v4-ch11.md#helpers-and-figures)
+lists their files, parameters, seeds and numerical evidence.
+
+Every figure has 390/900 px PNG previews, all visually inspected. One legend
+was moved clear of a reference line and both sizes rechecked. Vertical panels
+keep labels readable; score distributions distinguish exact masses/CDFs
+from simulated densities. Calibration bars are descriptive pointwise
+intervals, with bin counts shown separately. Loss curves retain their
+different units and do not rank scores by vertical position.
+
+Two independent producer processes match all four repository SVGs byte for
+byte; no timestamp or bold-font output appears. The full suite passes this
+check. These are model calculations, with no fetched data or empirical
+calibration conclusion. Browser and live-page checks remain pending because
+the scratch site build and browser launch were blocked in this environment.

@@ -77,12 +77,15 @@ Lean omissions require a reason and never block the next chapter.
 | [Validation](validation.md) | Schema, executable checks and resume procedure |
 | [Verification](verification.md) | Historical evidence, this revision's checks and pending operator rerun |
 
-`next_chunk` is `#/chunks/scft-v4-ch11`. Chapters 1–10 teaching,
+`next_chunk` is `#/chunks/scft-v4-ch12`. Chapters 1–11 teaching,
 bounded Python examples and optional Lean skips are recorded in state.
-There are now 37 implemented program concept bodies; the frozen M0.5
+There are now 39 implemented program concept bodies; the frozen M0.5
 review denominator remains 24. Chapters 1–7 passed separate max review;
-chapter 8's later max-review record is retained. Chapter 9 has its separate max reviews recorded, including the later corollary check. Chapter 10 awaits its separate max run. Moment estimation remains
-in progress for its chapter-28 scope.
+chapter 8's later max-review record is retained. Chapter 9 has its separate
+max reviews recorded, including the later corollary check. Chapter 10's
+separate max review is appended to its checkpoint; its original state flags
+remain historical. Chapter 11 awaits its separate max run. Moment estimation
+remains in progress for its chapter-28 scope.
 
 The chapter-8 record contains that chunk's tests, dependency versions and site
 check results. Its six new/changed figures were inspected at 390 and 900 px.
@@ -248,3 +251,13 @@ no authorized S&P cache was available, and the documented FRED fetch failed.
 Synthetic tests do not close the empirical study. Separate max review, fresh
 site/browser checks, and post-publication reader review remain distinct gates.
 Lean is skipped for now; the next writing chunk is `scft-v4-ch11`.
+
+## Chapter 11 implementation
+
+[Chapter 11 — Calibration and payoffs](../../records/incerto-scft-v4-ch11.md)
+adds two concept pages, a guide, eleven helpers and four deterministic model
+figures. Exact payoff, binomial and beta calculations are separated from
+Monte Carlo estimates and from observed-data studies. Point forecasts retain
+chapter-12 extension scope; calibration retains chapter-13 extension scope.
+The chunk is done at teaching/Python scope; separate max review and external
+site/live gates remain. Lean is skipped with a reason. Chapter 12 is next.

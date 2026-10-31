@@ -1527,7 +1527,7 @@ Chapter chunks: `scft-v4-ch10`.
 
 ## Probability calibration versus payoff accuracy (`c-calibration-payoff`)
 
-Home: `content/incerto-calibration-payoff.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: `content/incerto-calibration-payoff.md` (existing). Status: **in-progress**. Milestone: **M1**. Lead: `astra-xhigh`.
 
 A calibrated event forecast need not estimate an unbounded payoff well.
 
@@ -1536,13 +1536,17 @@ Deliverables: website math (required) → Python (required) → Lean (optional; 
 - **numeric-demo:** Compare scoring rules and payoff errors under the same forecasts.
 - **lean-verifiable:** Finite examples separate event probabilities from magnitude-sensitive expectations.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Chapter-11 teaching and deterministic model examples implemented; later scft-v4-ch13 scope and separate max review remain. No checked Lean.
 
 Prerequisites: [c-asymmetric-payoffs](#c-asymmetric-payoffs), [c-moment-estimation](#c-moment-estimation).
 
 Technical source mappings: [SCoFT v4 ch. 11](inventory.md#scft-v4-ch11), [SCoFT v4 ch. 13](inventory.md#scft-v4-ch13).
 
 Chapter chunks: `scft-v4-ch11`, `scft-v4-ch13`.
+
+Chapter-11 scope: teaching and Python **done**; Lean **skipped-for-now**.
+Separate max review and later chapter scope remain; see the
+[chapter-11 checkpoint](../../records/incerto-scft-v4-ch11.md).
 
 <a id="c-forecast-martingale"></a>
 
@@ -1741,7 +1745,7 @@ Chapter chunks: `scft-v4-ch05`, `scft-v4-ch30`.
 
 ## Point forecasts under heavy-tailed losses (`c-point-forecast`)
 
-Home: `content/incerto-point-forecast.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: `content/incerto-point-forecast.md` (existing). Status: **in-progress**. Milestone: **M1**. Lead: `astra-xhigh`.
 
 Specify median/mean/quantile targets and what happens when expected loss is infinite.
 
@@ -1750,13 +1754,17 @@ Deliverables: website math (required) → Python (required) → Lean (optional; 
 - **numeric-demo:** Compare losses on identical simulated draws.
 - **lean-verifiable:** The optimal point summary depends on the loss and existence of its expectation.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Chapter-11 teaching and deterministic model examples implemented; later scft-v4-ch12 scope and separate max review remain. No checked Lean.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments), [c-calibration-payoff](#c-calibration-payoff).
 
 Technical source mappings: [SCoFT v4 ch. 11](inventory.md#scft-v4-ch11), [SCoFT v4 ch. 12](inventory.md#scft-v4-ch12), [`paper-point-forecast`](inventory.md#paper-point-forecast).
 
 Chapter chunks: `scft-v4-ch11`, `scft-v4-ch12`.
+
+Chapter-11 scope: teaching and Python **done**; Lean **skipped-for-now**.
+Separate max review and later chapter scope remain; see the
+[chapter-11 checkpoint](../../records/incerto-scft-v4-ch11.md).
 
 <a id="c-ml-econometrics"></a>
 
