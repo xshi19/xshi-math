@@ -411,3 +411,29 @@ by the linked mean-excess definition), and give the ordinary finite-variance
 CLT a precise theorem locator rather than the current general limit-law
 cross-link. Neither was changed as part of the minimal mathematical fixes.
 The separate site/browser and publication decisions remain with Xiang.
+
+## Optional review items
+
+2026-10-31. Xiang approved both optional edits, using **gpt-6-astra xhigh**.
+
+- The chapter guide now states `p_u=P(X>u)>0` before the payoff comparison,
+  consistent with the mean-excess definition. The two gathered display rows
+  are unchanged; the condition adds no display width.
+- All three ordinary iid finite-variance CLT references on the calibration
+  page now cite Durrett, *Probability: Theory and Examples*, fifth edition,
+  **Theorem 3.4.1**, using `durrett2019probability`. The limit-law cross-link
+  remains as further reading. The local bibliography entry already contains
+  the author, title, edition, year, publisher and manuscript details; no
+  bibliography edit or network fetch was needed.
+
+Verification: `UV_NO_SYNC=1 UV_OFFLINE=1 UV_CACHE_DIR=/tmp/ch11-optional-uv
+uv run pytest tests/test_incerto_page_snippets.py -q` gave **455 passed,
+1 skipped** (the existing absent layoffs CSV). The same environment with
+`tests/test_incerto_calibration.py -q` gave **94 passed**. All 51 local
+file/fragment links and five citation uses on the two edited pages resolve.
+Python examples and recorded outputs are unchanged, so output regeneration
+was unnecessary. The setup and display parse with local KaTeX 0.19.1;
+a 390 px browser check was blocked when Chrome failed to start under the
+sandbox's socket restrictions. No fresh site build or full suite was run.
+`git diff --check` passed. Only these two pages and this record changed;
+no file was deleted, staged or committed.

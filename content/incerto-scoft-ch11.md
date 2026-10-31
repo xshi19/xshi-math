@@ -33,7 +33,7 @@ psychological claims as established facts.
 
 ## The comparison to keep visible
 
-With loss $X\ge0$, threshold $u>0$, strict survival $p_u=P(X>u)$,
+With loss $X\ge0$, threshold $u>0$, strict survival $p_u=P(X>u)>0$,
 and finite mean excess $e(u)$,
 
 $$
