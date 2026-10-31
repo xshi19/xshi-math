@@ -244,3 +244,35 @@ in-progress; synthetic evidence does not close empirical requirements.
   npm preflight, and the HTML check had no fresh artifact. Chrome launch
   failed on a sandbox socket restriction. No site/browser/live pass claimed.
 - No commit, deletion, packaging build, Lean, hub transfer or publication.
+
+## Chapter 11 (2026-10-30)
+
+The [chapter-11 checkpoint](../../records/incerto-scft-v4-ch11.md) records
+two new concept pages, the chapter guide, eleven helpers and four original
+model figures. Chapter 11 is done at teaching/model/Python scope;
+`next_chunk` is `scft-v4-ch12`. Separate max review and publication gates
+remain pending. The two concepts retain their later chapter scopes.
+
+- `UV_NO_SYNC=1 uv run pytest`: **1,522 passed, 1 skipped in 239.51 s**.
+  This includes exact page outputs, numerical checks, two fresh-process
+  exports matching all four SVGs, and graph/integration checks. The skip
+  is the existing local-data layoffs example. Tests used available
+  dependencies; `uv sync --locked --offline` failed on an uncached wheel.
+- Output regeneration executed **128 snippets** across the two concept
+  pages, guide and API reference. The snippet tests and regenerator are
+  unchanged. Every new package helper has an API anchor and executed example.
+- All four figures were rendered to PNG at **390 and 900 px** and inspected.
+  All **24** new display blocks parse with KaTeX; the maximum conservative
+  width estimate is **287.3 px**. Browser widths remain unverified.
+- State/human-view validation and **1,187** plan file/fragment links passed.
+  There are **39** existing program concept bodies, 103 retained concepts,
+  and zero new checked Lean claims. The generated graph has **48 nodes,
+  89 dependency edges and 110 reference edges**.
+- M05-ISSUE-006/007 remain open. The new elementary claims are proved at
+  their stated scope; this does not close the deferred source audits.
+- `npm ci --offline` failed on the uncached MyST archive. A network-blocked
+  scratch build with available dependencies failed at MyST's npm preflight;
+  the subsequent HTML check found missing artifacts. Chrome failed to launch
+  because sandbox socket setup was denied. No fresh HTML/browser/live pass
+  is claimed.
+- No commit, deletion, packaging build, Lean build, hub transfer or publication.

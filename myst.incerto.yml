@@ -45,6 +45,8 @@ project:
             - file: content/incerto-hill-estimator.md
             - file: content/incerto-extreme-value-index.md
             - file: content/incerto-plug-in-tail-estimation.md
+            - file: content/incerto-calibration-payoff.md
+            - file: content/incerto-point-forecast.md
             - file: content/incerto-ml-econometrics.md
             - file: content/incerto-moment-estimation.md
             - file: content/incerto-kappa.md
@@ -94,6 +96,8 @@ project:
               title: Chapter 9 — Maxima and hidden tails
             - file: content/incerto-scoft-ch10.md
               title: Chapter 10 — Diagnosing returns
+            - file: content/incerto-scoft-ch11.md
+              title: Chapter 11 — Calibration and payoffs
         - file: content/incerto-external-reading.md
           children:
             - file: content/incerto-reading-embrechts.md

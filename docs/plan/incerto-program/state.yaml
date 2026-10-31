@@ -1,10 +1,10 @@
 # Canonical program inventory. See validation.md for semantics and checks.
 schema_version: 3
-updated: '2026-10-29'
+updated: '2026-10-30'
 repository: xshi19/xshi-math
 baseline_revision: 998a4a11a17b7ae7ba4c306005a4c8e3109f4392
-branch: scft/v4-ch10
-scope: scft-v4-ch10
+branch: scft/v4-ch11
+scope: scft-v4-ch11
 implementation_authorized: true
 authorized_chunks:
 - m0.5-review
@@ -18,9 +18,10 @@ authorized_chunks:
 - scft-v4-ch08
 - scft-v4-ch09
 - scft-v4-ch10
-authorization_note: Owner selected gpt-6-astra xhigh for chapter-10 writing/code with a separate gpt-6-astra max
-  run afterwards. No commits or file deletions. Existing documented data sources are authorized; no build/test network
-  access.
+- scft-v4-ch11
+authorization_note: Owner selected gpt-6-astra xhigh for chapter-11 writing/code and a separate gpt-6-astra
+  max review afterwards. No commits or file deletions. Model calculations only; no data acquisition or
+  build/test network access.
 status_semantics:
   todo: Program work has not satisfied its evidence gates; existing prose is recorded separately.
   in-progress: A named chunk is active and has a recorded checkpoint.
@@ -212,9 +213,10 @@ milestones:
     dependencies:
     - M2
     assigned_role: math-site-editor
-next_chunk: '#/chunks/scft-v4-ch11'
-next_chunk_note: Chapter-10 teaching and Python implementation done. Observed S&P evaluation remains uncomputed
-  without an authorized cache; separate max review and site/live review remain open. Next implementation is chapter 11.
+next_chunk: '#/chunks/scft-v4-ch12'
+next_chunk_note: Chapter-11 teaching and deterministic Python implementation done; separate max review
+  and site/live checks remain distinct gates. Point forecasts extend in chapter 12; probability conflation
+  in chapter 13. Chapter-10 empirical evaluation is still pending authorized data.
 chunks:
   m0.5-review:
     id: m0.5-review
@@ -2084,24 +2086,41 @@ chunks:
       - lean
       teaching_pages:
         required: true
-        status: todo
+        status: done
         page_paths:
         - content/incerto-calibration-payoff.md
         - content/incerto-point-forecast.md
+        - content/incerto-scoft-ch11.md
       demos:
         required: true
-        status: todo
+        status: done
         concept_ids:
         - c-calibration-payoff
         - c-point-forecast
+        script_paths:
+        - demos/incerto/calibration_payoffs.py
+        helper_paths:
+        - src/math/incerto/calibration.py
+        test_paths:
+        - tests/test_incerto_calibration.py
+        - tests/test_incerto_calibration_figures.py
+        - tests/test_incerto_page_snippets.py
+        figure_paths:
+        - assets/figures/incerto/calibration-tail-payoffs.svg
+        - assets/figures/incerto/calibration-curves.svg
+        - assets/figures/incerto/calibration-score-laws.svg
+        - assets/figures/incerto/point-forecast-losses.svg
       optional_lean:
         required: false
-        status: optional
+        status: skipped-for-now
         policy: After teaching and demos; record exact checked claims or a skip reason. No chapter gate.
+        reason: 'Skipped at the owner-authorized chapter scope: the optional imported Lean prototype does
+          not supply a checked probability/scoring development here; no toolchain/cache or new exact declaration
+          was selected. Informal proofs and numerical checks are not Lean evidence.'
     dependencies:
     - scft-v4-ch10
     assigned_role: astra-xhigh
-    status: todo
+    status: done
     milestone: M1
     source_unit_ids:
     - scft-v4-ch11
@@ -2125,6 +2144,59 @@ chunks:
       closure or the following chapter.
     - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
       live pages as a reader.
+    checkpoint:
+      completed_at: '2026-10-30'
+      base_revision: ce67306
+      working_branch: scft/v4-ch11
+      evidence_path: docs/records/incerto-scft-v4-ch11.md
+      guide_title: Chapter 11 — Calibration and payoffs
+      scope: Chapter-11 teaching/model/Python implementation; separate max review and publication gates
+        are not claimed complete. No empirical or chapter-12/13 claim is closed.
+      source_review: Supplied read-only v4 chapter 11, printed pp. 219–240, including sections 11.1–11.7;
+        local derivations replace unqualified distributional/calibration claims. Source text and figures
+        remain outside the repository.
+      supporting_pages:
+      - content/incerto-asymmetric-payoffs.md
+      - content/incerto-pareto-moment-existence.md
+      - content/incerto-moment-estimation.md
+      - content/incerto-ml-econometrics.md
+      claim_ids:
+      - CH11-C01
+      - CH11-C02
+      - CH11-C03
+      - CH11-C04
+      - CH11-C05
+      - CH11-C06
+      - CH11-C07
+      - CH11-C08
+      - CH11-C09
+      - CH11-C10
+      m0_5_resolutions:
+        M05-ISSUE-006: No new general theorem-source closure; existing deferred locators remain open. Elementary
+          score laws proved locally; iid CLT cited through existing reviewed note.
+        M05-ISSUE-007: Chapter-11 v4 section/page locators checked; wider legacy-reference audit remains
+          open.
+      checks:
+        pytest: 'UV_NO_SYNC=1 uv run pytest: 1522 passed, 1 skipped in 239.51 s; available dependencies.'
+        outputs: 128 snippets executed by the existing regenerator; exact-output tests pass.
+        figures: Four SVGs match two fresh-process exports; all eight 390/900 px PNGs inspected.
+        display_math: 24 KaTeX blocks parse; conservative width estimate at most 287.3 px, not browser certification.
+        state: Executable state/human-view validator and 1187 plan file/fragment links pass; 39 existing bodies.
+        graph: 48 nodes, 89 dependency edges, 110 reference edges; regenerated with the canonical script.
+        blocked: Locked offline dependency installation and npm ci lack cached archives; scratch MyST build
+          fails npm preflight, HTML artifacts are missing, and Chrome socket setup is denied by the sandbox.
+        not_run: Packaging, Lean, publication and live-reader review.
+      max_math_review:
+        status: pending
+        assigned_role: astra-max
+        model: gpt-6-astra max
+        scope: CH11-C01–C10 and helper numerical domains; separately requested run.
+      live_reader_review:
+        status: pending-publication
+        assigned_role: math-site-editor
+        note: No publication. Source/PNG checks do not replace rendered pages and live navigation.
+      next_action: Separate max review, then external build/browser checks and post-publication reader review;
+        next writing chunk scft-v4-ch12.
   scft-v4-ch12:
     id: scft-v4-ch12
     locator: SCoFT v4 ch. 12
@@ -2164,6 +2236,8 @@ chunks:
     - c-pareto-moments
     existing_pages_reused:
     - content/incerto-pareto-moment-existence.md
+    - content/incerto-calibration-payoff.md
+    - content/incerto-point-forecast.md
     acceptance:
     - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
       original explanations for teaching.
@@ -2224,6 +2298,8 @@ chunks:
     - content/incerto-pareto-moment-existence.md
     - content/incerto-asymmetric-payoffs.md
     - content/incerto-moment-estimation.md
+    - content/incerto-calibration-payoff.md
+    - content/incerto-point-forecast.md
     acceptance:
     - Review the chapter and attached source units at exact claim scope; use titles and locators for citations
       and original explanations for teaching.
@@ -2270,7 +2346,8 @@ chunks:
     paper_ids: []
     prerequisite_concept_ids:
     - c-calibration-payoff
-    existing_pages_reused: []
+    existing_pages_reused:
+    - content/incerto-calibration-payoff.md
     acceptance:
     - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
       original explanations for teaching.
@@ -7899,15 +7976,18 @@ chapters:
     concept_ids:
     - c-calibration-payoff
     - c-point-forecast
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     milestone: M1
-    locator_review: local-v4-TOC-verified; exact-claim-locators-pending
+    locator_review: supplied-v4-chapter-read; exact section/page locators checked, original model proofs
+      supplied
     classification:
     - lean-verifiable
     - numeric-demo
-    existing_concept_ids: []
+    existing_concept_ids:
+    - c-calibration-payoff
+    - c-point-forecast
     completion_scope: in-scope
     required_concept_ids:
     - c-calibration-payoff
@@ -7916,6 +7996,7 @@ chapters:
     edition: 2001.10488v4
     printed_page: 219
     chunk_id: scft-v4-ch11
+    implementation_evidence: docs/records/incerto-scft-v4-ch11.md
   scft-v4-ch12:
     book_id: scft
     kind: chapter
@@ -13324,24 +13405,26 @@ concepts:
       lean-verifiable: Finite examples separate event probabilities from magnitude-sensitive expectations.
       numeric-demo: Compare scoring rules and payoff errors under the same forecasts.
     scope: A calibrated event forecast need not estimate an unbounded payoff well.
-    status: todo
+    status: in-progress
     dependencies:
     - c-asymmetric-payoffs
     - c-moment-estimation
-    assigned_role: astra-max
+    assigned_role: astra-xhigh
     milestone: M1
     page_path: content/incerto-calibration-payoff.md
     canonical_url: /math/incerto/incerto-calibration-payoff/
     coverage:
-      prose: absent
-      scope_note: Proposed original note; path is reserved in this plan only.
+      prose: existing
+      scope_note: Chapter-11 teaching and deterministic model examples implemented; later scft-v4-ch13 scope
+        and separate max review remain. No checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: bounded-model-demo-tested
+      created_in_chunk: scft-v4-ch11
     source_units:
     - scft-v4-ch11
     - scft-v4-ch13
     completion_scope: in-scope
-    page_status: proposed
+    page_status: existing
     source_priority: 1
     deliverables:
       order:
@@ -13350,17 +13433,33 @@ concepts:
       - lean
       website_math:
         required: true
-        status: todo
+        status: in-progress
       python:
         required: true
-        status: todo
+        status: in-progress
       lean:
         required: false
         status: optional
+        skipped_scopes:
+        - scope: scft-v4-ch11
+          status: skipped-for-now
+          reason: 'Skipped at the owner-authorized chapter scope: the optional imported Lean prototype does
+            not supply a checked probability/scoring development here; no toolchain/cache or new exact declaration
+            was selected. Informal proofs and numerical checks are not Lean evidence.'
     chunk_ids:
     - scft-v4-ch11
     - scft-v4-ch13
     first_chunk: scft-v4-ch11
+    completed_chunk_scopes:
+      scft-v4-ch11:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: 'Skipped at the owner-authorized chapter scope: the optional imported Lean prototype
+          does not supply a checked probability/scoring development here; no toolchain/cache or new exact
+          declaration was selected. Informal proofs and numerical checks are not Lean evidence.'
+        evidence_path: docs/records/incerto-scft-v4-ch11.md
+        note: Chapter-scoped implementation only; later source scopes and separate review remain.
   c-forecast-martingale:
     id: c-forecast-martingale
     title: Forecast updating and martingale constraints
@@ -13783,25 +13882,27 @@ concepts:
       lean-verifiable: The optimal point summary depends on the loss and existence of its expectation.
       numeric-demo: Compare losses on identical simulated draws.
     scope: Specify median/mean/quantile targets and what happens when expected loss is infinite.
-    status: todo
+    status: in-progress
     dependencies:
     - c-pareto-moments
     - c-calibration-payoff
-    assigned_role: astra-max
+    assigned_role: astra-xhigh
     milestone: M1
     page_path: content/incerto-point-forecast.md
     canonical_url: /math/incerto/incerto-point-forecast/
     coverage:
-      prose: absent
-      scope_note: Proposed original note; path is reserved in this plan only.
+      prose: existing
+      scope_note: Chapter-11 teaching and deterministic model examples implemented; later scft-v4-ch12 scope
+        and separate max review remain. No checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: bounded-model-demo-tested
+      created_in_chunk: scft-v4-ch11
     source_units:
     - scft-v4-ch11
     - scft-v4-ch12
     - paper-point-forecast-scope
     completion_scope: in-scope
-    page_status: proposed
+    page_status: existing
     source_priority: 1
     deliverables:
       order:
@@ -13810,17 +13911,33 @@ concepts:
       - lean
       website_math:
         required: true
-        status: todo
+        status: in-progress
       python:
         required: true
-        status: todo
+        status: in-progress
       lean:
         required: false
         status: optional
+        skipped_scopes:
+        - scope: scft-v4-ch11
+          status: skipped-for-now
+          reason: 'Skipped at the owner-authorized chapter scope: the optional imported Lean prototype does
+            not supply a checked probability/scoring development here; no toolchain/cache or new exact declaration
+            was selected. Informal proofs and numerical checks are not Lean evidence.'
     chunk_ids:
     - scft-v4-ch11
     - scft-v4-ch12
     first_chunk: scft-v4-ch11
+    completed_chunk_scopes:
+      scft-v4-ch11:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: 'Skipped at the owner-authorized chapter scope: the optional imported Lean prototype
+          does not supply a checked probability/scoring development here; no toolchain/cache or new exact
+          declaration was selected. Informal proofs and numerical checks are not Lean evidence.'
+        evidence_path: docs/records/incerto-scft-v4-ch11.md
+        note: Chapter-scoped implementation only; later source scopes and separate review remain.
   c-ml-econometrics:
     id: c-ml-econometrics
     title: Tail assumptions in statistical pipelines
@@ -14964,7 +15081,7 @@ counts:
   concepts_total: 103
   concepts_in_scope: 75
   concepts_out_of_scope: 28
-  existing_concept_pages: 37
+  existing_concept_pages: 39
   checked_lean_concepts: 0
   scft_v4_chapters: 30
   scft_v4_appendices: 9
