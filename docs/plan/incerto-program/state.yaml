@@ -216,7 +216,8 @@ milestones:
 next_chunk: '#/chunks/scft-v4-ch12'
 next_chunk_note: Chapter-11 teaching and deterministic Python implementation done; separate max review
   and site/live checks remain distinct gates. Point forecasts extend in chapter 12; probability conflation
-  in chapter 13. Chapter-10 empirical evaluation is still pending authorized data.
+  in chapter 13. Chapter-10 observed S&P results are computed on the local Yahoo Close snapshot through
+  2026-10-29; see docs/records/incerto-sp500-observed.md.
 chunks:
   m0.5-review:
     id: m0.5-review
@@ -2043,12 +2044,14 @@ chunks:
       - CH10-C09
       - CH10-C10
       empirical_evaluation:
-        status: pending-authorized-data
-        evidence: Fresh clone has no local S&P cache. Documented FRED fetch failed DNS resolution; web fetch cannot
-          handle CSV. Existing loader is used with fetch=False in all examples/tests. No observed-market verdict or
-          synthetic substitute.
-        next_action: Supply an authorized cache, record provider/retrieval/checksum/cleaning, run the complete local
-          report, and review time-window/dependence sensitivity.
+        status: computed
+        evidence: Yahoo Finance ^GSPC daily Close snapshot fetched 2026-10-30; supplied local CSV imported with
+          inclusive cutoff 2026-10-29, excluding the intraday row. Cache has 24825 closes from 1927-12-30;
+          24824 returns from 1928-01-03. Both pages now report computed outputs, full/half-window diagnostics
+          and derived SVGs. Raw prices remain gitignored and are not redistributed.
+        evidence_path: docs/records/incerto-sp500-observed.md
+        next_action: Separate max review of observed claims and site/live review; dependent pooled-history
+          diagnostics do not establish a population tail law or moment boundary.
       m0_5_resolutions:
         M05-ISSUE-003: Previously resolved; preserve rank-position versus strict-survival distinction. New tail ratios
           and records treat ties explicitly.
@@ -2071,7 +2074,7 @@ chunks:
         status: pending-publication
         assigned_role: math-site-editor
         note: No site publication; source and PNG checks do not replace live equations/navigation.
-      next_action: Separate max review, authorized S&P evaluation and site/live verification; next writing chunk scft-v4-ch11.
+      next_action: Separate max review and site/live verification; observed S&P evaluation computed. Next writing chunk scft-v4-ch11.
   scft-v4-ch11:
     id: scft-v4-ch11
     locator: SCoFT v4 ch. 11
@@ -7964,7 +7967,7 @@ chapters:
     chunk_id: scft-v4-ch10
     chapter_10_checkpoint:
       implementation_status: done
-      empirical_status: pending-authorized-data
+      empirical_status: computed-local-yahoo-2026-10-30
       math_review_status: pending
       evidence_path: docs/records/incerto-scft-v4-ch10.md
   scft-v4-ch11:
@@ -8645,7 +8648,7 @@ chapters:
     chunk_id: scft-v4-ch10
     chapter_10_checkpoint:
       implementation_status: done
-      empirical_status: pending-authorized-data
+      empirical_status: computed-local-yahoo-2026-10-30
       math_review_status: pending
       evidence_path: docs/records/incerto-scft-v4-ch10.md
   scft-v4-appg:
@@ -8674,7 +8677,7 @@ chapters:
     chunk_id: scft-v4-ch10
     chapter_10_checkpoint:
       implementation_status: done
-      empirical_status: pending-authorized-data
+      empirical_status: computed-local-yahoo-2026-10-30
       math_review_status: pending
       evidence_path: docs/records/incerto-scft-v4-ch10.md
   scft-v4-apph:
@@ -13365,8 +13368,8 @@ concepts:
     canonical_url: /math/incerto/incerto-sp500/
     coverage:
       prose: existing
-      scope_note: Chapter-10 teaching and deterministic pipeline implemented. Empirical S&P evaluation awaits authorized
-        data; separate max review pending.
+      scope_note: Chapter-10 teaching and deterministic pipeline implemented. Observed S&P evaluation computed from the local Yahoo snapshot
+        through 2026-10-29; see docs/records/incerto-sp500-observed.md. Separate max review pending.
       lean: absent
       python: chapter-10-runnable-examples-and-tests
       created_in_chunk: scft-v4-ch10
@@ -13396,7 +13399,7 @@ concepts:
     chapter_10_checkpoint:
       status: done
       scope: teaching-and-python-implementation-only
-      empirical_status: pending-authorized-data
+      empirical_status: computed-local-yahoo-2026-10-30
       evidence_path: docs/records/incerto-scft-v4-ch10.md
   c-calibration-payoff:
     id: c-calibration-payoff
@@ -13955,8 +13958,8 @@ concepts:
     canonical_url: /math/incerto/incerto-ml-econometrics/
     coverage:
       prose: existing
-      scope_note: Chapter-10 teaching and deterministic pipeline implemented. Empirical S&P evaluation awaits authorized
-        data; separate max review pending. Appendix I remains chapter-22 scope.
+      scope_note: Chapter-10 teaching and deterministic pipeline implemented. Observed S&P evaluation computed from the local Yahoo snapshot
+        through 2026-10-29; see docs/records/incerto-sp500-observed.md. Separate max review pending. Appendix I remains chapter-22 scope.
       lean: absent
       python: chapter-10-runnable-examples-and-tests
       created_in_chunk: scft-v4-ch10
@@ -13989,7 +13992,7 @@ concepts:
     chapter_10_checkpoint:
       status: done
       scope: teaching-and-python-implementation-only
-      empirical_status: pending-authorized-data
+      empirical_status: computed-local-yahoo-2026-10-30
       evidence_path: docs/records/incerto-scft-v4-ch10.md
   c-payoff-algebra:
     id: c-payoff-algebra

@@ -281,7 +281,10 @@ assert s['site_review_policy']['trigger'] == 'after every site update'
 assert s['site_review_policy']['assigned_role'] == 'math-site-editor'
 assert s['data_policy']['financial']['assigned_role'] == 'portfolio-manager'
 assert s['data_policy']['other']['assigned_role'] == 'data-scientist'
-assert s['chunks']['scft-v4-ch10']['checkpoint']['empirical_evaluation']['status'] == 'pending-authorized-data'
+observed = s['chunks']['scft-v4-ch10']['checkpoint']['empirical_evaluation']
+assert observed['status'] == 'computed'
+assert observed['evidence_path'] == 'docs/records/incerto-sp500-observed.md'
+assert Path(observed['evidence_path']).is_file()
 assert all(concepts[c]['status'] == 'in-progress' for c in ('c-sp500', 'c-ml-econometrics'))
 assert s['open_questions'] == {}
 for decision in ('m1-pilot', 'lean-claim-scope', 'data-routing', 'paper-inclusion',

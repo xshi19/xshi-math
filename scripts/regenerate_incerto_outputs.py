@@ -4,7 +4,8 @@ Reuse the snippet tests' isolated runner, including its no-network/no-repository
 writes policy. The NYC full demo runs from a temporary copy so its figure writes
 stay outside the repository. Only captured text replaces the recorded outputs.
 When the local layoffs CSV is absent, rebuild its selected-estimate output
-from the summary JSON without regenerating figures.
+from the summary JSON without regenerating figures. When the local S&P CSV
+is absent, preserve the dated observed output and report that it was skipped.
 """
 
 import argparse
@@ -44,6 +45,10 @@ def main():
             expected = harness["OUTPUT_BLOCK"].match(text, block.end())
             if expected is None:
                 raise ValueError(f"Missing Output block: {page.name}:{index}")
+            if (harness["requires_sp500_data"](page, block.group(1))
+                    and not harness["sp500_data_available"]()):
+                print(f"Preserved dated S&P output: {page.name}:{index} (local CSV absent)")
+                continue
             if (harness["requires_layoffs_data"](page, block.group(1))
                     and not harness["layoffs_data_available"]()):
                 output = recorded_layoffs_output()

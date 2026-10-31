@@ -12,6 +12,7 @@ from xmath.incerto.datasets import (
     write_nyc_dog_name_frequency_snapshot,
     write_sp500_cache_from_csv,
     write_sp500_fred_cache,
+    write_sp500_yahoo_cache,
 )
 
 
@@ -31,6 +32,14 @@ def main() -> None:
         "--source",
         default=None,
         help="Optional local CSV source for S&P 500 cache cleaning.",
+    )
+    parser.add_argument(
+        "--provider", choices=["fred", "yahoo"], default="fred",
+        help="S&P provider (default: fred); --source overrides the provider.",
+    )
+    parser.add_argument(
+        "--end-date", default=None, metavar="YYYY-MM-DD",
+        help="Keep S&P closes on or before this date (exclude later intraday rows).",
     )
     args = parser.parse_args()
 
@@ -52,9 +61,10 @@ def main() -> None:
     if args.dataset in {"sp500", "all"}:
         sp500_path = cache_path("sp500_daily.csv", args.data_dir)
         if args.source:
-            write_sp500_cache_from_csv(args.source, sp500_path)
+            write_sp500_cache_from_csv(args.source, sp500_path, end_date=args.end_date)
         else:
-            write_sp500_fred_cache(sp500_path)
+            writer = write_sp500_yahoo_cache if args.provider == "yahoo" else write_sp500_fred_cache
+            writer(sp500_path, end_date=args.end_date)
         print(f"Wrote untracked S&P 500 cache: {sp500_path}")
 
 

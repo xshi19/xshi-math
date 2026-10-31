@@ -283,15 +283,22 @@ def load_sp500_prices(
     *,
     data_dir: str | os.PathLike[str] | None = None,
     fetch: bool = False,
+    provider: str = "fred",
+    end_date: str | None = None,
 ) -> PriceSeries:
-    """Load S&P 500 daily closes from the local cache, optionally fetching FRED.
+    """Load cached closes; optionally fetch from ``fred`` (default) or ``yahoo``.
 
     The S&P 500 series on FRED is copyright-restricted by S&P Dow Jones
     Indices, so the project keeps this file out of git and fetches it into
     ``data/incerto/cache`` or the configured ``INCERTO_DATA_DIR`` instead.
-    An unavailable or malformed FRED payload raises ``DatasetNotAvailable``.
+    Yahoo uses an optional lazy yfinance import. Fetch only when the cache is
+    absent. ``end_date`` is an inclusive ISO date, applied on reads too without
+    rewriting an existing cache. At least two selected closes are required.
     """
 
+    if provider not in {"fred", "yahoo"}:
+        raise ValueError("provider must be 'fred' or 'yahoo'")
+    cutoff = _sp500_end_date(end_date)
     path = cache_path("sp500_daily.csv", data_dir)
     if not path.exists():
         if not fetch:
@@ -300,16 +307,23 @@ def load_sp500_prices(
                 "or call load_sp500_prices(fetch=True)"
             )
         try:
-            write_sp500_fred_cache(path)
+            writer = write_sp500_fred_cache if provider == "fred" else write_sp500_yahoo_cache
+            writer(path, end_date=end_date)
         except (URLError, TimeoutError) as exc:
             raise DatasetNotAvailable(
-                f"{path} is missing and automatic FRED fetch failed; "
+                f"{path} is missing and automatic {provider} fetch failed; "
                 "run `python scripts/fetch_incerto_data.py sp500` when network access "
                 "is available or provide a local source with "
                 "`python scripts/fetch_incerto_data.py sp500 --source path/to/local.csv`"
             ) from exc
 
-    return _read_sp500_price_csv(path)
+    prices = _read_sp500_price_csv(path)
+    if cutoff is not None:
+        selected = prices.date <= np.datetime64(cutoff)
+        if np.count_nonzero(selected) < 2:
+            raise DatasetNotAvailable("S&P 500 cutoff did not retain enough prices (need two)")
+        prices = PriceSeries(prices.name, prices.date[selected], prices.close[selected], prices.source)
+    return prices
 
 
 def load_amazon_bookrank(
@@ -344,38 +358,97 @@ def write_sp500_fred_cache(
     destination: str | os.PathLike[str],
     *,
     url: str = FRED_SP500_CSV_URL,
+    end_date: str | None = None,
 ) -> Path:
     """Fetch and clean the public FRED S&P 500 CSV into an untracked cache.
 
-    Missing (blank or ``.``) and non-finite closes are skipped. Malformed
+    Missing (blank or ``.``), non-finite and nonpositive closes are skipped. Malformed
     payloads or fewer than two usable prices raise ``DatasetNotAvailable``
     before the destination is written.
     """
 
+    _sp500_end_date(end_date)
     text = _download_text(url)
     rows = _clean_fred_sp500_rows(text)
-    destination_path = Path(destination)
-    destination_path.parent.mkdir(parents=True, exist_ok=True)
-    with destination_path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        writer.writerow(["date", "close"])
-        writer.writerows(rows)
-    return destination_path
+    return _write_sp500_rows(rows, destination, end_date=end_date)
+
+
+def write_sp500_yahoo_cache(
+    destination: str | os.PathLike[str],
+    *,
+    end_date: str | None = None,
+) -> Path:
+    """Fetch Yahoo ^GSPC daily Close with period=max and auto_adjust=False.
+
+    Import yfinance only here. Accept flat or single-ticker MultiIndex columns;
+    discard missing, non-finite and nonpositive closes, sort dates, and keep
+    the last usable row per date. ``end_date`` is inclusive. Require two rows
+    before writing date,close CSV. No adjusted-close or provider fallback.
+    """
+    _sp500_end_date(end_date)
+    try:
+        import yfinance as yf
+    except ImportError as exc:
+        raise DatasetNotAvailable(
+            "Yahoo fetching requires optional yfinance; install with "
+            "`uv sync --extra yahoo` or use --source CSV / --provider fred"
+        ) from exc
+    try:
+        frame = yf.download("^GSPC", period="max", interval="1d",
+                            auto_adjust=False, progress=False)
+        close = frame["Close"]
+        if close.ndim == 2:
+            if close.shape[1] != 1:
+                raise ValueError("expected one ^GSPC Close column")
+            close = close.iloc[:, 0]
+        rows = [(day.strftime("%Y-%m-%d"), str(float(value)))
+                for day, value in close.items() if np.isfinite(value) and value > 0]
+    except Exception as exc:
+        raise DatasetNotAvailable(
+            "Yahoo ^GSPC fetch failed or returned invalid Close data; "
+            "retry later or use --source CSV / --provider fred"
+        ) from exc
+    return _write_sp500_rows(rows, destination, end_date=end_date)
 
 
 def write_sp500_cache_from_csv(
     source: str | os.PathLike[str],
     destination: str | os.PathLike[str],
+    *,
+    end_date: str | None = None,
 ) -> Path:
-    """Clean a local S&P 500-like CSV into the standard untracked cache."""
+    """Clean a local price CSV, preferring Close to Adj Close; inclusive cutoff.
 
+    Discard missing/non-finite/nonpositive closes, sort dates and keep the
+    last usable duplicate. Require two retained dates before writing.
+    """
+
+    _sp500_end_date(end_date)
     rows = _clean_sp500_price_rows(Path(source))
+    return _write_sp500_rows(rows, destination, end_date=end_date)
+
+
+def _sp500_end_date(end_date):
+    if end_date is None:
+        return None
+    day = datetime.strptime(end_date, "%Y-%m-%d").strftime("%Y-%m-%d")
+    if day != end_date:
+        raise ValueError("end_date must use YYYY-MM-DD")
+    return day
+
+
+def _write_sp500_rows(rows, destination, *, end_date=None):
+    cutoff = _sp500_end_date(end_date)
+    # Assignment preserves the last usable source row for each date.
+    by_date = {day: value for day, value in rows if cutoff is None or day <= cutoff}
+    if len(by_date) < 2:
+        raise DatasetNotAvailable("S&P 500 input/cutoff did not retain enough prices (need two)")
     destination_path = Path(destination)
     destination_path.parent.mkdir(parents=True, exist_ok=True)
     with destination_path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(["date", "close"])
-        writer.writerows(rows)
+        writer.writerows(sorted(by_date.items()))
     return destination_path
 
 
@@ -501,9 +574,9 @@ def _clean_fred_sp500_rows(text: str) -> list[tuple[str, str]]:
             close = row["SP500"].strip()
             if close in {"", "."}:
                 continue
-            if not np.isfinite(float(close)):
+            if not np.isfinite(float(close)) or float(close) <= 0:
                 continue
-            datetime.strptime(date, "%Y-%m-%d")
+            date = datetime.strptime(date, "%Y-%m-%d").strftime("%Y-%m-%d")
             rows.append((date, close))
     except (ValueError, csv.Error) as exc:
         raise DatasetNotAvailable(
@@ -518,6 +591,10 @@ def _clean_sp500_price_rows(path: Path) -> list[tuple[str, str]]:
     rows: list[tuple[str, str]] = []
     with path.open(newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
+        close_key = next((key for key in ("close", "Close", "SP500", "Adj Close")
+                          if key in (reader.fieldnames or [])), None)
+        if close_key is None:
+            raise ValueError("expected a close, Close, SP500 or Adj Close column")
         for row in reader:
             date = (
                 row.get("date")
@@ -525,17 +602,12 @@ def _clean_sp500_price_rows(path: Path) -> list[tuple[str, str]]:
                 or row.get("observation_date")
                 or ""
             ).strip()
-            close = (
-                row.get("close")
-                or row.get("Adj Close")
-                or row.get("Close")
-                or row.get("SP500")
-                or ""
-            ).strip()
-            if not date or not close:
+            close = (row.get(close_key) or "").strip()
+            if not date or close in {"", "."}:
                 continue
-            float(close)
-            datetime.strptime(date, "%Y-%m-%d")
+            if not np.isfinite(float(close)) or float(close) <= 0:
+                continue
+            date = datetime.strptime(date, "%Y-%m-%d").strftime("%Y-%m-%d")
             rows.append((date, close))
 
     if len(rows) < 2:
@@ -637,4 +709,5 @@ __all__ = [
     "write_nyc_dog_name_frequency_snapshot",
     "write_sp500_cache_from_csv",
     "write_sp500_fred_cache",
+    "write_sp500_yahoo_cache",
 ]
