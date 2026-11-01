@@ -26,9 +26,9 @@ validation-environment dependency, not a new runtime dependency of `xmath`.
 | `supplement_policy` | All nine SCoFT appendices and eight DH supporting units attach to chapters; none creates a separate chunk. |
 | `dependencies` | Concepts encode reading prerequisites; chunks/milestones encode execution gates. Use reviewed pages or bounded cited prerequisites without reordering chapters. |
 | `milestone` | M0 design; M0.5 review; M1 SCoFT; M2 DH; M3 closeout. A concept takes its first chapter's milestone. |
-| `next_chunk` | `#/chunks/scft-v4-ch12`, following chapter-11 implementation; separate chapter-11 max review and external site/browser checks remain recorded follow-ups. |
+| `next_chunk` | `#/chunks/scft-v4-ch13`, following chapter-12 implementation; separate max review and external site/browser checks remain recorded follow-ups. |
 | `owner_decisions` / `open_questions` | Prior program scope decisions remain approved. M0.5 findings and pending Xiang decisions are in the review chunk's `issues`, distinct from those earlier scope questions. |
-| `scope` / `authorized_chunks` | Current authorization covers M0.5 closure, chapters 1–11 implementation and the requested earlier-chapter reader fixes; it does not authorize all later chapters. |
+| `scope` / `authorized_chunks` | Current authorization covers M0.5 closure, chapters 1–12 implementation and the requested earlier-chapter reader fixes; it does not authorize all later chapters. |
 | M0.5 `review_workstreams` / `issues` | Mathematics and live reader review are done; owner reports 24/24 live coverage after PR #27. Exact viewport details were not supplied. Shared issues retain other chapters’ assignments. |
 | `assigned_role` | Owner-assigned lead; role labels neither guarantee availability nor authorize delegation. |
 | `data_policy` / `site_review_policy` | Data via the assigned bots with provenance; live reader review after every site update. Build evidence cannot replace reader review. |
@@ -46,7 +46,7 @@ exceedance claims remains valid.
 
 1. Read `next_chunk`, its dependencies and acceptance criteria. Confirm the
    current task authorizes the selected work; M0.5 authorization does not
-   authorize a later chapter. Chapter-1/2/3/4/5/6/7/8/9/10/11 authorization and the M0.5 live closure are explicitly recorded.
+   authorize a later chapter. Chapter-1/2/3/4/5/6/7/8/9/10/11/12 authorization and the M0.5 live closure are explicitly recorded.
 2. Recheck guidance and sources. For SCoFT use v4 locators, consulting the v2
    correspondence only for historical references. Resolve exact claim
    locators without copying book text.
@@ -95,8 +95,8 @@ assert not any(isinstance(event, yaml.events.AliasEvent)
                for event in yaml.parse(raw)), 'YAML aliases are not allowed'
 s = yaml.load(raw, Loader=UniqueLoader)
 assert s['schema_version'] == 3
-assert s['scope'] == 'scft-v4-ch11' and s['implementation_authorized']
-assert s['authorized_chunks'] == ['m0.5-review', 'scft-v4-ch01', 'scft-v4-ch02', 'scft-v4-ch03', 'scft-v4-ch04', 'scft-v4-ch05', 'scft-v4-ch06', 'scft-v4-ch07', 'scft-v4-ch08', 'scft-v4-ch09', 'scft-v4-ch10', 'scft-v4-ch11']
+assert s['scope'] == 'scft-v4-ch12' and s['implementation_authorized']
+assert s['authorized_chunks'] == ['m0.5-review', 'scft-v4-ch01', 'scft-v4-ch02', 'scft-v4-ch03', 'scft-v4-ch04', 'scft-v4-ch05', 'scft-v4-ch06', 'scft-v4-ch07', 'scft-v4-ch08', 'scft-v4-ch09', 'scft-v4-ch10', 'scft-v4-ch11', 'scft-v4-ch12']
 statuses = {'todo', 'in-progress', 'done', 'out-of-scope'}
 classes = {'lean-verifiable', 'numeric-demo', 'empirical', 'prose-only'}
 roles, milestones = s['roles'], s['milestones']
@@ -228,8 +228,8 @@ for chunk in s['chunks'].values():
     assert set(chunk['concept_ids']) <= active and chunk['acceptance']
 prefix, collection, key = s['next_chunk'].split('/')
 assert prefix == '#' and collection == 'chunks'
-assert key == 'scft-v4-ch12' and s['chunks'][key]['status'] == 'todo'
-assert all(s['chunks'][k]['status'] == 'done' for k in ('scft-v4-ch01', 'scft-v4-ch02', 'scft-v4-ch03', 'scft-v4-ch04', 'scft-v4-ch05', 'scft-v4-ch06', 'scft-v4-ch07', 'scft-v4-ch08', 'scft-v4-ch09', 'scft-v4-ch10', 'scft-v4-ch11'))
+assert key == 'scft-v4-ch13' and s['chunks'][key]['status'] == 'todo'
+assert all(s['chunks'][k]['status'] == 'done' for k in ('scft-v4-ch01', 'scft-v4-ch02', 'scft-v4-ch03', 'scft-v4-ch04', 'scft-v4-ch05', 'scft-v4-ch06', 'scft-v4-ch07', 'scft-v4-ch08', 'scft-v4-ch09', 'scft-v4-ch10', 'scft-v4-ch11', 'scft-v4-ch12'))
 indexes = {f'content/incerto-{name}-concepts.md'
            for name in ('distribution', 'theorem', 'method')}
 existing = {c['page_path'] for c in concepts.values()
@@ -242,7 +242,8 @@ post_review_pages = {'content/incerto-scoft-ch1.md', 'content/incerto-scoft-ch2.
                      'content/incerto-rayleigh-speed.md', 'content/incerto-scoft-ch9.md',
                      'content/incerto-hidden-tail.md', 'content/incerto-power-law-fitting.md',
                      'content/incerto-power-law-goodness-of-fit.md', 'content/incerto-scoft-ch10.md',
-                     'content/incerto-layoffs-tails.md', 'content/incerto-scoft-ch11.md'}
+                     'content/incerto-layoffs-tails.md', 'content/incerto-scoft-ch11.md',
+                     'content/incerto-scoft-ch12.md'}
 assert set(review['additional_pages_skimmed']) == flat_pages - existing - post_review_pages
 assert len(review['additional_pages_skimmed']) == 18
 # M0.5 is a frozen review inventory; later original pages do not enlarge it.
@@ -534,6 +535,8 @@ an old artifact or an earlier operator
 pass cannot establish a fresh build for this revision.
 
 Chapter 11 adds two canonical concept bodies and a guide, bringing the current
-program-body count to 39. Its concept statuses remain in-progress for later
-chapter-12/13 work; the completed chapter-11 scopes are explicit in state.
-The fixed M0.5 inventory and its 15 issue records are unchanged.
+program-body count to 39. Chapter 12 extends the existing point-forecast
+body and adds a guide, so that count remains 39. Its scoped source review
+and teaching/Python are done; separate max and site/live reviews remain.
+Calibration retains chapter-13 work. Completed chapter scopes are explicit
+in state. The fixed M0.5 inventory and its 15 issue records are unchanged.

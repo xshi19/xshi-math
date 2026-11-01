@@ -1,10 +1,10 @@
 # Canonical program inventory. See validation.md for semantics and checks.
 schema_version: 3
-updated: '2026-10-30'
+updated: '2026-11-01'
 repository: xshi19/xshi-math
 baseline_revision: 998a4a11a17b7ae7ba4c306005a4c8e3109f4392
-branch: scft/v4-ch11
-scope: scft-v4-ch11
+branch: scft/v4-ch12
+scope: scft-v4-ch12
 implementation_authorized: true
 authorized_chunks:
 - m0.5-review
@@ -19,9 +19,10 @@ authorized_chunks:
 - scft-v4-ch09
 - scft-v4-ch10
 - scft-v4-ch11
-authorization_note: Owner selected gpt-6-astra xhigh for chapter-11 writing/code and a separate gpt-6-astra
-  max review afterwards. No commits or file deletions. Model calculations only; no data acquisition or
-  build/test network access.
+- scft-v4-ch12
+authorization_note: Owner selected gpt-6-astra xhigh for chapter-12 writing/code and a separate gpt-6-astra
+  max review afterwards. No commits or file deletions. Synthetic/model examples only; no third-party
+  pandemic data imported or redistributed.
 status_semantics:
   todo: Program work has not satisfied its evidence gates; existing prose is recorded separately.
   in-progress: A named chunk is active and has a recorded checkpoint.
@@ -213,11 +214,11 @@ milestones:
     dependencies:
     - M2
     assigned_role: math-site-editor
-next_chunk: '#/chunks/scft-v4-ch12'
-next_chunk_note: Chapter-11 teaching and deterministic Python implementation done; separate max review
-  and site/live checks remain distinct gates. Point forecasts extend in chapter 12; probability conflation
-  in chapter 13. Chapter-10 observed S&P results are computed on the local Yahoo Close snapshot through
-  2026-10-29; see docs/records/incerto-sp500-observed.md.
+next_chunk: '#/chunks/scft-v4-ch13'
+next_chunk_note: Chapter-12 teaching, source reconciliation and Python implementation done; separate max
+  review and site/live checks remain distinct gates. Probability conflation is next in chapter 13.
+  Chapter-10 observed S&P results are computed on the local Yahoo Close snapshot through 2026-10-29;
+  see docs/records/incerto-sp500-observed.md.
 chunks:
   m0.5-review:
     id: m0.5-review
@@ -2213,22 +2214,36 @@ chunks:
       - lean
       teaching_pages:
         required: true
-        status: todo
+        status: done
         page_paths:
         - content/incerto-point-forecast.md
+        - content/incerto-scoft-ch12.md
       demos:
         required: true
-        status: todo
+        status: done
         concept_ids:
         - c-point-forecast
+        script_paths:
+        - demos/incerto/point_forecasts.py
+        helper_paths:
+        - src/math/incerto/forecasting.py
+        test_paths:
+        - tests/test_incerto_forecasting.py
+        - tests/test_incerto_forecasting_figures.py
+        figure_paths:
+        - assets/figures/incerto/point-forecast-scaling.svg
+        - assets/figures/incerto/point-forecast-evaluation.svg
+        - assets/figures/incerto/point-forecast-bounds.svg
       optional_lean:
         required: false
-        status: optional
+        status: skipped-for-now
         policy: After teaching and demos; record exact checked claims or a skip reason. No chapter gate.
+        reason: Owner requested skipped-for-now. The optional imported Lean prototype has no checked probability/scoring
+          development for these claims; no new declaration or toolchain check is claimed.
     dependencies:
     - scft-v4-ch11
     assigned_role: astra-xhigh
-    status: todo
+    status: done
     milestone: M1
     source_unit_ids:
     - scft-v4-ch12
@@ -2242,16 +2257,69 @@ chunks:
     - content/incerto-calibration-payoff.md
     - content/incerto-point-forecast.md
     acceptance:
-    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
-      original explanations for teaching.
+    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations
+      and original explanations for teaching.
     - Resolve relevant M0.5 issues before reusing claims. Reuse canonical pages and reviewed prerequisite statements;
       do not reorder chapter chunks for a later full treatment.
     - Deliver chapter-scoped teaching pages, then bounded reproducible Python demos or visualizations; distinguish
       model calculations from observed-data studies.
-    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
-      or the following chapter.
+    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
+      closure or the following chapter.
     - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
       live pages as a reader.
+    checkpoint:
+      completed_at: '2026-11-01'
+      base_revision: 316f98c
+      working_branch: scft/v4-ch12
+      evidence_path: docs/records/incerto-scft-v4-ch12.md
+      guide_title: Chapter 12 — Point forecasts and tail risk
+      scope: Chapter-scoped teaching, source reconciliation and Python implementation done. Separate max math
+        review, fresh HTML/browser checks and publication/live review remain distinct gates.
+      source_review: Read supplied v4 ch. 12 §§12.1–12.4 pp. 241–246 (PDF 255–260). Reviewed attached 2007.16096v1
+        mathematical scope pp. 1–5 and conditional-forecast discussion p. 7. Historical epidemic estimates are
+        cited background only; no data imported or refitted.
+      claim_ids:
+      - CH12-C01
+      - CH12-C02
+      - CH12-C03
+      - CH12-C04
+      - CH12-C05
+      - CH12-C06
+      - CH12-C07
+      - CH12-C08
+      - CH12-C09
+      - CH12-C10
+      m0_5_resolutions:
+        M05-ISSUE-006: Remains open/deferred. Exact stable closure proved locally; general stable attraction
+          remains cited through the existing verified reference, not proved by simulations.
+        M05-ISSUE-007: Remains open. Chapter-12 section/page locators and attached-paper scope checked; wider
+          legacy reference audit not closed.
+      checks:
+        pytest: 'UV_NO_SYNC=1 uv run pytest: 1645 passed, 1 skipped in 447.24 s; available dependencies, not
+          a locked-install pass.'
+        outputs: 132 executed snippets regenerated on the concept page, guide and API reference; full exact-output
+          tests pass.
+        figures: Three SVGs match two fresh-process exports; all six 390/900 px PNGs inspected.
+        display_math: 25 display blocks parse with KaTeX 0.19.1; maximum font-metric width estimate 248.81 px
+          at 17 px, not browser certification.
+        state: Executable state/human-view validator and 1195 plan file/fragment links pass; 39 existing bodies.
+          Changed page/record links and citations checked.
+        graph: 48 nodes, 89 dependency edges and 116 reference edges; canonical regeneration completed.
+        blocked: Locked offline Python installation lacks a cached SciPy wheel. Scratch MyST build rejects npm
+          in its version preflight; HTML artifacts are missing. Chrome launch fails sandbox socket setup.
+        not_run: Packaging, Lean, publication and live-reader review.
+        npm_install: Offline npm ci passed in a fresh scratch copy after copying the cached MyST 1.10.1 archive
+          to a writable cache.
+      max_math_review:
+        status: pending
+        assigned_role: astra-max
+        model: gpt-6-astra max
+        scope: CH12-C01–C10 and numerical helper domains; separate owner-requested run.
+      live_reader_review:
+        status: pending-publication
+        assigned_role: math-site-editor
+        note: No publication. Source and PNG review do not replace browser equations/navigation or live review.
+      next_action: Separate max review and fresh site/browser checks; next writing chunk scft-v4-ch13.
   scft-v4-ch13:
     id: scft-v4-ch13
     locator: SCoFT v4 ch. 13
@@ -8005,7 +8073,7 @@ chapters:
     kind: chapter
     concept_ids:
     - c-point-forecast
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     completion_scope: in-scope
@@ -8015,14 +8083,17 @@ chapters:
     edition: 2001.10488v4
     printed_page: 241
     milestone: M1
-    locator_review: local-v4-TOC-verified; exact-claim-locators-pending
+    locator_review: supplied-v4-chapter-read; §§12.1–12.4 pp. 241–246 checked, original model proofs supplied;
+      separate max review pending
     required_concept_ids:
     - c-point-forecast
     classification:
     - lean-verifiable
     - numeric-demo
-    existing_concept_ids: []
+    existing_concept_ids:
+    - c-point-forecast
     chunk_id: scft-v4-ch12
+    implementation_evidence: docs/records/incerto-scft-v4-ch12.md
   scft-v4-ch13:
     book_id: scft
     kind: chapter
@@ -9964,17 +10035,19 @@ papers:
     version: 2007.16096v1
     url: https://arxiv.org/abs/2007.16096v1
     source_role: primary
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     milestone: M1
-    locator_review: metadata-verified-full-text-scope-pending
+    locator_review: 2007.16096v1 mathematical scope pp. 1–5 and conditional-forecast discussion p. 7 reviewed;
+      clinical and policy coverage excluded
     units:
     - id: paper-point-forecast-scope
-      locator: whole paper; exact sections and theorem numbers to verify
+      locator: '2007.16096v1 pp. 1–5: point summaries, scaling, score integrability and bounded-tail qualification;
+        p. 7: conditioning on interventions'
       concept_ids:
       - c-point-forecast
-      status: todo
+      status: done
       dependencies: []
       assigned_role: math-site-editor
       milestone: M1
@@ -10000,7 +10073,9 @@ papers:
     chapter_correspondence:
     - unit_id: scft-v4-ch12
       relationship: chapter-version
-      review: Title/bibliographic correspondence only; equation and theorem equivalence not asserted.
+      review: Chapter version read alongside v4 ch. 12 §§12.1–12.4; scoped mathematical correspondence reviewed,
+        with the same rate and endpoint qualifications. Broader policy/clinical discussion excluded.
+    implementation_evidence: docs/records/incerto-scft-v4-ch12.md
   paper-probability-conflation:
     id: paper-probability-conflation
     title: 'The Probability Conflation: A Reply'
@@ -13885,7 +13960,7 @@ concepts:
       lean-verifiable: The optimal point summary depends on the loss and existence of its expectation.
       numeric-demo: Compare losses on identical simulated draws.
     scope: Specify median/mean/quantile targets and what happens when expected loss is infinite.
-    status: in-progress
+    status: done
     dependencies:
     - c-pareto-moments
     - c-calibration-payoff
@@ -13895,8 +13970,8 @@ concepts:
     canonical_url: /math/incerto/incerto-point-forecast/
     coverage:
       prose: existing
-      scope_note: Chapter-11 teaching and deterministic model examples implemented; later scft-v4-ch12 scope
-        and separate max review remain. No checked Lean.
+      scope_note: Chapters 11–12 teaching and reproducible synthetic/model examples implemented; attached-paper
+        mathematical scope reviewed. Separate max review and site/live gates remain. No checked Lean.
       lean: absent
       python: bounded-model-demo-tested
       created_in_chunk: scft-v4-ch11
@@ -13914,19 +13989,25 @@ concepts:
       - lean
       website_math:
         required: true
-        status: in-progress
+        status: done
       python:
         required: true
-        status: in-progress
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
         skipped_scopes:
         - scope: scft-v4-ch11
           status: skipped-for-now
           reason: 'Skipped at the owner-authorized chapter scope: the optional imported Lean prototype does
             not supply a checked probability/scoring development here; no toolchain/cache or new exact declaration
             was selected. Informal proofs and numerical checks are not Lean evidence.'
+        - scope: scft-v4-ch12
+          status: skipped-for-now
+          reason: Owner requested skipped-for-now. The optional imported Lean prototype has no checked probability/scoring
+            development for these claims; no new declaration or toolchain check is claimed.
+        reason: Owner requested skipped-for-now. The optional imported Lean prototype has no checked probability/scoring
+          development for these claims; no new declaration or toolchain check is claimed.
     chunk_ids:
     - scft-v4-ch11
     - scft-v4-ch12
@@ -13936,11 +14017,20 @@ concepts:
         website_math: done
         python: done
         lean: skipped-for-now
-        lean_reason: 'Skipped at the owner-authorized chapter scope: the optional imported Lean prototype
-          does not supply a checked probability/scoring development here; no toolchain/cache or new exact
-          declaration was selected. Informal proofs and numerical checks are not Lean evidence.'
+        lean_reason: 'Skipped at the owner-authorized chapter scope: the optional imported Lean prototype does
+          not supply a checked probability/scoring development here; no toolchain/cache or new exact declaration
+          was selected. Informal proofs and numerical checks are not Lean evidence.'
         evidence_path: docs/records/incerto-scft-v4-ch11.md
         note: Chapter-scoped implementation only; later source scopes and separate review remain.
+      scft-v4-ch12:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: Owner requested skipped-for-now. The optional imported Lean prototype has no checked probability/scoring
+          development for these claims; no new declaration or toolchain check is claimed.
+        evidence_path: docs/records/incerto-scft-v4-ch12.md
+        note: Teaching/Python and attached mathematical source scope complete; separate max review and publication
+          gates pending.
   c-ml-econometrics:
     id: c-ml-econometrics
     title: Tail assumptions in statistical pipelines

@@ -1,8 +1,9 @@
 # Planning Index
 
-Chapter 11 teaching/Python: [checkpoint](../records/incerto-scft-v4-ch11.md).
-Next implementation chunk is `scft-v4-ch12`; observed S&P evaluation, separate
-max review and site/live checks remain pending.
+Chapter 12 teaching/Python: [checkpoint](../records/incerto-scft-v4-ch12.md).
+Next implementation chunk is `scft-v4-ch13`; separate max review and site/live
+checks remain pending. The [observed S&P evaluation](../records/incerto-sp500-observed.md)
+has already been computed from the local snapshot.
 
 Status: Phase 0 light inventory, Phase 1 local HTML gate, Phase 2 eligible
 scope, and Phase 3 local rehearsal complete; IG outline and first entry batch
@@ -31,7 +32,7 @@ personal hub. Normix remains an independent JAX package and API project.
 | [Agent framework](../design/AGENT_FRAMEWORK.md) | Guidance sources of truth, Codex/Cursor discovery, shared skills, adapters, verification contracts, maintenance |
 | [License advice](../design/LICENSE_ADVICE.md) | Adopted MIT scope, deferred alternative, Incerto import decision, private-to-public review |
 | [IG entry outline](ig-entry-outline.md) | Implemented Basics / early IG pages, prerequisites, and the later GH/Normix research sequence |
-| [Incerto program](incerto-program/README.md) | SCoFT v4: 30 chapters + 9 appendices, then Dynamic Hedging; 75 active concepts, 28 retained out of scope; chapters 1–11 implemented at their recorded scopes; chapter-11 max review and external source/build/live follow-ups remain; chapter 12 next; teaching → Python → optional Lean |
+| [Incerto program](incerto-program/README.md) | SCoFT v4: 30 chapters + 9 appendices, then Dynamic Hedging; 75 active concepts, 28 retained out of scope; chapters 1–12 implemented at their recorded scopes; separate max reviews and external source/build/live follow-ups remain; chapter 13 next; teaching → Python → optional Lean |
 | [Incerto Batch 1](phase-2-incerto-batch-1.md) | Executed nine-page import scope, adaptations, and deferred material |
 | [Incerto Batch 2](phase-2-incerto-batch-2.md) | Executed nine-page EVT and diagnostics import, adaptations, and deferred material |
 | [Incerto Batch 3](phase-2-incerto-batch-3.md) | Executed eight-page sums, geometry, catalog, and concept-index import |

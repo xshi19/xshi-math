@@ -276,3 +276,36 @@ remain pending. The two concepts retain their later chapter scopes.
   because sandbox socket setup was denied. No fresh HTML/browser/live pass
   is claimed.
 - No commit, deletion, packaging build, Lean build, hub transfer or publication.
+
+
+## Chapter 12 (2026-11-01)
+
+The [chapter-12 checkpoint](../../records/incerto-scft-v4-ch12.md) records
+an extension of the point-forecast page, its new guide, five helpers and
+three synthetic/model figures. Chapter 12 and the attached selected
+mathematical paper scope are done; `next_chunk` is `scft-v4-ch13`.
+Separate max review and publication gates remain pending. Lean is skipped.
+
+- `UV_NO_SYNC=1 uv run pytest`: **1,645 passed, 1 skipped in 447.24 s**,
+  including exact page outputs, numerical identities and two fresh-process
+  exports matching all three SVGs. The skip is the existing local-data
+  layoffs example. Available dependencies were used; locked offline Python
+  installation failed on an uncached wheel.
+- Regenerated **132** snippet outputs with the existing script. Every new
+  helper has an API anchor and executed domain/endpoint examples.
+- All three figures were inspected as **390/900 px** PNGs. All **25**
+  affected display blocks parse with KaTeX 0.19.1; the maximum font-metric
+  width estimate is **248.81 px** at 17 px, without browser certification.
+- State/human-view validation and **1,195** plan file/fragment links pass;
+  530 changed page/record links, citation keys and tracked/new whitespace
+  were checked. Program bodies remain 39; concepts 103; new Lean claims zero.
+  The graph has **48 nodes, 89 dependency edges, 116 reference edges**.
+- M05-ISSUE-006/007 and the frozen review inventory retain their previous
+  dispositions. The new source qualifications are recorded for max review.
+- Offline scratch `npm ci` passed using the recovered cached MyST archive.
+  The fresh scratch build failed MyST's npm version preflight; HTML checks
+  found missing artifacts. Chrome launch failed sandbox socket setup.
+  No fresh HTML/browser/live pass is claimed.
+- No commit, repository file deletion, packaging build, Lean build, hub
+  transfer or publication. Chapter-17 fitting and historical pandemic data
+  analysis were not started.

@@ -292,3 +292,17 @@ amount-loss comparison and will extend in chapter 12. Both link existing
 payoff, moment and hinge pages. `src/math/incerto/calibration.py` uses the
 existing installed-package mapping; the demo uses the shared figure helpers.
 No dependency, data source, network call, or Lean subtree is added.
+
+## Chapter-12 implementation boundary
+
+The [chapter-12 checkpoint](../../records/incerto-scft-v4-ch12.md) extends
+`c-point-forecast` in its existing canonical page. `incerto-scoft-ch12.md`
+is a reading guide, not a new concept body. The helper module
+`src/math/incerto/forecasting.py` supplies stable scales, quantile losses,
+endpoint transforms and bounded-budget repeated Pareto scoring. It reuses
+the calibration loss evaluator and the shared figure exporter.
+
+The zero-lower-endpoint transform is elementary chapter-12 context. This
+work does not implement chapter-17 shadow-mean fitting or chapter-18
+historical estimation. Pandemic examples use synthetic laws only. No new
+concept IDs, notation conventions, data pipeline or Lean subtree is added.

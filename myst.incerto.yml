@@ -98,6 +98,8 @@ project:
               title: Chapter 10 — Diagnosing returns
             - file: content/incerto-scoft-ch11.md
               title: Chapter 11 — Calibration and payoffs
+            - file: content/incerto-scoft-ch12.md
+              title: Chapter 12 — Point forecasts and tail risk
         - file: content/incerto-external-reading.md
           children:
             - file: content/incerto-reading-embrechts.md

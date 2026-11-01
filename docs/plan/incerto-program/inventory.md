@@ -1,7 +1,7 @@
 # Book and chapter inventory
 
-Chapter 11 is implemented at the scope in the
-[chapter-11 checkpoint](../../records/incerto-scft-v4-ch11.md). Separate max
+Chapter 12 is implemented at the scope in the
+[chapter-12 checkpoint](../../records/incerto-scft-v4-ch12.md). Separate max
 review and site/live verification remain; chapter 12 is next. Earlier empirical
 and source-locator limitations remain recorded in their own checkpoints.
 
