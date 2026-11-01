@@ -77,14 +77,14 @@ Lean omissions require a reason and never block the next chapter.
 | [Validation](validation.md) | Schema, executable checks and resume procedure |
 | [Verification](verification.md) | Historical evidence, this revision's checks and pending operator rerun |
 
-`next_chunk` is `#/chunks/scft-v4-ch12`. Chapters 1–11 teaching,
+`next_chunk` is `#/chunks/scft-v4-ch13`. Chapters 1–12 teaching,
 bounded Python examples and optional Lean skips are recorded in state.
 There are now 39 implemented program concept bodies; the frozen M0.5
 review denominator remains 24. Chapters 1–7 passed separate max review;
 chapter 8's later max-review record is retained. Chapter 9 has its separate
 max reviews recorded, including the later corollary check. Chapter 10's
 separate max review is appended to its checkpoint; its original state flags
-remain historical. Chapter 11 awaits its separate max run. Moment estimation
+remain historical. Chapters 11–12 await their separate max runs. Moment estimation
 remains in progress for its chapter-28 scope.
 
 The chapter-8 record contains that chunk's tests, dependency versions and site
@@ -257,7 +257,21 @@ Lean is skipped for now; the next writing chunk is `scft-v4-ch11`.
 [Chapter 11 — Calibration and payoffs](../../records/incerto-scft-v4-ch11.md)
 adds two concept pages, a guide, eleven helpers and four deterministic model
 figures. Exact payoff, binomial and beta calculations are separated from
-Monte Carlo estimates and from observed-data studies. Point forecasts retain
-chapter-12 extension scope; calibration retains chapter-13 extension scope.
+Monte Carlo estimates and from observed-data studies. The point-forecast extension is now implemented in chapter 12;
+calibration retains chapter-13 extension scope.
 The chunk is done at teaching/Python scope; separate max review and external
-site/live gates remain. Lean is skipped with a reason. Chapter 12 is next.
+site/live gates remain. Lean is skipped with a reason. The chapter-12 continuation is recorded below.
+
+## Chapter 12 implementation
+
+[Chapter 12 — Point forecasts and tail risk](../../records/incerto-scft-v4-ch12.md)
+extends the canonical point-forecast page and adds its chapter guide, five
+helpers, and three synthetic/model figures. Stable average scales, loss
+moments, paired comparisons, quantile targets, bounded transforms and an
+explicit precaution calculation each state their assumptions. General stable
+attraction is cited; finite simulations are numerical evidence only.
+
+Chapter 12 and its attached mathematical paper scope are done at the recorded
+teaching/Python scope. Separate max review and site/live checks remain.
+Historical pandemic data are cited background only; no dataset was imported.
+Lean is skipped as requested. The next writing chunk is `scft-v4-ch13`.

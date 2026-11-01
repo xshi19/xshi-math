@@ -344,3 +344,19 @@ byte; no timestamp or bold-font output appears. The full suite passes this
 check. These are model calculations, with no fetched data or empirical
 calibration conclusion. Browser and live-page checks remain pending because
 the scratch site build and browser launch were blocked in this environment.
+
+## Chapter-12 follow-up (2026-11-01)
+
+Three original figures extend the canonical point-forecast page: exact
+stable-average scales with simulated Pareto mean errors, repeated forecast
+score summaries, and exact bounded-transform/cap-sensitivity curves. The
+[chapter-12 record](../../records/incerto-scft-v4-ch12.md#helpers-and-figures)
+lists file names, seeds, parameters, and the 17,720,000-draw budget.
+
+All six PNGs at 390/900 px were inspected. A missing fraction glyph was
+replaced with mathtext and both sizes rechecked. Vertical panels retain
+legible axes and legends. Quantile bands describe sampling variation;
+score panels retain different units, and log axes are labeled. The bounded
+panel uses capped synthetic Pareto laws, not fitted pandemic observations.
+Two fresh producer processes match all three repository SVGs byte for byte.
+Browser/page and live-review gates remain separate from this PNG review.
