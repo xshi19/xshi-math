@@ -352,17 +352,37 @@ $$
 The superscript distinguishes this asymmetric limit from the symmetric
 benchmark; it does not assert positive support after centering. We cite,
 rather than prove, attraction [@durrett2019probability, Theorem 3.8.2,
-p. 186]. For general regularly varying tails, the denominator is $a_n/n$,
+p. 186]. Durrett's fifth-edition convention normalizes the sum as
+$(S_n-b_n)/a_n$, where $S_n=\sum_{i=1}^n X_i$, using
+
+$$
+\begin{gathered}
+a_n=\inf\{x>0:{}\\
+P(|X|>x)\le 1/n\},\\
+b_n=n\mathbb E[X\mathbf1_{\{|X|\le a_n\}}].
+\end{gathered}
+$$
+
+For exact Pareto, $a_n=x_m n^{1/\alpha}$ for $n\ge2$.
+Our display is $(S_n-n\mu)/a_n$. When $1<\alpha<2$,
+$(n\mu-b_n)/a_n=\alpha/(\alpha-1)$, so this full-mean normalization
+gives Durrett's limit shifted downward by $\alpha/(\alpha-1)$.
+This tail normalization fixes the scale and location of $Z_\alpha^+$.
+For general regularly varying tails, the denominator is $a_n/n$,
 where $nP(|X|>a_n)\to1$ and $a_n$ may contain a slowly varying factor.
 Convergence in distribution by itself supplies neither finite-sample
 coverage nor convergence of mean absolute errors.
 
 For a nonnegative Pareto law with $0<\alpha<1$, use zero centering;
 $\bar X_n/(x_m n^{1/\alpha-1})$ has a nondegenerate positive stable limit.
+Here $b_n/a_n\to\alpha/(1-\alpha)$, so removing Durrett's truncated
+centering shifts his limit upward by $\alpha/(1-\alpha)$.
 There is no finite mean to forecast. In fact $\bar X_n\to\infty$ almost
 surely when $\alpha\le1$: apply the bounded iid strong law to
 $\min(X_i,b)$ for every integer $b$, then let its expectation increase
-without bound. At the exact Pareto boundary $\alpha=1$, the separate
+without bound. At the exact Pareto boundary $\alpha=1$, Durrett's constants
+are $a_n=x_m n$ and $b_n=x_m n\log n$. His centered stable limit thus
+applies to $\bar X_n/x_m-\log n$. The separate
 [truncation argument](incerto-pareto.md#exact-pareto-boundary-calculation)
 gives $\bar X_n/(x_m\log n)\to1$ in probability. This positive-law
 boundary is different from the symmetric Cauchy location example.
@@ -434,9 +454,11 @@ $$
 $$
 
 For $d_1\ne d_2$, its mean exists under exact Pareto when $\alpha>1$,
-and its variance is finite only when $\alpha>2$. A consistent paired
-ranking is therefore possible even when individual MSEs are infinite;
-it compares an integrable difference, not two finite expected scores.
+and its variance is finite only when $\alpha>2$. A consistent strict paired
+ranking is therefore possible when the expected loss difference is nonzero,
+even when individual MSEs are infinite; it compares an integrable difference,
+not two finite expected scores. For either paired comparison, a zero expected
+loss difference is a tie in expectation, whatever the sample averages show.
 Time-varying forecasts, training selection, dependence, and model changes
 require their own analysis. These identities do not validate an arbitrary
 leaderboard or establish that all forecasting comparisons fail.
@@ -516,6 +538,8 @@ $F(d-)\le\tau\le F(d)$. Without integrability, quantiles still exist,
 and expected **paired differences** remain finite because their magnitude
 is at most $|d_2-d_1|$. The same integral then describes those differences;
 it must not be read as subtraction of two infinite expectations.
+A strict preference requires a nonzero expected paired loss difference;
+zero means a tie in expectation, whatever the sample averages show.
 
 For exact Pareto $X$, solving $F(q_\tau)=\tau$ gives
 

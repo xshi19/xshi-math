@@ -360,3 +360,27 @@ Two optional exposition changes are left to Xiang:
   and this record. Existing chapter work was preserved. No repository
   files were added or deleted during the review, no paths are staged,
   and no commit was made. Writes stayed within this clone and `/tmp`.
+
+## Optional review items
+
+2026-11-01. Xiang approved both exposition clarifications. The point-forecast
+note now names Durrett's scale $a_n$ and truncated centering $b_n$, relates
+them to full-mean centering for $1<\alpha<2$ and zero centering below one,
+and gives the logarithmic centering at one. Locator: `durrett2019probability`,
+fifth edition, **Theorem 3.8.2, printed p. 186**, using the existing local
+bibliography and previously checked normalization in the linked limit-law
+note. Both paired-ranking passages now require a nonzero expected loss
+difference for a strict preference; zero is a tie in expectation regardless
+of sample averages. The chapter guide, code, and outputs are unchanged;
+output regeneration was unnecessary. No network fetches or commit.
+
+Verification with existing dependencies, offline:
+
+- `UV_NO_SYNC=1 uv run pytest tests/test_incerto_page_snippets.py tests/test_incerto_forecasting.py -q`:
+  **540 passed, 1 skipped in 141.03 s**; the local layoffs CSV is absent.
+- `git diff --check`, local bibliography keys and link targets passed;
+  all 14 code/output blocks in the concept page are unchanged.
+- Cached KaTeX parsed all 26 concept/guide displays. The largest estimated
+  width, including its font multiplier, is **317.29 px**, within the 358 px
+  reading width at 390 px. Actual browser verification remains blocked by
+  Chromium's socket permission error. Full site/HTML checks were not rerun.
