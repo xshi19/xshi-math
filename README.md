@@ -98,7 +98,13 @@ Use Node.js >=20, npm >=8.6, and Python 3. MyST CLI 1.10.1 is pinned in the npm
 manifest and lock. The book-theme alias downloads a separate theme on its first
 build; DOI citation lookup can also need network access.
 
+The shared bibliography is the private `xshi19/bibliography` repo, checked out
+as the `bib/` submodule. Clone with `git clone --recurse-submodules`, or run
+`git submodule update --init` in an existing clone. Add new BibTeX entries in
+`xshi19/bibliography`, then bump the `bib` submodule pointer here.
+
 ```sh
+git submodule update --init
 npm ci
 npm run build
 npm run check:html

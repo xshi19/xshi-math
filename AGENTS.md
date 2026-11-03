@@ -84,6 +84,9 @@ Normix package `docs-publish` stays upstream. The optional Lean prototype lives 
 - Install/test: `uv sync --locked`, then `uv run pytest`.
 - Demo: `uv run python demos/incerto/exceedances.py`.
 - Packaging: `uv build`; verify editable and wheel imports when mapping changes.
+- Bibliography: `bib/` is a submodule of private `xshi19/bibliography`; run
+  `git submodule update --init` first. Add new entries there, not here, then
+  bump the submodule pointer.
 - Site: `npm ci`, `npm run build`, then `npm run check:html`.
 - Review rendered equations, links, and desktop/mobile navigation under `/math/`.
 
