@@ -6,7 +6,7 @@ project:
   license: MIT
   github: https://github.com/xshi19/xshi-math
   bibliography:
-    - content/bibliography.bib
+    - bib/bibliography.bib
   toc:
     - file: content/incerto/index.md
     - title: Concepts

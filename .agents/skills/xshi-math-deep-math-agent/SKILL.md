@@ -88,7 +88,7 @@ Store artifacts under `docs/records/deep-math/` using stem
 - PDFs upload as file inputs; images as vision; text inlined with size limits.
 - Auto-included context when present: `AGENTS.md`,
   `docs/rules/mathematical-writing.md`, `docs/rules/shared-notation.md`,
-  `content/notation.md` (there is no shared `content/bibliography.bib` yet).
+  `content/notation.md` (the shared bibliography lives in the `bib/` submodule, `xshi19/bibliography`).
 - See `references/report_contract.md` for the expected report shape.
 
 ## Completion Check
