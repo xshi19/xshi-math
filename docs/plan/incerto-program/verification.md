@@ -309,3 +309,39 @@ Separate max review and publication gates remain pending. Lean is skipped.
 - No commit, repository file deletion, packaging build, Lean build, hub
   transfer or publication. Chapter-17 fitting and historical pandemic data
   analysis were not started.
+
+## Chapter-13 implementation (2026-11-02)
+
+The [chapter-13 checkpoint](../../records/incerto-scft-v4-ch13.md) records
+the final tests, regenerated page outputs, source qualifications and nine
+claims for the separate max review. Two new canonical concept bodies and
+one guide extend the existing calibration/payoff home. Four risk helpers,
+their independent numerical tests and four deterministic figures are added.
+The graph has 50 nodes, 92 dependency edges and 123 reference edges.
+State records 41 existing program concept bodies and chapter 14 next;
+the frozen M0.5 denominator remains 24 and no Lean evidence is added.
+
+
+Final `UV_NO_SYNC=1 uv run pytest`: **1,757 passed, 5 skipped in 480.37 s**;
+the skips need absent local observed-data CSVs. All chapter-13 tests and
+page outputs pass. The regenerator executed 151 affected teaching/API
+outputs. The focused helper/figure run passed 73 cases after the endpoint
+fix. State validation checks 1,204 plan links; the changed-Markdown and
+bibliography check passes 1,271 local links. Tracked and new-file whitespace
+checks pass. See the checkpoint for environment and command details.
+
+All four figures were inspected as PNGs at 390 and 900 px. KaTeX parsed
+41 displays, with a maximum font-metric width estimate of 303.66 px at
+17 px; actual browser measurement remains unavailable. The state/human-view
+validator passes, including its local file/fragment checks. A normalized
+full-book comparison found no matching 8-, 10- or 12-word sequences in
+the new pages, calibration extension, helper and producer; manual source
+comparison confirms original exposition and explicit qualifications.
+
+Locked offline sync is blocked by an uncached SciPy wheel; Python checks
+use the documented available dependencies with `UV_NO_SYNC=1`. Offline npm
+installation succeeds, but the fresh MyST build fails its npm preflight.
+The HTML checker has no fresh artifacts to inspect, and Chrome launch is
+blocked by sandbox socket permissions. These failures leave site/browser
+and later live-reader gates open. No commit, deletion, publication, hub
+transfer, packaging check or Lean build is part of this chunk.

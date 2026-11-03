@@ -77,14 +77,15 @@ Lean omissions require a reason and never block the next chapter.
 | [Validation](validation.md) | Schema, executable checks and resume procedure |
 | [Verification](verification.md) | Historical evidence, this revision's checks and pending operator rerun |
 
-`next_chunk` is `#/chunks/scft-v4-ch13`. Chapters 1–12 teaching,
+`next_chunk` is `#/chunks/scft-v4-ch14`. Chapters 1–13 teaching,
 bounded Python examples and optional Lean skips are recorded in state.
-There are now 39 implemented program concept bodies; the frozen M0.5
+There are now 41 implemented program concept bodies; the frozen M0.5
 review denominator remains 24. Chapters 1–7 passed separate max review;
 chapter 8's later max-review record is retained. Chapter 9 has its separate
 max reviews recorded, including the later corollary check. Chapter 10's
 separate max review is appended to its checkpoint; its original state flags
-remain historical. Chapters 11–12 await their separate max runs. Moment estimation
+remain historical. Chapters 11–12 have their subsequent max reviews recorded in their checkpoints.
+Chapter 13 awaits its separate max run. Moment estimation
 remains in progress for its chapter-28 scope.
 
 The chapter-8 record contains that chunk's tests, dependency versions and site
@@ -275,3 +276,18 @@ Chapter 12 and its attached mathematical paper scope are done at the recorded
 teaching/Python scope. Separate max review and site/live checks remain.
 Historical pandemic data are cited background only; no dataset was imported.
 Lean is skipped as requested. The next writing chunk is `scft-v4-ch13`.
+
+## Chapter-13 implementation (2026-11-02)
+
+[Chapter 13 — Probability and payoff risk](../../../content/incerto-scoft-ch13.md)
+adds probability-conflation and risk-measure pages and extends the existing
+calibration/payoff page. The [checkpoint](../../records/incerto-scft-v4-ch13.md)
+separates locally proved claims, synthetic numerical evidence, the pending
+max review and blocked site/browser checks. Four helpers and four figures
+cover score/payoff identification, beta probability-report error, Pareto
+VaR/ES, exponent uncertainty and Hill estimation. Probability-report
+uncertainty and exponent uncertainty are explicitly different models.
+
+Calibration/payoff and probability-conflation teaching scopes are complete;
+risk measures retain their later chapter-28/29 and Dynamic Hedging scope.
+Lean is skipped-for-now. No chapter-14 work, commit or publication is included.

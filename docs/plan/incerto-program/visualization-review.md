@@ -360,3 +360,19 @@ score panels retain different units, and log axes are labeled. The bounded
 panel uses capped synthetic Pareto laws, not fitted pandemic observations.
 Two fresh producer processes match all three repository SVGs byte for byte.
 Browser/page and live-review gates remain separate from this PNG review.
+
+## Chapter-13 figures (2026-11-02)
+
+The [checkpoint](../../records/incerto-scft-v4-ch13.md#helpers-and-figures)
+records four new SVGs, inputs, fixed seeds and the one-million-draw figure
+budget. All four were rasterized at both 390 and 900 px and inspected. The
+probability-transform legend was moved clear of a curve, regenerated and
+reinspected. Stacked panels, explicit log scales, readable legends and
+quantile bands keep the figures legible at the phone width. Infinite fitted
+ES values are counted, including when the finite quantile bands are drawn;
+no failed-moment fits are discarded from the denominators.
+
+The exact Brier law and exact model-risk curves are distinguished from the
+repeated Hill experiment. The bands are sampling quantiles, not confidence
+intervals for real losses. Fresh-process byte checks are in the chapter's
+figure test. PNG inspection does not close browser/page or live-reader gates.
