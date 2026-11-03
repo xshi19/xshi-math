@@ -6,7 +6,7 @@ by the repository's MIT grant. No financial index data is included.
 
 | File | Source and terms | Recorded access date | Refresh command |
 | --- | --- | --- | --- |
-| `snapshots/amazon_bookrank_2001.csv` | Caroline (Yuanmo) Zhu, [Amazon Book Sales VS Rank](https://www.kaggle.com/datasets/yuanmozhu/amazon-book-sales-vs-rank), dataset id `yuanmozhu/amazon-book-sales-vs-rank`; CC0 as recorded in source `data/README.md` and `content/bibliography.bib`; Kaggle dataset metadata re-checked 2026-10-17: license "CC0: Public Domain" | 2026-05-24 | `python scripts/fetch_incerto_data.py amazon-bookrank` |
+| `snapshots/amazon_bookrank_2001.csv` | Caroline (Yuanmo) Zhu, [Amazon Book Sales VS Rank](https://www.kaggle.com/datasets/yuanmozhu/amazon-book-sales-vs-rank), dataset id `yuanmozhu/amazon-book-sales-vs-rank`; CC0 as recorded in source `data/README.md` and `bib/bibliography.bib` (submodule `xshi19/bibliography`); Kaggle dataset metadata re-checked 2026-10-17: license "CC0: Public Domain" | 2026-05-24 | `python scripts/fetch_incerto_data.py amazon-bookrank` |
 | `snapshots/nyc_dog_name_frequencies.csv` | NYC DOHMH, [Dog Licensing Dataset](https://data.cityofnewyork.us/Health/NYC-Dog-Licensing-Dataset/nu7n-tubp), id `nu7n-tubp`; NYC Open Data; no use restrictions (NYC Open Data FAQ and Local Law 11 of 2012, NYC Admin. Code § 23-502(d)), re-checked 2026-10-17; attribution to DOHMH retained | 2026-08-11 | `python scripts/fetch_incerto_data.py nyc-dog-names` |
 
 The source README and loader document the NYC transformation: trim and uppercase
