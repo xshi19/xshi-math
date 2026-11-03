@@ -306,3 +306,18 @@ The zero-lower-endpoint transform is elementary chapter-12 context. This
 work does not implement chapter-17 shadow-mean fitting or chapter-18
 historical estimation. Pandemic examples use synthetic laws only. No new
 concept IDs, notation conventions, data pipeline or Lean subtree is added.
+
+## Chapter-13 implementation boundary
+
+The [chapter-13 checkpoint](../../records/incerto-scft-v4-ch13.md) adds
+`incerto-probability-conflation.md` and `incerto-risk-measures.md`, extending
+`incerto-calibration-payoff.md` at its existing home. The risk helper module
+uses the existing `xmath` package mapping and SciPy dependency; it provides
+exact Pareto risk, finite-law risk with quantile atoms, common-cutoff Pareto
+mixtures and moments of a beta-report quantile transform. The single producer
+uses the shared figure theme/exporter and existing calibration/Hill helpers.
+
+No fitted financial risk model, observed dataset, dependency, new concept ID,
+notation convention or Lean subtree is added. Risk measures' later source
+scopes remain open. Averaging model quantiles and taking the quantile of a
+mixture have separate definitions, proofs and executable comparisons.

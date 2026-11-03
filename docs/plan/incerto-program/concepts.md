@@ -1527,16 +1527,16 @@ Chapter chunks: `scft-v4-ch10`.
 
 ## Probability calibration versus payoff accuracy (`c-calibration-payoff`)
 
-Home: `content/incerto-calibration-payoff.md` (existing). Status: **in-progress**. Milestone: **M1**. Lead: `astra-xhigh`.
+Home: `content/incerto-calibration-payoff.md` (existing). Status: **done**. Milestone: **M1**. Lead: `astra-xhigh`.
 
 A calibrated event forecast need not estimate an unbounded payoff well.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`).
 
 - **numeric-demo:** Compare scoring rules and payoff errors under the same forecasts.
 - **lean-verifiable:** Finite examples separate event probabilities from magnitude-sensitive expectations.
 
-Coverage: Chapter-11 teaching and deterministic model examples implemented; later scft-v4-ch13 scope and separate max review remain. No checked Lean.
+Coverage: Chapter-11 and chapter-13 teaching and deterministic model examples implemented; the chapter-13 max and site/live reviews remain. No checked Lean.
 
 Prerequisites: [c-asymmetric-payoffs](#c-asymmetric-payoffs), [c-moment-estimation](#c-moment-estimation).
 
@@ -1545,8 +1545,12 @@ Technical source mappings: [SCoFT v4 ch. 11](inventory.md#scft-v4-ch11), [SCoFT 
 Chapter chunks: `scft-v4-ch11`, `scft-v4-ch13`.
 
 Chapter-11 scope: teaching and Python **done**; Lean **skipped-for-now**.
-Separate max review and later chapter scope remain; see the
+Chapter-11 max review is recorded; see the
 [chapter-11 checkpoint](../../records/incerto-scft-v4-ch11.md).
+
+Chapter-13 scope: teaching and Python **done**; Lean **skipped-for-now**.
+Separate max and site/live review remain; see the
+[chapter-13 checkpoint](../../records/incerto-scft-v4-ch13.md).
 
 <a id="c-forecast-martingale"></a>
 
@@ -2200,7 +2204,7 @@ Chapter chunks: `scft-v4-ch29`, `dh-ch06`.
 
 ## VaR, expected shortfall, and model limits (`c-risk-measures`)
 
-Home: `content/incerto-risk-measures.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: `content/incerto-risk-measures.md` (existing). Status: **in-progress**. Milestone: **M1**. Lead: `astra-xhigh`.
 
 Expected shortfall may be infinite; VaR subadditivity needs conditions.
 
@@ -2209,13 +2213,17 @@ Deliverables: website math (required) → Python (required) → Lean (optional; 
 - **numeric-demo:** Show tail sensitivity and estimation uncertainty.
 - **lean-verifiable:** Finite-distribution counterexamples and scoped coherence statements are checkable.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Chapter-13 VaR/ES, atom, coherence and common-cutoff exponent-uncertainty scope implemented; later chapters 28/29 and DH module E remain. Separate max and site/live reviews remain. No checked Lean.
 
 Prerequisites: [c-pareto-moments](#c-pareto-moments).
 
 Technical source mappings: [SCoFT v4 ch. 13](inventory.md#scft-v4-ch13), [SCoFT v4 ch. 28](inventory.md#scft-v4-ch28), [SCoFT v4 ch. 29](inventory.md#scft-v4-ch29), [DH module E](inventory.md#dh-mode).
 
 Chapter chunks: `scft-v4-ch13`, `scft-v4-ch28`, `scft-v4-ch29`, `dh-ch15`.
+
+Chapter-13 scope: teaching and Python **done**; Lean **skipped-for-now**.
+Separate max and site/live review remain; see the
+[chapter-13 checkpoint](../../records/incerto-scft-v4-ch13.md).
 
 <a id="c-stochastic-pricing"></a>
 
@@ -2265,22 +2273,26 @@ Chapter chunks: `scft-v4-ch27`.
 
 ## Tail probabilities, expectations and parameter uncertainty (`c-probability-conflation`)
 
-Home: `content/incerto-probability-conflation.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: `content/incerto-probability-conflation.md` (existing). Status: **done**. Milestone: **M1**. Lead: `astra-xhigh`.
 
 Scope the chapter 13 probability-versus-expectation and error-propagation claims with explicit distributions and integrability. Chapter 11 owns the basic calibration distinction; no assertion about individual forecasters follows from a model example.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`).
 
 - **numeric-demo:** Compare probability and tail-expectation sensitivity on identical parameter grids; report moment boundaries.
 - **lean-verifiable:** Specified probability and tail-expectation comparisons admit exact declarations after the source hypotheses are checked.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Chapter-13 probability/payoff and beta-report error propagation implemented with original proofs and synthetic examples; separate max and site/live reviews remain. No checked Lean.
 
 Prerequisites: [c-calibration-payoff](#c-calibration-payoff), [c-point-forecast](#c-point-forecast).
 
 Technical source mappings: [SCoFT v4 ch. 13](inventory.md#scft-v4-ch13), [`paper-probability-conflation`](inventory.md#paper-probability-conflation).
 
 Chapter chunks: `scft-v4-ch13`.
+
+Chapter-13 scope: teaching and Python **done**; Lean **skipped-for-now**.
+Separate max and site/live review remain; see the
+[chapter-13 checkpoint](../../records/incerto-scft-v4-ch13.md).
 
 <a id="c-portfolio-tail-dependence"></a>
 

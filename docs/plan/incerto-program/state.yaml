@@ -1,10 +1,10 @@
 # Canonical program inventory. See validation.md for semantics and checks.
 schema_version: 3
-updated: '2026-11-01'
+updated: '2026-11-02'
 repository: xshi19/xshi-math
 baseline_revision: 998a4a11a17b7ae7ba4c306005a4c8e3109f4392
-branch: scft/v4-ch12
-scope: scft-v4-ch12
+branch: scft/v4-ch13
+scope: scft-v4-ch13
 implementation_authorized: true
 authorized_chunks:
 - m0.5-review
@@ -20,9 +20,9 @@ authorized_chunks:
 - scft-v4-ch10
 - scft-v4-ch11
 - scft-v4-ch12
-authorization_note: Owner selected gpt-6-astra xhigh for chapter-12 writing/code and a separate gpt-6-astra
-  max review afterwards. No commits or file deletions. Synthetic/model examples only; no third-party
-  pandemic data imported or redistributed.
+- scft-v4-ch13
+authorization_note: Owner selected gpt-6-astra xhigh for chapter-13 writing/code and a separate gpt-6-astra
+  max review afterwards. No commits or file deletions. Synthetic/model examples only.
 status_semantics:
   todo: Program work has not satisfied its evidence gates; existing prose is recorded separately.
   in-progress: A named chunk is active and has a recorded checkpoint.
@@ -214,9 +214,9 @@ milestones:
     dependencies:
     - M2
     assigned_role: math-site-editor
-next_chunk: '#/chunks/scft-v4-ch13'
-next_chunk_note: Chapter-12 teaching, source reconciliation and Python implementation done; separate max
-  review and site/live checks remain distinct gates. Probability conflation is next in chapter 13.
+next_chunk: '#/chunks/scft-v4-ch14'
+next_chunk_note: Chapter-13 teaching, source reconciliation and Python implementation done; separate max
+  review and site/live checks remain distinct gates. Chapter 14 is next; its implementation is not started.
   Chapter-10 observed S&P results are computed on the local Yahoo Close snapshot through 2026-10-29;
   see docs/records/incerto-sp500-observed.md.
 chunks:
@@ -2335,26 +2335,41 @@ chunks:
       - lean
       teaching_pages:
         required: true
-        status: todo
+        status: done
         page_paths:
         - content/incerto-probability-conflation.md
         - content/incerto-calibration-payoff.md
         - content/incerto-risk-measures.md
+        - content/incerto-scoft-ch13.md
       demos:
         required: true
-        status: todo
+        status: done
         concept_ids:
         - c-probability-conflation
         - c-calibration-payoff
         - c-risk-measures
+        script_paths:
+        - demos/incerto/probability_conflation.py
+        helper_paths:
+        - src/math/incerto/risk_measures.py
+        test_paths:
+        - tests/test_incerto_risk_measures.py
+        - tests/test_incerto_risk_figures.py
+        figure_paths:
+        - assets/figures/incerto/conflation-payoff-gap.svg
+        - assets/figures/incerto/conflation-probability-error.svg
+        - assets/figures/incerto/risk-exponent-uncertainty.svg
+        - assets/figures/incerto/risk-estimation.svg
       optional_lean:
         required: false
-        status: optional
+        status: skipped-for-now
         policy: After teaching and demos; record exact checked claims or a skip reason. No chapter gate.
+        reason: Owner requested skipped-for-now. The optional imported Lean prototype has no checked probability
+          or risk-measure development for these claims; no new declaration or toolchain check is claimed.
     dependencies:
     - scft-v4-ch12
-    assigned_role: astra-max
-    status: todo
+    assigned_role: astra-xhigh
+    status: done
     milestone: M1
     source_unit_ids:
     - scft-v4-ch13
@@ -2382,6 +2397,55 @@ chunks:
       closure or the following chapter.
     - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
       live pages as a reader.
+    checkpoint:
+      completed_at: '2026-11-02'
+      base_revision: d002ee7
+      working_branch: scft/v4-ch13
+      evidence_path: docs/records/incerto-scft-v4-ch13.md
+      guide_title: Chapter 13 — Probability and payoff risk
+      scope: Chapter-scoped teaching, source reconciliation and Python implementation done. Separate max review,
+        fresh HTML/browser checks and publication/live review remain distinct gates.
+      source_review: Read supplied v4 chapter 13, sections 13.1–13.6, printed pages 253–260 (PDF 267–274), and
+        attached arXiv:2301.10985v1 sections I–IV, pages 1–4. Probability uncertainty and exponent uncertainty
+        are explicitly distinguished; narrative and performance claims excluded.
+      claim_ids:
+      - CH13-C01
+      - CH13-C02
+      - CH13-C03
+      - CH13-C04
+      - CH13-C05
+      - CH13-C06
+      - CH13-C07
+      - CH13-C08
+      - CH13-C09
+      m0_5_resolutions:
+        M05-ISSUE-006: Remains open/deferred. Elementary risk and uncertainty claims are proved locally; existing
+          Hill scope retained without closing general theorem-source audits.
+        M05-ISSUE-007: Remains open. Chapter-13 and attached-paper locators checked; no global legacy-citation
+          audit claimed.
+      checks:
+        pytest: 'UV_NO_SYNC=1 uv run pytest: 1757 passed, 5 skipped in 480.37 s; three observed-data snippets and two observed-S&P figure cases need absent local CSVs.'
+        focused: '73 helper/figure tests passed in 9.90 s, including the near-one mixture-root regression.'
+        outputs: '151 teaching/API snippet outputs regenerated by scripts/regenerate_incerto_outputs.py.'
+        graph: '50 nodes, 92 dependency edges, 123 reference edges; full-suite graph tests passed.'
+        structural: 'State/human-view validator and 1204 plan links passed; 1271 links in 19 changed Markdown files and bibliography keys checked.'
+        figures: 'Four byte-reproducible SVGs; all eight PNGs at 390/900 px inspected.'
+        equations: '41 KaTeX displays parsed; largest font-metric estimate 303.66 px at 17px, not browser-certified.'
+        source_copy: 'Zero normalized 8-, 10- or 12-word matches against the full v4 book in new teaching pages, calibration extension, helper and producer; manual source comparison done.'
+        whitespace: 'git diff --check and all 12 untracked-file whitespace checks passed; full new files reviewed.'
+        locked_install: 'Blocked offline by uncached SciPy wheel; tests use documented available dependencies.'
+        site: 'Offline npm ci passed; scratch MyST npm preflight failed, HTML has no fresh artifacts, and Chrome sandbox socket launch failed.'
+        not_run: 'Packaging (mapping unchanged), Lean, publication, hub transfer and live reader review.'
+      max_math_review:
+        status: pending
+        assigned_role: astra-max
+        model: gpt-6-astra max
+        scope: CH13-C01–C09 and helper numerical boundaries; separate owner-requested run.
+      live_reader_review:
+        status: pending-publication
+        assigned_role: math-site-editor
+        note: No publication. SVG raster checks do not establish rendered-page or live navigation results.
+      next_action: Separate max review and external site/browser checks; next writing chunk scft-v4-ch14.
   scft-v4-ch14:
     id: scft-v4-ch14
     locator: SCoFT v4 ch. 14
@@ -3172,6 +3236,7 @@ chunks:
     - content/incerto-plug-in-tail-estimation.md
     - content/incerto-asymmetric-payoffs.md
     - content/incerto-moment-estimation.md
+    - content/incerto-risk-measures.md
     acceptance:
     - Review the chapter and attached source units at exact claim scope; use titles and locators for citations
       and original explanations for teaching.
@@ -3235,15 +3300,16 @@ chunks:
     - content/incerto-mixture-uncertainty.md
     - content/incerto-multivariate-tails.md
     - content/incerto-pareto-moment-existence.md
+    - content/incerto-risk-measures.md
     acceptance:
-    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
-      original explanations for teaching.
+    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations
+      and original explanations for teaching.
     - Resolve relevant M0.5 issues before reusing claims. Reuse canonical pages and reviewed prerequisite statements;
       do not reorder chapter chunks for a later full treatment.
     - Deliver chapter-scoped teaching pages, then bounded reproducible Python demos or visualizations; distinguish
       model calculations from observed-data studies.
-    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
-      or the following chapter.
+    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
+      closure or the following chapter.
     - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
       live pages as a reader.
   scft-v4-ch30:
@@ -4061,19 +4127,20 @@ chunks:
     - c-volatility-surface
     existing_pages_reused:
     - content/incerto-pareto-moment-existence.md
+    - content/incerto-risk-measures.md
     acceptance:
-    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
-      original explanations for teaching.
+    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations
+      and original explanations for teaching.
     - Resolve relevant M0.5 issues before reusing claims. Reuse canonical pages and reviewed prerequisite statements;
       do not reorder chapter chunks for a later full treatment.
     - Deliver chapter-scoped teaching pages, then bounded reproducible Python demos or visualizations; distinguish
       model calculations from observed-data studies.
-    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
-      or the following chapter.
+    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
+      closure or the following chapter.
     - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
       live pages as a reader.
-    - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
-      scope.
+    - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development
+      outside scope.
   dh-ch16:
     id: dh-ch16
     locator: Dynamic Hedging ch. 16
@@ -8101,7 +8168,7 @@ chapters:
     - c-probability-conflation
     - c-calibration-payoff
     - c-risk-measures
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     completion_scope: in-scope
@@ -8111,7 +8178,7 @@ chapters:
     edition: 2001.10488v4
     printed_page: 253
     milestone: M1
-    locator_review: local-v4-TOC-verified; exact-claim-locators-pending
+    locator_review: v4 sections 13.1–13.6, printed pages 253–260 reviewed at scoped mathematical level
     required_concept_ids:
     - c-probability-conflation
     - c-calibration-payoff
@@ -8119,8 +8186,12 @@ chapters:
     classification:
     - lean-verifiable
     - numeric-demo
-    existing_concept_ids: []
+    existing_concept_ids:
+    - c-probability-conflation
+    - c-calibration-payoff
+    - c-risk-measures
     chunk_id: scft-v4-ch13
+    implementation_evidence: docs/records/incerto-scft-v4-ch13.md
   scft-v4-ch14:
     id: scft-v4-ch14
     book_id: scft
@@ -10083,17 +10154,19 @@ papers:
     version: 2301.10985v1
     url: https://arxiv.org/abs/2301.10985v1
     source_role: primary
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     milestone: M1
-    locator_review: 2026-10-17 metadata-and-v4-bibliography-verified; exact-claims-pending
+    locator_review: 2301.10985v1 sections I–II pp. 1–3 and mathematical evaluation scope in III–IV pp. 3–4 reviewed
+      alongside chapter 13
     units:
     - id: paper-probability-conflation-scope
-      locator: whole paper; exact sections and theorem numbers to verify
+      locator: 'sections I–II pp. 1–3: probability/payoff and beta-transform mathematics; III–IV pp. 3–4: scoped
+        evaluation discussion'
       concept_ids:
       - c-probability-conflation
-      status: todo
+      status: done
       dependencies: []
       assigned_role: math-site-editor
       milestone: M1
@@ -10122,7 +10195,10 @@ papers:
     chapter_correspondence:
     - unit_id: scft-v4-ch13
       relationship: chapter-version
-      review: Title/bibliographic correspondence only; equation and theorem equivalence not asserted.
+      review: Both chapter and v1 read at the selected mathematical scope. Beta report and inverse Pareto transform
+        correspond; moment domains and probability/ES qualifications stated in the chapter-13 checkpoint. No
+        universal performance claim accepted.
+    implementation_evidence: docs/records/incerto-scft-v4-ch13.md
   paper-portfolio-correlation:
     id: paper-portfolio-correlation
     title: Pension Funds Should Never Rely on Correlation
@@ -13483,7 +13559,7 @@ concepts:
       lean-verifiable: Finite examples separate event probabilities from magnitude-sensitive expectations.
       numeric-demo: Compare scoring rules and payoff errors under the same forecasts.
     scope: A calibrated event forecast need not estimate an unbounded payoff well.
-    status: in-progress
+    status: done
     dependencies:
     - c-asymmetric-payoffs
     - c-moment-estimation
@@ -13493,8 +13569,8 @@ concepts:
     canonical_url: /math/incerto/incerto-calibration-payoff/
     coverage:
       prose: existing
-      scope_note: Chapter-11 teaching and deterministic model examples implemented; later scft-v4-ch13 scope
-        and separate max review remain. No checked Lean.
+      scope_note: Chapter-11 and chapter-13 teaching and deterministic model examples implemented; the chapter-13
+        max and site/live reviews remain. No checked Lean.
       lean: absent
       python: bounded-model-demo-tested
       created_in_chunk: scft-v4-ch11
@@ -13511,19 +13587,21 @@ concepts:
       - lean
       website_math:
         required: true
-        status: in-progress
+        status: done
       python:
         required: true
-        status: in-progress
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
         skipped_scopes:
         - scope: scft-v4-ch11
           status: skipped-for-now
-          reason: 'Skipped at the owner-authorized chapter scope: the optional imported Lean prototype does
-            not supply a checked probability/scoring development here; no toolchain/cache or new exact declaration
+          reason: 'Skipped at the owner-authorized chapter scope: the optional imported Lean prototype does not
+            supply a checked probability/scoring development here; no toolchain/cache or new exact declaration
             was selected. Informal proofs and numerical checks are not Lean evidence.'
+        reason: Owner requested skipped-for-now. The optional imported Lean prototype has no checked probability
+          or risk-measure development for these claims; no new declaration or toolchain check is claimed.
     chunk_ids:
     - scft-v4-ch11
     - scft-v4-ch13
@@ -13533,11 +13611,19 @@ concepts:
         website_math: done
         python: done
         lean: skipped-for-now
-        lean_reason: 'Skipped at the owner-authorized chapter scope: the optional imported Lean prototype
-          does not supply a checked probability/scoring development here; no toolchain/cache or new exact
-          declaration was selected. Informal proofs and numerical checks are not Lean evidence.'
+        lean_reason: 'Skipped at the owner-authorized chapter scope: the optional imported Lean prototype does
+          not supply a checked probability/scoring development here; no toolchain/cache or new exact declaration
+          was selected. Informal proofs and numerical checks are not Lean evidence.'
         evidence_path: docs/records/incerto-scft-v4-ch11.md
         note: Chapter-scoped implementation only; later source scopes and separate review remain.
+      scft-v4-ch13:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: Owner requested skipped-for-now. The optional imported Lean prototype has no checked probability
+          or risk-measure development for these claims; no new declaration or toolchain check is claimed.
+        evidence_path: docs/records/incerto-scft-v4-ch13.md
+        note: Chapter-scoped implementation; separate max and external site/live gates remain.
   c-forecast-martingale:
     id: c-forecast-martingale
     title: Forecast updating and martingale constraints
@@ -14924,25 +15010,27 @@ concepts:
       lean-verifiable: Finite-distribution counterexamples and scoped coherence statements are checkable.
       numeric-demo: Show tail sensitivity and estimation uncertainty.
     scope: Expected shortfall may be infinite; VaR subadditivity needs conditions.
-    status: todo
+    status: in-progress
     dependencies:
     - c-pareto-moments
-    assigned_role: astra-max
+    assigned_role: astra-xhigh
     milestone: M1
     page_path: content/incerto-risk-measures.md
     canonical_url: /math/incerto/incerto-risk-measures/
     coverage:
-      prose: absent
-      scope_note: Proposed original note; path is reserved in this plan only.
+      prose: existing
+      scope_note: Chapter-13 VaR/ES, atom, coherence and common-cutoff exponent-uncertainty scope implemented;
+        later chapters 28/29 and DH module E remain. Separate max and site/live reviews remain. No checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: bounded-model-demo-tested
+      created_in_chunk: scft-v4-ch13
     source_units:
     - scft-v4-ch13
     - scft-v4-ch28
     - scft-v4-ch29
     - dh-mode
     completion_scope: in-scope
-    page_status: proposed
+    page_status: existing
     source_priority: 1
     deliverables:
       order:
@@ -14951,19 +15039,33 @@ concepts:
       - lean
       website_math:
         required: true
-        status: todo
+        status: in-progress
       python:
         required: true
-        status: todo
+        status: in-progress
       lean:
         required: false
         status: optional
+        skipped_scopes:
+        - scope: scft-v4-ch13
+          status: skipped-for-now
+          reason: Owner requested skipped-for-now. The optional imported Lean prototype has no checked probability
+            or risk-measure development for these claims; no new declaration or toolchain check is claimed.
     chunk_ids:
     - scft-v4-ch13
     - scft-v4-ch28
     - scft-v4-ch29
     - dh-ch15
     first_chunk: scft-v4-ch13
+    completed_chunk_scopes:
+      scft-v4-ch13:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: Owner requested skipped-for-now. The optional imported Lean prototype has no checked probability
+          or risk-measure development for these claims; no new declaration or toolchain check is claimed.
+        evidence_path: docs/records/incerto-scft-v4-ch13.md
+        note: Chapter-scoped implementation; separate max and external site/live gates remain.
   c-stochastic-pricing:
     id: c-stochastic-pricing
     title: Ito calculus and continuous-time pricing
@@ -15060,31 +15162,33 @@ concepts:
     id: c-probability-conflation
     title: Tail probabilities, expectations and parameter uncertainty
     classification:
-      lean-verifiable: Specified probability and tail-expectation comparisons admit exact declarations after the
-        source hypotheses are checked.
-      numeric-demo: Compare probability and tail-expectation sensitivity on identical parameter grids; report moment
-        boundaries.
+      lean-verifiable: Specified probability and tail-expectation comparisons admit exact declarations after
+        the source hypotheses are checked.
+      numeric-demo: Compare probability and tail-expectation sensitivity on identical parameter grids; report
+        moment boundaries.
     scope: Scope the chapter 13 probability-versus-expectation and error-propagation claims with explicit distributions
       and integrability. Chapter 11 owns the basic calibration distinction; no assertion about individual forecasters
       follows from a model example.
-    status: todo
+    status: done
     dependencies:
     - c-calibration-payoff
     - c-point-forecast
-    assigned_role: astra-max
+    assigned_role: astra-xhigh
     milestone: M1
     page_path: content/incerto-probability-conflation.md
     canonical_url: /math/incerto/incerto-probability-conflation/
     coverage:
-      prose: absent
-      scope_note: Proposed original note; path is reserved in this plan only.
+      prose: existing
+      scope_note: Chapter-13 probability/payoff and beta-report error propagation implemented with original proofs
+        and synthetic examples; separate max and site/live reviews remain. No checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: bounded-model-demo-tested
+      created_in_chunk: scft-v4-ch13
     source_units:
     - scft-v4-ch13
     - paper-probability-conflation-scope
     completion_scope: in-scope
-    page_status: proposed
+    page_status: existing
     source_priority: 1
     deliverables:
       order:
@@ -15093,16 +15197,27 @@ concepts:
       - lean
       website_math:
         required: true
-        status: todo
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: Owner requested skipped-for-now. The optional imported Lean prototype has no checked probability
+          or risk-measure development for these claims; no new declaration or toolchain check is claimed.
     chunk_ids:
     - scft-v4-ch13
     first_chunk: scft-v4-ch13
+    completed_chunk_scopes:
+      scft-v4-ch13:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: Owner requested skipped-for-now. The optional imported Lean prototype has no checked probability
+          or risk-measure development for these claims; no new declaration or toolchain check is claimed.
+        evidence_path: docs/records/incerto-scft-v4-ch13.md
+        note: Chapter-scoped implementation; separate max and external site/live gates remain.
   c-portfolio-tail-dependence:
     id: c-portfolio-tail-dependence
     title: Portfolio losses beyond correlation
@@ -15174,7 +15289,7 @@ counts:
   concepts_total: 103
   concepts_in_scope: 75
   concepts_out_of_scope: 28
-  existing_concept_pages: 39
+  existing_concept_pages: 41
   checked_lean_concepts: 0
   scft_v4_chapters: 30
   scft_v4_appendices: 9
