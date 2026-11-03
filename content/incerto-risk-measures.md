@@ -229,8 +229,9 @@ $$
 Thus $v$ is decreasing and strictly convex. If a positive random
 exponent $A$ has finite mean $a_0$, Jensen gives
 $\mathbb E[v(A)]\ge v(a_0)$, allowing an infinite left side.
-The inequality is strict for a nonconstant $A$. This averages the
-quantiles of conditional models. It does not yet compute a predictive
+Equality holds exactly when $A$ is almost surely constant, a degenerate
+exponent with no parameter uncertainty. This averages the quantiles of
+conditional models. It does not yet compute a predictive
 mixture quantile, and it is not a bias claim about an arbitrary estimator:
 if $A$ represents an estimator, its mean need not equal the true exponent.
 
@@ -245,9 +246,10 @@ h''(a)=h(a)\{\ell''(a)+\ell'(a)^2\}>0.
 \end{gathered}
 $$
 
-Therefore averaging model ES also exceeds ES at the mean exponent
-when $A>1$ almost surely and $\mathbb E A<\infty$. Each component
-can have finite ES while its average is infinite: for $A$ uniform on
+Therefore averaging model ES is at least ES at the mean exponent
+when $A>1$ almost surely and $\mathbb E A<\infty$, with equality exactly
+when $A$ is almost surely constant. Each component can have finite ES
+while its average is infinite: for $A$ uniform on
 $(1,2)$, $h(A)\ge x_m/(A-1)$ has infinite expectation. Positive
 probability on $A\le1$ makes the average infinite immediately.
 
@@ -407,6 +409,11 @@ draws and all fits are retained; increasing $k$ is appropriate here because
 the entire law is exact Pareto, not because more body observations are
 always suitable for a tail fit.
 ```
+
+At $k=400$, 0 of 2,000 fits have infinite ES, a finite-sample count that
+does not establish zero population probability; the
+rule of three gives an
+approximate one-sided 95% upper confidence bound of $3/2000=0.15\%$.
 
 The same moment distinction applies to direct sample ES: observations
 can yield a finite numerical average even when the population ES is
