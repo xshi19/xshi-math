@@ -78,6 +78,8 @@ Normix package `docs-publish` stays upstream. The optional Lean prototype lives 
   [content/notation.md](content/notation.md) (public URL `/math/notation/`).
   See [shared-notation rule](docs/rules/shared-notation.md). New math notes must
   not invent parallel symbols for the same concept across tracks.
+- **Notation economy:** audit final-draft symbols using
+  [notation-economy](docs/rules/notation-economy.md).
 
 ## Verification commands
 
