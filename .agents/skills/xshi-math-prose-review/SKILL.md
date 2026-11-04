@@ -51,5 +51,6 @@ The prose review is not done until:
 - terminology is stable and precise;
 - when notation changes are in scope, the
   [notation-economy audit](../../../docs/rules/notation-economy.md) is complete;
+- WLOG reductions and symbol reuse after transformations pass that audit;
 - formulaic prose has been removed without manufacturing informality;
 - any unresolved content issue or skipped verification is reported.

@@ -73,6 +73,7 @@ Store artifacts under `docs/records/deep-math/` using stem
    Audit notation in the final exposition using the
    [notation-economy rule](../../../docs/rules/notation-economy.md); leave the
    archived consultant report intact.
+   - Check WLOG reductions and symbol reuse after transformations in that audit.
 7. Record settings and accepted/rejected/deferred findings in
    `-integration.md`. Report what remains uncertain.
 

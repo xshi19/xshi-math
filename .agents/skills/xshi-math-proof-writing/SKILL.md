@@ -61,3 +61,4 @@ The proof work is not done until:
 - published statements and proofs have passed the
   [notation-economy audit](../../../docs/rules/notation-economy.md), with proof
   dependencies and assumptions preserved.
+- WLOG reductions and symbol reuse after transformations pass that audit.

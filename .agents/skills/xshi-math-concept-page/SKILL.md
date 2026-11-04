@@ -56,6 +56,7 @@ The page is not done until:
 - shared notation matches `content/notation.md` and local notation is declared;
 - final-draft symbols have passed the
   [notation-economy audit](../../../docs/rules/notation-economy.md);
+- WLOG reductions and symbol reuse after transformations pass that audit;
 - first body mentions of related notes are linked where helpful;
 - every recurring symbol is defined locally or linked to `/math/notation/`
   before it is relied on;
