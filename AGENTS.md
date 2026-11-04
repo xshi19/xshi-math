@@ -5,7 +5,7 @@ subsites (Incerto, Information Geometry, Normix theory), published by the hub
 under `/math/`. Read [README.md](README.md) and [ARCHITECTURE.md](ARCHITECTURE.md) for
 scope. MIT applies to repository-owned material. The
 [planning index](docs/plan/index.md) records completed gates; files still
-described as proposed do not yet exist.
+described as do not yet exist.
 
 ## Model selection
 
@@ -78,6 +78,8 @@ Normix package `docs-publish` stays upstream. The optional Lean prototype lives 
   [content/notation.md](content/notation.md) (public URL `/math/notation/`).
   See [shared-notation rule](docs/rules/shared-notation.md). New math notes must
   not invent parallel symbols for the same concept across tracks.
+- **Notation economy:** audit final-draft symbols using
+  [notation-economy](docs/rules/notation-economy.md).
 
 ## Verification commands
 
@@ -106,4 +108,4 @@ record blocked checks without calling an unverified build complete.
 
 Report changed files, verification actually performed, checks not run, and any
 remaining limitations. Report Git state accurately; a written file is not a
-commit, and a proposed verification contract is not passing CI.
+commit, and a verification contract is not passing CI.

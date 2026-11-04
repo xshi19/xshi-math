@@ -70,6 +70,9 @@ Store artifacts under `docs/records/deep-math/` using stem
    claims before using it.
 6. Integrate through `$xshi-math-concept-page`, `$xshi-math-proof-writing`,
    and/or `$xshi-math-reading-guide` as appropriate.
+   Audit notation in the final exposition using the
+   [notation-economy rule](../../../docs/rules/notation-economy.md); leave the
+   archived consultant report intact.
 7. Record settings and accepted/rejected/deferred findings in
    `-integration.md`. Report what remains uncertain.
 

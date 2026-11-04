@@ -58,3 +58,6 @@ The proof work is not done until:
 - pending Lean or implementation status stays out of ordinary public prose;
 - references are present for no-proof and proof-sketch items;
 - equation or statement numbering cannot mislead readers about what is proved.
+- published statements and proofs have passed the
+  [notation-economy audit](../../../docs/rules/notation-economy.md), with proof
+  dependencies and assumptions preserved.

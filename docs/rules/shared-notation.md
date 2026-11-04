@@ -30,6 +30,10 @@ agents that start inside a track. Keep those pointers in sync with this rule.
 
 ## Related skills
 
+For whether a local alias is needed at all, see the
+[notation-economy audit](notation-economy.md). Permission to define local
+symbols does not itself justify an extra name.
+
 - `$xshi-math-concept-page` — checks notation before drafting.
 - `$xshi-math-math-question` — resolves symbol confusion before editing.
 - `$xshi-math-prose-review` / `$xshi-math-unslop` — must not "vary" symbols for

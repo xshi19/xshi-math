@@ -15,10 +15,14 @@ duplicate policy. See
 
 ## Cursor adapters (activation only)
 
+[notation-economy.md](notation-economy.md) governs whether
+auxiliary symbols earn their place in final exposition..
+
 | Adapter | Points to |
 | --- | --- |
 | `.cursor/rules/mathematical-writing.mdc` | [mathematical-writing.md](mathematical-writing.md) |
 | `.cursor/rules/shared-notation.mdc` | [shared-notation.md](shared-notation.md), `content/notation.md` |
+| `.cursor/rules/notation-economy.mdc` | [notation-economy.md](notation-economy.md) |
 | `.cursor/rules/concept-page-workflow.mdc` | `$xshi-math-concept-page` |
 | `.cursor/rules/prose-review-workflow.mdc` | `$xshi-math-prose-review` / `$xshi-math-unslop` |
 | `.cursor/rules/agent-guidance-workflow.mdc` | `$xshi-math-agent-guidance` |

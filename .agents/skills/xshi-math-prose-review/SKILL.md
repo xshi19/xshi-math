@@ -49,5 +49,7 @@ The prose review is not done until:
 - mathematical meaning and evidentiary status are unchanged;
 - assumptions, notation, confidence, and attribution remain visible;
 - terminology is stable and precise;
+- when notation changes are in scope, the
+  [notation-economy audit](../../../docs/rules/notation-economy.md) is complete;
 - formulaic prose has been removed without manufacturing informality;
 - any unresolved content issue or skipped verification is reported.

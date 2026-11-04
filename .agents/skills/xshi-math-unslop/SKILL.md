@@ -73,6 +73,8 @@ sentence when the reader must re-read. Cut adverbs propping up weak verbs.
   is shared.
 - Formulas carry their domain: "for $\alpha > 0$".
 - Label equations only when referenced.
+- When notation changes are in scope, finish with the
+  [notation-economy audit](../../../docs/rules/notation-economy.md).
 - Numerical claims are numbers with sources (demo, seed, tolerance), not
   adverbs.
 - Keep proof, computation, citation, and illustration distinct.

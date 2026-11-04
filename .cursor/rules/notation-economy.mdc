@@ -1,0 +1,8 @@
+---
+description: Load the notation-economy audit when drafting or reviewing mathematical exposition.
+globs:
+  - "content/**/*.md"
+alwaysApply: false
+---
+Canonical rule and final-draft audit:
+@docs/rules/notation-economy.md

@@ -93,6 +93,9 @@ Math-specific failure modes:
 - Do not auto-rewrite equations, theorem statements, proof text, citations, or
   nearby qualifying prose.
 - Compare edited text with the original claim by claim.
+- For authorized notation edits, use the final-draft
+  [notation-economy audit](notation-economy.md); preserve mathematical meaning
+  when removing aliases.
 - Re-run executable examples or render the page when the edit changes MyST
   structure, code-adjacent prose, labels, links, or the interpretation of an
   output.
