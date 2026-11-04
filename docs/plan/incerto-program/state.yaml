@@ -1,10 +1,10 @@
 # Canonical program inventory. See validation.md for semantics and checks.
 schema_version: 3
-updated: '2026-11-02'
+updated: '2026-11-04'
 repository: xshi19/xshi-math
 baseline_revision: 998a4a11a17b7ae7ba4c306005a4c8e3109f4392
-branch: scft/v4-ch13
-scope: scft-v4-ch13
+branch: scft/v4-ch14
+scope: scft-v4-ch14
 implementation_authorized: true
 authorized_chunks:
 - m0.5-review
@@ -21,7 +21,8 @@ authorized_chunks:
 - scft-v4-ch11
 - scft-v4-ch12
 - scft-v4-ch13
-authorization_note: Owner selected gpt-6-astra xhigh for chapter-13 writing/code and a separate gpt-6-astra
+- scft-v4-ch14
+authorization_note: Owner selected gpt-6-astra xhigh for chapter-14 writing/code and a separate gpt-6-astra
   max review afterwards. No commits or file deletions. Synthetic/model examples only.
 status_semantics:
   todo: Program work has not satisfied its evidence gates; existing prose is recorded separately.
@@ -214,9 +215,10 @@ milestones:
     dependencies:
     - M2
     assigned_role: math-site-editor
-next_chunk: '#/chunks/scft-v4-ch14'
-next_chunk_note: Chapter-13 teaching, source reconciliation and Python implementation done; separate max
-  review and site/live checks remain distinct gates. Chapter 14 is next; its implementation is not started.
+next_chunk: '#/chunks/scft-v4-ch15'
+next_chunk_note: Chapter 14 done (owner decisions on near-quantile accuracy docs, simulator endpoint tolerance
+  and Karatzas-Shreve citation applied; site build/checks passed). New chapters paused by Xiang after ch14 (2026-11-04);
+  batched revisions proceed first. Chapter 15 is not started.
   Chapter-10 observed S&P results are computed on the local Yahoo Close snapshot through 2026-10-29;
   see docs/records/incerto-sp500-observed.md.
 chunks:
@@ -2459,22 +2461,36 @@ chunks:
       - lean
       teaching_pages:
         required: true
-        status: todo
+        status: done
         page_paths:
         - content/incerto-forecast-martingale.md
+        - content/incerto-scoft-ch14.md
       demos:
         required: true
-        status: todo
+        status: done
         concept_ids:
         - c-forecast-martingale
+        script_paths:
+        - demos/incerto/forecast_martingales.py
+        helper_paths:
+        - src/math/incerto/martingales.py
+        test_paths:
+        - tests/test_incerto_martingales.py
+        - tests/test_incerto_martingale_figures.py
+        figure_paths:
+        - assets/figures/incerto/forecast-uncertainty.svg
+        - assets/figures/incerto/forecast-dual-paths.svg
+        - assets/figures/incerto/forecast-revision-budget.svg
       optional_lean:
         required: false
-        status: optional
+        status: skipped-for-now
         policy: After teaching and demos; record exact checked claims or a skip reason. No chapter gate.
+        reason: Owner requested skipped-for-now. The optional imported Lean prototype has no checked conditional-probability
+          or stochastic-calculus development for these claims; no new declaration or toolchain check is claimed.
     dependencies:
     - scft-v4-ch13
     assigned_role: astra-xhigh
-    status: todo
+    status: done
     milestone: M1
     source_unit_ids:
     - scft-v4-ch14
@@ -2484,16 +2500,72 @@ chunks:
     existing_pages_reused:
     - content/incerto-calibration-payoff.md
     acceptance:
-    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations and
-      original explanations for teaching.
+    - Review the chapter and attached source units at exact claim scope; use titles and locators for citations
+      and original explanations for teaching.
     - Resolve relevant M0.5 issues before reusing claims. Reuse canonical pages and reviewed prerequisite statements;
       do not reorder chapter chunks for a later full treatment.
     - Deliver chapter-scoped teaching pages, then bounded reproducible Python demos or visualizations; distinguish
       model calculations from observed-data studies.
-    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
-      or the following chapter.
+    - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
+      closure or the following chapter.
     - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
       live pages as a reader.
+    related_pages_linked:
+    - content/incerto-probability-conflation.md
+    checkpoint:
+      started_at: '2026-11-03'
+      base_revision: 1351d17
+      working_branch: scft/v4-ch14
+      evidence_path: docs/records/incerto-scft-v4-ch14.md
+      guide_title: Chapter 14 — Forecasts through time
+      scope: Chapter-scoped teaching, source reconciliation and Python implementation done. Separate max review
+        and fresh site/browser/publication/live checks remain distinct gates.
+      source_review: Read supplied v4 chapter 14, sections 14.0.1–14.4 and scoped addendum, printed pages 261–273
+        (PDF 275–287). Original derivations qualify probability-law, transformed-threshold, midpoint, uncertainty-limit
+        and revision-budget claims. No forecaster commentary or election data.
+      claim_ids:
+      - CH14-C01
+      - CH14-C02
+      - CH14-C03
+      - CH14-C04
+      - CH14-C05
+      - CH14-C06
+      - CH14-C07
+      - CH14-C08
+      - CH14-C09
+      m0_5_resolutions:
+        M05-ISSUE-006: Unchanged at wider theorem-locator scope. New finite-grid and exact Gaussian claims have
+          local proofs; stochastic-calculus prerequisites are identified.
+        M05-ISSUE-007: Unchanged at wider source-audit scope. Chapter-14 v4 sections/pages checked.
+      checks:
+        focused: 74 helper/figure tests passed in 4.45 s, including adjacent-share regressions and fresh-process
+          SVG byte comparisons.
+        outputs: 142 teaching/API snippet outputs regenerated by scripts/regenerate_incerto_outputs.py.
+        graph: 51 nodes, 93 dependency edges, 124 reference edges.
+        figures: Three SVGs; all six 390/900 px PNGs inspected, path legend adjusted and rechecked.
+        pytest: 'UV_NO_SYNC=1 uv run pytest: 1855 passed, 5 skipped in 254.66 s; three observed-data snippets and two observed-S&P figure cases need absent local CSVs.'
+        structural: State/human-view validator and 1210 plan links pass; changed-Markdown audit checks 1561 local
+          links, local citation keys and TOC membership; earlier chunk/source records preserved.
+        whitespace: git diff --check and all 10 new-file whitespace checks pass; full new files reviewed.
+        equations: 18 KaTeX displays parsed; maximum font-metric estimate 223.34 px at 17 px, not browser certified.
+        source_copy: Zero normalized 8-, 10-, or 12-word full-book overlaps in the new pages, helper and producer;
+          manual comparison done.
+        locked_install: Scratch locked offline sync blocked by uncached SciPy wheel; available clone environment
+          used with UV_NO_SYNC=1.
+        site: Scratch offline npm ci passed; MyST npm preflight failed, HTML checker lacks fresh artifacts, and
+          Chromium sandbox socket launch failed.
+        not_run: Packaging (mapping unchanged), Lean, publication, hub transfer and live reader review.
+      max_math_review:
+        status: pending
+        assigned_role: astra-max
+        model: gpt-6-astra max
+        scope: CH14-C01–C09 and helper numerical domains; separate owner-requested run.
+      live_reader_review:
+        status: pending-publication
+        assigned_role: math-site-editor
+        note: No publication; PNG inspection is separate from rendered-page and live navigation checks.
+      next_action: Separate max review and external site/browser checks; next writing chunk scft-v4-ch15.
+      completed_at: '2026-11-03'
   scft-v4-ch15:
     id: scft-v4-ch15
     locator: SCoFT v4 ch. 15
@@ -8200,11 +8272,11 @@ chapters:
     topic: Coherent forecast updating
     concept_ids:
     - c-forecast-martingale
-    status: todo
+    status: done
     dependencies: []
     assigned_role: math-site-editor
     milestone: M1
-    locator_review: local-v4-TOC-verified; exact-claim-locators-pending
+    locator_review: local-v4-chapter-14-sections-and-printed-pages-261–273-verified
     classification:
     - empirical
     - lean-verifiable
@@ -8217,6 +8289,7 @@ chapters:
     edition: 2001.10488v4
     printed_page: 261
     chunk_id: scft-v4-ch14
+    implementation_evidence: docs/records/incerto-scft-v4-ch14.md
   scft-v4-ch15:
     id: scft-v4-ch15
     book_id: scft
@@ -13632,24 +13705,26 @@ concepts:
       empirical: Timestamped forecasts allow model-dependent diagnostics.
       numeric-demo: Simulate conditional forecast updates under an explicit filtration before empirical comparison.
     scope: Changing information sets or forecasting systems can break a naive empirical comparison.
-    status: todo
+    status: done
     dependencies:
     - c-calibration-payoff
-    assigned_role: astra-max
+    assigned_role: astra-xhigh
     milestone: M1
     page_path: content/incerto-forecast-martingale.md
     canonical_url: /math/incerto/incerto-forecast-martingale/
     coverage:
-      prose: absent
-      scope_note: Proposed original note; path is reserved in this plan only.
+      prose: existing
+      scope_note: Chapter-14 conditional-probability, exact bounded diffusion and revision-budget teaching implemented
+        with synthetic examples; separate max and site/live reviews remain. No checked Lean.
       lean: absent
-      python: not-inventoried-as-runnable
+      python: bounded-model-demo-tested
       related_foundations:
       - content/information-geometry-conditional-expectation.md
+      created_in_chunk: scft-v4-ch14
     source_units:
     - scft-v4-ch14
     completion_scope: in-scope
-    page_status: proposed
+    page_status: existing
     source_priority: 1
     deliverables:
       order:
@@ -13658,16 +13733,28 @@ concepts:
       - lean
       website_math:
         required: true
-        status: todo
+        status: done
       python:
         required: true
-        status: todo
+        status: done
       lean:
         required: false
-        status: optional
+        status: skipped-for-now
+        reason: Owner requested skipped-for-now. The optional imported Lean prototype has no checked conditional-probability
+          or stochastic-calculus development for these claims; no new declaration or toolchain check is claimed.
     chunk_ids:
     - scft-v4-ch14
     first_chunk: scft-v4-ch14
+    completed_chunk_scopes:
+      scft-v4-ch14:
+        website_math: done
+        python: done
+        lean: skipped-for-now
+        lean_reason: Owner requested skipped-for-now. The optional imported Lean prototype has no checked conditional-probability
+          or stochastic-calculus development for these claims; no new declaration or toolchain check is claimed.
+        evidence_path: docs/records/incerto-scft-v4-ch14.md
+        note: Chapter-scoped teaching/Python and synthetic examples; separate max and external site/live gates
+          remain.
   c-gini:
     id: c-gini
     title: Gini estimation with heavy tails
@@ -15289,7 +15376,7 @@ counts:
   concepts_total: 103
   concepts_in_scope: 75
   concepts_out_of_scope: 28
-  existing_concept_pages: 41
+  existing_concept_pages: 42
   checked_lean_concepts: 0
   scft_v4_chapters: 30
   scft_v4_appendices: 9

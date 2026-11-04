@@ -345,3 +345,36 @@ The HTML checker has no fresh artifacts to inspect, and Chrome launch is
 blocked by sandbox socket permissions. These failures leave site/browser
 and later live-reader gates open. No commit, deletion, publication, hub
 transfer, packaging check or Lean build is part of this chunk.
+
+## Chapter-14 implementation (2026-11-03)
+
+The [chapter-14 checkpoint](../../records/incerto-scft-v4-ch14.md) records
+the original forecast-martingale page and guide, four helpers, three
+synthetic figures, source qualifications and nine claims for separate
+max review. Existing calibration and probability-conflation pages are
+linked without duplicating their teaching. State records chapter 14 done
+at teaching/Python scope and chapter 15 next, with 42 existing program
+concept bodies. The 103 IDs and frozen 24-body M0.5 inventory are unchanged.
+
+The focused numerical/figure suite passes 74 cases after an adjacent-share
+rounding fix. The output regenerator executed 142 teaching/API snippets.
+The graph has 51 nodes, 93 dependency edges and 124 reference edges.
+State/human-view validation, file/fragment links, local citation keys, TOC
+membership and tracked/new whitespace checks pass. Final
+`UV_NO_SYNC=1 uv run pytest`: **1,855 passed, 5 skipped in 254.66 s**;
+the skips need absent local observed-data CSVs.
+
+All three SVGs have visually inspected 390/900 px PNGs and fresh-process
+byte comparisons. KaTeX parses 18 new displays; the largest font-metric
+estimate is 223.34 px at 17 px, without browser certification. Full-book
+8-, 10- and 12-word overlap checks find no matches in the four new authored
+teaching/code sources. The chapter citation reuses the existing entry in
+the clean `bib/` submodule; no new entry or submodule pointer is needed.
+
+Scratch offline npm installation passes; the MyST build fails its npm
+preflight and HTML checks find no fresh artifact. Chromium launch fails
+sandbox socket setup. Locked offline Python installation is blocked by
+an uncached SciPy wheel; tests use available dependencies with
+`UV_NO_SYNC=1`. Separate max review, browser/site and later live reader
+review remain open. Lean is skipped-for-now; no commit, repository file
+deletion, packaging change, publication or hub transfer.

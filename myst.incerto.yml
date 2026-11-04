@@ -48,6 +48,7 @@ project:
             - file: content/incerto-probability-conflation.md
             - file: content/incerto-risk-measures.md
             - file: content/incerto-calibration-payoff.md
+            - file: content/incerto-forecast-martingale.md
             - file: content/incerto-point-forecast.md
             - file: content/incerto-ml-econometrics.md
             - file: content/incerto-moment-estimation.md
@@ -104,6 +105,8 @@ project:
               title: Chapter 12 — Point forecasts and tail risk
             - file: content/incerto-scoft-ch13.md
               title: Chapter 13 — Probability and payoff risk
+            - file: content/incerto-scoft-ch14.md
+              title: Chapter 14 — Forecasts through time
         - file: content/incerto-external-reading.md
           children:
             - file: content/incerto-reading-embrechts.md

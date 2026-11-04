@@ -376,3 +376,20 @@ The exact Brier law and exact model-risk curves are distinguished from the
 repeated Hill experiment. The bands are sampling quantiles, not confidence
 intervals for real losses. Fresh-process byte checks are in the chapter's
 figure test. PNG inspection does not close browser/page or live-reader gates.
+
+## Chapter-14 figures (2026-11-03)
+
+The [checkpoint](../../records/incerto-scft-v4-ch14.md#helpers-and-figures)
+records three new figures: distinct Gaussian/bounded uncertainty limits,
+latent/share/binary paths, and coherent versus altered revisions. All use
+the shared vertical layout, fonts and deterministic SVG exporter. The two
+simulations use PCG64 seeds 1402/1403 and 400,400 normal draws in total.
+No third-party data or source figures are used.
+
+All six PNGs at 390/900 px were inspected. The latent-path legend was
+moved clear of the curves and reinspected. Axes distinguish latent scale
+from share uncertainty and mark the normalized expected revision budget;
+the caption identifies numerical means and Monte Carlo standard errors.
+Individual paths exceeding an expectation are retained. Byte reproducibility
+is checked in two fresh processes against the repository SVGs. Browser
+equation/navigation and live-reader gates remain separate.
