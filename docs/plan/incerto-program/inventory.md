@@ -1,8 +1,8 @@
 # Book and chapter inventory
 
-Chapter 12 is implemented at the scope in the
-[chapter-12 checkpoint](../../records/incerto-scft-v4-ch12.md). Separate max
-review and site/live verification remain; chapter 12 is next. Earlier empirical
+Chapter 14 is implemented at the scope in the
+[chapter-14 checkpoint](../../records/incerto-scft-v4-ch14.md). Separate max
+review and site/live verification remain; chapter 15 is next. Earlier empirical
 and source-locator limitations remain recorded in their own checkpoints.
 
 `state.yaml` owns the records. Technical rows reproduce **titles and locators
@@ -40,7 +40,7 @@ IDs include `v4`; legacy IDs are confined to the correspondence table below.
 | <a id="scft-v4-ch11"></a>`scft-v4-ch11` | ch. 11, p. 219 | Probability calibration under fat tails | [`c-calibration-payoff`](concepts.md#c-calibration-payoff), [`c-point-forecast`](concepts.md#c-point-forecast) | `scft-v4-ch11` |
 | <a id="scft-v4-ch12"></a>`scft-v4-ch12` | ch. 12, p. 241 | On single point forecasts for fat-tailed variables | [`c-point-forecast`](concepts.md#c-point-forecast) | `scft-v4-ch12` |
 | <a id="scft-v4-ch13"></a>`scft-v4-ch13` | ch. 13, p. 253 | The probability conflation | [`c-probability-conflation`](concepts.md#c-probability-conflation), [`c-calibration-payoff`](concepts.md#c-calibration-payoff), [`c-risk-measures`](concepts.md#c-risk-measures) | `scft-v4-ch13` |
-| <a id="scft-v4-ch14"></a>`scft-v4-ch14` | ch. 14, p. 261 | Election predictions as martingales: an arbitrage approach | [`c-forecast-martingale`](concepts.md#c-forecast-martingale) | `scft-v4-ch14` |
+| <a id="scft-v4-ch14"></a>`scft-v4-ch14` | ch. 14, p. 261 | Election predictions as martingales: an arbitrage approach | [`c-forecast-martingale`](concepts.md#c-forecast-martingale) * | `scft-v4-ch14` |
 | <a id="scft-v4-ch15"></a>`scft-v4-ch15` | ch. 15, p. 277 | Gini estimation under infinite variance | [`c-gini`](concepts.md#c-gini) | `scft-v4-ch15` |
 | <a id="scft-v4-ch16"></a>`scft-v4-ch16` | ch. 16, p. 297 | Biases of quantile contribution | [`c-quantile-share`](concepts.md#c-quantile-share) | `scft-v4-ch16` |
 | <a id="scft-v4-ch17"></a>`scft-v4-ch17` | ch. 17, p. 313 | Shadow moments of apparently infinite-mean phenomena | [`c-shadow-mean`](concepts.md#c-shadow-mean) | `scft-v4-ch17` |

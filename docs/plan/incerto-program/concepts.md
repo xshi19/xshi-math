@@ -1556,23 +1556,25 @@ Separate max and site/live review remain; see the
 
 ## Forecast updating and martingale constraints (`c-forecast-martingale`)
 
-Home: `content/incerto-forecast-martingale.md` (proposed). Status: **todo**. Milestone: **M1**. Lead: `astra-max`.
+Home: `content/incerto-forecast-martingale.md` (existing). Status: **done**. Milestone: **M1**. Lead: `astra-xhigh`.
 
 Changing information sets or forecasting systems can break a naive empirical comparison.
 
-Deliverables: website math (required) → Python (required) → Lean (optional; `optional`).
+Deliverables: website math (required) → Python (required) → Lean (optional; `skipped-for-now`).
 
 - **numeric-demo:** Simulate conditional forecast updates under an explicit filtration before empirical comparison.
 - **empirical:** Timestamped forecasts allow model-dependent diagnostics.
 - **lean-verifiable:** Conditional probabilities under one filtration satisfy scoped martingale identities.
 
-Coverage: Proposed original note; path is reserved in this plan only.
+Coverage: Chapter-14 conditional-probability, exact bounded diffusion and revision-budget teaching implemented with synthetic examples; separate max and site/live reviews remain. No checked Lean.
 
 Prerequisites: [c-calibration-payoff](#c-calibration-payoff).
 
 Technical source mappings: [SCoFT v4 ch. 14](inventory.md#scft-v4-ch14).
 
 Chapter chunks: `scft-v4-ch14`.
+
+Teaching/Python evidence and source qualifications: [chapter-14 checkpoint](../../records/incerto-scft-v4-ch14.md).
 
 <a id="c-gini"></a>
 

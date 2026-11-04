@@ -321,3 +321,19 @@ No fitted financial risk model, observed dataset, dependency, new concept ID,
 notation convention or Lean subtree is added. Risk measures' later source
 scopes remain open. Averaging model quantiles and taking the quantile of a
 mixture have separate definitions, proofs and executable comparisons.
+
+## Chapter-14 implementation boundary
+
+The [chapter-14 checkpoint](../../records/incerto-scft-v4-ch14.md) adds
+`incerto-forecast-martingale.md` as the canonical forecast-updating home
+and `incerto-scoft-ch14.md` as its reading guide. Existing calibration
+and probability-conflation pages receive links. `martingales.py` uses
+the installed package mapping, SciPy normal CDF/inverse CDF, exact
+Gaussian transitions, and the existing calibration Brier evaluator.
+The producer uses the shared figure exporter and fixed PCG64 seeds.
+
+No observed election dataset, financial pricing guarantee, new dependency,
+concept ID or Lean subtree is introduced. The general filtration proof,
+the two specified diffusion models, and independent-path numerical
+diagnostics have separate assumptions. The existing bibliography submodule
+entry suffices; no new source metadata or submodule-pointer change.

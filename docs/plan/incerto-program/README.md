@@ -77,15 +77,15 @@ Lean omissions require a reason and never block the next chapter.
 | [Validation](validation.md) | Schema, executable checks and resume procedure |
 | [Verification](verification.md) | Historical evidence, this revision's checks and pending operator rerun |
 
-`next_chunk` is `#/chunks/scft-v4-ch14`. Chapters 1–13 teaching,
+`next_chunk` is `#/chunks/scft-v4-ch15`. Chapters 1–14 teaching,
 bounded Python examples and optional Lean skips are recorded in state.
-There are now 41 implemented program concept bodies; the frozen M0.5
+There are now 42 implemented program concept bodies; the frozen M0.5
 review denominator remains 24. Chapters 1–7 passed separate max review;
 chapter 8's later max-review record is retained. Chapter 9 has its separate
 max reviews recorded, including the later corollary check. Chapter 10's
 separate max review is appended to its checkpoint; its original state flags
-remain historical. Chapters 11–12 have their subsequent max reviews recorded in their checkpoints.
-Chapter 13 awaits its separate max run. Moment estimation
+remain historical. Chapters 11–13 have their subsequent max reviews recorded in their checkpoints.
+Chapter 14 awaits its separate max run. Moment estimation
 remains in progress for its chapter-28 scope.
 
 The chapter-8 record contains that chunk's tests, dependency versions and site
@@ -291,3 +291,19 @@ uncertainty and exponent uncertainty are explicitly different models.
 Calibration/payoff and probability-conflation teaching scopes are complete;
 risk measures retain their later chapter-28/29 and Dynamic Hedging scope.
 Lean is skipped-for-now. No chapter-14 work, commit or publication is included.
+
+## Chapter-14 implementation (2026-11-03)
+
+[Chapter 14 — Forecasts through time](../../../content/incerto-scoft-ch14.md)
+adds the canonical forecast-martingale note, a guide, four helpers and
+three synthetic figures. The [checkpoint](../../records/incerto-scft-v4-ch14.md)
+records the tower-law, bounded-transform and revision-budget proofs,
+numerical evidence, source qualifications and separate review gates.
+The uncertainty limit depends on the model; the expected revision budget
+is distinct from a pathwise arbitrage condition.
+
+Teaching and Python are done at this chunk's scope. Lean is skipped-for-now.
+Chapter 15 is next; separate max and external site/live checks remain.
+Existing calibration/payoff and probability-conflation pages are reused
+through links. No election observations or named-forecaster claims enter
+the examples, and no bibliography entry or concept ID is added.

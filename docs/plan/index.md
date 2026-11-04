@@ -1,7 +1,7 @@
 # Planning Index
 
-Chapter 13 teaching/Python: [checkpoint](../records/incerto-scft-v4-ch13.md).
-Next implementation chunk is `scft-v4-ch14`; separate max review and site/live
+Chapter 14 teaching/Python: [checkpoint](../records/incerto-scft-v4-ch14.md).
+Next implementation chunk is `scft-v4-ch15`; separate max review and site/live
 checks remain pending. The [observed S&P evaluation](../records/incerto-sp500-observed.md)
 has already been computed from the local snapshot.
 
@@ -32,7 +32,7 @@ personal hub. Normix remains an independent JAX package and API project.
 | [Agent framework](../design/AGENT_FRAMEWORK.md) | Guidance sources of truth, Codex/Cursor discovery, shared skills, adapters, verification contracts, maintenance |
 | [License advice](../design/LICENSE_ADVICE.md) | Adopted MIT scope, deferred alternative, Incerto import decision, private-to-public review |
 | [IG entry outline](ig-entry-outline.md) | Implemented Basics / early IG pages, prerequisites, and the later GH/Normix research sequence |
-| [Incerto program](incerto-program/README.md) | SCoFT v4: 30 chapters + 9 appendices, then Dynamic Hedging; 75 active concepts, 28 retained out of scope; chapters 1–13 implemented at their recorded scopes; separate max reviews and external source/build/live follow-ups remain; chapter 14 next; teaching → Python → optional Lean |
+| [Incerto program](incerto-program/README.md) | SCoFT v4: 30 chapters + 9 appendices, then Dynamic Hedging; 75 active concepts, 28 retained out of scope; chapters 1–14 implemented at their recorded scopes; separate max reviews and external source/build/live follow-ups remain; chapter 15 next; teaching → Python → optional Lean |
 | [Incerto Batch 1](phase-2-incerto-batch-1.md) | Executed nine-page import scope, adaptations, and deferred material |
 | [Incerto Batch 2](phase-2-incerto-batch-2.md) | Executed nine-page EVT and diagnostics import, adaptations, and deferred material |
 | [Incerto Batch 3](phase-2-incerto-batch-3.md) | Executed eight-page sums, geometry, catalog, and concept-index import |
