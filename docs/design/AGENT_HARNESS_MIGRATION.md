@@ -44,7 +44,8 @@ Existing xshi-math guidance before this migration: root
 
 ## Naming
 
-Use the **`xshi-math-`** prefix for monorepo skills (not track prefixes).
+Use short workflow names matching the skill folder, frontmatter `name`, and
+`$name` invocation. On 2026-11-05, the former `xshi-math-` prefix was removed.
 
 Rationale: most writing/math workflows apply to Incerto, Information Geometry,
 and Normix theory alike. Track differences belong in nested `AGENTS.md` and in
@@ -58,20 +59,20 @@ Do **not** create `.cursor/skills/` (symlink or copy). Cursor discovers
 
 | Upstream | Decision | Notes |
 | --- | --- | --- |
-| Incerto `agent-guidance` | **Adapt →** `xshi-math-agent-guidance` | Point at this repo's framework, rule index, and skill tree |
-| Incerto `concept-page` | **Adapt →** `xshi-math-concept-page` | Flat `content/*.md` stems + track hubs; not `content/concepts/` |
-| Incerto `proof-writing` | **Adapt →** `xshi-math-proof-writing` | Keep proof-support types; drop Lean-pending public prose; no Lean tree yet |
-| Incerto `prose-review` | **Adapt →** `xshi-math-prose-review` | Point at `docs/rules/mathematical-writing.md` |
-| Incerto `math-question` | **Adapt →** `xshi-math-math-question` | Answer-first; edit only after approval; all three tracks |
-| Incerto `git-conventions` | **Merge →** `xshi-math-git-conventions` | Imperative safety from Incerto + conventional-commit flavor from Normix, scoped to this repo |
-| Normix `unslop` | **Adapt →** `xshi-math-unslop` | Keep pattern library and math carve-outs; rewrite registers for hub surfaces |
+| Incerto `agent-guidance` | **Adapt →** `agent-guidance` | Point at this repo's framework, rule index, and skill tree |
+| Incerto `concept-page` | **Adapt →** `concept-page` | Flat `content/*.md` stems + track hubs; not `content/concepts/` |
+| Incerto `proof-writing` | **Adapt →** `proof-writing` | Keep proof-support types; drop Lean-pending public prose; no Lean tree yet |
+| Incerto `prose-review` | **Adapt →** `prose-review` | Point at `docs/rules/mathematical-writing.md` |
+| Incerto `math-question` | **Adapt →** `math-question` | Answer-first; edit only after approval; all three tracks |
+| Incerto `git-conventions` | **Merge →** `git-conventions` | Imperative safety from Incerto + conventional-commit flavor from Normix, scoped to this repo |
+| Normix `unslop` | **Adapt →** `unslop` | Keep pattern library and math carve-outs; rewrite registers for hub surfaces |
 | Normix `docs-publish` | **Leave upstream** | Publishes `https://xshi19.github.io/normix/` from Normix `gh-pages`. Do not copy. |
-| Math hub publish | **Thin note →** `xshi-math-hub-publish` | Local `npm run build` / `check:html`, then optional rsync into hub `math/`; hub owns Pages |
+| Math hub publish | **Thin note →** `hub-publish` | Local `npm run build` / `check:html`, then optional rsync into hub `math/`; hub owns Pages |
 | Normix `principles` / `how` / `why` | **Leave upstream for now** | Heavy JAX/package/design-table grounding. Revisit thin doc kernels only after friction |
 | Normix `tdd`, `arena`, `running-tests`, `architect`, `interrogate`, `show-me`, `figure-it-out`, `agent-maintenance` | **Leave upstream** | Package/TDD/JAX workflows do not match this MyST monorepo |
-| Incerto `reading-guide` | **Adapt →** `xshi-math-reading-guide` | No `content/reading-guides/` tree; author on demand via flat stems/hubs; fold short maps into concept-page |
-| Incerto `lean-formalization` | **Adapt →** `xshi-math-lean-formalization` | Honest: no Lean project yet; skill states prerequisites and when to open a Lean subtree |
-| Incerto `deep-math-agent` | **Adapt →** `xshi-math-deep-math-agent` | Runner + archive under `docs/records/deep-math/`; deps optional until a paid run |
+| Incerto `reading-guide` | **Adapt →** `reading-guide` | No `content/reading-guides/` tree; author on demand via flat stems/hubs; fold short maps into concept-page |
+| Incerto `lean-formalization` | **Adapt →** `lean-formalization` | Honest: no Lean project yet; skill states prerequisites and when to open a Lean subtree |
+| Incerto `deep-math-agent` | **Adapt →** `deep-math-agent` | Runner + archive under `docs/records/deep-math/`; deps optional until a paid run |
 | Normix `.cursor/rules/*` | **Selectively extract** | P0: mathematical writing + shared notation as `docs/rules/` bodies. P1: thin `.mdc` adapters installed |
 | Incerto `docs/rules/{writing,content,agent-guidance}.md` | **Synthesize** | Writing → `mathematical-writing.md`; notation invariants → `shared-notation.md`; do not clone the full Incerto rule set |
 
@@ -79,21 +80,22 @@ Do **not** create `.cursor/skills/` (symlink or copy). Cursor discovers
 
 ```text
 .agents/skills/
-  xshi-math-agent-guidance/SKILL.md
-  xshi-math-concept-page/SKILL.md
-  xshi-math-proof-writing/SKILL.md
-  xshi-math-prose-review/SKILL.md
-  xshi-math-math-question/SKILL.md
-  xshi-math-git-conventions/SKILL.md
-  xshi-math-unslop/SKILL.md (+ references/writing-registers.md)
-  xshi-math-hub-publish/SKILL.md
-  xshi-math-reading-guide/SKILL.md
-  xshi-math-lean-formalization/SKILL.md
-  xshi-math-deep-math-agent/SKILL.md (+ scripts/, references/, archive README)
+  agent-guidance/SKILL.md
+  concept-page/SKILL.md
+  proof-writing/SKILL.md
+  prose-review/SKILL.md
+  math-question/SKILL.md
+  git-conventions/SKILL.md
+  unslop/SKILL.md (+ references/writing-registers.md)
+  hub-publish/SKILL.md
+  reading-guide/SKILL.md
+  lean-formalization/SKILL.md
+  deep-math-agent/SKILL.md (+ scripts/, references/, archive README)
 docs/rules/
   index.md                 # routes to bodies
   mathematical-writing.md  # P0
   shared-notation.md       # P0
+  notation-economy.md      # external math-notation integration only
 .cursor/rules/*.mdc        # P1: activation metadata + pointer, no policy body
 docs/records/deep-math/    # deep-math report archive convention
 AGENTS.md                  # router lists installed skills
@@ -108,10 +110,14 @@ skills encode procedures, executable checks verify objective properties.
 
 ### Shared notation
 
-[content/notation.md](../../content/notation.md) is the single canon, public
-URL `/math/notation/`. Every concept skill and both rule bodies must send
-agents there before inventing symbols. Track hubs may define local one-off
-symbols; overlapping concepts extend the shared page first.
+The [shared-notation rule](../rules/shared-notation.md) owns cross-track symbol
+choices and links to the public canon. The [notation audit integration](../rules/notation-economy.md)
+routes final-draft review to the general `$math-notation` skill in
+`xshi19/xshi-skills`; its procedure and supporting references stay upstream.
+
+This split supersedes the checklist expansion proposed in PR #52
+(`rules/notation-wlog-reuse`). Load the shared procedure when needed rather
+than repeating its audit items across concept, proof, prose, and consult skills.
 
 ### Three independent subsites
 
@@ -125,11 +131,11 @@ single Jupyter Book TOC or a `content/concepts/` tree.
 
 | Concern | Owner |
 | --- | --- |
-| Page shape, sources, claims, links, examples | `xshi-math-concept-page` |
-| What is proved vs cited vs sketched | `xshi-math-proof-writing` |
-| Semantics-preserving editorial pass | `xshi-math-prose-review` (+ `mathematical-writing` rule) |
-| AI-pattern scrub + registers | `xshi-math-unslop` |
-| Q&A before edits | `xshi-math-math-question` |
+| Page shape, sources, claims, links, examples | `concept-page` |
+| What is proved vs cited vs sketched | `proof-writing` |
+| Semantics-preserving editorial pass | `prose-review` (+ `mathematical-writing` rule) |
+| AI-pattern scrub + registers | `unslop` |
+| Q&A before edits | `math-question` |
 | Symbol reuse across tracks | `shared-notation` rule |
 
 Do not run prose/unslop before claims and proof scope are settled. Do not treat
@@ -163,7 +169,7 @@ in the adapters):
 
 - `mathematical-writing.mdc` → `docs/rules/mathematical-writing.md`
 - `shared-notation.mdc` → `docs/rules/shared-notation.md` (+ `content/notation.md`)
-- `concept-page-workflow.mdc` → `.agents/skills/xshi-math-concept-page/SKILL.md`
+- `concept-page-workflow.mdc` → `.agents/skills/concept-page/SKILL.md`
 - `prose-review-workflow.mdc` → prose-review / unslop skills + writing rule
 - `agent-guidance-workflow.mdc` → agent-guidance skill + framework docs
 
@@ -174,11 +180,11 @@ alwaysApply), not as package/JAX policy to copy.
 
 Installed adapted skills even though supporting trees are incomplete:
 
-- `xshi-math-reading-guide` — how to author a map on flat stems/hubs; no fake
+- `reading-guide` — how to author a map on flat stems/hubs; no fake
   `content/reading-guides/` pages.
-- `xshi-math-lean-formalization` — prerequisites and when to open a Lean
+- `lean-formalization` — prerequisites and when to open a Lean
   subtree; does not claim `lean-blueprint` exists.
-- `xshi-math-deep-math-agent` — adapted runner + `docs/records/deep-math/`
+- `deep-math-agent` — adapted runner + `docs/records/deep-math/`
   archive; document deps; dry-run before paid calls.
 
 Keep formalization claims out of public prose until a real `lake build` exists.
@@ -203,17 +209,18 @@ Load the smallest useful set:
 3. **One rule** when constraints apply:
    - math prose → [mathematical-writing.md](../rules/mathematical-writing.md)
    - symbols → [shared-notation.md](../rules/shared-notation.md)
+   - final-draft notation → [math-notation integration](../rules/notation-economy.md)
 4. **One skill** for the procedure (trigger from skill `description`):
-   - math Q&A → `$xshi-math-math-question`
-   - new/substantial note → `$xshi-math-concept-page`
-   - theorems/proofs → `$xshi-math-proof-writing`
-   - settled prose polish → `$xshi-math-prose-review` and/or `$xshi-math-unslop`
-   - git/PR → `$xshi-math-git-conventions`
-   - guidance maintenance → `$xshi-math-agent-guidance`
-   - local site build / hub transfer note → `$xshi-math-hub-publish`
-   - source→concept reading map → `$xshi-math-reading-guide`
-   - Lean scoping / future formalization → `$xshi-math-lean-formalization`
-   - hard external math consult → `$xshi-math-deep-math-agent`
+   - math Q&A → `$math-question`
+   - new/substantial note → `$concept-page`
+   - theorems/proofs → `$proof-writing`
+   - settled prose polish → `$prose-review` and/or `$unslop`
+   - git/PR → `$git-conventions`
+   - guidance maintenance → `$agent-guidance`
+   - local site build / hub transfer note → `$hub-publish`
+   - source→concept reading map → `$reading-guide`
+   - Lean scoping / future formalization → `$lean-formalization`
+   - hard external math consult → `$deep-math-agent`
 5. **Touched sources** (page, notation, citations, demos) and only then broader
    design docs when changing a boundary.
 
@@ -233,14 +240,14 @@ typo fix.
 
 Installed with this plan:
 
-- `.agents/skills/xshi-math-{agent-guidance,concept-page,proof-writing,prose-review,math-question,git-conventions,unslop,hub-publish}/`
+- `.agents/skills/{agent-guidance,concept-page,proof-writing,prose-review,math-question,git-conventions,unslop,hub-publish}/` (current names)
 - `docs/rules/mathematical-writing.md`, `docs/rules/shared-notation.md`
 - Updated `docs/rules/index.md`, root `AGENTS.md`, and the three track routers
 
 ## P1 / P2 install record
 
 - `.cursor/rules/{mathematical-writing,shared-notation,concept-page-workflow,prose-review-workflow,agent-guidance-workflow}.mdc`
-- `.agents/skills/xshi-math-{reading-guide,lean-formalization,deep-math-agent}/`
+- `.agents/skills/{reading-guide,lean-formalization,deep-math-agent}/` (current names)
 - `docs/records/deep-math/README.md`
 - Updated migration plan, framework status, rule index, root and track `AGENTS.md`
 

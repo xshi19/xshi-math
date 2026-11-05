@@ -1,0 +1,7 @@
+interface:
+  display_name: "Git Conventions"
+  short_description: "Safe commits and PRs"
+  default_prompt: "Use $git-conventions for git commit and PR work."
+
+policy:
+  allow_implicit_invocation: true

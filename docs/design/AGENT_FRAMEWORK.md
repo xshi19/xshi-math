@@ -105,6 +105,7 @@ paths accepted by another client are not a reason to multiply sources of truth.
 | Framework rationale | This document | Link to active rules/skills as they are introduced |
 | Stable task constraints/preferences | `docs/rules/*.md` | Route directly or through a thin adapter |
 | Ordered workflow and its completion criteria | `.agents/skills/<name>/SKILL.md` | Reference shared policy and actual verification entry points |
+| General notation audit | External `$math-notation` skill | Use the [hub integration](../rules/notation-economy.md) for installation and local routing |
 | Tool-specific activation | `.cursor/rules/*.mdc` | Own only description, globs, activation, and a pointer |
 | Mathematical truth and evidence | Content pages, citations, executable sources, checked Lean declarations | Skills teach how to change these; they do not become another copy of them |
 | Concrete verification commands | Actual project configuration or scripts, when implemented | Routers/skills name those entry points and the evidence expected |
@@ -234,11 +235,10 @@ commands refer to nonexistent files or whose success implies unperformed review.
 
 ## Starter skills
 
-Start with the recipes that actual authoring repeats. P0 installed the
-`xshi-math-*` writing/math set documented in
-[AGENT_HARNESS_MIGRATION.md](AGENT_HARNESS_MIGRATION.md). The table below remains
-the design rationale (names differ slightly: installed skills use the
-`xshi-math-` prefix):
+Start with the recipes that actual authoring repeats. Installed writing/math
+skills are documented in [AGENT_HARNESS_MIGRATION.md](AGENT_HARNESS_MIGRATION.md).
+The table below remains the initial design rationale; `math-page` became
+`concept-page` and `math-prose-review` became `prose-review`.
 
 | Candidate under `.agents/skills/` | Trigger and non-trigger | Output / completion |
 | --- | --- | --- |
@@ -247,9 +247,9 @@ the design rationale (names differ slightly: installed skills use the
 | `numerical-demo` | Add or change a reproducible computation/visualization; skip a static link update | Executed demo, inspectable figures, dependency/input record, and meaningful numerical checks |
 | `agent-guidance` | Repair a recurring routing failure, adapt a common workflow, or prune guidance after a phase | One canonical change, updated pointers, and evidence that the route helps without creating duplicate triggers |
 
-`xshi-math-reading-guide` and `xshi-math-lean-formalization` are installed as
+`$reading-guide` and `$lean-formalization` are installed as
 honest procedures (no reading-guides tree; no Lean project yet).
-`xshi-math-hub-publish` covers local site build and optional hub transfer.
+`$hub-publish` covers local site build and optional hub transfer.
 A one-time migration can remain a phase checklist instead of becoming a
 permanent skill.
 

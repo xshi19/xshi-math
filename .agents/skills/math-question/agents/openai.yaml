@@ -1,0 +1,7 @@
+interface:
+  display_name: "Math Question"
+  short_description: "Answer math questions before editing"
+  default_prompt: "Use $math-question to answer a math-content question."
+
+policy:
+  allow_implicit_invocation: true

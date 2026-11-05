@@ -4,8 +4,8 @@ globs: "content/**/*.md"
 alwaysApply: false
 ---
 When polishing settled mathematical prose, read and follow:
-@.agents/skills/xshi-math-prose-review/SKILL.md
+@.agents/skills/prose-review/SKILL.md
 For AI-pattern scrubbing / registers:
-@.agents/skills/xshi-math-unslop/SKILL.md
+@.agents/skills/unslop/SKILL.md
 Writing constraints remain in:
 @docs/rules/mathematical-writing.md

@@ -14,13 +14,13 @@ first, then use it here. See also
 
 Use the root [AGENTS.md](../../AGENTS.md) skill table. Typical load:
 
-- Math question before editing: `$xshi-math-math-question`
-- Substantial note work: `$xshi-math-concept-page`
-- Proofs: `$xshi-math-proof-writing`
-- Settled prose: `$xshi-math-prose-review` / `$xshi-math-unslop`
-- Source→concept map: `$xshi-math-reading-guide`
-- Lean scoping (no Lean tree yet): `$xshi-math-lean-formalization`
-- Hard consult: `$xshi-math-deep-math-agent`
+- Math question before editing: `$math-question`
+- Substantial note work: `$concept-page`
+- Proofs: `$proof-writing`
+- Settled prose: `$prose-review` / `$unslop`
+- Source→concept map: `$reading-guide`
+- Lean scoping (no Lean tree yet): `$lean-formalization`
+- Hard consult: `$deep-math-agent`
 - Writing constraints: [mathematical-writing](../../docs/rules/mathematical-writing.md)
 
 Keep relative Markdown links inside this subsite. Cross-track links need full

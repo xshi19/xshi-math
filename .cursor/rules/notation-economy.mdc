@@ -1,8 +1,8 @@
 ---
-description: Load the notation-economy audit when drafting or reviewing mathematical exposition.
+description: Route final-draft notation review to the shared math-notation skill and hub integration.
 globs:
   - "content/**/*.md"
 alwaysApply: false
 ---
-Canonical rule and final-draft audit:
+Shared skill installation and hub workflow:
 @docs/rules/notation-economy.md
