@@ -1,0 +1,7 @@
+interface:
+  display_name: "Prose Review"
+  short_description: "Semantics-preserving prose pass"
+  default_prompt: "Use $prose-review for a final math prose pass."
+
+policy:
+  allow_implicit_invocation: true

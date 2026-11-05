@@ -32,7 +32,7 @@ commit API keys, private inputs, restricted PDFs, or raw payload dumps.
 From the repository root, after writing a focused prompt:
 
 ```bash
-uv run python .agents/skills/xshi-math-deep-math-agent/scripts/run_deep_math_agent.py \
+uv run python .agents/skills/deep-math-agent/scripts/run_deep_math_agent.py \
   --prompt-file docs/records/deep-math/YYYY-MM-DD-topic-prompt.md \
   --context content/incerto-subexponentiality.md \
   --no-web-search --dry-run \
@@ -44,7 +44,7 @@ and model settings, remove `--dry-run`, and change `--output` to the report
 path. A dry-run-only or failed attempt is not a completed report.
 
 Skill:
-[`.agents/skills/xshi-math-deep-math-agent/SKILL.md`](../../../.agents/skills/xshi-math-deep-math-agent/SKILL.md).
+[`.agents/skills/deep-math-agent/SKILL.md`](../../../.agents/skills/deep-math-agent/SKILL.md).
 
 ## Dependency note
 

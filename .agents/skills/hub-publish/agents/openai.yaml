@@ -1,0 +1,7 @@
+interface:
+  display_name: "Hub Publish"
+  short_description: "Build math site; optional hub rsync"
+  default_prompt: "Use $hub-publish to rebuild or transfer /math/."
+
+policy:
+  allow_implicit_invocation: true

@@ -12,20 +12,18 @@ duplicate policy. See
 | --- | --- |
 | Mathematical prose, voice, AI-pattern signals | [mathematical-writing.md](mathematical-writing.md) |
 | Cross-track symbol reuse (`/math/notation/`) | [shared-notation.md](shared-notation.md) |
+| General notation audit: installation and hub workflow | [notation-economy.md](notation-economy.md) → external `$math-notation` skill |
 
 ## Cursor adapters (activation only)
-
-[notation-economy.md](notation-economy.md) governs whether
-auxiliary symbols earn their place in final exposition..
 
 | Adapter | Points to |
 | --- | --- |
 | `.cursor/rules/mathematical-writing.mdc` | [mathematical-writing.md](mathematical-writing.md) |
 | `.cursor/rules/shared-notation.mdc` | [shared-notation.md](shared-notation.md), `content/notation.md` |
 | `.cursor/rules/notation-economy.mdc` | [notation-economy.md](notation-economy.md) |
-| `.cursor/rules/concept-page-workflow.mdc` | `$xshi-math-concept-page` |
-| `.cursor/rules/prose-review-workflow.mdc` | `$xshi-math-prose-review` / `$xshi-math-unslop` |
-| `.cursor/rules/agent-guidance-workflow.mdc` | `$xshi-math-agent-guidance` |
+| `.cursor/rules/concept-page-workflow.mdc` | `$concept-page` |
+| `.cursor/rules/prose-review-workflow.mdc` | `$prose-review` / `$unslop` |
+| `.cursor/rules/agent-guidance-workflow.mdc` | `$agent-guidance` |
 
 Adapters set `description` / `globs` / `alwaysApply: false` only. Codex does
 not rely on them; routers and skills remain the shared discovery path.
@@ -43,7 +41,7 @@ not rely on them; routers and skills remain the shared discovery path.
 
 ## Skills (procedures)
 
-Installed under `.agents/skills/` with the `xshi-math-` prefix. Route from
+Repo skills live under `.agents/skills/` with short workflow names. Route from
 [AGENTS.md](../../AGENTS.md). Do not add a competing `.cursor/skills/` tree.
 
 Create further rule bodies only when implementation or repeated friction

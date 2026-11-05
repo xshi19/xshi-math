@@ -1,0 +1,7 @@
+interface:
+  display_name: "Proof Writing"
+  short_description: "Scope proofs vs citations"
+  default_prompt: "Use $proof-writing to scope theorem statements and proofs."
+
+policy:
+  allow_implicit_invocation: true

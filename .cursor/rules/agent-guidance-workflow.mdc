@@ -10,7 +10,7 @@ globs:
 alwaysApply: false
 ---
 When maintaining agent routers, rules, skills, or harness docs, read and follow:
-@.agents/skills/xshi-math-agent-guidance/SKILL.md
+@.agents/skills/agent-guidance/SKILL.md
 Canonical framework and migration plan:
 @docs/design/AGENT_FRAMEWORK.md
 @docs/design/AGENT_HARNESS_MIGRATION.md

@@ -205,7 +205,7 @@ README with actual commands. No blueprint or generated API website is needed.
 
 Xiang approved these exact claims on 2026-10-17, satisfying
 the informal-scope confirmation in the
-[Lean skill](../../../.agents/skills/xshi-math-lean-formalization/SKILL.md).
+[Lean skill](../../../.agents/skills/lean-formalization/SKILL.md).
 Do not request that confirmation again for these unchanged claims. The pilot
 is now optional inside chapter 2. M0.5 and chapter 1 come first; this planning
 revision does not start proof coding. If selected, a later implementer

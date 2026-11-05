@@ -3,8 +3,8 @@
 Use these rules for user-facing explanatory prose in mathematical notes under
 `content/`, notation explanations, figure commentary, and public-facing project
 documentation. Apply them after the mathematical claims and evidence have been
-settled. For the procedural prose pass, use `$xshi-math-prose-review`; for
-AI-pattern scrubbing and registers, use `$xshi-math-unslop`.
+settled. For the procedural prose pass, use `$prose-review`; for
+AI-pattern scrubbing and registers, use `$unslop`.
 
 ## Preserve Meaning First
 
@@ -21,8 +21,8 @@ AI-pattern scrubbing and registers, use `$xshi-math-unslop`.
   terms may differ mathematically (especially tail exponent, tail index, and
   extreme-value index; natural vs expectation parameters).
 - If a style edit appears to change mathematical content, stop the prose pass
-  and resolve the content with `$xshi-math-concept-page` or
-  `$xshi-math-proof-writing` first.
+  and resolve the content with `$concept-page` or
+  `$proof-writing` first.
 
 ## Voice and Clarity
 
@@ -93,9 +93,8 @@ Math-specific failure modes:
 - Do not auto-rewrite equations, theorem statements, proof text, citations, or
   nearby qualifying prose.
 - Compare edited text with the original claim by claim.
-- For authorized notation edits, use the final-draft
-  [notation-economy audit](notation-economy.md); preserve mathematical meaning
-  when removing aliases.
+- For authorized notation edits, follow the
+  [`math-notation` integration](notation-economy.md).
 - Re-run executable examples or render the page when the edit changes MyST
   structure, code-adjacent prose, labels, links, or the interpretation of an
   output.

@@ -43,21 +43,21 @@ relevant rule → one skill → touched sources. Details:
 
 ## Skills (`.agents/skills/`)
 
-Canonical skills live only in `.agents/skills/` (no `.cursor/skills/` mirror).
+Repo skills live only in `.agents/skills/` (no `.cursor/skills/` mirror).
 
 | Trigger | Skill |
 | --- | --- |
-| Math-content question before editing | `$xshi-math-math-question` |
-| Create or substantially revise a note | `$xshi-math-concept-page` |
-| Theorem / proof scoping | `$xshi-math-proof-writing` |
-| Semantics-preserving prose pass | `$xshi-math-prose-review` |
-| AI-pattern scrub / writing registers | `$xshi-math-unslop` |
-| Git commit, branch, push, PR | `$xshi-math-git-conventions` |
-| Maintain routers, rules, or skills | `$xshi-math-agent-guidance` |
-| Rebuild site / optional hub `/math/` transfer | `$xshi-math-hub-publish` |
-| Source→concept reading map | `$xshi-math-reading-guide` |
-| Lean scoping / future formalization | `$xshi-math-lean-formalization` |
-| Hard external math consult (GPT-5.5 pro) | `$xshi-math-deep-math-agent` |
+| Math-content question before editing | `$math-question` |
+| Create or substantially revise a note | `$concept-page` |
+| Theorem / proof scoping | `$proof-writing` |
+| Semantics-preserving prose pass | `$prose-review` |
+| AI-pattern scrub / writing registers | `$unslop` |
+| Git commit, branch, push, PR | `$git-conventions` |
+| Maintain routers, rules, or skills | `$agent-guidance` |
+| Rebuild site / optional hub `/math/` transfer | `$hub-publish` |
+| Source→concept reading map | `$reading-guide` |
+| Lean scoping / future formalization | `$lean-formalization` |
+| Hard external math consult (GPT-5.5 pro) | `$deep-math-agent` |
 
 Cursor thin adapters live under `.cursor/rules/*.mdc` (metadata + pointers only).
 Normix package `docs-publish` stays upstream. The optional Lean prototype lives in `formalization/incerto-lean/`; see its README for checked scope.
@@ -67,7 +67,7 @@ Normix package `docs-publish` stays upstream. The optional Lean prototype lives 
 - Follow the user's task scope. A future phase in a plan is not an instruction
   to execute that phase. Cleanup does not authorize deferred content imports.
 - Preserve the [Normix boundary](docs/plan/consolidation.md#repository-boundaries).
-- For hub updates, use `$xshi-math-hub-publish` and the
+- For hub updates, use `$hub-publish` and the
   [cutover runbook](docs/plan/phase-4-cutover-runbook.md); preserve the live
   `/incerto-wiki/` mirror and compatibility pages alongside `/math/`.
 - Keep durable decisions in the repository. Use links to canonical guidance;
@@ -78,8 +78,8 @@ Normix package `docs-publish` stays upstream. The optional Lean prototype lives 
   [content/notation.md](content/notation.md) (public URL `/math/notation/`).
   See [shared-notation rule](docs/rules/shared-notation.md). New math notes must
   not invent parallel symbols for the same concept across tracks.
-- **Notation economy:** audit final-draft symbols using
-  [notation-economy](docs/rules/notation-economy.md).
+- **Notation review:** follow the [audit integration](docs/rules/notation-economy.md)
+  for the external `math-notation` skill and its installation.
 
 ## Verification commands
 

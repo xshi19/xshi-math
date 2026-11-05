@@ -1,0 +1,7 @@
+interface:
+  display_name: "Concept Page"
+  short_description: "Create or revise math notes"
+  default_prompt: "Use $concept-page to create or update a math note."
+
+policy:
+  allow_implicit_invocation: true

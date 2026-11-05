@@ -1,0 +1,7 @@
+interface:
+  display_name: "Unslop"
+  short_description: "Strip AI patterns; keep math voice"
+  default_prompt: "Use $unslop to scrub AI writing patterns."
+
+policy:
+  allow_implicit_invocation: true

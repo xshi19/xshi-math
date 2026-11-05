@@ -54,7 +54,7 @@ Normix redirects, and every historical automatic fragment remain unverified.
   same. The built HTML title is `Introduction - Information Geometry`;
   publishing it requires a hub republish.
 - The operator applied the prepared patch unchanged with `git apply` to
-  [the hub-publish skill](../../.agents/skills/xshi-math-hub-publish/SKILL.md)
+  [the hub-publish skill](../../.agents/skills/hub-publish/SKILL.md)
   and removed `docs/records/phase-5-hub-publish.patch`. The updated skill
   states the live hosting facts, generator source, legacy retention,
   removed private Pages, and `/normix/` boundary.
