@@ -86,7 +86,7 @@ def main(output=None):
                          capsize=3, label=f"n = {n}")
     axes[0].axhline(0, color=COLORS["muted"], ls="--", lw=1)
     axes[0].axhline(1, color=COLORS["muted"], ls=":", lw=1)
-    axes[0].set(title="Lognormal · conditional Monte Carlo", xlabel="Log-scale σ",
+    axes[0].set(title="Lognormal · conditional Monte Carlo", xlabel=r"Log-scale $\sigma_\ell$",
                 ylabel="Estimated kappa (1, n)", ylim=(-.05, 1.05))
     axes[0].legend(loc="upper center", bbox_to_anchor=(.5, -.25), ncol=2)
     finish(fig, output, "kappa-lognormal.svg")
