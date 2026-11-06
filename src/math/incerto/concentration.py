@@ -169,7 +169,10 @@ def lognormal_sum_mad(n, sigma, *, mu=0.0, repetitions=20000, random_state=0):
     """Lognormal(exp(mu+sigma*Z)) sum MAD using a bounded conditional payoff.
 
 Return dict(mad, mc_se). n=1 is exact (mc_se=0); n>1 is Monte Carlo with
-PCG64, conditioning on the last summand. Uses 2 E[(n E[X]-S_n)_+], so
+PCG64, conditioning on the first n-1 summands and integrating out the last.
+The arguments mu and sigma are the note's log-location mu_ell and log-scale
+sigma_ell; the original mean is exp(mu + sigma**2/2). For mean-one
+summands and their sum S_n, uses 2*exp(mu + sigma**2/2)*E[(n-S_n)_+], so
 upper-tail samples are never needed to estimate an unbounded payoff.
 sigma in [1e-4,10], finite mu; n<=1 million and (n-1)*repetitions<=50 million.
 No observations are clipped or removed. Overflow/nonrepresentable positive
