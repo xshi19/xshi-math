@@ -198,10 +198,11 @@ def expected_gaussian_hidden_mean(n):
     """Quadrature of E[phi(M_n)] for iid standard-normal maxima, n>=1.
 
     Returns {'value', 'abs_error'}; the error is QUADPACK's estimate, not a
-    rigorous bound. Integrates over an Exp(1) variable W using the exact map
-    M_n = normal.isf(-expm1(-W/n)). All possible maxima, including negative
-    ones, are included. The result is in standard-deviation units, never a
-    fraction of the zero population mean. Quadrature failure raises.
+    rigorous bound. Uses the transformed coordinate t = -n log Phi(M_n),
+    with density exp(-t) for t > 0, and recovers each maximum as
+    normal.isf(-expm1(-t/n)). All possible maxima, including negative ones,
+    are included. The result is in standard-deviation units, never a fraction
+    of the zero population mean. Quadrature failure raises.
 
     Success returns a finite value. epsabs=1e-14 and epsrel=2e-9 are stopping
     criteria, not guarantees. A different density integral agrees at relative
