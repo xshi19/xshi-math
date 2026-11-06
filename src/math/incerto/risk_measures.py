@@ -141,7 +141,7 @@ def pareto_mixture_risk(alphas, probabilities, tail_probability, *, xm=1.0):
 
 
 def beta_pareto_quantile_moment(a, b, alpha, order, *, xm=1.0):
-    """E[(xm*P**(-1/alpha))**order] for P~Beta(a,b), fixed alpha.
+    """E[(xm*Pi**(-1/alpha))**order] for report Pi~Beta(a,b), fixed alpha.
 
     Beta shapes in [0.001,10000], finite alpha>0, order>=0 and xm>0.
     The order-zero moment is one. For positive order the result is +inf
