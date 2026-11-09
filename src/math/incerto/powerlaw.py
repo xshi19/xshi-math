@@ -2,10 +2,11 @@
 
 All ``alpha`` arguments/results use the repository's SURVIVAL exponent:
 CSN's density/mass exponent is ``a = alpha + 1``. Discrete laws have mass
-k**(-a)/zeta(a, xmin), not a rounded continuous Pareto law. Fits include ties
-at xmin. Invalid inputs raise ValueError; failed numerical work raises or
-returns an explicit unsuccessful alternative fit. No observations are dropped
-because they are nonfinite. Alternative densities are continuous only.
+x**(-a)/zeta(a, xmin) at integer x >= xmin, not a rounded continuous Pareto
+law. Fits include ties at xmin. Invalid inputs raise ValueError; failed
+numerical work raises or returns an explicit unsuccessful alternative fit.
+No observations are dropped because they are nonfinite. Alternative densities
+are continuous only.
 """
 from __future__ import annotations
 
@@ -90,7 +91,7 @@ def _log_zeta(a, u):
 
 
 def powerlaw_mle_discrete(x: ArrayLike, xmin: int, *, approximate=False) -> float:
-    """Fit mass k**(-(alpha+1))/zeta(alpha+1,xmin), returning alpha.
+    """Fit mass x**(-(alpha+1))/zeta(alpha+1,xmin), returning alpha.
 
     Default: numerical maximization of the exact zeta likelihood. The optional
     approximation returns 1/mean(log(x/(xmin-.5))); it can be badly biased at
@@ -127,7 +128,7 @@ def powerlaw_mle_discrete(x: ArrayLike, xmin: int, *, approximate=False) -> floa
 def ks_distance_powerlaw(x: ArrayLike, alpha: float, xmin: float, *, discrete=False) -> float:
     """Supremum CDF distance on x >= xmin, including both sides of jumps.
 
-    For integer data compare at k-1 and k for every observed integer k; this
+    For integer data compare at x-1 and x for every observed integer x; this
     also covers empty lattice gaps without enumerating them. Continuous ties
     are compared before/after the empirical jump against the same model CDF.
     This statistic has no fixed-null KS p-value after fitting parameters.
@@ -351,6 +352,7 @@ def powerlaw_gof_bootstrap(x: ArrayLike, *, replicates=499, random_state=None,
 
 
 def _cutoff_log_normalizer(alpha, beta):
+    # Code beta is the note's dimensionless cutoff b=lambda*u; alpha=a-1.
     # In t=log(x/u): integral exp(-alpha*t-beta*(exp(t)-1)) dt.
     if beta == 0:
         return -np.log(alpha) if alpha > 0 else np.inf
@@ -507,7 +509,8 @@ def fit_tail_model(x: ArrayLike, xmin: float, model="powerlaw", *, discrete=Fals
                 m, s = p[0], np.exp(p[1])
                 return -.5*((y-m)/s)**2 - np.log(s) - .5*np.log(2*np.pi) - log_ndtr(m/s) - logx
         elif model == "stretched_exponential":
-            # beta=(u/scale)**shape, profiled out at fixed shape.
+            # Code shape is the note's Weibull beta; code beta is c=(u/scale)**shape.
+            # Profile out c at fixed shape.
             bounds = [(-5., 5.)]
             starts = [(0.,), (-1.,), (1.,)]
 
@@ -554,7 +557,8 @@ def likelihood_ratio_test(loglik1: ArrayLike, loglik2: ArrayLike, *, nested=Fals
                           calibration=None, df=1) -> dict:
     """Compare paired log likelihoods: R=sum(loglik1-loglik2), positive favors 1.
 
-    Non-nested: normalized_R=R/(sqrt(n)*std(d,ddof=0)), two-sided normal p.
+    Non-nested: normalized_R=R/(sqrt(k)*std(d,ddof=0)), two-sided normal p,
+    where k is the number of paired tail scores (returned under the key n).
     Requires iid observations, regular fitted models, finite nonzero contrast
     variance, a common measure and the same fixed tail. Arrays cannot certify
     these conditions. Zero contrast variance returns NaN statistic/p.
