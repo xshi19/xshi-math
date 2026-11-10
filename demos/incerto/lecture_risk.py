@@ -66,7 +66,7 @@ def main() -> None:
         [1-contamination, contamination],
         [0.5, tail_alpha * tail_minimum / (tail_alpha-1)],
     )
-    print("Rare contamination: epsilon=0.0001, b=1000000, alpha=1.5")
+    print("Rare contamination: epsilon=0.0001, x_m=1000000, alpha=1.5")
     print(f"Baseline mean=0.5; contaminated mean={contaminated_mean:.5f}; second moment=infinity")
     for n in (10, 1000, 10000, 100000):
         detected = repeated_event_probability(contamination, n)
