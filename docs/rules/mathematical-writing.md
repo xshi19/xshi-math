@@ -6,6 +6,9 @@ documentation. Apply them after the mathematical claims and evidence have been
 settled. For the procedural prose pass, use `$prose-review`; for
 AI-pattern scrubbing and registers, use `$unslop`.
 
+For proofs and formal derivations, follow the
+[statement-before-proof integration](statement-before-proof.md).
+
 ## Preserve Meaning First
 
 - A prose edit must preserve the claim, its scope, hypotheses, quantifiers,

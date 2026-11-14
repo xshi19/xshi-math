@@ -13,6 +13,7 @@ duplicate policy. See
 | Mathematical prose, voice, AI-pattern signals | [mathematical-writing.md](mathematical-writing.md) |
 | Cross-track symbol reuse (`/math/notation/`) | [shared-notation.md](shared-notation.md) |
 | General notation audit: installation and hub workflow | [notation-economy.md](notation-economy.md) → external `$math-notation` skill |
+| Proof structure: installation, MyST rendering, and report checker | [statement-before-proof.md](statement-before-proof.md) → external `$statement-before-proof` skill |
 
 ## Cursor adapters (activation only)
 

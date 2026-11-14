@@ -80,6 +80,8 @@ Normix package `docs-publish` stays upstream. The optional Lean prototype lives 
   not invent parallel symbols for the same concept across tracks.
 - **Notation review:** follow the [audit integration](docs/rules/notation-economy.md)
   for the external `math-notation` skill and its installation.
+- **Proof structure:** follow the [site integration](docs/rules/statement-before-proof.md)
+  for the external `$statement-before-proof` skill, MyST markup, and report checker.
 
 ## Verification commands
 
