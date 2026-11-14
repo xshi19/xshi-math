@@ -18,21 +18,19 @@ proved, what is cited, and what is only illustrated. Apply the
 
 ## Workflow
 
-1. Inventory every theorem-like claim: theorem, proposition, lemma, corollary,
-   consequence, equivalence, estimator guarantee, or named formula.
-2. Give each statement a stable name in prose, a displayed label, or an
-   equation reference when the page has multiple statements.
+1. Apply the external `$statement-before-proof` skill when writing or revising
+   proofs and formal derivations. Its installation and this site's MyST markup,
+   labels, and anchor constraints are in the
+   [site integration](../../../docs/rules/statement-before-proof.md).
+2. Choose the proof support type below for each result on the page.
 3. Before the proof, add one or two reader-facing orientation sentences that say
    what the argument establishes ("We prove...", "The argument below shows...",
    or "For the full representation theorem, we cite..."). Use a compact table
    only when several independent statements would otherwise be hard to track.
-4. Write proof headings that name the target when a generic `Proof` heading
-   would be ambiguous.
-5. Make dependency direction explicit. If later formulas use earlier theorem
-   statements, say so.
-6. Check that every proof paragraph refers only to assumptions already stated
-   locally or in linked notation/notes.
-7. Keep pending formalization notes in records. The imported prototype checks
+4. Apply the site integration's MyST rendering and link-compatibility checks.
+5. Run the integration's report checker on touched pages and review its findings
+   alongside the external skill's audit. A clean report is not a proof review.
+6. Keep pending formalization notes in records. The imported prototype checks
    only its two named algebraic declarations. Do not write `Lean: pending`
    on rendered pages.
 
@@ -53,6 +51,7 @@ exposition rather than audit-style status language.
 The proof work is not done until:
 
 - every theorem-like statement has reader-facing support prose;
+- the external statement/proof audit and site rendering checks are complete;
 - every proof or sketch says which statement or consequence it supports;
 - cited-but-unproved results are not described as proved by the page;
 - partial proofs state extra assumptions or special cases before the proof;
