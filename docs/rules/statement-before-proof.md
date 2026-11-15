@@ -80,6 +80,12 @@ lead-ins may precede a statement in their section, as on regular-variation;
 an explicit proof block needs an earlier statement. Code examples, frontmatter,
 and HTML comments are ignored.
 
+Do not leave a blank line immediately after an opening `$$` (including
+inside `prf` directives). MyST then emits the delimiter and the TeX as
+ordinary paragraphs, so the formula appears as raw LaTeX. The
+[display-math checker](../../scripts/check_unrendered_display_math.py)
+flags this pattern in Markdown and can scan built HTML.
+
 Treat findings as review candidates. The checker does not parse full MyST,
 match a proof to a particular claim, check labels or hypotheses, or recognize
 all prose derivations. Cross-section proofs may need manual review; a clean
