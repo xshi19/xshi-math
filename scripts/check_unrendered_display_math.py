@@ -186,7 +186,7 @@ def fix_text(source: str) -> str:
     return out
 
 
-SKIP_HTML = {"script", "style", "svg", "annotation", "math", "noscript"}
+SKIP_HTML = {"script", "style", "svg", "annotation", "math", "noscript", "code", "pre", "kbd", "samp", "textarea"}
 
 
 class _RawMathHTML(HTMLParser):
