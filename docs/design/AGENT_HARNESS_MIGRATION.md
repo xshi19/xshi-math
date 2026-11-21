@@ -8,7 +8,7 @@ prototype was checked upstream on 2026-09-05, not rechecked here.
 Status: active plan for installing shared Codex/Cursor skills into `xshi-math`.
 Owner priority: migrate the agent harness before theme/TOC/IG polish.
 Authoring date: 2026-09-13.
-Model for this work: Codex `gpt-6-astra` with `xhigh` (no Cursor CloudAgent).
+Model for this work: Codex `gpt-6.2-astra` with `xhigh` (no Cursor CloudAgent).
 
 This document decides what to port from the Incerto and Normix agent trees,
 where the canonical copies live, and how an agent should load them day-to-day.
@@ -100,7 +100,7 @@ docs/rules/
 docs/records/deep-math/    # deep-math report archive convention
 AGENTS.md                  # router lists installed skills
 content/{incerto,ig,normix-theory}/AGENTS.md  # track + skill pointers
-.codex/config.toml         # already: gpt-6-astra + xhigh
+.codex/config.toml         # already: gpt-6.2-astra + xhigh
 ```
 
 Sources of truth remain as in the framework: routers route, rules constrain,

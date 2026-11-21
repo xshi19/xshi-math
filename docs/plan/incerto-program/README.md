@@ -138,8 +138,8 @@ checked declaration is added.
 
 | Role ID | Owner assignment | Work |
 | --- | --- | --- |
-| `astra-max` | Codex GPT-6-Astra, max | Hard mathematics, M0.5 claim review, optional Lean and design |
-| `astra-xhigh` | Codex GPT-6-Astra, xhigh | Writing and complex code |
+| `astra-max` | Codex GPT-6.2-Astra, max | Hard mathematics, M0.5 claim review, optional Lean and design |
+| `astra-xhigh` | Codex GPT-6.2-Astra, xhigh | Writing and complex code |
 | `cursor-grok` | Cursor Grok 4.7, xhigh | Simple code, review and site code |
 | `math-site-editor` | Math Site Editor | Manager, source checks, live reader review and evidence records |
 | `portfolio-manager` | Portfolio Manager bot | Financial data and requested additions |
