@@ -31,7 +31,7 @@ deep-math Python deps remain optional prerequisites, not present by default.
 The owner's portfolio policy is to ask for a model before coding or command
 execution unless a choice is already named for the task or session. The
 [root router](../../AGENTS.md#model-selection) owns the chooser: Cursor Grok 4.6
-xhigh, Cursor Fable 5.1 high, or Codex GPT-6-Astra xhigh. These are owner-selected
+xhigh, Cursor Fable 5.1 high, or Codex GPT-6.2-Astra xhigh. These are owner-selected
 options, not a claim that every account has access.
 
 Codex is primary and its project defaults are active. Cursor quota may be
@@ -280,7 +280,7 @@ settings in user configuration and follow any enforced environment policy.
 The owner selected these active defaults:
 
 ```toml
-model = "gpt-6-astra"
+model = "gpt-6.2-astra"
 model_reasoning_effort = "xhigh"
 ```
 

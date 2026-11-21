@@ -1,6 +1,6 @@
 # Codex project defaults
 
-[config.toml](config.toml) actively selects `gpt-6-astra` with `xhigh` reasoning.
+[config.toml](config.toml) actively selects `gpt-6.2-astra` with `xhigh` reasoning.
 Follow the [owner model chooser](../AGENTS.md#model-selection) before coding or
 command execution unless a choice is already named for the task or session.
 

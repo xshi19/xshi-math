@@ -14,11 +14,11 @@ choose a model unless they have already named one for the task or session:
 
 - Cursor Grok 4.6 xhigh.
 - Cursor Fable 5.1 high.
-- Codex GPT-6-Astra xhigh (recommended; Codex is the primary client).
+- Codex GPT-6.2-Astra xhigh (recommended; Codex is the primary client).
 
 Honor an existing choice without asking again. Cursor quota may be exhausted;
 do not assume it is available or silently switch the owner's selected model.
-The active [Codex defaults](.codex/config.toml) select `gpt-6-astra` with `xhigh`;
+The active [Codex defaults](.codex/config.toml) select `gpt-6.2-astra` with `xhigh`;
 they do not replace the owner choice when none has been supplied. See the
 [framework](docs/design/AGENT_FRAMEWORK.md#model-selection-policy) for rationale.
 
