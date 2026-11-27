@@ -142,7 +142,7 @@ xshi-math/
   .agents/skills/                  # sole canonical skill tree, added when useful
   .cursor/rules/                  # optional thin .mdc adapters
   .codex/
-    config.toml                   # active owner-selected model defaults; present
+    config.toml                   # active model defaults; policy in AGENTS.md; present
     README.md                     # config scope and model-policy pointer; present
 ```
 

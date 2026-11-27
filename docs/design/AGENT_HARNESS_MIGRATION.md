@@ -203,7 +203,7 @@ Owner-queued follow-ups (do not expand this PR):
 
 Load the smallest useful set:
 
-1. **Root** [AGENTS.md](../../AGENTS.md) — model chooser, boundaries, verification.
+1. **Root** [AGENTS.md](../../AGENTS.md) — model selection, boundaries, verification.
 2. **Track router** if editing under a track:
    `content/{incerto,ig,normix-theory}/AGENTS.md`.
 3. **One rule** when constraints apply:
