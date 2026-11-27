@@ -97,7 +97,7 @@ def test_fixed_sample_contamination_and_ols_identity():
     assert sample_correlation(x, y, centered=False) == pytest.approx(-1, abs=1e-12)
     x, y = np.array([-2., -1, 0, 1, 2]), np.array([-1., 2, 1, 3, 0])
     design = np.column_stack([np.ones(len(x)), x])
-    residual = y-design@np.linalg.lstsq(design, y, rcond=None)[0]
+    residual = y - design @ np.linalg.lstsq(design, y, rcond=None)[0]
     r2 = 1-residual@residual/np.sum((y-y.mean())**2)
     assert_allclose(sample_correlation(x, y)**2, r2, atol=1e-15)
 

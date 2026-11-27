@@ -24,9 +24,9 @@ hedging concepts; an advanced formal development is outside the required scope.
 
 M0.5 reviews the 24 existing concept bodies before SCoFT v4 chapter 1.
 The optional exceedance pilot belongs to chapter 2 after teaching and demos.
-Astra max owns claim review and Math Site Editor owns live reader review.
+Astra max owns claim review and the site editor owns live reader review.
 The [review contract and issues list](m0.5-review.md) records coverage and
-findings for Xiang. After every later site update, Math Site Editor reads the
+findings for Xiang. After every later site update, the site editor reads the
 corresponding live pages and records the deployed revision, URLs and findings
 in `docs/records/incerto-site-review-YYYY-MM-DD.md` (future records). A build
 result alone does not close the reader-review gate.
@@ -187,11 +187,10 @@ Commit a small permitted fixture and a manifest when appropriate. Large or
 restricted raw data stay outside Git; a lawful acquisition step produces a
 checksum-verified local input. Never fetch financial data during MyST rendering.
 
-Financial inputs come from the Portfolio Manager bot and Xiang's financial
-database; request missing series or fields there. Other data come from the
-Data Scientist bot. Record the bot request or handoff alongside original
-provider provenance. This routing decision is settled; it does not replace
-the license and redistribution check for each dataset.
+Request missing series or fields from Xiang's financial database through the
+financial data source. Request other datasets from the general data source.
+Record the request or handoff and the original provider. Check the license
+and redistribution terms for each dataset.
 
 Notebooks are optional presentations, not a second implementation. Keep shared
 logic in installed helpers; execute with a declared kernel and clean outputs
@@ -263,7 +262,7 @@ deployment to this program's CI design.
 | Lean changes | Restore the pinned toolchain/cache, build the imported root with warnings treated as errors, reject placeholders, audit changed statements and dependencies. |
 | Python/helper changes | `uv sync --locked`, `uv run pytest`, bounded affected demos; for mapping/package changes also `uv build` and isolated editable/wheel import checks. |
 | Content, assets or site changes | Node version satisfying `>=20`, `npm ci`, `npm run build`, then `npm run check:html`; review equations, citations, figures and desktop/mobile navigation under `/math/`. |
-| Every site update | Math Site Editor reviews the corresponding live pages as a reader after deployment and records findings and dispositions. |
+| Every site update | The site editor reviews the corresponding live pages as a reader after deployment and records findings and dispositions. |
 | Notebook/study changes | Execute the bounded reproducible fixture with declared dependencies and verify provenance; full-data runs are separate if access, scale or rights require it. |
 
 Keep existing npm commands unchanged by default. If aggregate wrappers are

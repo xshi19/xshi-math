@@ -31,7 +31,7 @@ validation-environment dependency, not a new runtime dependency of `xmath`.
 | `scope` / `authorized_chunks` | Current authorization covers M0.5 closure, chapters 1–14 implementation and the requested earlier-chapter reader fixes; it does not authorize all later chapters. |
 | M0.5 `review_workstreams` / `issues` | Mathematics and live reader review are done; owner reports 24/24 live coverage after PR #27. Exact viewport details were not supplied. Shared issues retain other chapters’ assignments. |
 | `assigned_role` | Owner-assigned lead; role labels neither guarantee availability nor authorize delegation. |
-| `data_policy` / `site_review_policy` | Data via the assigned bots with provenance; live reader review after every site update. Build evidence cannot replace reader review. |
+| `data_policy` / `site_review_policy` | Data from the assigned sources with provenance; live reader review after every site update. Build evidence cannot replace reader review. |
 | `counts` | Derived active/historical totals, 30 v4 chapters, nine v4 appendices, 53 chapter chunks and 55 total chunks. Not a measure of mathematical verification. |
 
 Do not rename concept IDs. For a future edition with changed numbering, use a
@@ -55,7 +55,7 @@ exceedance claims remains valid.
    completed/pending pages and demos, evidence, revision and next action.
 4. Close required teaching and demos at this chapter's scope. Record optional
    Lean results or skips. Resolve relevant M0.5 findings before reuse; after
-   a site update obtain the Math Site Editor live reader review.
+   a site update obtain a live reader review from the site editor.
 5. Mark completed scoped work `done`, or retain an interruption checkpoint.
    Advance to the next ordered non-done chapter. Update human views and counts.
    Existing source-unit or concept associations do not create a separate queue.
@@ -259,7 +259,7 @@ assert {cid for cid, c in concepts.items() if c['coverage'].get('created_in_chun
     'c-probability-conflation', 'c-risk-measures', 'c-forecast-martingale'}
 assert len(review['concept_ids']) == 24 and Path(review['output_path']).is_file()
 assert review['review_workstreams']['mathematics']['assigned_role'] == 'astra-max'
-assert review['review_workstreams']['reader']['assigned_role'] == 'math-site-editor'
+assert review['review_workstreams']['reader']['assigned_role'] == 'site-editor'
 math_review = review['review_workstreams']['mathematics']
 reader_review = review['review_workstreams']['reader']
 assert math_review['status'] == 'done' and math_review['pages_reviewed'] == 24
@@ -281,9 +281,9 @@ for issue in review['issues']:
     assert issue['chapters'] and set(issue['chapters']) <= s['chunks'].keys()
     assert all(issue['id'] in s['chunks'][chunk]['m0_5_issue_ids'] for chunk in issue['chapters'])
 assert s['site_review_policy']['trigger'] == 'after every site update'
-assert s['site_review_policy']['assigned_role'] == 'math-site-editor'
-assert s['data_policy']['financial']['assigned_role'] == 'portfolio-manager'
-assert s['data_policy']['other']['assigned_role'] == 'data-scientist'
+assert s['site_review_policy']['assigned_role'] == 'site-editor'
+assert s['data_policy']['financial']['assigned_role'] == 'financial-data'
+assert s['data_policy']['other']['assigned_role'] == 'general-data'
 observed = s['chunks']['scft-v4-ch10']['checkpoint']['empirical_evaluation']
 assert observed['status'] == 'computed'
 assert observed['evidence_path'] == 'docs/records/incerto-sp500-observed.md'

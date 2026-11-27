@@ -1,27 +1,25 @@
 # Agent Router
 
-This repository is the sole authoring home for mathematical notes across three
-subsites (Incerto, Information Geometry, Normix theory), published by the hub
-under `/math/`. Read [README.md](README.md) and [ARCHITECTURE.md](ARCHITECTURE.md) for
-scope. MIT applies to repository-owned material. The
+Edit the mathematical notes in `content/`, the sole authoring source for the
+Incerto, Information Geometry, and Normix theory subsites. The build generates
+`_build/`. The hub publishes the assembled `_build/html/` under `/math/`.
+Read [README.md](README.md) and [ARCHITECTURE.md](ARCHITECTURE.md) for scope.
+MIT applies to repository-owned material. The
 [planning index](docs/plan/index.md) records completed gates; files still
 described as proposed do not yet exist.
 
 ## Model selection
 
-The default is Codex `gpt-6.2-astra` at `xhigh` reasoning, as set in the
-[Codex project defaults](.codex/config.toml). Do not ask which model to use.
-Honor an already named model for the task or session; do not silently switch
-away from it.
-
-When the Codex quota is exhausted, use Antigravity CLI (`agy`):
-
-```bash
-agy -p "..." --model gemini-4-neon-high
-```
-
-Add `--mode plan` for read-only tasks. Use `--dangerously-skip-permissions`
-only inside a throwaway worktree.
+For writing and review, the default is Codex `gpt-6.2-astra` at `xhigh`
+reasoning, as set in the [project configuration](.codex/config.toml). Honor
+an already named model for the task or session. Never ask which model to use.
+When the Codex quota is exhausted, use Antigravity CLI (`agy`) with
+`gemini-4-neon-high`. Run `agy -p "..." --model gemini-4-neon-high --output-format json`
+from the repo root or a throwaway worktree. Add `--mode plan` for read-only
+tasks. When commands are needed, whitelist them in `permissions.allow`.
+Use `--dangerously-skip-permissions` only in throwaway copies. Check
+`agy -p "/usage" --output-format json` before and after each run.
+Never use Claude or Opus models inside agy.
 
 See the [framework](docs/design/AGENT_FRAMEWORK.md#model-selection-policy)
 for rationale.
@@ -30,6 +28,9 @@ for rationale.
 
 | Task | Read next |
 | --- | --- |
+| Editing `content/ig/` | [Information Geometry track instructions](content/ig/AGENTS.md) |
+| Editing `content/incerto/` | [Incerto track instructions](content/incerto/AGENTS.md) |
+| Editing `content/normix-theory/` | [Normix theory track instructions](content/normix-theory/AGENTS.md) |
 | Roadmap, current phase, unresolved decisions | [Planning index](docs/plan/index.md) |
 | Repository boundaries, tracks, URLs, deployment | [Consolidation plan](docs/plan/consolidation.md) |
 | Agent instructions, rules, skills, client configuration | [Agent framework](docs/design/AGENT_FRAMEWORK.md) |
@@ -89,14 +90,16 @@ Normix package `docs-publish` stays upstream. The optional Lean prototype lives 
 
 ## Verification commands
 
-- Install/test: `uv sync --locked`, then `uv run pytest`.
+Run these commands from the repository root.
+
+- For package behavior, run `uv sync --locked`, then `uv run pytest`.
 - Demo: `uv run python demos/incerto/exceedances.py`.
 - Packaging: `uv build`; verify editable and wheel imports when mapping changes.
 - Bibliography: `bib/` is a submodule of private `xshi19/bibliography`; run
   `git submodule update --init` first. Add new entries there, not here, then
   bump the submodule pointer.
-- Site: `npm ci`, `npm run build`, then `npm run check:html`.
-- Review rendered equations, links, and desktop/mobile navigation under `/math/`.
+- For site output, run `npm ci` the first time, then `npm run build` followed by `npm run check:html`.
+- Separately inspect rendered equations, links, and desktop/mobile navigation under `/math/`.
 
 See [README](README.md) for preview commands and the
 [planning index](docs/plan/index.md) for current verification and remaining gates.

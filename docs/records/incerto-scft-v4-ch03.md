@@ -7,7 +7,7 @@ The owner-requested gpt-6-astra max review is completed below.
 
 ## Source and teaching scope
 
-Read the supplied read-only `/workspace/scoft-toc/2001.10488v4.pdf`,
+Read the supplied read-only `<scoft-dir>/2001.10488v4.pdf`,
 chapter 3, printed pp. 25–68 (PDF pages 39–82), and `v4-toc.txt`.
 Also read appendix E.1, printed p. 191 (PDF page 205), to check the
 guide's existing restriction on the exponent estimate. Extraction included
@@ -166,7 +166,7 @@ curves are unchanged; the unrelated kurtosis SVG remains byte-identical.
 | `UV_CACHE_DIR=/tmp/m05-uv-cache UV_OFFLINE=1 uv run pytest` | **265 passed in 3.09s**, including 44 new cases. |
 | Concept graph tests after regeneration | **10 passed in 0.83s**. |
 | Chapter-3 and Prologue demos | Passed; finite tables/grids checked. Deterministic SVG repeat and PNG previews reviewed. |
-| `npm ci --offline --cache /tmp/m05-npm-cache --no-audit --no-fund` | Failed `ENOTCACHED` for MyST 1.10.1. Reused `node_modules` from `/workspace/pub-math-1792333606` after verifying byte-identical `package-lock.json`. |
+| `npm ci --offline --cache /tmp/m05-npm-cache --no-audit --no-fund` | Failed `ENOTCACHED` for MyST 1.10.1. Reused `node_modules` from another math checkout after verifying byte-identical `package-lock.json`. |
 | `UV_CACHE_DIR=/tmp/m05-uv-cache UV_OFFLINE=1 npm run build` | Blocked by MyST's npm preflight; direct `child_process.execSync("npm --version")` reproduces `EPERM spawnSync /bin/sh`. No fresh HTML build completed. |
 | `npm run check:html` | Failed on missing fresh pages/configuration after the blocked build. The legacy portion checked 64 compatibility pages for 65 mapped rows and skipped four pre-existing unresolved rows. |
 | State, links, source membership, citations and whitespace | Passed the documented state validator (1001 plan file/fragment links) and source audit: 48 changed/new files, 11 new files, 833 relative file/fragment links, 55 local citation references, matching chapter titles, complete TOC membership, SVG XML and whitespace checks. |
@@ -265,7 +265,7 @@ Corrections and numerical evidence:
 Source and repository checks:
 
 - Independently extracted the supplied read-only
-  `/workspace/scoft-toc/2001.10488v4.pdf`: chapter 3, printed pp. 25–68
+  `<scoft-dir>/2001.10488v4.pdf`: chapter 3, printed pp. 25–68
   (PDF pages 39–82), and appendix E.1, printed p. 191 (PDF page 205).
   Checked all reading-map section ranges, the 17 consequence locations,
   §§3.4.1, 3.6.1, 3.10–12, the source-specific S/L/F notation and the
@@ -322,4 +322,4 @@ On this branch's working tree (base `697d55a`), clean `_build/`:
 | Built-HTML citation check | Pareto, max-to-sum, IG, Normix online EM, GIG and Karamata pages: each citation renders author/year once (e.g. "Amari & Nagaoka (2000), *Methods of Information Geometry*"; "Darling, 1952, Theorem 5.1" in parentheses) |
 | Tail-ratio SVG | Weibull legend handle renders as dash-dot, matching the plotted line |
 
-The Math Site Editor's live reader review of the new and changed pages is due after publication.
+The site editor's live reader review of the new and changed pages is due after publication.

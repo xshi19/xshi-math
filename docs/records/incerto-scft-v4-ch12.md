@@ -18,7 +18,7 @@ contracts, state, M0.5 and visualization reviews, chapter-8/9 records,
 visualization P2 and code-visibility patterns, snippet tests and output
 regenerator. Applied hub-publish checks only to a scratch local build.
 
-Read the supplied read-only `/workspace/scoft-toc/2001.10488v4.pdf`
+Read the supplied read-only `<scoft-dir>/2001.10488v4.pdf`
 and `v4-toc.txt`. Chapter 12 occupies printed **241–246**, PDF **255–260**.
 The guide maps §12.1 p. 241, §12.2 pp. 241–243, §12.3 pp. 243–245,
 and §12.4 pp. 245–246. Source extracts remain under `/tmp`.

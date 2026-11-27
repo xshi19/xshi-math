@@ -452,7 +452,7 @@ this follow-up closes the three owner-approved resolutions only.
 
 ## Notation audit
 
-Applied `/workspace/notation-economy-rule.md` after settling the claims,
+Applied `<review-dir>/notation-economy-rule.md` after settling the claims,
 using the shared canon, sibling calibration/forecast notes, and the source's
 coordinate conventions. This inventory belongs in the record, not on the
 published pages. Variants in one row denote the same object at different times

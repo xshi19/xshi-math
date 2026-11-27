@@ -67,11 +67,11 @@ logs and `staging-results-retry.json` from the successful pass.
 rm -rf _build/phase3-rehearsal
 mkdir -p _build/phase3-rehearsal
 cp -r _build/html _build/phase3-rehearsal/math
-cp -r /workspace/xshi19.github.io/normix _build/phase3-rehearsal/normix
-cp -r /workspace/xshi19.github.io/incerto-wiki _build/phase3-rehearsal/incerto-wiki
+cp -r ../xshi19.github.io/normix _build/phase3-rehearsal/normix
+cp -r ../xshi19.github.io/incerto-wiki _build/phase3-rehearsal/incerto-wiki
 ```
 
-Staging root: `/workspace/xshi-math/_build/phase3-rehearsal/`.
+Staging root: `_build/phase3-rehearsal/`.
 As the [subsite split record](subsite-split-verification.md#compatibility-routes)
 states, the math build does **not** implement `/incerto-wiki/` → `/math/...`
 compatibility cutover redirects. This local rehearsal covers the math artifact,
@@ -102,7 +102,7 @@ Not run in this rehearsal:
 - Python package tests/demos (docs-only change)
 
 Rollback for this attempt is discarding
-`/workspace/xshi-math/_build/phase3-rehearsal/`; no hub deployment needs
+`_build/phase3-rehearsal/`; no hub deployment needs
 reverting. Phase 4 still needs Xiang's explicit go-ahead after any remaining
 cutover-route and browser checks he wants. Phase 5 live verification remains
 pending. No secrets, SCoFT dumps, force-push, merge, or hub push were performed.

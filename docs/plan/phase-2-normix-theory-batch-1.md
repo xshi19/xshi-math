@@ -3,8 +3,8 @@
 Status: **imported / executed locally** (eight static mathematical notes).
 Execution date: 2026-09-13 (UTC); original survey date: 2026-09-12 (ET).
 Source: public `https://github.com/xshi19/normix` at
-`763bb3608920661a012cf089888d349fbf680aad`, read from `/workspace/normix`.
-All writes are confined to `/workspace/xshi-math`; changes remain uncommitted.
+`763bb3608920661a012cf089888d349fbf680aad`, read from `<normix-checkout>`.
+All changes are uncommitted in the `xshi-math` checkout.
 See the [verification record](../records/phase-2-normix-batch-1-verification.md)
 for the strict build, 29-page HTML gate, mathematical corrections, and limits.
 The body retains the approved mapping, adaptation rationale, and exclusions;

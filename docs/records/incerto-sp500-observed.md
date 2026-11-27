@@ -11,8 +11,8 @@ The chapter-11 checkout is outside scope.
 | --- | --- |
 | Provider | Yahoo Finance `^GSPC`, daily `Close`, `period="max"`, `auto_adjust=False`; price index, not dividend-reinvested total return |
 | Fetch date | 2026-10-30, as supplied with the local snapshot; this run imports that file rather than claiming a new Yahoo network retrieval |
-| Source file | `/workspace/incerto-data/sp500_daily.csv`, read only; 24,826 rows, 1927-12-30–2026-10-30 |
-| Reference fetcher | `/workspace/incerto-data/fetch_sp500.py`, read only; reused its Yahoo Close selection and cleaning approach; no automatic provider fallback |
+| Source file | `<data-dir>/sp500_daily.csv`, read only; 24,826 rows, 1927-12-30–2026-10-30 |
+| Reference fetcher | `<data-dir>/fetch_sp500.py`, read only; reused its Yahoo Close selection and cleaning approach; no automatic provider fallback |
 | Local cache | `data/incerto/cache/sp500_daily.csv`, ignored by Git; 24,825 closes, 1927-12-30–2026-10-29 |
 | Exclusion | The single 2026-10-30 row is intraday; inclusive `--end-date 2026-10-29` drops it |
 | Return window | Full available history from 1928-01-03 through 2026-10-29; the 1927-12-30 close supplies the first return's denominator |
@@ -36,7 +36,7 @@ checked for the explicit period/adjustment/interval and MultiIndex behavior.
 ## Fetch and reproduction
 
 ```sh
-python scripts/fetch_incerto_data.py sp500 --source /workspace/incerto-data/sp500_daily.csv --end-date 2026-10-29
+python scripts/fetch_incerto_data.py sp500 --source '<data-dir>/sp500_daily.csv' --end-date 2026-10-29
 uv run python demos/incerto/sp500_diagnostics.py
 uv run python demos/incerto/sp500_tail.py
 uv run python scripts/regenerate_incerto_outputs.py --pages incerto-sp500 incerto-sp500-tail

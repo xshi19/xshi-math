@@ -85,7 +85,7 @@ check the finite formulas, not the cited classification theorems.
 
 ## Review dispositions and Lean
 
-M0.5 is now `done`: the owner reports Math Site Editor live review passed on
+M0.5 is now `done`: the owner reports that the live reader review passed on
 2026-10-17 after PR #27 (`fbf2c6a`) publication. This is a recorded handoff,
 not a new browser session. Exact device/viewport details were not provided.
 
@@ -119,7 +119,7 @@ counting pilot remains optional and unchanged.
 State marks chapter-1 implementation `done` and selects `scft-v4-ch02` as
 requested. The tail-catalog concept remains `in-progress` for its later
 chapter scopes. Separate Astra max review of CH01-C01–C07, a successful
-external site build/check and Math Site Editor's subsequent live review
+external site build/check and the site editor's subsequent live review
 remain recorded follow-ups. No claim of publication or mathematical review
 at max reasoning is made by this checkpoint.
 
@@ -155,7 +155,7 @@ and finite numerical evidence are correct.
 
 Source verification:
 
-- Re-read the supplied `/workspace/scoft-toc/2001.10488v4.pdf`, printed
+- Re-read the supplied `<scoft-dir>/2001.10488v4.pdf`, printed
   pp. 3–6 (PDF pages 17–20). Chapter title, terminology on pp. 4–5, the
   absence of numbered theorems/equations, and the three reading-map locators
   agree. The title/copyright pages and
@@ -219,4 +219,4 @@ On this branch's working tree (base `fbf2c6a`), clean `_build/`:
 | `npm run build` | first attempt failed: doi.org returned no citation data for doi:10.1017/CBO9780511721434 (unchanged reference in `content/incerto-karamata.md`; transient upstream failure). Retry: pass |
 | `npm run check:html` | pass: 68 pages across four sites, 64 redirects, 53 pages with display math; 4 pre-existing unresolved legacy url-map rows skipped |
 
-Live reader review of the new and changed pages by the Math Site Editor is due after publication.
+Live reader review of the new and changed pages by the site editor is due after publication.

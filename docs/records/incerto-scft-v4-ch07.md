@@ -19,7 +19,7 @@ proof-writing, reading-guide, prose-review/unslop, git-conventions and
 hub-publish guidance. No package/dependency mapping, lockfile, notation canon
 or legacy URL-map change.
 
-Read the supplied read-only `/workspace/scoft-toc/2001.10488v4.pdf` and
+Read the supplied read-only `<scoft-dir>/2001.10488v4.pdf` and
 `v4-toc.txt`. Extractions remain in `/tmp`. No book text, source figures,
 tables or close paraphrases are added. The local bibliography key
 `taleb2025scoftv4` pins the 2025 third edition, arXiv:2001.10488v4.

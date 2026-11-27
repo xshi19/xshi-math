@@ -18,7 +18,7 @@ Thin publish note for this monorepo. Normix's `$docs-publish` skill and
 - Public base: `https://xshi19.github.io/math/` (landing) with track prefixes
   `/math/incerto/`, `/math/ig/`, `/math/normix-theory/`, plus shared
   `/math/notation/`.
-- Hub checkout (typical local path): `/workspace/xshi19.github.io`.
+- The transfer examples assume a sibling hub checkout at `../xshi19.github.io/`.
 - Phase 4 is live: the hub serves `/math/` and a full old-site mirror under
   `/incerto-wiki/`, overlaid with CSV-generated compatibility pages. The private
   `incerto-wiki` repository's own Pages was removed; owner freeze/archive is
@@ -52,7 +52,7 @@ and desktop/mobile navigation when changing content or theme.
 After a clean local build and HTML check, from this repository:
 
 ```bash
-rsync -a --delete /workspace/xshi-math/_build/html/ /workspace/xshi19.github.io/math/
+rsync -a --delete _build/html/ ../xshi19.github.io/math/
 ```
 
 Trailing slashes matter. Replace only `math/`; preserve the hub's entire
@@ -67,10 +67,10 @@ clone. From this repository, after generating compatibility pages:
 
 ```bash
 set -e
-python3 scripts/repair_legacy_mirror.py --mirror /workspace/xshi19.github.io/incerto-wiki
-rsync -a _build/legacy/incerto-wiki/ /workspace/xshi19.github.io/incerto-wiki/
-rsync -a _build/legacy/retained-repair/incerto-wiki/ /workspace/xshi19.github.io/incerto-wiki/
-python3 scripts/repair_legacy_mirror.py --mirror /workspace/xshi19.github.io/incerto-wiki --check
+python3 scripts/repair_legacy_mirror.py --mirror ../xshi19.github.io/incerto-wiki
+rsync -a _build/legacy/incerto-wiki/ ../xshi19.github.io/incerto-wiki/
+rsync -a _build/legacy/retained-repair/incerto-wiki/ ../xshi19.github.io/incerto-wiki/
+python3 scripts/repair_legacy_mirror.py --mirror ../xshi19.github.io/incerto-wiki --check
 ```
 
 Stop if repair fails. Only the exact retained concept-list stylesheet gap in

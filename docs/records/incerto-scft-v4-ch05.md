@@ -22,8 +22,8 @@ reuse eight canonical bodies and add one maximum-entropy body. The survival
 ratio page already existed and was extended. The new chapter guide links
 prior proofs rather than duplicating them.
 
-Read the supplied read-only `/workspace/scoft-toc/2001.10488v4.pdf` and
-`/workspace/scoft-toc/v4-toc.txt`. The edition is Taleb (2025), third edition,
+Read the supplied read-only `<scoft-dir>/2001.10488v4.pdf` and
+`<scoft-dir>/v4-toc.txt`. The edition is Taleb (2025), third edition,
 arXiv:2001.10488v4, bibliography key `taleb2025scoftv4`. Extracts and scratch
 calculations stay under `/tmp`; no source prose, tables or figures entered
 the repository. Explanations, proofs, worked inputs and figures are original.
@@ -172,7 +172,7 @@ as instructed. No checked declaration or formalization coverage is added.
 | Environment | Default uv cache was read-only. `UV_CACHE_DIR=/tmp/m05-uv-cache UV_OFFLINE=1 uv sync --locked` succeeded with cached dependencies. |
 | `UV_CACHE_DIR=/tmp/m05-uv-cache UV_OFFLINE=1 uv run pytest -q` | **386 passed, 43 subtests passed in 4.35s**, including 48 new chapter-5 cases. |
 | Chapter-5 demo | Passed; four SVGs exported; deterministic regeneration and preview audit recorded below. |
-| `npm ci --offline --cache /tmp/m05-npm-cache --no-audit --no-fund` | Failed `ENOTCACHED` for MyST 1.10.1. Reused `node_modules` from `/workspace/pub31-math-1792350000` after byte-identical package-lock comparison. |
+| `npm ci --offline --cache /tmp/m05-npm-cache --no-audit --no-fund` | Failed `ENOTCACHED` for MyST 1.10.1. Reused `node_modules` from another math checkout after byte-identical package-lock comparison. |
 | `npm run build` with writable offline uv cache | Blocked at MyST npm preflight. Direct Node child-process probe reproduces `EPERM spawnSync /bin/sh`. No fresh HTML build. |
 | `npm run check:html` | Failed on absent fresh HTML/config/assets following the blocked build. No passing HTML claim. |
 | State, links, citations, TOC, source overlap, whitespace | Final source audit recorded below. |
@@ -236,7 +236,7 @@ The hard-math review remains pending for CH05-C01 through CH05-C09, the
 squared-Student and conditional-mean guide consequences, and the numerical
 boundary behavior. No mathematical or editorial choice requires Xiang's
 input before that separate review. The external build/check and subsequent
-live Math Site Editor review remain the site follow-ups.
+live reader review remain the site follow-ups.
 
 ## Max review
 

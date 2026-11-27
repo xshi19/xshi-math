@@ -19,7 +19,7 @@ P2 and code-visibility patterns, snippet tests and output regenerator. Applied
 the hub-publish skill to local build checks only. Consulted the Lean skill
 for evidence boundaries; no formalization work was started.
 
-Read the supplied, read-only `/workspace/scoft-toc/2001.10488v4.pdf` and
+Read the supplied, read-only `<scoft-dir>/2001.10488v4.pdf` and
 v4 TOC. Chapter 11 is printed pp. **219–240**, PDF pp. **233–254**.
 Source extraction and the raster inspection of printed p. 240 stayed under
 `/tmp`. The guide maps §§11.1–11.7, including both appendix subsections.

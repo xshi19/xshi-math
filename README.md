@@ -190,10 +190,10 @@ open their `/math/...` paths on localhost. Review equations and desktop/mobile
 navigation when changing content or the theme.
 
 The parent owns hub assembly and republishing. After rebuilding and checking,
-run this from this repository with the hub checkout at `/workspace/xshi19.github.io`:
+run this from the repository root with the hub checked out alongside it:
 
 ```sh
-rsync -a --delete /workspace/xshi-math/_build/html/ /workspace/xshi19.github.io/math/
+rsync -a --delete _build/html/ ../xshi19.github.io/math/
 ```
 
 The trailing slashes copy the assembled contents into the hub's `math/`

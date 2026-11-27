@@ -5,7 +5,7 @@ Status: **imported / executed** — eight pages adapted or rewritten in
 [verification record](../records/phase-2-batch-3-verification.md): standard
 `npm run build` and `npm run check:html` pass for **46** pages.
 Date: 2026-09-12 (ET) / 2026-09-13 UTC.
-Source checkout: `/workspace/incerto-wiki` @ pin
+Source checkout: `<incerto-wiki-checkout>` @ pin
 `9717c9cf83aee18b47f423a14bce2f0d14bb8bcb` (merge PR #53 / plug-in-tail).
 **`content/` matches the pin** (surveyed blobs at that revision). Batches 1+2
 imported **18** adapted concept stems before this batch, plus originals

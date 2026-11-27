@@ -5,11 +5,11 @@ Strict build and the 38-page HTML check pass; see the
 [verification record](../records/phase-2-batch-2-verification.md).
 Changes are uncommitted; public cutover and further imports remain planned.
 Date: 2026-09-12 (ET) / 2026-09-13 UTC.
-Source checkout: `/workspace/incerto-wiki` @ pin
+Source checkout: `<incerto-wiki-checkout>` @ pin
 `9717c9cf83aee18b47f423a14bce2f0d14bb8bcb` (merge PR #53 / plug-in-tail).
 **`content/` matches the requested pin**. The inspected checkout tip is
 `0bb63be`, ahead only in planning documents; the import used the pinned blobs.
-Execution scope: write only under `/workspace/xshi-math`; read the pinned
+Execution scope: write only in the `xshi-math` checkout and read the pinned
 Incerto sources without modifying their checkout. Normix Theory Batch 1 is
 already merged (PR #7); its content pages remain unchanged.
 
