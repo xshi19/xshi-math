@@ -47,8 +47,9 @@ See the [foundation record](docs/records/phase-0-1-verification.md),
 [Normix Batch 2 record](docs/records/phase-2-normix-batch-2-verification.md)
 for historical results and check coverage. The [subsite split](docs/records/subsite-split-verification.md)
 replaces the combined book with a landing and three independent sites. Earlier
-batches imported twenty-six Incerto concept pages and thirteen Normix notes; no private history was imported and no CI is
-configured. The remaining source inventory is now accounted for in the
+batches imported twenty-six Incerto concept pages and thirteen Normix notes
+without their private history. The [leak-check workflow](.github/workflows/leak-check.yml)
+scans the checked-out tree. The remaining source inventory is now accounted for in the
 [final migration record](docs/records/incerto-wiki-final-migration.md); its
 expanded site build and lock update await operator verification.
 

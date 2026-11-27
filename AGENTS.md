@@ -103,7 +103,8 @@ Run these commands from the repository root.
 
 See [README](README.md) for preview commands and the
 [planning index](docs/plan/index.md) for current verification and remaining gates.
-There is no CI workflow. The optional Lean prototype was checked upstream on
+The [leak-check workflow](.github/workflows/leak-check.yml) scans pull requests
+and pushes to `main` or `master`. The optional Lean prototype was checked upstream on
 2026-09-05 with Lean/Mathlib v4.19.0, not rechecked here. To check it separately:
 `cd formalization/incerto-lean && lake build` (requires the pinned toolchain/cache).
 
