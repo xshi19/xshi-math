@@ -33,6 +33,16 @@ def write_sitemaps():
         )
 
 
+def strip_checkout_paths():
+    """MyST embeds the resolved bibliography path; publish it repo-relative."""
+    prefix = f'"bibliography":["{REPO.as_posix()}/'
+    for path in HTML.rglob("*"):
+        if path.suffix in (".html", ".json"):
+            text = path.read_text(encoding="utf-8")
+            if prefix in text:
+                path.write_text(text.replace(prefix, '"bibliography":["'), encoding="utf-8")
+
+
 def main():
     build = REPO / "_build"
     exports = build / "subsites"
@@ -59,6 +69,7 @@ def main():
     stage_graph_assets(HTML / "incerto")
     subprocess.run([sys.executable, str(REPO / "scripts/write_redirects.py")], check=True)
     write_sitemaps()
+    strip_checkout_paths()
     subprocess.run([sys.executable, str(REPO / "scripts/write_legacy_incerto.py")], check=True)
     print(f"Assembled all four sites at {HTML}")
 
