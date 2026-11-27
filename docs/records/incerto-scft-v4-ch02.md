@@ -7,7 +7,7 @@ The separate owner-requested max-reasoning review is recorded below.
 
 ## Source and teaching scope
 
-Read the supplied read-only `/workspace/scoft-toc/2001.10488v4.pdf`,
+Read the supplied read-only `<scoft-dir>/2001.10488v4.pdf`,
 chapter 2, printed pp. 7–21 (PDF pages 21–35), and `v4-toc.txt`.
 Extracted text stayed under `/tmp`. No PDF, extract, source prose or source
 figure entered the repository. Citations use chapter/section/page locators.
@@ -162,7 +162,7 @@ not touched or built.
 | Plain `uv run pytest` | Blocked by read-only default cache lock. |
 | `UV_CACHE_DIR=/tmp/m05-uv-cache UV_OFFLINE=1 uv run pytest` | **217 passed in 3.31s**; baseline 181 passed, 36 new cases. |
 | Exceedance, glossary and Prologue demos with the same cache and `MPLCONFIGDIR=/tmp/ch02-matplotlib` | Passed; original outputs 1, 1/4, 0. All four emitted SVGs byte-identical on repeat. Three changed/new plots inspected through PNG previews. |
-| `npm ci --offline --cache /tmp/m05-npm-cache --no-audit --no-fund` | Failed `ENOTCACHED` for mystmd 1.10.1. Reused local `node_modules` from `/workspace/publish-ch01-202610172003/xm`, whose lockfile is byte-identical. |
+| `npm ci --offline --cache /tmp/m05-npm-cache --no-audit --no-fund` | Failed `ENOTCACHED` for mystmd 1.10.1. Reused local `node_modules` from the chapter 1 publication checkout, whose lockfile is byte-identical. |
 | `UV_CACHE_DIR=/tmp/m05-uv-cache UV_OFFLINE=1 npm run build` | Blocked at MyST npm preflight. Direct Node reproduction: `spawnSync /bin/sh EPERM`. No fresh HTML build. |
 | `npm run check:html` | Failed after blocked build: missing pages, redirects and subsite configs. Four pre-existing unresolved legacy rows remain skipped. |
 | State, source links, TOC/citation membership and whitespace | Passed documented state validator (992 plan links), 366 relative links across 28 changed/new files, all 45 Incerto TOC entries, 69-page/65-redirect source layout, matching chapter-1–4 titles, citation keys, figure paths/XML and `git diff --check`. All seven new files separately checked for trailing whitespace/final newlines. |
@@ -182,7 +182,7 @@ mapping; no staged changes or file deletions.
 State marks `scft-v4-ch02` implementation done and selects `scft-v4-ch03`
 as requested. The Pareto, EVI and tail-catalog concepts remain in progress
 for later chapter scopes. The max review below is complete; an external
-site build/check precedes publication, then Math Site Editor reviews the live
+site build/check precedes publication, then the site editor reviews the live
 changed pages. No publication is asserted here.
 
 ## Max-reasoning math review
@@ -254,7 +254,7 @@ Corrections and verification:
 Source verification:
 
 - Independently extracted and read the supplied read-only
-  `/workspace/scoft-toc/2001.10488v4.pdf`, printed pp. 7–21 (PDF pages
+  `<scoft-dir>/2001.10488v4.pdf`, printed pp. 7–21 (PDF pages
   21–35), and compared the TOC. Every glossary table locator and new concept
   locator agrees, including the continuations on pp. 11, 13–14, 16–18 and 19–20.
   The [versioned arXiv record](https://arxiv.org/abs/2001.10488v4) confirms
@@ -291,4 +291,4 @@ On this branch's working tree (base `cbda449`), clean `_build/`:
 | `npm run build` | pass, first attempt (Karamata reference now resolved from the local bib entry); rerun 2026-10-18 after the DOI and title follow-up: pass, no doi.org lookups |
 | `npm run check:html` | pass: 69 pages across four sites, 65 redirects, 54 pages with display math; 4 pre-existing unresolved legacy url-map rows skipped |
 
-The Math Site Editor's live reader review of the new and changed pages is due after publication.
+The site editor's live reader review of the new and changed pages is due after publication.

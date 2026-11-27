@@ -201,8 +201,8 @@ Distinguish descriptive fit, prediction, and causal claims.]
 
 ## Data and provenance
 
-[Financial data: Portfolio Manager bot / Xiang's database; request additions
-there. Other data: Data Scientist bot. Record the handoff, original provider,
+[Request series and additions from Xiang's database through the financial
+data source. Use the general data source for other requests. Record the handoff, original provider,
 exact dataset/version, retrieval date, license/terms, checksum and manifest.
 Units, exposure denominators, missingness, revisions, censoring,
 reporting uncertainty and cleaning decisions.]
@@ -267,7 +267,7 @@ needs them, with exact version and section recorded.
 ## Review and evidence handoff
 
 Before SCoFT chapter 1, use [the M0.5 review record](m0.5-review.md) for Astra max's
-claim-by-claim review and Math Site Editor's live reader review of all 24
+claim-by-claim review and the site editor's live reader review of all 24
 existing concept pages. After every site update, the editor records a fresh
 live reader review with deployment revision, date, URLs, findings, severity,
 proposed actions and dispositions. Keep that review separate from build,

@@ -130,10 +130,10 @@ checked declaration is added.
 - Preserve `/math/incerto/`, the hub's `/incerto-wiki/` mirror and the Normix
   package boundary. Original writing does not resolve deferred legacy rights
   or publishing gates.
-- Obtain financial inputs and additions through Portfolio Manager and Xiang's
-  financial database; obtain other data through Data Scientist. Record each
-  dataset's provenance and permitted uses.
-- After every site update, Math Site Editor reads the corresponding live pages
+- Request inputs and additions from Xiang's financial database through the
+  financial data source. Use the general data source for other requests.
+  Record each dataset's provenance and permitted uses.
+- After every site update, the site editor reads the corresponding live pages
   and records findings. Local HTML checks do not close that reader-review gate.
 
 | Role ID | Owner assignment | Work |
@@ -141,9 +141,9 @@ checked declaration is added.
 | `astra-max` | Codex GPT-6.2-Astra, max | Hard mathematics, M0.5 claim review, optional Lean and design |
 | `astra-xhigh` | Codex GPT-6.2-Astra, xhigh | Writing and complex code |
 | `cursor-grok` | Cursor Grok 4.7, xhigh | Simple code, review and site code |
-| `math-site-editor` | Math Site Editor | Manager, source checks, live reader review and evidence records |
-| `portfolio-manager` | Portfolio Manager bot | Financial data and requested additions |
-| `data-scientist` | Data Scientist bot | Other data requests |
+| `site-editor` | Site editor | Manager, source checks, live reader review and evidence records |
+| `financial-data` | Financial data source | Financial data and requested additions |
+| `general-data` | General data source | Other data requests |
 
 The owner chose Astra xhigh for chapter-1/2/3/4/5/6/7/8 writing/code and separate Astra max
 runs for hard-math review (chapters 1–7 passed). Future role assignments do not
@@ -155,7 +155,7 @@ models are selected.
 | Milestone | Scope and exit gate |
 | --- | --- |
 | M0 — design | Reviewed plan, verified edition map and recorded validation limits; no implementation. |
-| M0.5 — existing-page review | Astra max reviews every mathematical claim in all 24 bodies; Math Site Editor reads all 24 live pages. Deliver the issues list for Xiang with evidence, severity, assignments and dispositions. Resolve findings before affected claims are reused in a chapter. |
+| M0.5 — existing-page review | Astra max reviews every mathematical claim in all 24 bodies; the site editor reads all 24 live pages. Deliver the issues list for Xiang with evidence, severity, assignments and dispositions. Resolve findings before affected claims are reused in a chapter. |
 | M1 — SCoFT v4 | Execute chapters 1–30 in numeric order. Each chunk includes its assigned appendices/papers, teaching pages, Python demos and optional Lean. Close the chapter's scoped claims and reader-review evidence before advancing. |
 | M2 — Dynamic Hedging | Execute chapters 1–23 in numeric order after SCoFT chapter 30. Attach introductory material and modules A–G; use stochastic calculus only to explain the hedging concepts. |
 | M3 — technical closeout | Audit all chapter checkpoints, teaching/numerical evidence, attached-paper scope and live reader reviews. Record optional Lean results or skips; no formalization requirement for curriculum completion. |
@@ -216,8 +216,8 @@ link the checked declarations at an immutable repository revision.
 
 Evidence if the pilot is attempted: a clean imported Lean build without
 placeholders; statement review; the existing demo outputs `1`, `1/4`, `0`; relevant Python tests; strict
-site build and HTML checks; rendered equation and link review; Math Site Editor
-live reader review after any site update. If CI is added,
+site build and HTML checks; rendered equation and link review; live reader
+review by the site editor after any site update. If CI is added,
 its Lean job must check the imported root and fail on proof placeholders.
 The manager records local versus CI evidence separately. The proof establishes
 real-number counting facts. It does not verify NumPy floating-point execution,

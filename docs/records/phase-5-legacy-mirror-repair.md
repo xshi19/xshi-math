@@ -37,10 +37,10 @@ compatibility pages, run from this repository, adjusting the hub checkout path:
 
 ```bash
 set -e
-python3 scripts/repair_legacy_mirror.py --mirror /workspace/xshi19.github.io/incerto-wiki
-rsync -a _build/legacy/incerto-wiki/ /workspace/xshi19.github.io/incerto-wiki/
-rsync -a _build/legacy/retained-repair/incerto-wiki/ /workspace/xshi19.github.io/incerto-wiki/
-python3 scripts/repair_legacy_mirror.py --mirror /workspace/xshi19.github.io/incerto-wiki --check
+python3 scripts/repair_legacy_mirror.py --mirror ../xshi19.github.io/incerto-wiki
+rsync -a _build/legacy/incerto-wiki/ ../xshi19.github.io/incerto-wiki/
+rsync -a _build/legacy/retained-repair/incerto-wiki/ ../xshi19.github.io/incerto-wiki/
+python3 scripts/repair_legacy_mirror.py --mirror ../xshi19.github.io/incerto-wiki --check
 ```
 
 Both overlays copy only generated HTML paths; neither uses `--delete`.
@@ -57,7 +57,7 @@ No replacement interactive behavior is introduced.
 
 ## Local verification
 
-Input: `/workspace/incerto-archive-202610171146/hub/incerto-wiki`, from clean hub
+Input: `<archive-dir>/hub/incerto-wiki`, from clean hub
 commit `49c6198a6b0dd928d474d580c573ff30842ac6ee`. Authoring checkout started at
 `998a4a1` on `codex/legacy-mirror-static-repair`.
 

@@ -26,7 +26,7 @@ only the generated tree without `--delete`. Never touch `/normix/`.
 - A fresh `npm run build && npm run check:html` passes. Record the source
   revision, toolchain versions, artifact checksum, and resulting hub commit.
 - Use a **new clean hub clone**. At preparation time, the existing
-  `/workspace/xshi19.github.io` checkout had unrelated deletions and was excluded.
+  hub checkout had unrelated deletions and was excluded.
 - The owner confirms the effective Pages source/settings and pauses competing
   publishers/transfers for the publication window. Confirm that neither the
   private source publisher nor a hub writer can restore old mapped pages.
@@ -83,7 +83,7 @@ The pre-cutover hub inventory below uses committed filenames only, from
 `1511d5e358cc8040327e5a4df33d30ac3983fcef`:
 
 ```sh
-git -C /workspace/xshi19.github.io ls-tree -r --name-only HEAD incerto-wiki/
+git -C ../xshi19.github.io ls-tree -r --name-only HEAD incerto-wiki/
 ```
 
 Of 1,755 committed files, 55 are HTML. **37 HTML files are absent from the CSV**:
@@ -121,7 +121,7 @@ destination to a new, unused directory. `rsync` is required. Do not run builds c
 
 ```bash
 set -euo pipefail
-math_repo=/workspace/xshi-math
+math_repo="$(git rev-parse --show-toplevel)"
 cutover_hub=/path/to/new-clean-hub-clone
 cutover_audit="$math_repo/_build/phase4-publish"
 mkdir -p "$cutover_audit"

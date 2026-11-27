@@ -7,7 +7,7 @@ independent Astra max mathematical review is recorded below. No commit, staging,
 push, file deletion, publication, chapter-7 work, or program-state change.
 
 Scope is exactly the ten enumerated P1 items from the read-only
-`/workspace/visualization-review-pr34.md`. That review was read in place and
+`<review-notes>`. That review was read in place and
 was not copied into this branch. Other legacy layout repairs, P2 and P3 are
 outside this change. Existing proofs are preserved; the Max review adds
 limit clarifications and sources.

@@ -111,7 +111,7 @@ Access dates are inherited, not new fetches.
 
 No S&P, GBP, claims, air-quality, IQ/income, or undocumented legacy Amazon
 copy was imported. Notebook-derived results CSVs are also excluded.
-Financial data to be provided later via the Portfolio Manager bot.
+Financial inputs were deferred to a later request through the financial data source.
 The S&P public page shows the method, while its demo exits with an availability
 message if no local cache exists. Refreshing is explicit, uses urllib, and
 writes financial data only to an ignored cache.
@@ -276,7 +276,7 @@ verification. The Lean recheck is optional and independent; use its README.
   JavaScript errors; the dependency-DAG iframe and figures resolve.
 - Not done: hub publication and live checks; Lean recheck.
 
-## Bugbot follow-up
+## Code review follow-up
 
 2026-10-17, PR #26: verified and fixed all three findings. FRED cleaning skips
 blank, `.`, and non-finite closes; malformed CSV, invalid dates/prices, and
@@ -296,10 +296,10 @@ Node interaction cases), `node --check assets/js/concept-graph.js`, and
 `git diff --check`; the new test file also passed a separate whitespace check.
 No full site rebuild or browser/device interaction review was run for this
 follow-up. No network access or commit; the protected planning paths are unchanged.
-Second Bugbot pass: touch background gestures pan only horizontally and capture
+In the second review pass, touch background gestures pan only horizontally and capture
 the pointer only after horizontal-dominant movement, leaving vertical moves to
 `pan-y`; `pointercancel` restores the gesture's starting transform and dragged
 node position. Interaction tests cover both the source and the staged asset copy.
-Third Bugbot pass: window-level up/cancel handling and SVG exit cleanup end pending
+In the third review pass, window-level up/cancel handling and SVG exit cleanup end pending
 touch gestures, while a new primary pointer rolls back a stale gesture from a
 different pointer ID before starting from its own origin, with regression coverage.

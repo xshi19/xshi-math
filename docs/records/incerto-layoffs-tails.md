@@ -62,8 +62,8 @@ observables do not need that additional inference.
 
 Source: layoffs.fyi via Kaggle mirror `swaptr/layoffs-2022`, retrieved
 **2026-10-26**, event dates **2020-03-11 through 2026-10-22**. Local inputs were
-read from `/workspace/layoffs-research/data/`; none was modified or copied
-into this repository. No Grok Bot Page was consulted, copied, or linked.
+read from `<layoffs-research-dir>/data/`; none was modified or copied
+into this repository.
 
 The raw and research-clean CSVs give identical event arrays. There are
 **4,644 rows**, **4,621 company-date events**, **3,014 observed positive
@@ -100,7 +100,7 @@ it does not label every future download as the historical snapshot.
 
 ## Comparison with FINAL_NUMBERS
 
-Compared directly with `/workspace/layoffs-research/out/FINAL_NUMBERS.md`,
+Compared directly with `<layoffs-research-dir>/out/FINAL_NUMBERS.md`,
 `final_numbers.json`, and `src/19_final_numbers.py`.
 
 | Quantity | Reference | This implementation |
@@ -144,7 +144,7 @@ replicates are excluded at any k. Synthetic tied cases exercise that warning.
 ## Reproduction and visual checks
 
 ```sh
-UV_NO_SYNC=1 UV_CACHE_DIR=/tmp/layoffs-uv MPLCONFIGDIR=/tmp/layoffs-mpl OPENBLAS_NUM_THREADS=1 uv run python demos/incerto/layoffs_tails.py --data /workspace/layoffs-research/data/clean/layoffs_clean.csv --retrieved 2026-10-26
+UV_NO_SYNC=1 UV_CACHE_DIR=/tmp/layoffs-uv MPLCONFIGDIR=/tmp/layoffs-mpl OPENBLAS_NUM_THREADS=1 uv run python demos/incerto/layoffs_tails.py --data '<layoffs-research-dir>/data/clean/layoffs_clean.csv' --retrieved 2026-10-26
 UV_NO_SYNC=1 UV_CACHE_DIR=/tmp/layoffs-uv MPLCONFIGDIR=/tmp/layoffs-mpl uv run python demos/incerto/layoffs_tails.py --recorded assets/incerto/outputs/layoffs-tails.json
 ```
 
@@ -193,7 +193,7 @@ claimed or needed for this empirical deliverable.
   The skip is the intentionally absent real-data page snippet. All **35** new
   helper/script cases and synthetic snippet/recorded-output checks pass.
 - Explicitly ran both new page snippets with
-  `INCERTO_LAYOFFS_PATH=/workspace/layoffs-research/data/clean/layoffs_clean.csv`:
+  `INCERTO_LAYOFFS_PATH='<layoffs-research-dir>/data/clean/layoffs_clean.csv'`:
   **two outputs reproduced, zero page changes**.
 - Selective output regeneration executed **90** snippets on API/new page,
   preserving the absent-data output. It corrected the new synthetic bootstrap

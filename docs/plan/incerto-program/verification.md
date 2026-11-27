@@ -116,7 +116,7 @@ Source metadata checks from the baseline remain historical; this revision did
 not recheck external metadata or full-text claims. The open content decisions
 are Shadow Mean scope, stochastic-calculus teaching/numerical depth and exact
 2025 Technical Incerto reconciliation. The M1 pilot, declaration-level Lean
-scope, bot data routing and on-demand paper inclusion are approved in state.
+scope, data sources and on-demand paper inclusion are approved in state.
 
 <a id="v4-chapter-order-revision-2026-10-17"></a>
 

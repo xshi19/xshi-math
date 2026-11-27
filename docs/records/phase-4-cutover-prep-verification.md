@@ -62,7 +62,7 @@ unavailable offline; this is unrelated to the fresh HTML gate.
 
 ## Read-only evidence and remaining gates
 
-The hub audit used `git -C /workspace/xshi19.github.io ls-tree -r --name-only HEAD
+The hub audit used `git -C ../xshi19.github.io ls-tree -r --name-only HEAD
 incerto-wiki/` at `1511d5e358cc8040327e5a4df33d30ac3983fcef`. It did not inspect
 deleted working-tree files as route evidence. The private source plan was read
 at `0bb63beb029947bae3aa39e8ff067da8866a9ef7`; its PR #54 priorities are recorded

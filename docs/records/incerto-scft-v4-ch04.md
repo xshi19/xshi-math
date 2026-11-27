@@ -7,7 +7,7 @@ Astra max run for the hard mathematics; that review is completed below.
 
 ## Source and teaching scope
 
-Read the supplied read-only `/workspace/scoft-toc/2001.10488v4.pdf`,
+Read the supplied read-only `<scoft-dir>/2001.10488v4.pdf`,
 chapter 4, printed pp. 69–89 (PDF pages 83–103), and `v4-toc.txt`.
 The extraction also included the following blank page. Source text stayed
 under `/tmp`; no PDF, TOC, source passage, table or figure entered the tree.
@@ -194,7 +194,7 @@ under `/tmp/ch04-*`; they are not published assets.
 | `UV_CACHE_DIR=/tmp/m05-uv-cache UV_OFFLINE=1 uv sync --locked` | Passed; installed this checkout from the existing writable cache. |
 | Same environment, `uv run pytest` | **326 passed in 3.88s**, including 47 chapter-4 numerical cases and two new style/export tests. |
 | All eight Incerto SVG generators | Passed with local inputs; all 17 SVGs regenerated, repeat hashes and outline checks recorded below. |
-| `npm ci --offline --cache /tmp/m05-npm-cache --no-audit --no-fund` | Failed `ENOTCACHED` for MyST 1.10.1. Reused `node_modules` from `/workspace/pub30-math-1792342244` after byte-comparing its package lock. |
+| `npm ci --offline --cache /tmp/m05-npm-cache --no-audit --no-fund` | Failed `ENOTCACHED` for MyST 1.10.1. Reused `node_modules` from another math checkout after byte-comparing its package lock. |
 | `npm run build` with writable offline uv cache | Blocked at MyST npm preflight; direct child-process probe reproduces `EPERM spawnSync /bin/sh`. No fresh HTML build. |
 | `npm run check:html` | Failed on absent fresh HTML/config/assets after the build failure. Its legacy portion checks 64 compatibility pages for 65 mapped rows and skips four pre-existing unresolved rows. |
 | State, source links, citations, TOC, source overlap and whitespace | Final source audit recorded below. |
@@ -207,7 +207,7 @@ Mixture and moment-estimation concepts remain `in-progress` for their later
 chapter extensions, with chapter-4 teaching/Python delivery recorded done.
 The frozen M0.5 denominator stays 24; the implemented concept count is 30.
 The separate Astra max review is completed below. A successful external site
-build/check and post-publication Math Site Editor review remain follow-ups. No new decision from
+build/check and post-publication reader review remain follow-ups. No new decision from
 Xiang is needed for the title, model scopes or figure layout chosen here.
 
 ## Final source and artifact audit
@@ -320,7 +320,7 @@ Corrections and numerical evidence:
 Source and repository checks:
 
 - Independently extracted and read the supplied read-only
-  `/workspace/scoft-toc/2001.10488v4.pdf`, printed pp. 69–89 (PDF pages
+  `<scoft-dir>/2001.10488v4.pdf`, printed pp. 69–89 (PDF pages
   83–103). Checked section starts at 69, 71, 72, 74, 75, 76, 79, 80, 83,
   84, 87 and 88 against the guide's ranges. The qualifications about
   characteristic functions (p. 72), scale boundaries (pp. 77–78), and
@@ -339,7 +339,7 @@ Source and repository checks:
   These checks do not constitute a fresh HTML build.
 
 No mathematical item needs Xiang's decision. The external site build/check
-and post-publication Math Site Editor/device review remain open; they were
+and post-publication reader review on desktop and mobile remain open; they were
 not rerun here. Wheel and Lean builds were not run because their mappings
 and sources are unchanged. This review changes the two numerical helpers,
 their regression tests, this record and the existing review-status entries.
@@ -364,4 +364,4 @@ On this branch's working tree (base `51a5959`), clean `_build/`:
 | `npm run build` | pass; no doi.org lookups |
 | `npm run check:html` | pass: 75 pages across four sites, 71 redirects, 60 pages with display math; 4 pre-existing unresolved legacy url-map rows skipped |
 
-The Math Site Editor's live reader review of the new and changed pages and figures is due after publication.
+The site editor's live reader review of the new and changed pages and figures is due after publication.

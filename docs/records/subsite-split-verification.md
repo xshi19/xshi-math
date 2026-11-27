@@ -64,7 +64,7 @@ migration proposals. Their source-site compatibility work remains separate.
 
 | Check | Result |
 | --- | --- |
-| Latest main / identity inspection | Fetched `origin`; main was `9e4ee05`, author `Xiang Shi <soarshi@gmail.com>`, committer `GitHub <noreply@github.com>` |
+| Latest main / identity inspection | Fetched `origin` and inspected the author (Xiang Shi) and committer (GitHub) identities on main at `9e4ee05`. |
 | `npm ci` | Passed; MyST 1.10.1 and unchanged dependency lock; zero reported vulnerabilities |
 | `npm run build` | Passed for landing (1), Incerto (28), IG (7), and Normix theory (15), each using `--html --strict --ci` and its nested `BASE_URL`; assembled all four plus 48 redirects |
 | `npm run check:html` | Passed for all 51 pages, 48 redirects, and 45 pages requiring display equations; local links/assets/fragments, branding/TOCs/search, public sitemaps, nested prefixes, shared CSS, and stale private-source checks |
@@ -107,7 +107,7 @@ a future fresh theme fetch.
 From the rebuilt, checked source checkout, the parent's exact transfer is:
 
 ```sh
-rsync -a --delete /workspace/xshi-math/_build/html/ /workspace/xshi19.github.io/math/
+rsync -a --delete _build/html/ ../xshi19.github.io/math/
 ```
 
 Adjust the destination checkout path if necessary; preserve the trailing slash

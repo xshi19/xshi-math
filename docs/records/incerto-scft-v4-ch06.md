@@ -21,7 +21,7 @@ Used concept-page, proof-writing, reading-guide, prose-review/unslop,
 git-conventions and hub-publish workflows. The URL map, shared notation,
 bibliography, package mapping and dependency locks are unchanged.
 
-Read the supplied read-only `/workspace/scoft-toc/2001.10488v4.pdf` and
+Read the supplied read-only `<scoft-dir>/2001.10488v4.pdf` and
 `v4-toc.txt`. Source text extraction and previews stay in `/tmp`; no PDF,
 TOC extract, copied book text, table or figure is added to the repository.
 All chapter context uses `taleb2025scoftv4`, third edition (2025),

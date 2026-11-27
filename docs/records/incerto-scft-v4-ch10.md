@@ -21,7 +21,7 @@ concept-page, proof-writing, reading-guide, prose-review/unslop,
 Git conventions and hub-publish guidance. Lean is **skipped-for-now** at
 Xiang's request; no declaration or checked proof is added.
 
-Read the external, read-only `/workspace/scoft-toc/2001.10488v4.pdf`
+Read the external, read-only `<scoft-dir>/2001.10488v4.pdf`
 and its TOC. Also inspected rasterized source pages 200 and 216 to check
 the conditional-ratio and angle formulas independently of PDF text extraction.
 Consulted chapter 10, printed pp. 193–205; Appendix F,

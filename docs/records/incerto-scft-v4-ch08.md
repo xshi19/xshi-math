@@ -21,7 +21,7 @@ examples; Lean is **skipped-for-now** as requested. No new declaration is
 represented as checked. Dependency mappings, lockfiles, shared notation
 and the legacy URL manifest are unchanged.
 
-Read the supplied read-only `/workspace/scoft-toc/2001.10488v4.pdf` and
+Read the supplied read-only `<scoft-dir>/2001.10488v4.pdf` and
 `v4-toc.txt`. Chapter 8 occupies printed pp. 153–169, PDF pp. 167–183.
 Extraction and source-page previews remain in `/tmp`. No book text,
 figures or tables are imported. The exposition, proofs and code are original;

@@ -20,7 +20,7 @@ mathematical or empirical claim.
 
 ## Local v2 and v4 evidence
 
-Read-only inputs remain under `/workspace/scoft-toc/`:
+Read-only inputs remain under `<scoft-dir>/`:
 
 | Input | Locator evidence |
 | --- | --- |
@@ -129,17 +129,16 @@ cites a source. Existing prose, runnable evidence and Lean evidence have
 separate fields in state.
 
 M0.5 now requires a claim-by-claim review of all 24 bodies by Astra max and a
-reader-view review of their live counterparts by Math Site Editor. The
+reader review of their live counterparts by the site editor. The
 [review record](m0.5-review.md) defines the issues list for Xiang. Both remain
 pending; the baseline survey is not evidence that either review has happened.
 
 ## Dataset sources
 
-Financial data come from the Portfolio Manager bot through Xiang's financial
-database; request additions there. Other data come from the Data Scientist
-bot. Record each handoff, original provider, version, retrieval date, license,
-redistribution terms, checksum, cleaning and units. Bot routing is settled;
-each dataset still needs its own provenance and permitted-use record.
+Request financial data and additions from Xiang's financial database through
+the financial data source. Use the general data source for other datasets.
+For each dataset, record the handoff, original provider, version, retrieval
+date, license, redistribution terms, checksum, cleaning and units.
 
 ## Copyright and legacy material
 

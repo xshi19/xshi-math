@@ -5,7 +5,7 @@ written; the strict HTML build and extended 21-page checker pass. Changes are
 uncommitted. Further Phase 2 imports and public cutover remain planned.
 See the [verification record](../records/phase-2-batch-1-verification.md).
 Date: 2026-09-13 (ET).
-Survey checkout: `/workspace/incerto-wiki` on `codex/update-plan-after-plugin` @ `0bb63be` (1 commit ahead of `origin/main` @ `9717c9c`; **content/ identical to origin/main**). Manifest revision pinned to `9717c9cf83aee18b47f423a14bce2f0d14bb8bcb`.
+Survey checkout: `<incerto-wiki-checkout>` on `codex/update-plan-after-plugin` @ `0bb63be` (1 commit ahead of `origin/main` @ `9717c9c`; **content/ identical to origin/main**). Manifest revision pinned to `9717c9cf83aee18b47f423a14bce2f0d14bb8bcb`.
 
 ## Goal
 

@@ -66,12 +66,12 @@ completion_policy:
     a chapter or later chapter. The exceedance pilot is optional in scft-v4-ch02.
 data_policy:
   financial:
-    assigned_role: portfolio-manager
+    assigned_role: financial-data
     source: Xiang's financial database
-    additions: Request missing series or fields from the Portfolio Manager bot.
+    additions: Request missing series or fields from the financial data source.
   other:
-    assigned_role: data-scientist
-    source: Data Scientist bot
+    assigned_role: general-data
+    source: General data source
   per_dataset_required:
   - provider
   - version-or-snapshot
@@ -80,10 +80,10 @@ data_policy:
   - provenance
   - checksum
   - cleaning-and-units
-  acquisition: Separate from site rendering; bot routing does not establish redistribution rights.
+  acquisition: Acquire data separately from site rendering. Check redistribution rights for each dataset.
 site_review_policy:
   trigger: after every site update
-  assigned_role: math-site-editor
+  assigned_role: site-editor
   target: corresponding live pages read as a reader, with desktop and mobile checks
   record_path_pattern: docs/records/incerto-site-review-YYYY-MM-DD.md
   required_evidence:
@@ -117,13 +117,13 @@ owner_decisions:
   m0.5-review:
     date: '2026-10-17'
     status: approved
-    decision: Astra max reviews claims in all 24 existing concept bodies; Math Site Editor reviews their live reader
+    decision: Astra max reviews claims in all 24 existing concept bodies; the site editor reviews their live reader
       views and reports issues to Xiang.
   data-routing:
     date: '2026-10-17'
     status: approved
-    decision: Financial data and additions through Portfolio Manager; all other data through Data Scientist; retain
-      dataset licensing and provenance.
+    decision: Request financial data and additions through the financial data source and other data through the
+      general data source. Retain dataset licensing and provenance.
   paper-inclusion:
     date: '2026-10-17'
     status: approved
@@ -170,15 +170,15 @@ roles:
     model: Grok 4.7
     reasoning: xhigh
     owns: simple code, review, site code
-  math-site-editor:
-    client: Math Site Editor
+  site-editor:
+    client: Site editor
     owns: manager, source reconciliation, chunk selection, live reader review after every site update, evidence
       records
-  portfolio-manager:
-    client: Portfolio Manager bot
+  financial-data:
+    client: Financial data source
     owns: financial data from Xiang's financial database; additions requested there
-  data-scientist:
-    client: Data Scientist bot
+  general-data:
+    client: General data source
     owns: all other data requests and acquisition support
 role_constraints:
 - Owner selected gpt-6-astra xhigh for chapter 1 writing/code; separate max review completed 2026-10-17.
@@ -196,7 +196,7 @@ milestones:
     status: done
     dependencies:
     - M0
-    assigned_role: math-site-editor
+    assigned_role: site-editor
   M1:
     title: SCoFT v4 chapters 1-30 with attached appendices and papers
     status: in-progress
@@ -214,7 +214,7 @@ milestones:
     status: todo
     dependencies:
     - M2
-    assigned_role: math-site-editor
+    assigned_role: site-editor
 next_chunk: '#/chunks/scft-v4-ch15'
 next_chunk_note: Chapter 14 done (owner decisions on near-quantile accuracy docs, simulator endpoint tolerance
   and Karatzas-Shreve citation applied; site build/checks passed). New chapters paused by Xiang after ch14 (2026-11-04);
@@ -227,7 +227,7 @@ chunks:
     title: Existing mathematics and live reader review
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M0.5
     concept_ids:
     - c-exceedances
@@ -269,14 +269,14 @@ chunks:
         limitations: All claims evaluated; unresolved source precision and helper defects are recorded issues,
           not certified fixes.
       reader:
-        assigned_role: math-site-editor
+        assigned_role: site-editor
         method: read every corresponding live page; review explanation, equations, figures, links and desktop/mobile
           navigation
         status: done
         pages_reviewed_live: 24
         deployment_revision: fbf2c6a
         reviewed_at: '2026-10-17'
-        evidence: Owner reports Math Site Editor live reader review passed after PR 27 publication.
+        evidence: Owner reports that the live reader review passed after PR 27 publication.
         viewports_reviewed: []
         viewport_note: Exact devices and viewport dimensions not supplied in the owner handoff.
         follow_up: Possible mixed-weight rendering when Charter is missing (fallback serif stack), pending Xiang's
@@ -285,13 +285,13 @@ chunks:
         - M05-ISSUE-004
         - M05-ISSUE-005
         source_investigation: done
-        limitations: Closure uses the owner's Math Site Editor handoff, not a new browser review in this run.
+        limitations: Closure uses the owner's report of the live reader review, not a new browser review in this run.
     output_path: docs/plan/incerto-program/m0.5-review.md
     acceptance:
     - Record source revision, live deployment/date and a coverage row for every one of the 24 bodies; exclude
       the hub and three indexes from this denominator.
     - Astra max records each mathematical claim and its review result; any unchecked claim remains explicit.
-    - Math Site Editor records live reader findings for all 24 corresponding URLs; inaccessible pages stay unreviewed.
+    - The site editor records live reader findings for all 24 corresponding URLs; inaccessible pages stay unreviewed.
     - Provide Xiang one issues list with stable IDs, severity, source/live locator, evidence, proposed action,
       reviewer and disposition.
     - Record Xiang decisions and unresolved findings; assign each issue to a chapter and resolve findings affecting
@@ -417,7 +417,7 @@ chunks:
         M0.5 live pass retained.
       chapter_3_resolution: Chapter-3 reader wording and new concept links updated; fresh live review pending
         publication. Earlier M0.5 live pass remains historical.
-      chapter_1_resolution: Published reader wording confirmed by Math Site Editor on 2026-10-17.
+      chapter_1_resolution: Published reader wording confirmed by the site editor on 2026-10-17.
       severity: minor
       status: fixed in this PR
       disposition: resolved
@@ -577,7 +577,7 @@ chunks:
           and separate issue reproducers are retained in m0.5-review.md
         build: 'blocked: MyST npm preflight; spawnSync /bin/sh EPERM'
         html: 'not run for decision fixes: fresh build blocked; initial-review results are retained in m0.5-review.md'
-        live_reader: Passed per owner handoff, Math Site Editor, 2026-10-17, published PR 27 (fbf2c6a).
+        live_reader: Passed per owner handoff, site editor, 2026-10-17, published PR 27 (fbf2c6a).
         state_and_links: passed; 986 plan links and 39 links across four changed notes; issue counts, unchanged
           next_chunk and unchanged other issue records/bodies verified
         whitespace: passed; git diff --check; no new files
@@ -652,7 +652,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     checkpoint:
       completed_at: '2026-10-17'
@@ -707,7 +707,7 @@ chunks:
         xiang_decisions: none
       live_reader_review:
         status: pending-publication
-        assigned_role: math-site-editor
+        assigned_role: site-editor
         note: No deployment in this task; chapter-1 pages require live review after publication. M0.5 closure
           applies to published fbf2c6a only.
       next_action: Rerun site checks outside sandbox before publication;
@@ -807,7 +807,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
       closure or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     existing_demo_paths:
     - demos/incerto/exceedances.py
@@ -870,7 +870,7 @@ chunks:
         xiang_decisions: none
       live_reader_review:
         status: pending-publication
-        assigned_role: math-site-editor
+        assigned_role: site-editor
         note: No deployment in this task; new and changed pages require live review after successful external
           build and publication.
       next_action: External site build/check; publish and obtain live reader review
@@ -948,7 +948,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
       closure or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     queue_items:
     - Inference Asymmetry
@@ -1011,7 +1011,7 @@ chunks:
         xiang_decisions: none
       live_reader_review:
         status: pending-publication
-        assigned_role: math-site-editor
+        assigned_role: site-editor
         note: Review new and changed pages after an external successful build and authorized publication.
       next_action: Rerun site build/check outside sandbox, then publish and obtain live
         reader review when authorized. Next implementation chunk scft-v4-ch04; no commit.
@@ -1091,7 +1091,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
       closure or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     queue_items:
     - Moment-Estimation Failure
@@ -1161,7 +1161,7 @@ chunks:
         xiang_decisions: none
       live_reader_review:
         status: pending-publication
-        assigned_role: math-site-editor
+        assigned_role: site-editor
         note: Review changed pages and all refreshed figures after successful external build and authorized publication.
       next_action: External build/check and live reader review remain; next implementation chunk scft-v4-ch05.
         No commit or deployment.
@@ -1263,7 +1263,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
       closure or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     checkpoint:
       completed_at: '2026-10-18'
@@ -1325,7 +1325,7 @@ chunks:
         evidence_anchor: max-review
       live_reader_review:
         status: pending-publication
-        assigned_role: math-site-editor
+        assigned_role: site-editor
         note: Review new/changed pages and four figures after successful external build and authorized publication.
       next_action: External build/check and live review. Next implementation chunk
         scft-v4-ch06; no commit or deployment.
@@ -1410,7 +1410,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     checkpoint:
       completed_at: '2026-10-18'
@@ -1466,7 +1466,7 @@ chunks:
         evidence_anchor: max-review
       live_reader_review:
         status: pending-publication
-        assigned_role: math-site-editor
+        assigned_role: site-editor
         note: Review changed pages and figures after successful external build and authorized publication.
       next_action: External build/check and post-publication reader review. Next implementation
         chunk scft-v4-ch07; not authorized in this run.
@@ -1572,7 +1572,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Use fixed seeds, repeated paths, bounded runtime and uncertainty summaries; bounded refers to computation, not
       truncating the Cauchy law.
@@ -1634,7 +1634,7 @@ chunks:
         note: Completed with fixes in the base; this reconciliation adds no new mathematical review.
       live_reader_review:
         status: pending-publication
-        assigned_role: math-site-editor
+        assigned_role: site-editor
         note: Review equations, links and navigation after a successful build and authorized publication.
       next_action: External site checks and post-publication reader review; chapter-8 implementation recorded
         separately.
@@ -1708,7 +1708,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
       closure or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     scope_locators:
     - SCoFT v4 ch. 8, §§8.1–8.6.4, printed pp. 153–169 (PDF 167–183)
@@ -1753,7 +1753,7 @@ chunks:
           run.
       live_reader_review:
         status: pending-publication
-        assigned_role: math-site-editor
+        assigned_role: site-editor
         note: Full equations, links and navigation need successful external build and post-publication reader
           review.
       next_action: Separate max review and external site checks; next implementation chunk is scft-v4-ch09,
@@ -1869,7 +1869,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
       closure or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     checkpoint:
       completed_at: '2026-10-29'
@@ -1932,7 +1932,7 @@ chunks:
         scope: CH09-C01–C10, numerical domains, source corrections; separate owner-requested run.
       live_reader_review:
         status: pending-publication
-        assigned_role: math-site-editor
+        assigned_role: site-editor
         note: No publication; source/PNG checks do not replace live equation/navigation review.
       next_action: Separate max review and source/site follow-ups; next implementation chunk scft-v4-ch10.
   scft-v4-ch10:
@@ -2015,11 +2015,11 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
-    - Obtain permitted inputs through the assigned bot; record provenance, sensitivity and missing data. A synthetic
+    - Obtain permitted inputs through the assigned data source and record provenance, sensitivity and missing data. A synthetic
       fallback does not close an empirical claim.
-    data_role: portfolio-manager
+    data_role: financial-data
     checkpoint:
       completed_at: '2026-10-29'
       base_revision: bd119c8
@@ -2075,7 +2075,7 @@ chunks:
         scope: CH10-C01–C10 and numerical helper contracts; separate owner-requested run.
       live_reader_review:
         status: pending-publication
-        assigned_role: math-site-editor
+        assigned_role: site-editor
         note: No site publication; source and PNG checks do not replace live equations/navigation.
       next_action: Separate max review and site/live verification; observed S&P evaluation computed. Next writing chunk scft-v4-ch11.
   scft-v4-ch11:
@@ -2148,7 +2148,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
       closure or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     checkpoint:
       completed_at: '2026-10-30'
@@ -2199,7 +2199,7 @@ chunks:
         scope: CH11-C01–C10 and helper numerical domains; separately requested run.
       live_reader_review:
         status: pending-publication
-        assigned_role: math-site-editor
+        assigned_role: site-editor
         note: No publication. Source/PNG checks do not replace rendered pages and live navigation.
       next_action: Separate max review, then external build/browser checks and post-publication reader review;
         next writing chunk scft-v4-ch12.
@@ -2267,7 +2267,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
       closure or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     checkpoint:
       completed_at: '2026-11-01'
@@ -2319,7 +2319,7 @@ chunks:
         scope: CH12-C01–C10 and numerical helper domains; separate owner-requested run.
       live_reader_review:
         status: pending-publication
-        assigned_role: math-site-editor
+        assigned_role: site-editor
         note: No publication. Source and PNG review do not replace browser equations/navigation or live review.
       next_action: Separate max review and fresh site/browser checks; next writing chunk scft-v4-ch13.
   scft-v4-ch13:
@@ -2397,7 +2397,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
       closure or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     checkpoint:
       completed_at: '2026-11-02'
@@ -2445,7 +2445,7 @@ chunks:
         scope: CH13-C01–C09 and helper numerical boundaries; separate owner-requested run.
       live_reader_review:
         status: pending-publication
-        assigned_role: math-site-editor
+        assigned_role: site-editor
         note: No publication. SVG raster checks do not establish rendered-page or live navigation results.
       next_action: Separate max review and external site/browser checks; next writing chunk scft-v4-ch14.
   scft-v4-ch14:
@@ -2508,7 +2508,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
       closure or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     related_pages_linked:
     - content/incerto-probability-conflation.md
@@ -2562,7 +2562,7 @@ chunks:
         scope: CH14-C01–C09 and helper numerical domains; separate owner-requested run.
       live_reader_review:
         status: pending-publication
-        assigned_role: math-site-editor
+        assigned_role: site-editor
         note: No publication; PNG inspection is separate from rendered-page and live navigation checks.
       next_action: Separate max review and external site/browser checks; next writing chunk scft-v4-ch15.
       completed_at: '2026-11-03'
@@ -2613,7 +2613,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
   scft-v4-ch16:
     id: scft-v4-ch16
@@ -2662,7 +2662,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
   scft-v4-ch17:
     id: scft-v4-ch17
@@ -2712,7 +2712,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Teach the bounded transform and assumptions first; keep historical conflict estimation in chapter 18.
     queue_items:
@@ -2774,11 +2774,11 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
-    - Obtain permitted inputs through the assigned bot; record provenance, sensitivity and missing data. A synthetic
+    - Obtain permitted inputs through the assigned data source and record provenance, sensitivity and missing data. A synthetic
       fallback does not close an empirical claim.
-    data_role: data-scientist
+    data_role: general-data
   scft-v4-ch19:
     id: scft-v4-ch19
     locator: SCoFT v4 ch. 19
@@ -2834,11 +2834,11 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
-    - Obtain permitted inputs through the assigned bot; record provenance, sensitivity and missing data. A synthetic
+    - Obtain permitted inputs through the assigned data source and record provenance, sensitivity and missing data. A synthetic
       fallback does not close an empirical claim.
-    data_role: data-scientist
+    data_role: general-data
   scft-v4-ch20:
     id: scft-v4-ch20
     locator: SCoFT v4 ch. 20
@@ -2886,7 +2886,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
       closure or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
   scft-v4-ch21:
     id: scft-v4-ch21
@@ -2937,7 +2937,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
       closure or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
   scft-v4-ch22:
     id: scft-v4-ch22
@@ -2993,7 +2993,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
       closure or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
   scft-v4-ch23:
     id: scft-v4-ch23
@@ -3043,7 +3043,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
   scft-v4-ch24:
     id: scft-v4-ch24
@@ -3096,7 +3096,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
   scft-v4-ch25:
     id: scft-v4-ch25
@@ -3144,7 +3144,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
   scft-v4-ch26:
     id: scft-v4-ch26
@@ -3196,7 +3196,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
   scft-v4-ch27:
     id: scft-v4-ch27
@@ -3246,7 +3246,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
   scft-v4-ch28:
     id: scft-v4-ch28
@@ -3318,7 +3318,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
       closure or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
   scft-v4-ch29:
     id: scft-v4-ch29
@@ -3382,7 +3382,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
       closure or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
   scft-v4-ch30:
     id: scft-v4-ch30
@@ -3430,7 +3430,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
   dh-ch01:
     id: dh-ch01
@@ -3483,7 +3483,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -3533,7 +3533,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -3582,7 +3582,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -3631,7 +3631,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -3689,7 +3689,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -3742,7 +3742,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -3796,7 +3796,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -3846,7 +3846,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -3899,7 +3899,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -3949,7 +3949,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -4003,7 +4003,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -4052,7 +4052,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -4104,7 +4104,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -4153,7 +4153,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -4209,7 +4209,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter
       closure or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development
       outside scope.
@@ -4277,7 +4277,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -4326,7 +4326,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -4375,7 +4375,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -4425,7 +4425,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -4479,7 +4479,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -4528,7 +4528,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -4579,7 +4579,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -4628,7 +4628,7 @@ chunks:
       model calculations from observed-data studies.
     - Record optional Lean declarations or skip reasons after teaching and demos; Lean does not block chapter closure
       or the following chapter.
-    - Record relevant checks and checkpoint evidence; after any site update, Math Site Editor reviews the corresponding
+    - Record relevant checks and checkpoint evidence; after any site update, the site editor reviews the corresponding
       live pages as a reader.
     - Introduce only stochastic-calculus basics needed by this chapter; keep a standalone advanced development outside
       scope.
@@ -4654,7 +4654,7 @@ chunks:
         status: todo
     dependencies:
     - dh-ch23
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     status: todo
     milestone: M3
     source_unit_ids: []
@@ -4721,8 +4721,8 @@ sources:
     url: https://arxiv.org/abs/2001.10488v2
     checked: '2026-10-17'
     verification: local-PDF-TOC-titles-and-locators-verified; mathematical-claims-not-reviewed
-    local_pdf: /workspace/scoft-toc/2001.10488v2.pdf
-    local_toc: /workspace/scoft-toc/v2-toc.txt
+    local_pdf: <scoft-dir>/2001.10488v2.pdf
+    local_toc: <scoft-dir>/v2-toc.txt
     pdf_sha256: 4dd2b89befd1295df5ef3272778aa9f3ab00ee593784d699e6d6b9facc6d31ac
     pdf_pages: 455
     toc_pdf_pages: 7-14
@@ -4734,14 +4734,14 @@ sources:
     url: https://arxiv.org/abs/2001.10488v4
     checked: '2026-10-17'
     verification: local-PDF-TOC-titles-and-locators-verified; mathematical-claims-not-reviewed
-    local_pdf: /workspace/scoft-toc/2001.10488v4.pdf
-    local_toc: /workspace/scoft-toc/v4-toc.txt
+    local_pdf: <scoft-dir>/2001.10488v4.pdf
+    local_toc: <scoft-dir>/v4-toc.txt
     pdf_sha256: 758e18b7337840104db93296144d67cf5514bf2de128fe557dc84bc32a0ad567
     pdf_pages: 523
     toc_pdf_pages: 7-14
     toc_printed_pages: vii-xiv
     source_role: selected-baseline
-    local_bibliography: /workspace/scoft-toc/v4-bib.txt
+    local_bibliography: <scoft-dir>/v4-bib.txt
   src-dh:
     id: src-dh
     title: Dynamic Hedging publisher edition and contents
@@ -4764,7 +4764,7 @@ books:
     - src-incerto-toc
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     expected_numbered_chapters: 14
     edition_review: not-required
@@ -4806,7 +4806,7 @@ books:
     - src-incerto-toc
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     expected_numbered_chapters: 19
     edition_review: not-required
@@ -4867,7 +4867,7 @@ books:
     - src-incerto-toc
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     expected_numbered_chapters: 0
     edition_review: not-required
@@ -4916,7 +4916,7 @@ books:
     - src-incerto-toc
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     expected_numbered_chapters: 25
     edition_review: not-required
@@ -4971,7 +4971,7 @@ books:
     - src-incerto-toc
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     expected_numbered_chapters: 19
     edition_review: not-required
@@ -5022,7 +5022,7 @@ books:
     - src-scft-toc
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     expected_numbered_chapters: 30
     edition_review: done
@@ -5110,7 +5110,7 @@ books:
     - src-dh-toc
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     expected_numbered_chapters: 23
     edition_review: todo
@@ -5167,7 +5167,7 @@ chapters:
     - c-counterfactuals
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5190,7 +5190,7 @@ chapters:
     - c-asymmetric-payoffs
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5213,7 +5213,7 @@ chapters:
     - c-noise-monitoring
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5236,7 +5236,7 @@ chapters:
     - c-skepticism
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5258,7 +5258,7 @@ chapters:
     - c-luck-skill
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5282,7 +5282,7 @@ chapters:
     - c-pareto-moments
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5305,7 +5305,7 @@ chapters:
     - c-inference-asymmetry
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5328,7 +5328,7 @@ chapters:
     - c-inequality-mobility
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5350,7 +5350,7 @@ chapters:
     - c-multiple-testing
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5372,7 +5372,7 @@ chapters:
     - c-scalability
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5394,7 +5394,7 @@ chapters:
     - c-biases
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5416,7 +5416,7 @@ chapters:
     - c-biases
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5439,7 +5439,7 @@ chapters:
     - c-epistemic-uncertainty
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5460,7 +5460,7 @@ chapters:
     - c-stoicism
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5481,7 +5481,7 @@ chapters:
     - c-skepticism
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5505,7 +5505,7 @@ chapters:
     - c-ludic
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5526,7 +5526,7 @@ chapters:
     - c-skepticism
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5547,7 +5547,7 @@ chapters:
     - c-luck-skill
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5571,7 +5571,7 @@ chapters:
     - c-pareto-moments
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5594,7 +5594,7 @@ chapters:
     - c-inference-asymmetry
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5617,7 +5617,7 @@ chapters:
     - c-multiple-testing
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5640,7 +5640,7 @@ chapters:
     - c-causal-narrative
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5662,7 +5662,7 @@ chapters:
     - c-optionality
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5683,7 +5683,7 @@ chapters:
     - c-survivorship
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5705,7 +5705,7 @@ chapters:
     - c-ludic
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5725,7 +5725,7 @@ chapters:
     - c-forecasting
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5747,7 +5747,7 @@ chapters:
     - c-tacit-knowledge
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5770,7 +5770,7 @@ chapters:
     - c-skepticism
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5792,7 +5792,7 @@ chapters:
     - c-ruin
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5814,7 +5814,7 @@ chapters:
     - c-inequality-mobility
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5836,7 +5836,7 @@ chapters:
     - c-cramer
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5861,7 +5861,7 @@ chapters:
     - c-stable-clt
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5886,7 +5886,7 @@ chapters:
     - c-moment-estimation
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5908,7 +5908,7 @@ chapters:
     - c-ludic
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5930,7 +5930,7 @@ chapters:
     - c-barbell
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5952,7 +5952,7 @@ chapters:
     - c-black-swan
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5972,7 +5972,7 @@ chapters:
     - c-decentralization
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -5993,7 +5993,7 @@ chapters:
     - c-ruin
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6014,7 +6014,7 @@ chapters:
     - c-skepticism
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6034,7 +6034,7 @@ chapters:
     - c-epistemic-uncertainty
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6055,7 +6055,7 @@ chapters:
     - c-inference-asymmetry
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6077,7 +6077,7 @@ chapters:
     - c-tail-catalog
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6100,7 +6100,7 @@ chapters:
     - c-optionality
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6122,7 +6122,7 @@ chapters:
     - c-decentralization
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6144,7 +6144,7 @@ chapters:
     - c-stoicism
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6165,7 +6165,7 @@ chapters:
     - c-skepticism
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6185,7 +6185,7 @@ chapters:
     - c-causal-narrative
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6207,7 +6207,7 @@ chapters:
     - c-epistemic-uncertainty
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6228,7 +6228,7 @@ chapters:
     - c-ethics
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6249,7 +6249,7 @@ chapters:
     - c-stoicism
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6272,7 +6272,7 @@ chapters:
     - c-biases
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6296,7 +6296,7 @@ chapters:
     - c-hormesis
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6318,7 +6318,7 @@ chapters:
     - c-agency
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6341,7 +6341,7 @@ chapters:
     - c-procrustean
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6362,7 +6362,7 @@ chapters:
     - c-biases
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6384,7 +6384,7 @@ chapters:
     - c-aesthetics
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6404,7 +6404,7 @@ chapters:
     - c-ethics
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6424,7 +6424,7 @@ chapters:
     - c-fragility
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6445,7 +6445,7 @@ chapters:
     - c-ludic
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6466,7 +6466,7 @@ chapters:
     - c-iatrogenics
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6488,7 +6488,7 @@ chapters:
     - c-forecasting
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6510,7 +6510,7 @@ chapters:
     - c-tacit-knowledge
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6530,7 +6530,7 @@ chapters:
     - c-agency
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6553,7 +6553,7 @@ chapters:
     - c-stoicism
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6573,7 +6573,7 @@ chapters:
     - c-tacit-knowledge
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6594,7 +6594,7 @@ chapters:
     - c-ethics
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6614,7 +6614,7 @@ chapters:
     - c-skepticism
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6634,7 +6634,7 @@ chapters:
     - c-procrustean
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6655,7 +6655,7 @@ chapters:
     - c-ludic
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6675,7 +6675,7 @@ chapters:
     - c-fragility
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6696,7 +6696,7 @@ chapters:
     - c-hormesis
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6717,7 +6717,7 @@ chapters:
     - c-decentralization
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6737,7 +6737,7 @@ chapters:
     - c-selection-levels
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6758,7 +6758,7 @@ chapters:
     - c-decentralization
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6779,7 +6779,7 @@ chapters:
     - c-ruin
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6800,7 +6800,7 @@ chapters:
     - c-iatrogenics
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6823,7 +6823,7 @@ chapters:
     - c-fragility
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6846,7 +6846,7 @@ chapters:
     - c-tacit-knowledge
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6869,7 +6869,7 @@ chapters:
     - c-stoicism
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6891,7 +6891,7 @@ chapters:
     - c-barbell
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6912,7 +6912,7 @@ chapters:
     - c-optionality
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6933,7 +6933,7 @@ chapters:
     - c-tacit-knowledge
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6954,7 +6954,7 @@ chapters:
     - c-tacit-knowledge
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6976,7 +6976,7 @@ chapters:
     - c-tacit-knowledge
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -6999,7 +6999,7 @@ chapters:
     - c-optionality
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7021,7 +7021,7 @@ chapters:
     - c-ludic
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7042,7 +7042,7 @@ chapters:
     - c-fragility
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7064,7 +7064,7 @@ chapters:
     - c-fragility
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7085,7 +7085,7 @@ chapters:
     - c-lindy
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7107,7 +7107,7 @@ chapters:
     - c-iatrogenics
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7129,7 +7129,7 @@ chapters:
     - c-iatrogenics
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7152,7 +7152,7 @@ chapters:
     - c-ethics
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7174,7 +7174,7 @@ chapters:
     - c-ethics
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7195,7 +7195,7 @@ chapters:
     - c-ruin
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7216,7 +7216,7 @@ chapters:
     - c-fragility
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7238,7 +7238,7 @@ chapters:
     - c-optionality
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7260,7 +7260,7 @@ chapters:
     - c-fragility
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7282,7 +7282,7 @@ chapters:
     - c-tail-catalog
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7305,7 +7305,7 @@ chapters:
     - c-ethics
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7327,7 +7327,7 @@ chapters:
     - c-minority-rule
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7348,7 +7348,7 @@ chapters:
     - c-agency
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7370,7 +7370,7 @@ chapters:
     - c-agency
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7393,7 +7393,7 @@ chapters:
     - c-ethics
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7415,7 +7415,7 @@ chapters:
     - c-agency
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7438,7 +7438,7 @@ chapters:
     - c-gini
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7460,7 +7460,7 @@ chapters:
     - c-lindy
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7482,7 +7482,7 @@ chapters:
     - c-tacit-knowledge
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7504,7 +7504,7 @@ chapters:
     - c-agency
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7526,7 +7526,7 @@ chapters:
     - c-costly-signals
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7548,7 +7548,7 @@ chapters:
     - c-survivorship
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7572,7 +7572,7 @@ chapters:
     - c-ethics
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7594,7 +7594,7 @@ chapters:
     - c-minority-rule
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7616,7 +7616,7 @@ chapters:
     - c-ethics
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7636,7 +7636,7 @@ chapters:
     - c-costly-signals
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7658,7 +7658,7 @@ chapters:
     - c-rationality
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7681,7 +7681,7 @@ chapters:
     - c-ergodicity
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7704,7 +7704,7 @@ chapters:
     - c-ergodicity
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7726,7 +7726,7 @@ chapters:
     - c-ethics
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7749,7 +7749,7 @@ chapters:
     - c-rationality
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7771,7 +7771,7 @@ chapters:
     - c-costly-signals
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7794,7 +7794,7 @@ chapters:
     - c-asymmetric-payoffs
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7816,7 +7816,7 @@ chapters:
     - c-minority-rule
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7838,7 +7838,7 @@ chapters:
     - c-stoicism
     status: out-of-scope
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: null
     locator_review: historical-map-no-review-required
     classification:
@@ -7859,7 +7859,7 @@ chapters:
     - c-induction
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: ch1-pp3-6-read; terminology-pp4-5; original-teaching-claims-in-chunk-checkpoint
     classification:
@@ -7887,7 +7887,7 @@ chapters:
     - c-tail-catalog
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: ch2-pp7-21-read; scoped section/page mappings and original proof claims recorded in chunk
       checkpoint
@@ -7921,7 +7921,7 @@ chapters:
     - c-ruin
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: v4 ch3 pp25-68 read; section/page mapping and original scoped claims in checkpoint; appendix
       E.1 restriction checked p191
@@ -7950,7 +7950,7 @@ chapters:
     - c-moment-estimation
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: Read v4 ch4 pp69-89; checked section/page mapping and original scoped claims recorded in
       chapter checkpoint.
@@ -7984,7 +7984,7 @@ chapters:
     - c-pareto-moments
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: Chapter-5 scoped source review complete; exact locators and exclusions in docs/records/incerto-scft-v4-ch05.md;
       independent max review complete with fixes.
@@ -8023,7 +8023,7 @@ chapters:
     - c-multivariate-tails
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-full-text-checked; exact scoped section/page locators and completed max review in chapter-6 evidence
     classification:
@@ -8052,7 +8052,7 @@ chapters:
     - c-cauchy-running
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-exact-section-and-page-context-checked; independent max review pending
     classification:
@@ -8084,7 +8084,7 @@ chapters:
     - c-kappa
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: v4 chapter/section/printed-page locators checked at recorded mathematical scope
     classification:
@@ -8117,7 +8117,7 @@ chapters:
     - c-threshold
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: supplied-v4-chapter/appendix-read; exact section/page context checked; corrected exact-model
       claims derived locally
@@ -8159,7 +8159,7 @@ chapters:
     - c-sp500
     status: in-progress
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8188,7 +8188,7 @@ chapters:
     - c-point-forecast
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: supplied-v4-chapter-read; exact section/page locators checked, original model proofs
       supplied
@@ -8214,7 +8214,7 @@ chapters:
     - c-point-forecast
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     completion_scope: in-scope
     id: scft-v4-ch12
     locator: ch. 12
@@ -8242,7 +8242,7 @@ chapters:
     - c-risk-measures
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     completion_scope: in-scope
     id: scft-v4-ch13
     locator: ch. 13
@@ -8274,7 +8274,7 @@ chapters:
     - c-forecast-martingale
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-chapter-14-sections-and-printed-pages-261–273-verified
     classification:
@@ -8300,7 +8300,7 @@ chapters:
     - c-gini
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8325,7 +8325,7 @@ chapters:
     - c-quantile-share
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8349,7 +8349,7 @@ chapters:
     - c-shadow-mean
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8373,7 +8373,7 @@ chapters:
     - c-conflict-study
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8394,7 +8394,7 @@ chapters:
     - c-shadow-mean
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     completion_scope: in-scope
     id: scft-v4-ch19
     locator: ch. 19
@@ -8422,7 +8422,7 @@ chapters:
     - c-mixture-uncertainty
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8446,7 +8446,7 @@ chapters:
     - c-random-alpha
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8471,7 +8471,7 @@ chapters:
     - c-multiple-testing
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8493,7 +8493,7 @@ chapters:
     - c-lindy
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     completion_scope: in-scope
     id: scft-v4-ch23
     locator: ch. 23
@@ -8520,7 +8520,7 @@ chapters:
     - c-stochastic-pricing
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8545,7 +8545,7 @@ chapters:
     - c-pricing-measures
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8571,7 +8571,7 @@ chapters:
     - c-hedging-error
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8596,7 +8596,7 @@ chapters:
     - c-power-option
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8623,7 +8623,7 @@ chapters:
     - c-risk-measures
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8650,7 +8650,7 @@ chapters:
     - c-risk-measures
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     completion_scope: in-scope
     id: scft-v4-ch29
     locator: ch. 29
@@ -8679,7 +8679,7 @@ chapters:
     - c-maximum-entropy
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8704,7 +8704,7 @@ chapters:
     - c-pareto
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-full-text-checked; exact scoped section/page locators and completed max review in chapter-6 evidence
     classification:
@@ -8729,7 +8729,7 @@ chapters:
     - c-tail-catalog
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     completion_scope: in-scope
     id: scft-v4-appb
     locator: appendix B
@@ -8759,7 +8759,7 @@ chapters:
     - c-mixture-uncertainty
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-exact-section-and-page-context-checked; independent max review pending
     classification:
@@ -8787,7 +8787,7 @@ chapters:
     - c-cramer
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-exact-section-and-page-context-checked; independent max review pending
     classification:
@@ -8815,7 +8815,7 @@ chapters:
     - c-threshold
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: supplied-v4-chapter/appendix-read; exact section/page context checked; corrected exact-model
       claims derived locally
@@ -8847,7 +8847,7 @@ chapters:
     - c-ml-econometrics
     status: in-progress
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8876,7 +8876,7 @@ chapters:
     - c-ml-econometrics
     status: in-progress
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8905,7 +8905,7 @@ chapters:
     - c-conflict-study
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8929,7 +8929,7 @@ chapters:
     - c-ml-econometrics
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-TOC-verified; exact-claim-locators-pending
     classification:
@@ -8953,7 +8953,7 @@ chapters:
     - c-payoff-algebra
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -8975,7 +8975,7 @@ chapters:
     - c-payoff-algebra
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -8997,7 +8997,7 @@ chapters:
     - c-market-making
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9019,7 +9019,7 @@ chapters:
     - c-liquidity
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9041,7 +9041,7 @@ chapters:
     - c-arbitrage
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9064,7 +9064,7 @@ chapters:
     - c-correlation-constraints
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9088,7 +9088,7 @@ chapters:
     - c-greeks
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9110,7 +9110,7 @@ chapters:
     - c-greeks
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9133,7 +9133,7 @@ chapters:
     - c-volatility-surface
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9157,7 +9157,7 @@ chapters:
     - c-greeks
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9180,7 +9180,7 @@ chapters:
     - c-greeks
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9203,7 +9203,7 @@ chapters:
     - c-basis-buckets
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9226,7 +9226,7 @@ chapters:
     - c-market-making
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9249,7 +9249,7 @@ chapters:
     - c-basis-buckets
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9271,7 +9271,7 @@ chapters:
     - c-model-risk
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9293,7 +9293,7 @@ chapters:
     - c-hedging-error
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9316,7 +9316,7 @@ chapters:
     - c-digitals
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9338,7 +9338,7 @@ chapters:
     - c-digitals
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9360,7 +9360,7 @@ chapters:
     - c-barriers
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9383,7 +9383,7 @@ chapters:
     - c-hedging-error
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9406,7 +9406,7 @@ chapters:
     - c-compound-options
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9428,7 +9428,7 @@ chapters:
     - c-multiasset-options
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9450,7 +9450,7 @@ chapters:
     - c-path-options
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9472,7 +9472,7 @@ chapters:
     - c-brownian
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9494,7 +9494,7 @@ chapters:
     - c-pricing-measures
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9516,7 +9516,7 @@ chapters:
     - c-numeraire
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9538,7 +9538,7 @@ chapters:
     - c-correlation-constraints
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9560,7 +9560,7 @@ chapters:
     - c-risk-measures
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9583,7 +9583,7 @@ chapters:
     - c-payoff-algebra
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9607,7 +9607,7 @@ chapters:
     - c-barriers
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9630,7 +9630,7 @@ chapters:
     - c-model-risk
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M2
     locator_review: toc-mapped-content-review-pending
     classification:
@@ -9651,7 +9651,7 @@ papers:
     source_role: primary
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: metadata-verified-full-text-scope-pending
     units:
@@ -9662,7 +9662,7 @@ papers:
       - c-jensen
       status: todo
       dependencies: []
-      assigned_role: math-site-editor
+      assigned_role: site-editor
       milestone: M1
       classification:
       - lean-verifiable
@@ -9692,7 +9692,7 @@ papers:
     source_role: primary
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: v1 II.B/III pp2-3 and VII.A-C p6 read at mathematical scope; original conditional-hazard
       and finite-splitting proofs in ch3 checkpoint
@@ -9706,7 +9706,7 @@ papers:
       - c-ethics
       status: done
       dependencies: []
-      assigned_role: math-site-editor
+      assigned_role: site-editor
       milestone: M1
       classification:
       - lean-verifiable
@@ -9737,7 +9737,7 @@ papers:
     source_role: primary
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: v3 primary HTML checked for definition, benchmarks and appendix correspondence; empirical
       portfolio assertions not adopted
@@ -9749,7 +9749,7 @@ papers:
       - c-moment-estimation
       status: done
       dependencies: []
-      assigned_role: math-site-editor
+      assigned_role: site-editor
       milestone: M1
       classification:
       - lean-verifiable
@@ -9781,7 +9781,7 @@ papers:
     source_role: primary
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: metadata-verified-full-text-scope-pending
     units:
@@ -9792,7 +9792,7 @@ papers:
       - c-conflict-study
       status: todo
       dependencies: []
-      assigned_role: math-site-editor
+      assigned_role: site-editor
       milestone: M1
       classification:
       - empirical
@@ -9824,7 +9824,7 @@ papers:
     source_role: primary
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: metadata-verified-full-text-scope-pending
     units:
@@ -9835,7 +9835,7 @@ papers:
       - c-disease-study
       status: todo
       dependencies: []
-      assigned_role: math-site-editor
+      assigned_role: site-editor
       milestone: M1
       classification:
       - empirical
@@ -9867,7 +9867,7 @@ papers:
     source_role: primary-critical-response
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: metadata-verified-full-text-scope-pending
     units:
@@ -9877,7 +9877,7 @@ papers:
       - c-disease-study
       status: todo
       dependencies: []
-      assigned_role: math-site-editor
+      assigned_role: site-editor
       milestone: M1
       classification:
       - empirical
@@ -9904,7 +9904,7 @@ papers:
     source_role: primary
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: metadata-verified-full-text-scope-pending
     units:
@@ -9914,7 +9914,7 @@ papers:
       - c-gini
       status: todo
       dependencies: []
-      assigned_role: math-site-editor
+      assigned_role: site-editor
       milestone: M1
       classification:
       - empirical
@@ -9945,7 +9945,7 @@ papers:
     source_role: primary
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: metadata-verified-full-text-scope-pending
     units:
@@ -9955,7 +9955,7 @@ papers:
       - c-quantile-share
       status: todo
       dependencies: []
-      assigned_role: math-site-editor
+      assigned_role: site-editor
       milestone: M1
       classification:
       - lean-verifiable
@@ -9984,7 +9984,7 @@ papers:
     source_role: primary
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: metadata-verified-full-text-scope-pending
     units:
@@ -9994,7 +9994,7 @@ papers:
       - c-random-alpha
       status: todo
       dependencies: []
-      assigned_role: math-site-editor
+      assigned_role: site-editor
       milestone: M1
       classification:
       - lean-verifiable
@@ -10023,7 +10023,7 @@ papers:
     source_role: primary
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: metadata-verified-full-text-scope-pending
     units:
@@ -10033,7 +10033,7 @@ papers:
       - c-power-option
       status: todo
       dependencies: []
-      assigned_role: math-site-editor
+      assigned_role: site-editor
       milestone: M1
       classification:
       - lean-verifiable
@@ -10062,7 +10062,7 @@ papers:
     source_role: primary
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: metadata-verified-full-text-scope-pending
     units:
@@ -10072,7 +10072,7 @@ papers:
       - c-pricing-measures
       status: todo
       dependencies: []
-      assigned_role: math-site-editor
+      assigned_role: site-editor
       milestone: M1
       classification:
       - lean-verifiable
@@ -10101,7 +10101,7 @@ papers:
     source_role: primary
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: metadata-verified-full-text-scope-pending
     units:
@@ -10111,7 +10111,7 @@ papers:
       - c-maximum-entropy
       status: todo
       dependencies: []
-      assigned_role: math-site-editor
+      assigned_role: site-editor
       milestone: M1
       classification:
       - lean-verifiable
@@ -10140,7 +10140,7 @@ papers:
     source_role: primary
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: metadata-verified-full-text-scope-pending
     units:
@@ -10151,7 +10151,7 @@ papers:
       - c-hormesis
       status: todo
       dependencies: []
-      assigned_role: math-site-editor
+      assigned_role: site-editor
       milestone: M1
       classification:
       - lean-verifiable
@@ -10181,7 +10181,7 @@ papers:
     source_role: primary
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: 2007.16096v1 mathematical scope pp. 1–5 and conditional-forecast discussion p. 7 reviewed;
       clinical and policy coverage excluded
@@ -10193,7 +10193,7 @@ papers:
       - c-point-forecast
       status: done
       dependencies: []
-      assigned_role: math-site-editor
+      assigned_role: site-editor
       milestone: M1
       classification:
       - lean-verifiable
@@ -10229,7 +10229,7 @@ papers:
     source_role: primary
     status: done
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: 2301.10985v1 sections I–II pp. 1–3 and mathematical evaluation scope in III–IV pp. 3–4 reviewed
       alongside chapter 13
@@ -10241,7 +10241,7 @@ papers:
       - c-probability-conflation
       status: done
       dependencies: []
-      assigned_role: math-site-editor
+      assigned_role: site-editor
       milestone: M1
       classification:
       - lean-verifiable
@@ -10281,7 +10281,7 @@ papers:
     source_role: primary
     status: todo
     dependencies: []
-    assigned_role: math-site-editor
+    assigned_role: site-editor
     milestone: M1
     locator_review: local-v4-bibliography-[177]-verified; publisher-page-inaccessible; exact-claims-pending
     units:
@@ -10291,7 +10291,7 @@ papers:
       - c-portfolio-tail-dependence
       status: todo
       dependencies: []
-      assigned_role: math-site-editor
+      assigned_role: site-editor
       milestone: M1
       classification:
       - lean-verifiable
@@ -15356,7 +15356,7 @@ edition_backlog:
 - id: edition-scft-v4
   book_id: scft
   status: done
-  assigned_role: math-site-editor
+  assigned_role: site-editor
   milestone: M0
   completed: '2026-10-17'
   evidence: edition_mappings.scft-v2-to-v4; sources.md; inventory.md

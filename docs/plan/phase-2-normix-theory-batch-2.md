@@ -7,7 +7,7 @@ updated. See the [verification record](../records/phase-2-normix-batch-2-verific
 for checks and publication limits. Changes are left uncommitted.
 Date: 2026-09-12 (ET) / 2026-09-13 UTC.
 Source: public `https://github.com/xshi19/normix` at
-`763bb3608920661a012cf089888d349fbf680aad`, read from `/workspace/normix`.
+`763bb3608920661a012cf089888d349fbf680aad`, read from `<normix-checkout>`.
 Normix Theory Batch 1 already imported **8** adapted/rewritten pages (plus
 scaffold hubs `normix-theory`, `normix-conditioning-a-mixture`).
 
@@ -214,7 +214,7 @@ API for implementers.
 
 ## Execution and publication boundaries
 
-- All writes are confined to `/workspace/xshi-math`; the pinned Normix source
+- All writes are confined to the `xshi-math` checkout. The pinned Normix source
   checkout remains read-only.
 - Changes remain uncommitted for the parent; no branch change, push, PR, or
   publication is part of this execution.

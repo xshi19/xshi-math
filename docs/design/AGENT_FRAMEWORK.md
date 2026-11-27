@@ -28,14 +28,10 @@ deep-math Python deps remain optional prerequisites, not present by default.
 
 ## Model selection policy
 
-The [root router](../../AGENTS.md#model-selection) owns the default (Codex
-`gpt-6.2-astra` at `xhigh`) and the Codex-quota fallback. Do not ask which
-model to use. Keep this policy in the router, out of reusable skill bodies.
-
-Codex is primary and its project defaults are active. The workflow must
-remain usable with Codex alone when Cursor quota is exhausted, and with the
-router's `agy` fallback when Codex quota is exhausted. Honor an already
-named model for the task or session; do not silently switch away from it.
+The [root router](../../AGENTS.md#model-selection) sets the writing and review
+default and the `agy` fallback when Codex quota is exhausted. An already named
+model takes precedence. Keep this policy in the router and keep the workflow
+usable with Codex alone when Cursor quota is exhausted.
 
 ## Synthesis of the three approaches
 
