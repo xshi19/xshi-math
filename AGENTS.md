@@ -14,7 +14,12 @@ For writing and review, the default is Codex `gpt-6.2-astra` at `xhigh`
 reasoning, as set in the [project configuration](.codex/config.toml). Honor
 an already named model for the task or session. Never ask which model to use.
 When the Codex quota is exhausted, use Antigravity CLI (`agy`) with
-`gemini-4-neon-high`.
+`gemini-4-neon-high`. Run `agy -p "..." --model gemini-4-neon-high --output-format json`
+from the repo root or a throwaway worktree. Add `--mode plan` for read-only
+tasks. When commands are needed, whitelist them in `permissions.allow`.
+Use `--dangerously-skip-permissions` only in throwaway copies. Check
+`agy -p "/usage" --output-format json` before and after each run.
+Never use Claude or Opus models inside agy.
 
 See the [framework](docs/design/AGENT_FRAMEWORK.md#model-selection-policy)
 for rationale.
