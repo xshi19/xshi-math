@@ -5,6 +5,7 @@ before starting the next, and clear project state while reusing the theme.
 """
 
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -33,14 +34,42 @@ def write_sitemaps():
         )
 
 
+# The pinned theme bundle carries npm package metadata whose `_args` and
+# `_where` values hold its upstream builder's Windows profile path (escaped in
+# JS source). Rewrite only those values: `_args:[["name@version","<path>"`
+# and `_where:"<path>"` directly after `_spec:"..."`, as npm writes them.
+_PROFILE = r'[A-Za-z]:(?:/|\\)+Users(?:/|\\)+[^"/\\]+'
+NPM_METADATA_PROFILE = re.compile(
+    r'((?<![\w$])(?:_args:\[\["[^"@]+@[^"]+",|_spec:"[^"]*",_where:)")' + _PROFILE
+)
+
+
+def strip_npm_metadata_profiles(text):
+    """Replace Windows profile prefixes in bundled npm `_where`/`_args` values."""
+    return NPM_METADATA_PROFILE.sub(r"\1<user-home>", text)
+
+
 def strip_checkout_paths():
-    """MyST embeds the resolved bibliography path; publish it repo-relative."""
+    """Publish without local paths.
+
+    MyST embeds the resolved bibliography path; publish it repo-relative.
+    Replace Windows profile prefixes left in bundled npm package metadata.
+    """
     prefix = f'"bibliography":["{REPO.as_posix()}/'
     for path in HTML.rglob("*"):
         if path.suffix in (".html", ".json"):
             text = path.read_text(encoding="utf-8")
             if prefix in text:
                 path.write_text(text.replace(prefix, '"bibliography":["'), encoding="utf-8")
+        elif path.suffix == ".js":
+            data = path.read_bytes()
+            if b"Users" not in data:
+                continue
+            # surrogateescape round-trips any non-UTF-8 bytes unchanged.
+            text = data.decode("utf-8", "surrogateescape")
+            cleaned = strip_npm_metadata_profiles(text)
+            if cleaned != text:
+                path.write_bytes(cleaned.encode("utf-8", "surrogateescape"))
 
 
 def main():
