@@ -9,18 +9,22 @@ described as proposed do not yet exist.
 
 ## Model selection
 
-Before coding or command-execution tasks in this portfolio, ask the owner to
-choose a model unless they have already named one for the task or session:
+The default is Codex `gpt-6.2-astra` at `xhigh` reasoning, as set in the
+[Codex project defaults](.codex/config.toml). Do not ask which model to use.
+Honor an already named model for the task or session; do not silently switch
+away from it.
 
-- Cursor Grok 4.6 xhigh.
-- Cursor Fable 5.1 high.
-- Codex GPT-6.2-Astra xhigh (recommended; Codex is the primary client).
+When the Codex quota is exhausted, use Antigravity CLI (`agy`):
 
-Honor an existing choice without asking again. Cursor quota may be exhausted;
-do not assume it is available or silently switch the owner's selected model.
-The active [Codex defaults](.codex/config.toml) select `gpt-6.2-astra` with `xhigh`;
-they do not replace the owner choice when none has been supplied. See the
-[framework](docs/design/AGENT_FRAMEWORK.md#model-selection-policy) for rationale.
+```bash
+agy -p "..." --model gemini-4-neon-high
+```
+
+Add `--mode plan` for read-only tasks. Use `--dangerously-skip-permissions`
+only inside a throwaway worktree.
+
+See the [framework](docs/design/AGENT_FRAMEWORK.md#model-selection-policy)
+for rationale.
 
 ## Read only what the task needs
 

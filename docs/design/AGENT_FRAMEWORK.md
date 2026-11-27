@@ -28,17 +28,14 @@ deep-math Python deps remain optional prerequisites, not present by default.
 
 ## Model selection policy
 
-The owner's portfolio policy is to ask for a model before coding or command
-execution unless a choice is already named for the task or session. The
-[root router](../../AGENTS.md#model-selection) owns the chooser: Cursor Grok 4.6
-xhigh, Cursor Fable 5.1 high, or Codex GPT-6.2-Astra xhigh. These are owner-selected
-options, not a claim that every account has access.
+The [root router](../../AGENTS.md#model-selection) owns the default (Codex
+`gpt-6.2-astra` at `xhigh`) and the Codex-quota fallback. Do not ask which
+model to use. Keep this policy in the router, out of reusable skill bodies.
 
-Codex is primary and its project defaults are active. Cursor quota may be
-exhausted, so the workflow must remain usable with Codex alone. Respect an
-existing owner choice without asking again; if that model is unavailable,
-report the limitation and ask for an alternative rather than silently switching.
-Keep the chooser here and in the router, out of reusable skill bodies.
+Codex is primary and its project defaults are active. The workflow must
+remain usable with Codex alone when Cursor quota is exhausted, and with the
+router's `agy` fallback when Codex quota is exhausted. Honor an already
+named model for the task or session; do not silently switch away from it.
 
 ## Synthesis of the three approaches
 
@@ -74,7 +71,7 @@ not promises made by a directory name.
 | `.cursor/skills/` | Not the shared discovery contract | Also a project skill location | Do not create it, including as a symlink or mirror |
 | `docs/rules/*.md` | Read through explicit routing | Read through routing or an adapter | Canonical shared rule bodies; ordinary Markdown is not automatically injected merely by being here |
 | `.cursor/rules/*.mdc` | Do not rely on Codex reading these automatically | Supports rule metadata and scoped activation | Thin adapters, with no independent policy body |
-| `.codex/config.toml` | Project defaults for trusted projects | Not shared client configuration | Active owner-selected model and reasoning defaults only |
+| `.codex/config.toml` | Project defaults for trusted projects | Not shared client configuration | Active model and reasoning defaults only |
 
 Sources: [Codex instructions](https://developers.openai.com/codex/guides/agents-md/),
 [Codex skills](https://developers.openai.com/codex/skills/),
@@ -277,7 +274,7 @@ taking precedence. Keep personal
 settings in user configuration and follow any enforced environment policy.
 [Official Codex configuration](https://developers.openai.com/codex/config-basic/).
 
-The owner selected these active defaults:
+The active defaults, following [model selection](../../AGENTS.md#model-selection), are:
 
 ```toml
 model = "gpt-6.2-astra"
@@ -290,7 +287,7 @@ The setting names are documented in the
 Authentication and provider settings stay in the user's `~/.codex/`; do not put
 secrets, personal absolute paths, canonical prose rules, or skill bodies in the
 repository configuration. A configured default does not establish account access
-or override the [model chooser](#model-selection-policy). Leave
+or override the [model selection policy](../../AGENTS.md#model-selection). Leave
 permissions and sandbox controls to the user's environment; a repo default must
 not be used to work around an execution restriction. Defer `.codex/agents/`
 until a repeated bounded role needs it, and have that role reference shared

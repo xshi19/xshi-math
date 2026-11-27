@@ -1,8 +1,8 @@
 # Codex project defaults
 
 [config.toml](config.toml) actively selects `gpt-6.2-astra` with `xhigh` reasoning.
-Follow the [owner model chooser](../AGENTS.md#model-selection) before coding or
-command execution unless a choice is already named for the task or session.
+Follow the [model selection policy](../AGENTS.md#model-selection). Do not ask
+which model to use.
 
 Codex loads project configuration for trusted projects; command-line overrides
 take precedence. See the [official configuration guide](https://developers.openai.com/codex/config-basic/).
