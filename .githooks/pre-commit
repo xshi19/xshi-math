@@ -48,10 +48,10 @@ if [[ $status -ne 0 ]]; then
 fi
 
 # Chain to a hook that was in the default hook dir before hooksPath was set.
-COMMON_DIR="$(git rev-parse --git-common-dir)"
+COMMON_DIR="$(git -C "$ROOT" rev-parse --git-common-dir)"
 case "$COMMON_DIR" in /*) ;; *) COMMON_DIR="$ROOT/$COMMON_DIR" ;; esac
 LEGACY_HOOK="$COMMON_DIR/hooks/pre-commit"
-SELF="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
-if [[ -x "$LEGACY_HOOK" && "$(readlink -f "$LEGACY_HOOK")" != "$(readlink -f "$SELF")" ]]; then
+SELF="$(readlink -f "$0")"
+if [[ -x "$LEGACY_HOOK" && "$(readlink -f "$LEGACY_HOOK")" != "$SELF" ]]; then
   exec "$LEGACY_HOOK" "$@"
 fi
