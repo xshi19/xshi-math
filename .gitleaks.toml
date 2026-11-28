@@ -96,7 +96,7 @@ regexes = [
 targetRules = ["email"]
 description = "Third-party license, minified, and vendor assets"
 paths = [
-  '''(?i)LICENSE''',
+  '''(?i)(^|/)LICEN[CS]E(\.[a-z]+)?$''',
   '''(?i)\.min\.js$''',
   '''(?i)(?:^|/)(?:vendor|third_party|fonts)/''',
   '''(?i)(?:^|/)build/_shared/''',
